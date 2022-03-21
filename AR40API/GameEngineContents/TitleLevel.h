@@ -28,8 +28,8 @@ public:
 
 
 protected:
-
+	void Loading() override;
 private:
-
+	
 };
 

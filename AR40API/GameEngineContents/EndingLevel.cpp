@@ -10,3 +10,7 @@ EndingLevel::~EndingLevel()
 
 }
 
+void EndingLevel::Loading()
+{
+
+}
