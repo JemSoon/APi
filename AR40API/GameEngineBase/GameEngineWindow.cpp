@@ -136,8 +136,15 @@ void GameEngineWindow::ShowGameWindow()
     //이 다음부터 그러기 가능
 }
 
-void GameEngineWindow::MessageLoop(void(*_LoopFunction)())
+void GameEngineWindow::MessageLoop(void(*_InitFunction)(), void(*_LoopFunction)())
 {
+    //윈도우는 다 준비되어 있고
+    //루프 돌기 전 할게 있다면 준비함수를 실행
+    if (nullptr != _InitFunction)
+    {
+        _InitFunction();
+    }
+
     MSG msg;
     //윈도우 내부에서는 보이지 않지만
     //std::list<MSG> MessageQueue; 가 있다

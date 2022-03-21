@@ -31,7 +31,7 @@ public:
 	void RegClass(HINSTANCE _hInst);
 	void CreateGameWindow(HINSTANCE _hInst, const std::string& _Title);//만들기
 	void ShowGameWindow();//띄우기
-	void MessageLoop(void(*_LoopFunction)());//메세지를 기다리며 윈도우 잘 돌아가나 계속 감시
+	void MessageLoop(void(*_InitFunction)(), void(*_LoopFunction)());//메세지를 기다리며 윈도우 잘 돌아가나 계속 감시
 
 	void Off();
 

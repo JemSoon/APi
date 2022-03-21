@@ -2,11 +2,19 @@
 #include <Windows.h>
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineContents/SuperMario.h>
 
-void GameLoop()
+SuperMario MyGame;
+
+void GameInit()//텍스처 로딩 오브젝트 미리준비
+{
+	MyGame.GameInit();
+}
+
+void GameLoop()//게임 실행
 {
 	//이 안에서 게임을 만듦
-	Rectangle(GameEngineWindow::GETDC(), 100, 100, 200, 200);
+	MyGame.GameLoop();
 }
 
 // hInstance == 이 프로그램의 주민번호를 가진 애
@@ -22,7 +30,9 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance,
 	GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");//이걸 통해 만들고
 	GameEngineWindow::GetInst().ShowGameWindow();//이걸로 띄운다
 	//게임 창은 한개니 한번만 띄워용(설명 할수 있자)
-	GameEngineWindow::GetInst().MessageLoop(GameLoop);
+	GameEngineWindow::GetInst().MessageLoop(GameInit, GameLoop);
 
 	GameEngineWindow::Destroy();
+
+	MyGame.GameEnd();
 }
