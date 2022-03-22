@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <string>
+#include <GameEngineBase/GameEngineDebug.h>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -36,6 +37,18 @@ public:
 	virtual void GameLoop() = 0;
 	virtual void GameEnd() = 0;
 
+	template<typename GameType>
+	static void Start()
+	{
+		GameEngineDebug::LeakCheckOn();//릭체크
+
+		GameType UserGame;//내가 만들고 싶은 게임타입 받고
+		UserContents_ = &UserGame;
+
+		WindowCreate();//창을 만듦
+
+		EngineEnd();
+	}
 
 protected:
 	template<typename LevelType>
@@ -43,11 +56,19 @@ protected:
 	{
 		LevelType* NewLevel = new LevelType();
 		NewLevel->SetName(_Name);
-		NewLevel ->Loading();
+		GameEngineLevel* Level = NewLevel;
+		Level->Loading();
 		AllLevel_.insert(std::make_pair(_Name, NewLevel));
 	}
 
 private: 
-	std::map<std::string, GameEngineLevel*> AllLevel_;
+	static std::map<std::string, GameEngineLevel*> AllLevel_;
+	static GameEngine* UserContents_;
+
+	static void WindowCreate();
+
+	static void EngineInit();
+	static void EngineLoop();
+	static void EngineEnd();
 };
 

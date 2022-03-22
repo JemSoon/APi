@@ -5,8 +5,10 @@
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
 //설명 : 
+class GameEngine;
 class GameEngineLevel : public GameEngineNameObject
 {
+	friend GameEngine;
 public:
 	//디폴트 생성자
 	GameEngineLevel();

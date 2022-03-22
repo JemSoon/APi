@@ -8,8 +8,6 @@
 //WPARAM wParam
 //LPARAM lParam
 
-float XMove = 0;
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -118,7 +116,6 @@ void GameEngineWindow::CreateGameWindow(HINSTANCE _hInst, const std::string& _Ti
     {
         return;
     }
-    ShowGameWindow();
 }
 
 void GameEngineWindow::ShowGameWindow()

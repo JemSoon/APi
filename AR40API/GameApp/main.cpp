@@ -26,13 +26,10 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance,
 {
 	GameEngineDebug::LeakCheckOn();//릭체크
 
-	//GameEngineBase의 cpp까지 알 길이 없어 에러남
-	GameEngineWindow::GetInst().CreateGameWindow(hInstance, "GameWindow");//이걸 통해 만들고
-	GameEngineWindow::GetInst().ShowGameWindow();//이걸로 띄운다
-	//게임 창은 한개니 한번만 띄워용(설명 할수 있자)
-	GameEngineWindow::GetInst().MessageLoop(GameInit, GameLoop);
-
 	GameEngineWindow::Destroy();
 
 	MyGame.GameEnd();
+
+	//내가 만들고 싶은게임의 클래스를 템플릿으로
+	GameEngine::Start<SuperMario>();
 }
