@@ -3,7 +3,7 @@
 #include "GameEngineLevel.h"
 
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
-GameEngine* GameEngine::UserContents_;
+GameEngine* GameEngine::UserContents_ = nullptr;
 
 GameEngine::GameEngine()
 {

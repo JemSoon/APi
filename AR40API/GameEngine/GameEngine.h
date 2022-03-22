@@ -61,6 +61,11 @@ protected:
 		AllLevel_.insert(std::make_pair(_Name, NewLevel));
 	}
 
+	void ChangeLevel(const std::string& _Name)
+	{
+		
+	}
+
 private: 
 	static std::map<std::string, GameEngineLevel*> AllLevel_;
 	static GameEngine* UserContents_;

@@ -31,6 +31,7 @@ public:
 
 protected:
 	virtual void Loading() = 0;
+	virtual void Update() = 0;
 
 private:
 	template<typename ActorType>
