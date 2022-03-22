@@ -69,8 +69,7 @@ void GameEngine::EngineEnd()
 	UserContents_->GameEnd();
 
 	std::map<std::string, GameEngineLevel*>::iterator StartIter= AllLevel_.begin();
-	std::map<std::string, GameEngineLevel*>::iterator EndIter= AllLevel_.begin();
-	AllLevel_.end();
+	std::map<std::string, GameEngineLevel*>::iterator EndIter= AllLevel_.end();
 
 	for (; StartIter!=EndIter;++StartIter)
 	{
