@@ -50,6 +50,19 @@ public:
 		EngineEnd();
 	}
 
+	static GameEngine& GlobalEngine()
+	{
+		if (nullptr == UserContents_)
+		{
+			MsgBoxAssert("Global Engine Error Engine is not Start");
+		}
+		return *UserContents_;
+	}
+
+
+	void ChangeLevel(const std::string& _Name);
+	
+
 protected:
 	template<typename LevelType>
 	void CreateLevel(const std::string& _Name)
@@ -60,14 +73,11 @@ protected:
 		Level->Loading();
 		AllLevel_.insert(std::make_pair(_Name, NewLevel));
 	}
-
-	void ChangeLevel(const std::string& _Name)
-	{
-		
-	}
-
+	
 private: 
 	static std::map<std::string, GameEngineLevel*> AllLevel_;
+	static GameEngineLevel* CurrentLevel_;
+	static GameEngineLevel* NextLevel_;
 	static GameEngine* UserContents_;
 
 	static void WindowCreate();

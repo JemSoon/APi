@@ -8,7 +8,7 @@
 //WPARAM wParam
 //LPARAM lParam
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK MessageProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
@@ -74,7 +74,7 @@ void GameEngineWindow::RegClass(HINSTANCE _hInst)
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = WndProc;//무슨일이 생겼을때 이 행동을 해줘(=함수포인터[콜백방식])
+    wcex.lpfnWndProc = MessageProcess;//무슨일이 생겼을때 이 행동을 해줘(=함수포인터[콜백방식])
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = _hInst;

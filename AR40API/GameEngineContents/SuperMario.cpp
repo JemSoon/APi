@@ -18,6 +18,7 @@ void SuperMario::GameInit()
 	CreateLevel<PlayLevel>("Play");
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<EndingLevel>("Ending");
+	ChangeLevel("Title");
 }
 
 void SuperMario::GameLoop()

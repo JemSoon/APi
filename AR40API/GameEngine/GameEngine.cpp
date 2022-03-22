@@ -3,6 +3,8 @@
 #include "GameEngineLevel.h"
 
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
+GameEngineLevel* GameEngine::CurrentLevel_=nullptr;
+GameEngineLevel* GameEngine::NextLevel_ = nullptr;
 GameEngine* GameEngine::UserContents_ = nullptr;
 
 GameEngine::GameEngine()
@@ -43,7 +45,23 @@ void GameEngine::EngineInit()
 
 void GameEngine::EngineLoop()
 {
+	//엔진 수준에서 매 프레임마다 체크하고 싶은거
 	UserContents_->GameLoop();
+
+	if (nullptr!= NextLevel_)
+	{
+		CurrentLevel_ = NextLevel_;
+		NextLevel_ = nullptr;
+	}
+
+	if (nullptr == CurrentLevel_)
+	{
+		MsgBoxAssert("Level is nullptr GameEngine Loop Error");
+	}
+
+	//레벨수준 시간제한이 있는 게임이라면
+	//매 프레임마다 시간을 체크해야하는데 그런일을 하라고 만든것
+	CurrentLevel_->Update();
 }
 
 void GameEngine::EngineEnd()
@@ -63,4 +81,17 @@ void GameEngine::EngineEnd()
 		delete StartIter->second;
 	}
 	GameEngineWindow::Destroy();
+}
+
+void GameEngine::ChangeLevel(const std::string& _Name)
+{
+	static std::map<std::string, GameEngineLevel*>::iterator FindIter = AllLevel_.find(_Name);
+
+	if (AllLevel_.end() == FindIter)
+	{
+		MsgBoxAssert("Level Find Error");
+		return;
+	}
+
+	NextLevel_ = FindIter->second;
 }

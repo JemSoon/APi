@@ -14,3 +14,8 @@ void EndingLevel::Loading()
 {
 
 }
+
+void EndingLevel::Update()
+{
+
+}

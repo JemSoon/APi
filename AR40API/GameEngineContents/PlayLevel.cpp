@@ -14,3 +14,8 @@ void PlayLevel::Loading()
 {
 
 }
+
+void PlayLevel::Update()
+{
+
+}
