@@ -11,7 +11,7 @@ public:
 	//디폴트 생성자
 	GameEngineNameObject();
 	//디폴트 소멸자
-	~GameEngineNameObject();
+	virtual ~GameEngineNameObject();
 
 	
 	

@@ -23,6 +23,9 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperMario.h" />
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.h">
+      <Filter>Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,3 +19,8 @@ void PlayLevel::Update()
 {
 
 }
+
+void PlayLevel::SceneChangeStart()
+{
+
+}

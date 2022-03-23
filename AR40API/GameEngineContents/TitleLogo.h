@@ -28,6 +28,9 @@ public:
 
 
 protected:
+	void Start();
+
+	void Render();
 
 private:
 
