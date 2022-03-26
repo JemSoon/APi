@@ -15,10 +15,12 @@ TitleLogo::~TitleLogo()
 
 void TitleLogo::Start()
 {
+	SetPosition(GameEngineWindow::GetScale().Half());//타이틀 로고 위치
 
+	SetScale({ 500, 500 });//타이틀 로고 크기
 }
 
 void TitleLogo::Render()
 {
-	Rectangle(GameEngineWindow::GETDC(), 100, 100, 500, 500);//로고 네모
+	DebugRectRender();
 }

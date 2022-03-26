@@ -27,6 +27,23 @@ public:
 	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
 	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
 
+	inline float4 GetPosition()
+	{
+		return Position_;
+	}
+	inline float4 GetScale()
+	{
+		return Scale_;
+	}
+
+	inline void SetPosition(float4 _Value)
+	{
+		Position_ = _Value;
+	}
+	inline void SetScale(float4 _Value)
+	{
+		Scale_ = _Value;
+	}
 
 protected:
 	//start는 무조건 구현
@@ -35,6 +52,8 @@ protected:
 	virtual void Update() {}//스킬을 갖는다 레벨을 올린다 등등을 업데이트(지속적으로 겜이 실행될때 호출됨)
 
 	virtual void Render() {}
+
+	void DebugRectRender();
 private:
 	GameEngineLevel* Level_;
 
@@ -46,5 +65,8 @@ private:
 	{
 		Level_ = _Level;
 	}
+
+
+
 };
 

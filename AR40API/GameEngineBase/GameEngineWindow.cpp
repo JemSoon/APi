@@ -168,3 +168,21 @@ void GameEngineWindow::MessageLoop(void(*_InitFunction)(), void(*_LoopFunction)(
         _LoopFunction();
     }
 }
+
+void GameEngineWindow::SetWindowScaleAndPosition(float4 _Pos, float4 _Scale)
+{
+    RECT Rc = {0, 0, _Scale.ix(), _Scale.iy() };
+    
+    //메뉴바 등의 설정을 고려해서 만져주면 거기에 맞춰 사이즈를 잡아줌
+    //메뉴바에 메뉴옵션 안띄울거니까 FALSE
+    AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
+
+    Scale_ = _Scale;//사이즈를 알아온다
+
+    //1280 + 메뉴바
+    
+    //창 사이즈 설정(진짜[강제])
+    SetWindowPos(hWnd_, nullptr,_Pos.ix(), _Pos.iy(), Rc. right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+
+
+}

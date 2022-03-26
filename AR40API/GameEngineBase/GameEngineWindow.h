@@ -2,6 +2,7 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include "GameEngineMath.h"
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -32,12 +33,19 @@ public:
 	void CreateGameWindow(HINSTANCE _hInst, const std::string& _Title);//만들기
 	void ShowGameWindow();//띄우기
 	void MessageLoop(void(*_InitFunction)(), void(*_LoopFunction)());//메세지를 기다리며 윈도우 잘 돌아가나 계속 감시
+	void SetWindowScaleAndPosition(float4 _Pos, float4 _Size);
+
 
 	void Off();
 
-	static inline HDC GETDC()
+	static inline HDC GetHDC()
 	{
 		return Inst_->HDC_;
+	}
+
+	static inline float4 GetScale()
+	{
+		return Inst_->Scale_;
 	}
 
 protected:
@@ -50,6 +58,8 @@ private:
 	HWND hWnd_;
 
 	HDC HDC_;
+	float4 Scale_;
+
 
 	//디폴트 생성자
 	GameEngineWindow();

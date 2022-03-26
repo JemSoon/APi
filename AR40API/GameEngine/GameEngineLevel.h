@@ -45,10 +45,15 @@ protected:
 	ActorType* CreateActor(const std::string& _Name, int _Order)
 	{
 		//한 화면에 몇개만들지 알수없다(동적할당)
-		ActorType* NewActor = new ActorType();
+		ActorType* NewActor = new ActorType();//얘가 Name, Level받는게 낫지않냐? = 상속 받고있는데?
+		
+		GameEngineActor* StartActor = NewActor;
+		
 		NewActor->SetName(_Name);
 
 		NewActor->SetLevel(this);
+
+		StartActor->Start();//레벨까지 다 준비된 시점에서 Start
 
 		std::list<GameEngineActor*>& Group = AllActor_[_Order];
 		Group.push_back(NewActor);
