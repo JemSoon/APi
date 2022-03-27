@@ -12,6 +12,27 @@ GameEngineImage::GameEngineImage()
 
 GameEngineImage::~GameEngineImage()
 {
+	//window에서 할당해온 녀석들은 릭으로 체크가 안되지만
+	//지워주는게 깔끔하다
+	//당연히 윈도우에게 할당해 왔으므로 함수를 이용해서 지워야 한다
+
+	if (nullptr != BitMap_)
+	{
+		DeleteObject(BitMap_);
+		BitMap_ = nullptr;
+	}
+
+	if (nullptr != OldBitMap_)
+	{
+		DeleteObject(OldBitMap_);
+		OldBitMap_ = nullptr;
+	}
+
+	if (nullptr != ImageDC_)
+	{
+		DeleteDC(ImageDC_);
+		ImageDC_ = nullptr;
+	}
 }
 
 bool GameEngineImage::Create(HDC _DC)
