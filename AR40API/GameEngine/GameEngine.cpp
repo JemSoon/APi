@@ -7,7 +7,9 @@ std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
 GameEngineLevel* GameEngine::CurrentLevel_=nullptr;
 GameEngineLevel* GameEngine::NextLevel_ = nullptr;
 GameEngine* GameEngine::UserContents_ = nullptr;
-GameEngineImage* GameEngine::BackBufferImage_ = nullptr;
+
+GameEngineImage* GameEngine::BackBufferImage_ = nullptr;//백버퍼
+GameEngineImage* GameEngine::WindowMainImage_ = nullptr;//진짜 그려지는 이미지
 
 HDC GameEngine::BackBufferDC()
 {
@@ -51,7 +53,8 @@ void GameEngine::EngineInit()
 	//여기서 윈도우의 크기가 결정될 것이므로
 	UserContents_->GameInit();
 	//여기서 백버퍼를 만들어 받아낸다
-	BackBufferImage_ = GameEngineImageManager::GetInst()->Create("BackBuffer", GameEngineWindow::GetScale());
+	BackBufferImage_ = GameEngineImageManager::GetInst()->Create("BackBuffer", GameEngineWindow::GetHDC());
+	WindowMainImage_ = GameEngineImageManager::GetInst()->Create("WindowMain", GameEngineWindow::GetScale());
 }
 
 void GameEngine::EngineLoop()
@@ -87,6 +90,7 @@ void GameEngine::EngineLoop()
 	CurrentLevel_->Update();
 	CurrentLevel_->ActorUpdate();
 	CurrentLevel_->ActorRender();
+	WindowMainImage_->BitCopy(BackBufferImage_);
 }
 
 void GameEngine::EngineEnd()

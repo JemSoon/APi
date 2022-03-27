@@ -2,14 +2,23 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineWindow.h>
 
+#pragma comment(lib, "msimg32.lib")
+
 GameEngineImage::GameEngineImage()
+	:ImageDC_(nullptr)
 {
 
 }
 
 GameEngineImage::~GameEngineImage()
 {
+}
 
+bool GameEngineImage::Create(HDC _DC)
+{
+	ImageDC_ = _DC;
+	ImageScaleCheck();
+	return true;
 }
 
 bool GameEngineImage::Create(float4 _Scale)
@@ -42,5 +51,28 @@ bool GameEngineImage::Create(float4 _Scale)
 
 void GameEngineImage::ImageScaleCheck()
 {
-	GetObject(BitMap_, sizeof(BITMAP), &Info_);
+	//DC 내부에 박혀있는 BITMAP을 꺼내오는 함수
+	HBITMAP CurrentBitMap = (HBITMAP)GetCurrentObject(ImageDC_, OBJ_BITMAP);
+	GetObject(CurrentBitMap, sizeof(BITMAP), &Info_);
+}
+
+void GameEngineImage::BitCopy(GameEngineImage* _Other)
+{
+	BitCopy(_Other, { 0, 0 }, { 0, 0 }, _Other->GetScale());
+}
+
+
+void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _OtherPivot, const float4& _OtherPivotScale)
+{
+	BitBlt(
+		ImageDC_,	//여기에 복사해라
+		_CopyPos.ix(),	//띄울 이미지 좌표x
+		_CopyPos.iy(),	//띄울 이미지 좌표y
+		_OtherPivotScale.ix(),	//내 이미지의 x크기만큼
+		_OtherPivotScale.iy(),	//내 이미지의 y크기만큼
+		_Other->ImageDC_,	//복사하려는 대상은
+		_OtherPivot.ix(),	//복사하려는 대상의 시작점 x(어느 부분 복사할건지)
+		_OtherPivot.iy(),	//복사하려는 대상의 시작점 y(어느 부분 복사할건지)
+		SRCCOPY	//복사(윈도우 기능)
+	);
 }

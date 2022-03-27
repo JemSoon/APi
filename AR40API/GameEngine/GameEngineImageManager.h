@@ -49,6 +49,8 @@ public:
 
 	GameEngineImage* Create(const std::string& _Name, float4 _Scale);//이미지를 만들어 주는 함수
 
+	GameEngineImage* Create(const std::string& _Name, HDC _DC);//이미지를 만들어 주는 함수
+
 protected:
 
 private:

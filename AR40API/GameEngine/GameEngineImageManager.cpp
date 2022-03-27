@@ -24,6 +24,34 @@ GameEngineImageManager::~GameEngineImageManager()
 
 }
 
+GameEngineImage* GameEngineImageManager::Create(const std::string& _Name, HDC _DC)
+{
+	//맵이 끝까지 돌지 않았다=이미 있다
+	if (AllRes.end() != AllRes.find(_Name))
+	{
+		MsgBoxAssert("이미 존재하는 이름의 이미지를 또 만들려함 ");
+		return nullptr;
+	}
+
+	//없으면 동적할당으로 하나 생성
+	GameEngineImage* NewImage = new GameEngineImage();
+
+	NewImage->SetName(_Name);
+
+	if (false == NewImage->Create(_DC))
+	{
+		delete NewImage;
+		MsgBoxAssert((_Name + "이미지를 생성하는데 실패").c_str());
+		return nullptr;
+	}
+
+	//이미지를 만들었으면 모아놓고 관리한다
+	AllRes.insert(std::make_pair(_Name, NewImage));
+
+	return NewImage;
+}
+
+
 GameEngineImage* GameEngineImageManager::Create(const std::string& _Name, float4 _Scale)
 {
 	//맵이 끝까지 돌지 않았다=이미 있다
