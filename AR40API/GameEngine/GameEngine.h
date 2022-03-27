@@ -6,6 +6,7 @@
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
+class GameEngineImage;
 class GameEngineLevel;
 //설명 : 게임엔진이란 게임 그 자체의 시작점과 끝점 실행중을 담당
 class GameEngine
@@ -28,6 +29,13 @@ public:
 	//operater= (자기자신을 리턴하는)
 	GameEngine& operator=(const GameEngine& _Other) = delete;
 	GameEngine& operator=(GameEngine&& _Other) noexcept = delete;
+
+	static inline GameEngineImage* BackBufferImage()
+	{
+		return BackBufferImage_;
+	}
+
+	static HDC BackBufferDC();
 
 
 	//내가 만든 프레임워크 에서는
@@ -79,6 +87,8 @@ private:
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
 	static GameEngine* UserContents_;
+	static GameEngineImage* BackBufferImage_;
+
 
 	static void WindowCreate();
 
