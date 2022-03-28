@@ -26,6 +26,9 @@
     <ClCompile Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.cpp">
       <Filter>Title</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperMario.h" />
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.h">
       <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Play</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
