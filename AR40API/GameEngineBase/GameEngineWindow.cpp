@@ -1,7 +1,7 @@
 //exe가 만들어질 필요가 없는 "라이브러리 프로젝트"
 
 #include "GameEngineWindow.h"
-#include "GameEngineDebug.h"
+
 
 //HWND hWnd 어떤 윈도우에 무슨일이 생겼는지 그 윈도우의 핸들
 //UINT messange 그 메세지의 종류가 뭔지

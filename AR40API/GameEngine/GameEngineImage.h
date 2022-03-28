@@ -31,6 +31,7 @@ public:
 
 	bool Create(float4 _Scale);
 	bool Create(HDC _DC);
+	bool Load(const std::string& _Path);
 
 	inline float4 GetScale()
 	{
@@ -44,7 +45,10 @@ public:
 
 	void BitCopy(GameEngineImage* _Other);
 
-	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos, const float4& _OtherPivot, const float4& _OtherPivotScale);
+	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos);
+
+	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos, 
+		const float4& _OtherPivot, const float4& _OtherPivotScale);
 
 
 protected:

@@ -28,11 +28,14 @@ public:
 		Inst_ = nullptr;
 	}
 
+	GameEngineImage* Find(const std::string& _Name);//이미지 찾는 함수
 	
-	GameEngineImage* Create(const std::string& _Name, float4 _Scale);//이미지를 만들어 주는 함수
-
+	//내가 비어있는 이미지를 만드는 기능
+	GameEngineImage* Create(const std::string& _Name, const float4& _Scale);//이미지를 만들어 주는 함수
 	GameEngineImage* Create(const std::string& _Name, HDC _DC);//이미지를 만들어 주는 함수
 
+	GameEngineImage* Load(const std::string& _Path);
+	GameEngineImage* Load(const std::string& _Path, const std::string& _Name);
 
 private://싱글톤(하나만 만든다)
 	//디폴트 생성자

@@ -70,11 +70,48 @@ bool GameEngineImage::Create(float4 _Scale)
 	return true;
 }
 
+bool GameEngineImage::Load(const std::string& _Path)
+{
+	BitMap_ = static_cast<HBITMAP>(LoadImageA(
+		nullptr,
+		_Path.c_str(),
+		IMAGE_BITMAP,
+		0,
+		0,
+		LR_LOADFROMFILE
+		));
+
+	if (nullptr == BitMap_)
+	{
+		MsgBoxAssertString(_Path + "이미지 로드에 실패 - 경로 확인, 디버깅 체크 요망");
+	}
+
+	//빈이미지 만들고 교체하는 과정
+	ImageDC_ = CreateCompatibleDC(nullptr);
+
+	if (nullptr == ImageDC_)
+	{
+		MsgBoxAssert("ImageDC 생성 실패");
+	}
+
+	//Bit맵을 DC로 바꿔조(반대인가?)
+	OldBitMap_ = (HBITMAP)SelectObject(ImageDC_, BitMap_);
+
+	ImageScaleCheck();
+
+	return true;
+}
+
 void GameEngineImage::ImageScaleCheck()
 {
 	//DC 내부에 박혀있는 BITMAP을 꺼내오는 함수
 	HBITMAP CurrentBitMap = (HBITMAP)GetCurrentObject(ImageDC_, OBJ_BITMAP);
 	GetObject(CurrentBitMap, sizeof(BITMAP), &Info_);
+}
+
+void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos)
+{
+	BitCopy(_Other, _CopyPos, { 0, 0 }, _Other->GetScale());
 }
 
 void GameEngineImage::BitCopy(GameEngineImage* _Other)
