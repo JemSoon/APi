@@ -28,7 +28,13 @@ public:
 		Inst_ = nullptr;
 	}
 
-public:
+	
+	GameEngineImage* Create(const std::string& _Name, float4 _Scale);//이미지를 만들어 주는 함수
+
+	GameEngineImage* Create(const std::string& _Name, HDC _DC);//이미지를 만들어 주는 함수
+
+
+private://싱글톤(하나만 만든다)
 	//디폴트 생성자
 	GameEngineImageManager();
 	//디폴트 소멸자
@@ -47,9 +53,6 @@ public:
 	GameEngineImageManager& operator=(const GameEngineImageManager& _Other) = delete;
 	GameEngineImageManager& operator=(GameEngineImageManager&& _Other) noexcept = delete;
 
-	GameEngineImage* Create(const std::string& _Name, float4 _Scale);//이미지를 만들어 주는 함수
-
-	GameEngineImage* Create(const std::string& _Name, HDC _DC);//이미지를 만들어 주는 함수
 
 protected:
 
