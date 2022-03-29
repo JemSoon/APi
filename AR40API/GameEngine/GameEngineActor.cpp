@@ -27,3 +27,11 @@ void GameEngineActor::DebugRectRender()
 				DebugRect.CenterBot()
 			  );//로고 네모
 }
+
+GameEngineRenderer* GameEngineActor::CreateRenderer(
+	const std::string& _Image, 
+	RenderPivot _PivotType /*= RenderPivot::CENTER*/, 
+	const float4& _PivotPos /*= { 0, 0 }*/)
+{
+	return;
+}

@@ -111,8 +111,40 @@ void GameEngineImage::ImageScaleCheck()
 
 void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos)
 {
-	BitCopy(_Other, _CopyPos, { 0, 0 }, _Other->GetScale());
+	BitCopy(_Other, _CopyPos, float4{ 0, 0 }, _Other->GetScale());
 }
+
+//캐릭터 이미지의 한 가운데가 센터
+void GameEngineImage::BitCopyCenter(GameEngineImage* _Other, const float4& _CopyPos)
+{
+	BitCopy(_Other, _CopyPos - _Other->GetScale().Half(), float4{ 0, 0 }, _Other->GetScale());
+}
+
+//한 가운데 센터 + @좌표
+void GameEngineImage::BitCopyCenterPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot)
+{
+	BitCopy(_Other, _CopyPos - _Other->GetScale().Half() + _CopyPivot, float4{ 0, 0 }, _Other->GetScale());
+}
+
+//캐릭터 바닥 가운데가 센터
+void GameEngineImage::BitCopyBot(GameEngineImage* _Other, const float4& _CopyPos)
+{
+	float4 ImagePivot = _Other->GetScale().Half();
+
+	ImagePivot.y = _Other->GetScale().y;
+
+	BitCopy(_Other, _CopyPos - ImagePivot, float4{ 0, 0 }, _Other->GetScale());
+}
+
+void GameEngineImage::BitCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot)
+{
+	float4 ImagePivot = _Other->GetScale().Half();
+
+	ImagePivot.y = _Other->GetScale().y;
+
+	BitCopy(_Other, _CopyPos - ImagePivot + _CopyPivot, float4{0, 0}, _Other->GetScale());
+}
+
 
 void GameEngineImage::BitCopy(GameEngineImage* _Other)
 {

@@ -47,6 +47,14 @@ public:
 
 	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos);
 
+	void BitCopyCenter(GameEngineImage* _Other, const float4& _CopyPos);
+
+	void BitCopyCenterPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);
+
+	void BitCopyBot(GameEngineImage* _Other, const float4& _CopyPos);
+
+	void BitCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);
+
 	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos, 
 		const float4& _OtherPivot, const float4& _OtherPivotScale);
 
