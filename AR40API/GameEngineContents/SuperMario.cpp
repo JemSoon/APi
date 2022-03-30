@@ -21,6 +21,7 @@ void SuperMario::GameInit()
 	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 100 }, { 1280, 720 });
 
 	GameEngineImageManager::GetInst()->Load("C:\\Users\\highy\\Desktop\\C++\\AR40API\\AllResources\\Texture\\idle-R.bmp","idle-R.bmp");
+	GameEngineImageManager::GetInst()->Load("C:\\Users\\highy\\Desktop\\C++\\AR40API\\AllResources\\Texture\\turtle-back.bmp", "turtle-back.bmp");
 
 
 	CreateLevel<TitleLevel>("Title");

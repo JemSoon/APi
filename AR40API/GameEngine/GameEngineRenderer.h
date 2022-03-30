@@ -30,6 +30,12 @@ public:
 	GameEngineRenderer& operator=(const GameEngineRenderer& _Other) = delete;
 	GameEngineRenderer& operator=(GameEngineRenderer&& _Other) noexcept = delete;
 
+
+	inline void SetTransColor(unsigned int _Color)
+	{
+		TransColor_ = _Color;
+	}
+
 	inline void SetPivot(const float4& _Pos)
 	{
 		RenderPivot_ = _Pos;
@@ -37,8 +43,15 @@ public:
 
 	inline void SetType(const RenderPivot& _Type)
 	{
-		PivotType = _Type;
+		PivotType_ = _Type;
 	}
+
+	inline void SetScaleMode(const RenderScaleMode& _Mode)
+	{
+		ScaleMode_ = _Mode;
+	}
+
+
 	void SetImage(const std::string& _Name);
 
 protected:
@@ -46,7 +59,10 @@ protected:
 
 private:
 	GameEngineImage* Image_;
-	RenderPivot PivotType; //센터 bot
+	RenderPivot PivotType_; //센터 bot
+	RenderScaleMode ScaleMode_;
 	float4 RenderPivot_;
+	float4 RenderScale_;
+	unsigned int TransColor_;//지우고 싶은 색 설정
 };
 

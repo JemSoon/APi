@@ -25,7 +25,11 @@ LRESULT CALLBACK MessageProcess(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
         EndPaint(hWnd, &ps);
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
-
+    case WM_CLOSE:
+    {
+        GameEngineWindow::GetInst().Off();
+        break;
+    }
     default:
         break;
     }

@@ -43,6 +43,7 @@ public:
 		return ImageDC_;
 	}
 
+	//BitBlt
 	void BitCopy(GameEngineImage* _Other);
 
 	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos);
@@ -55,8 +56,32 @@ public:
 
 	void BitCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);
 
-	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos, 
-		const float4& _OtherPivot, const float4& _OtherPivotScale);
+	void BitCopy(GameEngineImage* _Other, const float4& _CopyPos
+		,const float4& _CopyScale
+		,const float4& _OtherPivot);
+
+	//Trans
+	/*void TransCopy(GameEngineImage* _Other);
+		
+	void TransCopy(GameEngineImage* _Other, const float4& _CopyPos);
+		 
+	void TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos);
+		 
+	void TransCopyCenterPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);
+		 
+	void TransCopyBot(GameEngineImage* _Other, const float4& _CopyPos);
+		 
+	void TransCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);*/
+		 
+	void TransCopyCenterScale(GameEngineImage* _Other, const float4& _CopyPos, const float4& _RenderScale, unsigned int _TransColor);
+	void TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor);
+
+	void TransCopy(GameEngineImage* _Other, 
+		const float4& _CopyPos, 
+		const float4& _CopyScale, 
+		const float4& _OtherPivot, 
+		const float4 _OtherScale, 
+		unsigned int _TransColor);
 
 
 protected:
