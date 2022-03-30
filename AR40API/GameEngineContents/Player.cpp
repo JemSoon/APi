@@ -23,6 +23,7 @@ void Player::Start()
 	CreateRenderer("idle-R.bmp");
 }
 
+//랜더러가 다 돌아가고 랜더링 된다
 void Player::Render()
 {
 	//DebugRectRender();
@@ -37,5 +38,5 @@ void Player::Render()
 
 	////주의:상단에 UI배치 해놨고 UI가 맨 앞이라 0,0하면 가림
 	//GameEngine::BackBufferImage()->BitCopyBot(FindImage, GetPosition());
-
+	
 }

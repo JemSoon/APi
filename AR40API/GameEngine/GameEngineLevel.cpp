@@ -71,6 +71,7 @@ void GameEngineLevel::ActorRender()
 	GroupEnd = AllActor_.end();
 
 
+
 	for (; GroupStart != GroupEnd; ++GroupStart)
 	{
 		std::list<GameEngineActor*>& Group = GroupStart->second;
@@ -80,8 +81,16 @@ void GameEngineLevel::ActorRender()
 
 		for (; StartActor != EndActor; ++StartActor)
 		{
-			(*StartActor)->Render();//Actor를 다 돌면서 Render 해줌
+			(*StartActor)->Renderering();//Actor를 다 돌면서 Renderering 해줌
 		}
 
+
+		StartActor = Group.begin();
+		EndActor = Group.end();
+
+		for (; StartActor != EndActor; ++StartActor)
+		{
+			(*StartActor)->Render();//renderering 다 되고 render해줌
+		}
 	}
 }
