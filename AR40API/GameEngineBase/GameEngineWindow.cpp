@@ -84,7 +84,7 @@ void GameEngineWindow::RegClass(HINSTANCE _hInst)
     wcex.hInstance = _hInst;
     wcex.hIcon = nullptr;
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW+3);//1은 흰 2는 회 3은 검
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = "GameEngineWindowClass";
     wcex.hIconSm = nullptr;

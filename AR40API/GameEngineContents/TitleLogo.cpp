@@ -22,5 +22,5 @@ void TitleLogo::Start()
 
 void TitleLogo::Render()
 {
-	DebugRectRender();
+	//DebugRectRender();
 }

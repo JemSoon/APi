@@ -22,6 +22,7 @@ void SuperMario::GameInit()
 
 	GameEngineImageManager::GetInst()->Load("C:\\Users\\highy\\Desktop\\C++\\AR40API\\AllResources\\Texture\\idle-R.bmp","idle-R.bmp");
 	GameEngineImageManager::GetInst()->Load("C:\\Users\\highy\\Desktop\\C++\\AR40API\\AllResources\\Texture\\turtle-back.bmp", "turtle-back.bmp");
+	GameEngineImageManager::GetInst()->Load("C:\\Users\\highy\\Desktop\\C++\\AR40API\\AllResources\\Texture\\GameTitle.bmp", "GameTitle.bmp");
 
 
 	CreateLevel<TitleLevel>("Title");
