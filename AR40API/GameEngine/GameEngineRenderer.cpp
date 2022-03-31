@@ -55,8 +55,10 @@ void GameEngineRenderer::Render()
 	switch (PivotType_)
 	{
 	case RenderPivot::CENTER:
-		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
-		GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
+		GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
+		//이거 쓰면 스케일 조절안됨
+		//GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
+		//이거쓰면 CreateRenderer이 아니라(이거쓰면 일반크기로 나옴) CreateRendererToScale함수 써야 제대로 나옴
 		break;
 	case RenderPivot::BOT:
 		//봇 기준선은 따로 스케일 안만듦(어차피 안쓸듯) 포샵 만세

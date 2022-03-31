@@ -4,7 +4,8 @@
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
-//설명 : 디렉토리를 쉽게 사용하기 위해 만듦
+class GameEngineFile;
+//설명 : 디렉토리를 쉽게 사용하기 위해 만듦 (폴더 설정)
 class GameEngineDirectory : public GameEnginePath
 {
 public:
@@ -31,6 +32,11 @@ public:
 	void MoveParent(const std::string& _Name);
 
 	bool IsRoot();
+
+	void Move(const std::string& _Name);
+
+	std::vector<GameEngineFile> GetAllFile(const std::string& _Ext = "");
+
 protected:
 
 private:

@@ -1,6 +1,7 @@
 #include "GameEngineImageManager.h"
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineString.h>
+#include <GameEngineBase/GameEnginePath.h>
 
 GameEngineImageManager* GameEngineImageManager::Inst_= new GameEngineImageManager();
 
@@ -102,10 +103,9 @@ GameEngineImage* GameEngineImageManager::Create(const std::string& _Name, const 
 
 GameEngineImage* GameEngineImageManager::Load(const std::string& _Path)
 {
-	//무시(일단 나중에 만듦)
-	//Create();
-
-	return nullptr;
+	GameEnginePath NewPath = GameEnginePath(_Path);
+	//파일명이 곧 키
+	return Load(_Path, NewPath.GetFileName());
 }
 
 GameEngineImage* GameEngineImageManager::Load(const std::string& _Path, const std::string& _Name)

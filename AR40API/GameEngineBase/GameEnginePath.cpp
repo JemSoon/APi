@@ -5,6 +5,12 @@ GameEnginePath::GameEnginePath()
 
 }
 
+GameEnginePath::GameEnginePath(const std::filesystem::path& _Path)
+	:Path_(_Path)
+{
+
+}
+
 GameEnginePath::~GameEnginePath()
 {
 
@@ -29,4 +35,9 @@ std::string GameEnginePath::GetExtension()//확장자 외우기
 std::string GameEnginePath::GetFileName()//파일 이름 가져오기
 {
 	return Path_.filename().string();
+}
+
+std::string GameEnginePath::GetFullPath()
+{
+	return Path_.string();
 }
