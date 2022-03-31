@@ -21,7 +21,7 @@ void Player::Start()
 
 	//CreateRenderer("idle-R.bmp", RenderPivot::CENTER,{0, 0});
 	CreateRenderer("idle-R.bmp", RenderPivot::BOT, {-100,0});//약간 뒤로 뺌, 중심점 중간 아래
-	//CreateRenderer("turtle-back.bmp", RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
+	CreateRendererToScale("turtle-back.bmp",float4(300.0f, 20.0f), RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
 }
 
 //랜더러가 다 돌아가고 랜더링 된다

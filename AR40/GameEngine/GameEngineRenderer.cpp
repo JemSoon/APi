@@ -19,6 +19,16 @@ GameEngineRenderer::~GameEngineRenderer()
 
 }
 
+void GameEngineRenderer::SetImageScale()
+{
+	if (nullptr == Image_)
+	{
+		MsgBoxAssert("존재하지 않는 이미지로 크기 조절하려 함")
+	}
+	ScaleMode_ = RenderScaleMode::Image;
+	RenderScale_ = Image_->GetScale();
+}
+
 void GameEngineRenderer::SetImage(const std::string& _Name)
 {
 	GameEngineImage* FindImage = GameEngineImageManager::GetInst()->Find(_Name);
@@ -41,25 +51,12 @@ void GameEngineRenderer::Render()
 	}
 
 	float4 RenderPos = GetActor()->GetPosition() + RenderPivot_;
-	float4 RenderScale = RenderScale_;
-
-	switch (ScaleMode_)
-	{
-	case RenderScaleMode::Image:
-		RenderScale = Image_->GetScale();
-		break;
-	case RenderScaleMode::User:
-		break;
-	default:
-		break;
-	}
-
 
 	switch (PivotType_)
 	{
 	case RenderPivot::CENTER:
 		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
-		GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale, TransColor_);
+		GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
 		break;
 	case RenderPivot::BOT:
 		//봇 기준선은 따로 스케일 안만듦(어차피 안쓸듯) 포샵 만세
