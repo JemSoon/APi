@@ -2,6 +2,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include "GameEngineLevel.h"
 #include "GameEngineImageManager.h"
+#include <GameEngineBase/GameEngineInput.h>
 
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
 GameEngineLevel* GameEngine::CurrentLevel_=nullptr;
@@ -85,6 +86,8 @@ void GameEngine::EngineLoop()
 		MsgBoxAssert("Level is nullptr GameEngine Loop Error");
 	}
 
+	GameEngineInput::GetInst()->Update();
+
 	//레벨수준 시간제한이 있는 게임이라면
 	//매 프레임마다 시간을 체크해야하는데 그런일을 하라고 만든것
 	CurrentLevel_->Update();
@@ -111,6 +114,7 @@ void GameEngine::EngineEnd()
 
 	GameEngineImageManager::Destroy();
 	GameEngineWindow::Destroy();
+	GameEngineInput::Destroy();
 }
 
 void GameEngine::ChangeLevel(const std::string& _Name)

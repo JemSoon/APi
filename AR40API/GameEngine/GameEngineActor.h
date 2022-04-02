@@ -39,6 +39,11 @@ public:
 		return Scale_;
 	}
 
+	inline void SetMove(float4 _Value)
+	{
+		Position_ += _Value;
+	}
+
 	inline void SetPosition(float4 _Value)
 	{
 		Position_ = _Value;

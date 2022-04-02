@@ -48,6 +48,7 @@
     <ClCompile Include="GameEnginePath.cpp">
       <Filter>IO</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineWindow.h">
@@ -74,5 +75,6 @@
     <ClInclude Include="GameEnginePath.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineInput.h" />
   </ItemGroup>
 </Project>
