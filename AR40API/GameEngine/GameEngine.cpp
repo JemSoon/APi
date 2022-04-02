@@ -3,6 +3,7 @@
 #include "GameEngineLevel.h"
 #include "GameEngineImageManager.h"
 #include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
 GameEngineLevel* GameEngine::CurrentLevel_=nullptr;
@@ -60,6 +61,7 @@ void GameEngine::EngineInit()
 
 void GameEngine::EngineLoop()
 {
+	GameEngineTime::GetInst()->Update();
 	//엔진 수준에서 매 프레임마다 체크하고 싶은거
 	UserContents_->GameLoop();
 
@@ -79,6 +81,7 @@ void GameEngine::EngineLoop()
 			CurrentLevel_->LevelChangeStart();
 		}
 		NextLevel_ = nullptr;
+		GameEngineTime::GetInst()->Reset();//리셋 다 끝나고 나서 시간을 잰다
 	}
 
 	if (nullptr == CurrentLevel_)
@@ -115,6 +118,7 @@ void GameEngine::EngineEnd()
 	GameEngineImageManager::Destroy();
 	GameEngineWindow::Destroy();
 	GameEngineInput::Destroy();
+	GameEngineTime::Destroy();
 }
 
 void GameEngine::ChangeLevel(const std::string& _Name)

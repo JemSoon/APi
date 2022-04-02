@@ -48,7 +48,12 @@
     <ClCompile Include="GameEnginePath.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineInput.cpp" />
+    <ClCompile Include="GameEngineTime.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineInput.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineWindow.h">
@@ -75,6 +80,11 @@
     <ClInclude Include="GameEnginePath.h">
       <Filter>IO</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineInput.h" />
+    <ClInclude Include="GameEngineTime.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineInput.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

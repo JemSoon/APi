@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
 #include <GameEngineBase/GameEngineInput.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 Player::Player()
 {
@@ -43,7 +44,7 @@ void Player::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::LEFT);
+		SetMove(float4::LEFT /** GameEngineTime::GetInst()->GetDeltaTime()*/);
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
