@@ -30,6 +30,7 @@ public:
 protected:
 
 private:
+	float Speed_;
 	void Start() override;
 	void Render() override;
 	void Update() override;

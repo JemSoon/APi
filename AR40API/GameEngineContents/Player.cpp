@@ -6,6 +6,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 
 Player::Player()
+	:Speed_(100.0f)
 {
 
 }
@@ -34,8 +35,8 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Move Up", VK_UP);
-		GameEngineInput::GetInst()->CreateKey("Jump", 'C');
-		GameEngineInput::GetInst()->CreateKey("Fire", 'X');
+		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
+		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 	}
 }
 
@@ -44,22 +45,54 @@ void Player::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::LEFT /** GameEngineTime::GetInst()->GetDeltaTime()*/);
+		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
+		if(true == GameEngineInput::GetInst()->IsPress("Run"))
+		{
+			Speed_=300.0f;
+		}
+		else
+		{
+			Speed_ = 100.0f;
+		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::RIGHT);
+		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
+		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+		{
+			Speed_ = 300.0f;
+		}
+		else
+		{
+			Speed_ = 100.0f;
+		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
 	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::UP);
+		SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
+		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+		{
+			Speed_ = 300.0f;
+		}
+		else
+		{
+			Speed_ = 100.0f;
+		}
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
 	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::DOWN);
+		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+		{
+			Speed_ = 300.0f;
+		}
+		else
+		{
+			Speed_ = 100.0f;
+		}
 	}
 
 }
