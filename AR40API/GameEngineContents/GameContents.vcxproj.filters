@@ -29,6 +29,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Play</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperMario.h" />
@@ -57,6 +60,9 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
+      <Filter>Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
       <Filter>Play</Filter>
     </ClInclude>
   </ItemGroup>

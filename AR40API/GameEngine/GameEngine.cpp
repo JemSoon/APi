@@ -97,6 +97,7 @@ void GameEngine::EngineLoop()
 	CurrentLevel_->ActorUpdate();
 	CurrentLevel_->ActorRender();
 	WindowMainImage_->BitCopy(BackBufferImage_);
+	CurrentLevel_->ActorRelease();
 }
 
 void GameEngine::EngineEnd()

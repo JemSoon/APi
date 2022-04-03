@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineBase/GameEngineNameObject.h>
+#include <GameEngineBase/GameEngineUpdateObject.h>
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineEnum.h"
 #include <list>
@@ -10,7 +11,7 @@
 //설명 : 
 class GameEngineRenderer;
 class GameEngineLevel;
-class GameEngineActor : public GameEngineNameObject
+class GameEngineActor : public GameEngineNameObject, public GameEngineUpdateObject
 {
 public:
 	friend GameEngineLevel;
@@ -29,6 +30,11 @@ public:
 	//operater= (자기자신을 리턴하는)
 	GameEngineActor& operator=(const GameEngineActor& _Other) = delete;
 	GameEngineActor& operator=(GameEngineActor&& _Other) noexcept = delete;
+
+	inline GameEngineLevel* GetLevel()
+	{
+		return Level_;
+	}
 
 	inline float4 GetPosition()
 	{

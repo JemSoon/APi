@@ -71,13 +71,13 @@ public:
 	void Update();
 
 	//(예시)CreateKey(점프,'A') == 점프를 A키로 
-	void CreateKey(std::string _Name, int _Key);
+	void CreateKey(const std::string& _Name, int _Key);
 
-	bool IsDown(std::string _Name);
-	bool IsUp(std::string _Name);
-	bool IsPress(std::string _Name);
-	bool IsFree(std::string _Name);
-	bool IsKey(std::string _Name);//다른씬에 중복생성하지 않겠금 있는지 없는지 체크용
+	bool IsDown(const std::string& _Name);
+	bool IsUp(const std::string& _Name);
+	bool IsPress(const std::string& _Name);
+	bool IsFree(const std::string& _Name);
+	bool IsKey(const std::string& _Name);//다른씬에 중복생성하지 않겠금 있는지 없는지 체크용
 
 protected:
 

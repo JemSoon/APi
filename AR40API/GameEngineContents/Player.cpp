@@ -4,6 +4,10 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
+#include <GameEngine/GameEngineRenderer.h>
+
+#include <GameEngine/GameEngineLevel.h>//레벨을 통해서
+#include "Bullet.h"//총알을 만들고 싶다
 
 Player::Player()
 	:Speed_(100.0f)
@@ -37,6 +41,7 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Up", VK_UP);
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
+		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
 }
 
@@ -93,6 +98,12 @@ void Player::Update()
 		{
 			Speed_ = 100.0f;
 		}
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
+	{
+		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+		Ptr->SetPosition(GetPosition());
 	}
 
 }

@@ -32,23 +32,14 @@ public:
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
 
-protected:
-	virtual void Loading() = 0;
-	virtual void Update() = 0;
-
-	virtual void LevelChangeStart() {}
-	//이전레벨->현재레벨 이동시 현재레벨이 실행하는함수
-	virtual void LevelChangeEnd() {}
-	//이전레벨->현재레벨 이동시 이전레벨이 실행하는 함수
-
 	template<typename ActorType>
-	ActorType* CreateActor(const std::string& _Name, int _Order)
+	ActorType* CreateActor(int _Order = 0, const std::string& _Name="")
 	{
 		//한 화면에 몇개만들지 알수없다(동적할당)
 		ActorType* NewActor = new ActorType();//얘가 Name, Level받는게 낫지않냐? = 상속 받고있는데?
-		
+
 		GameEngineActor* StartActor = NewActor;
-		
+
 		NewActor->SetName(_Name);
 
 		NewActor->SetLevel(this);
@@ -70,8 +61,20 @@ protected:
 		//}
 		//FindGroup = AllActor_.find(_Order);
 
-		return nullptr;
+		return NewActor;
 	}
+
+
+protected:
+	virtual void Loading() = 0;
+	virtual void Update() = 0;
+
+	virtual void LevelChangeStart() {}
+	//이전레벨->현재레벨 이동시 현재레벨이 실행하는함수
+	virtual void LevelChangeEnd() {}
+	//이전레벨->현재레벨 이동시 이전레벨이 실행하는 함수
+
+	
 
 private:
 	//내가 마리오를 만들거야 거묵이를 만들거야 다 여기 들어오게됨
@@ -82,5 +85,6 @@ private:
 
 	void ActorUpdate();
 	void ActorRender();
+	void ActorRelease();
 };
 

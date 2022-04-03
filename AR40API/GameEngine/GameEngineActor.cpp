@@ -16,6 +16,10 @@ GameEngineActor::~GameEngineActor()
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
+		if (nullptr == (*StartIter))
+		{
+			continue;
+		}
 		delete (*StartIter);
 		(*StartIter) = nullptr;
 	}
@@ -47,6 +51,7 @@ GameEngineRenderer* GameEngineActor::CreateRenderer(
 
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_Image);
+	NewRenderer->SetImageScale();
 	NewRenderer->SetPivot(_PivotPos);
 	NewRenderer->SetType(_PivotType);
 
@@ -77,7 +82,6 @@ GameEngineRenderer* GameEngineActor::CreateRendererToScale
 
 	NewRenderer->SetActor(this);
 	NewRenderer->SetImage(_Image);
-	NewRenderer->SetImageScale();
 	NewRenderer->SetScale(_Scale);
 	NewRenderer->SetPivot(_PivotPos);
 	NewRenderer->SetType(_PivotType);

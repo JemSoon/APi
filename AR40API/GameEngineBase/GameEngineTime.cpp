@@ -15,9 +15,9 @@ GameEngineTime::~GameEngineTime()
 
 void GameEngineTime::Reset()
 {
-	LARGE_INTEGER Prev;
-	LARGE_INTEGER Current;
-	LARGE_INTEGER Count;
+	//LARGE_INTEGER Prev;
+	//LARGE_INTEGER Current;
+	//LARGE_INTEGER Count;
 
 	QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&PrevCount_));//여태껏 센 수
 	QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&CurrentCount_));//현재 수

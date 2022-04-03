@@ -32,7 +32,7 @@ void PlayLevel::Update()
 
 void PlayLevel::LevelChangeStart()
 {
-	CreateActor<Player>("Player", (int)ORDER::PLAYER);
-	CreateActor<UI>("UI", (int)ORDER::UI);
+	CreateActor<Player>((int)ORDER::PLAYER);
+	CreateActor<UI>((int)ORDER::UI);
 
 }
