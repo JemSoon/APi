@@ -2,6 +2,7 @@
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineMath.h>
 #include <Windows.h>
+#include <vector>
 
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
@@ -61,28 +62,35 @@ public:
 		,const float4& _OtherPivot);
 
 	//Trans
-	/*void TransCopy(GameEngineImage* _Other);
-		
-	void TransCopy(GameEngineImage* _Other, const float4& _CopyPos);
-		 
-	void TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos);
-		 
-	void TransCopyCenterPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);
-		 
-	void TransCopyBot(GameEngineImage* _Other, const float4& _CopyPos);
-		 
-	void TransCopyBotPivot(GameEngineImage* _Other, const float4& _CopyPos, const float4& _CopyPivot);*/
-		 
-	void TransCopyCenterScale(GameEngineImage* _Other, const float4& _CopyPos, const float4& _RenderScale, unsigned int _TransColor);
-	void TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor);
 
-	void TransCopy(GameEngineImage* _Other, 
-		const float4& _CopyPos, 
+	void TransCopy(GameEngineImage* _Other,	const float4& _CopyPos, 
 		const float4& _CopyScale, 
-		const float4& _OtherPivot, 
-		const float4 _OtherScale, 
-		unsigned int _TransColor);
+		const float4& _OtherPivot, const float4 _OtherScale, unsigned int _TransColor);
 
+
+	void Cut(const float4& _CutSize);
+
+
+	bool IsCut()
+	{
+		return 0 != CutPivot_.size();
+	}
+
+	float4 GetCutPivot(size_t _Index)
+	{
+		return CutPivot_[_Index];
+	}
+
+	float4 GetCutScale(size_t _Index)//이미지마다 쪼개는 크기를 다르게 하고싶다
+	{
+		return CutScale_[_Index];
+	}
+
+	void Cut(const float4& _CutScale, const float4& _CutPos)
+	{
+		CutPivot_.push_back(_CutPos);
+		CutScale_.push_back(_CutScale);
+	}
 
 protected:
 
@@ -92,7 +100,9 @@ private:
 	HBITMAP OldBitMap_;
 	BITMAP Info_;
 
-	void ImageScaleCheck();
+	std::vector<float4> CutPivot_;
+	std::vector<float4> CutScale_;
 
+	void ImageScaleCheck();
 };
 

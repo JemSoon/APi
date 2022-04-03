@@ -60,6 +60,7 @@ public:
 	}
 
 	void SetImage(const std::string& _Name);
+	void SetIndex(size_t _Index);
 
 protected:
 	void Render();
@@ -69,7 +70,10 @@ private:
 	RenderPivot PivotType_; //센터 bot
 	RenderScaleMode ScaleMode_;
 	float4 RenderPivot_;
-	float4 RenderScale_;
+	float4 RenderScale_;//화면에 그려지는 크기
+	float4 RenderImageScale_;//이미지에서 잘라내는 크기
+	float4 RenderImagePivot_;
+
 	unsigned int TransColor_;//지우고 싶은 색 설정
 };
 

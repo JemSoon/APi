@@ -10,6 +10,7 @@ GameEngineRenderer::GameEngineRenderer()
 	,PivotType_(RenderPivot::CENTER)
 	,ScaleMode_(RenderScaleMode::Image)
 	,TransColor_(RGB(255,0,255))
+	,RenderImagePivot_({0, 0})
 {
 
 }
@@ -27,6 +28,7 @@ void GameEngineRenderer::SetImageScale()
 	}
 	ScaleMode_ = RenderScaleMode::Image;
 	RenderScale_ = Image_->GetScale();
+	RenderImagePivot_ = Image_->GetScale();
 }
 
 void GameEngineRenderer::SetImage(const std::string& _Name)
@@ -39,6 +41,7 @@ void GameEngineRenderer::SetImage(const std::string& _Name)
 	}
 
 	Image_ = FindImage;
+	SetImageScale();
 }
 
 void GameEngineRenderer::Render()
@@ -55,18 +58,33 @@ void GameEngineRenderer::Render()
 	switch (PivotType_)
 	{
 	case RenderPivot::CENTER:
-		GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
+		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);//원본
 		//이거 쓰면 스케일 조절안됨
 		//GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
 		//이거쓰면 CreateRenderer이 아니라(이거쓰면 일반크기로 나옴) CreateRendererToScale함수 써야 제대로 나옴
 		break;
 	case RenderPivot::BOT:
 		//봇 기준선은 따로 스케일 안만듦(어차피 안쓸듯) 포샵 만세
-		GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
+		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
 		
 		break;
 	default:
 		break;
 	}
 
+}
+
+void GameEngineRenderer::SetIndex(size_t _Index)
+{
+	if (false == Image_->IsCut())
+	{
+		MsgBoxAssert("이미지를 부분적으로 사용할 수 있게 잘려진 이미지가 아닙니다");
+		return;
+	}
+
+
+	RenderImagePivot_ = Image_->GetCutPivot(_Index);
+	RenderScale_ = Image_->GetCutScale(_Index);
+	RenderImageScale_ = Image_->GetCutScale(_Index);
 }

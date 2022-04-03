@@ -39,6 +39,11 @@ void SuperMario::GameInit()
 		
 	}
 
+	//이미지를 찾아
+	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("walk-L.bmp");
+	
+	//그리구 이미지를 한프레임 단위로 잘라줘
+	Image->Cut({ 64, 64 });
 
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<PlayLevel>("Play");

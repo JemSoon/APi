@@ -26,10 +26,14 @@ void Player::Start()
 	SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale({ 64,64 });
 
-	//CreateRenderer("idle-R.bmp", RenderPivot::CENTER,{0, 0});
-	CreateRenderer("idle-R.bmp", RenderPivot::BOT, {-100,0});//약간 뒤로 뺌, 중심점 중간 아래
-	CreateRenderer("turtle-back.bmp", RenderPivot::CENTER, { -100,-100 });
-	//CreateRendererToScale("turtle-back.bmp",float4(300.0f, 20.0f), RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
+	////CreateRenderer("idle-R.bmp", RenderPivot::CENTER,{0, 0});
+	//CreateRenderer("idle-R.bmp", RenderPivot::BOT, {-100,0});//약간 뒤로 뺌, 중심점 중간 아래
+	//CreateRenderer("turtle-back.bmp", RenderPivot::CENTER, { -100,-100 });
+	////CreateRendererToScale("turtle-back.bmp",float4(300.0f, 20.0f), RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
+	
+	GameEngineRenderer* Render = CreateRenderer("walk-L.bmp");
+	
+	Render->SetIndex(0);
 
 	if (false== GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다
@@ -49,7 +53,8 @@ void Player::Start()
 void Player::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{			//현재 위치 + 이동하는 방향
+	{			
+		//현재 위치 + 이동하는 방향
 		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
 		if(true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
@@ -62,7 +67,7 @@ void Player::Update()
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{			//현재 위치 + 이동하는 방향
+	{	
 		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
 		if (true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
@@ -104,8 +109,9 @@ void Player::Update()
 	{
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
+		int a = 0;
 	}
-
+	
 }
 
 

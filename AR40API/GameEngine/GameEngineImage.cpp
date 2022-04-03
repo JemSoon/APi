@@ -170,16 +170,7 @@ void GameEngineImage::BitCopy(GameEngineImage* _Other, const float4& _CopyPos, c
 
 //////////////////////////////////////////////////////////////////////Trans
 
-//이건 이미지의 크기가 아니라 내가 넣어준 크기로 그려라(이미지 사이즈 변형)
-void GameEngineImage::TransCopyCenterScale(GameEngineImage* _Other, const float4& _CopyPos, const float4& _RenderScale, unsigned int _TransColor)
-{
-	TransCopy(_Other, _CopyPos - _RenderScale.Half(), _RenderScale, float4{ 0, 0 }, _Other->GetScale(), _TransColor);
-}
 
-void GameEngineImage::TransCopyCenter(GameEngineImage* _Other, const float4& _CopyPos, unsigned int _TransColor)
-{
-	TransCopy(_Other, _CopyPos - _Other->GetScale().Half(), _Other->GetScale(), float4{ 0, 0 }, _Other->GetScale(), _TransColor);
-}
 
 void GameEngineImage::TransCopy(GameEngineImage* _Other, 
 	const float4& _CopyPos, 
@@ -189,11 +180,11 @@ void GameEngineImage::TransCopy(GameEngineImage* _Other,
 	unsigned int _TransColor)
 {
 	TransparentBlt(
-		ImageDC_,	//여기에 복사해라
+		ImageDC_,	//여기에 복사해라(이 창에 그려라)
 		_CopyPos.ix(),	//띄울 이미지 좌표x
-		_CopyPos.iy(),	//띄울 이미지 좌표y
+		_CopyPos.iy(),	//띄울 이미지 좌표y(여기서 부터 그려라)
 		_CopyScale.ix(),	//내 이미지의 x크기만큼
-		_CopyScale.iy(),	//내 이미지의 y크기만큼
+		_CopyScale.iy(),	//내 이미지의 y크기만큼(이 크기만큼 그려라)
 		_Other->ImageDC_,	//복사하려는 대상은
 		_OtherPivot.ix(),	//복사하려는 대상의 시작점 x(어느 부분 복사할건지)
 		_OtherPivot.iy(),	//복사하려는 대상의 시작점 y(어느 부분 복사할건지)
@@ -201,4 +192,31 @@ void GameEngineImage::TransCopy(GameEngineImage* _Other,
 		_OtherScale.iy(),
 		_TransColor	//복사(윈도우 기능)
 	);
+}
+
+void GameEngineImage::Cut(const float4& _CutSize)
+{
+	if (0 != (GetScale().ix() % _CutSize.ix()))
+	{
+		MsgBoxAssert("자를 수 있는 수치가 딱 맞지 않음(x축)");
+	}
+
+	if (0 != (GetScale().iy() % _CutSize.iy()))
+	{
+		MsgBoxAssert("자를 수 있는 수치가 딱 맞지 않음(y축)");
+	}
+
+	int XCount = (GetScale().ix() / _CutSize.ix());
+	int YCount = (GetScale().iy() / _CutSize.iy());
+
+
+	for (int y = 0; y < YCount; y++)
+	{
+		for (int x = 0; x < XCount; x++)
+		{
+			CutPivot_.push_back({ static_cast<float>(x * _CutSize.ix()), static_cast<float>(y * _CutSize.iy()) });
+			CutScale_.push_back(_CutSize);
+		}
+	}
+
 }
