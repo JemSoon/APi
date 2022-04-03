@@ -28,7 +28,7 @@ void GameEngineRenderer::SetImageScale()
 	}
 	ScaleMode_ = RenderScaleMode::Image;
 	RenderScale_ = Image_->GetScale();
-	RenderImagePivot_ = Image_->GetScale();
+	RenderImageScale_ = Image_->GetScale();
 }
 
 void GameEngineRenderer::SetImage(const std::string& _Name)
