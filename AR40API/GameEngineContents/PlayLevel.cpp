@@ -3,14 +3,10 @@
 #include "UI.h"
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngine/GameEngine.h>
-
-enum class ORDER //이미지 올라갈 순서 설정
-{
-	BACKGROUND,
-	MONSTER,
-	PLAYER,
-	UI
-};
+#include "BackGround.h"
+#include "Player.h"
+#include "ContentsEnum.h"
+#include <GameEngine/GameEngineRenderer.h>
 
 PlayLevel::PlayLevel()
 {
@@ -34,6 +30,11 @@ void PlayLevel::Update()
 	{
 		GameEngine::GlobalEngine().ChangeLevel("Intro");
 	}
+
+	BackGround* Back = CreateActor<BackGround>(0);
+	Back->GetRenderer()->SetImage("Map1-1.bmp");
+
+	CreateActor<Player>((int)ORDER::PLAYER);
 }
 
 void PlayLevel::LevelChangeStart()

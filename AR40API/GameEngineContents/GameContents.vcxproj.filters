@@ -8,9 +8,6 @@
     <ClCompile Include="EndingLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="TitleLogo.cpp">
-      <Filter>Title</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Play</Filter>
     </ClCompile>
@@ -19,9 +16,6 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Play</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.cpp">
-      <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Play</Filter>
@@ -47,6 +41,9 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Level\Global</Filter>
     </ClCompile>
+    <ClCompile Include="TitleBackGround.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperMario.h" />
@@ -56,9 +53,6 @@
     <ClInclude Include="EndingLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="TitleLogo.h">
-      <Filter>Title</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Play</Filter>
     </ClInclude>
@@ -67,9 +61,6 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Play</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\AR40Teacher\AR40\AR40\AR40\API\GameEngineContents\TitleBackGround.h">
-      <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Play</Filter>
@@ -94,6 +85,10 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>Level\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnum.h" />
+    <ClInclude Include="TitleBackGround.h">
+      <Filter>Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
