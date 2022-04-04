@@ -104,5 +104,6 @@ private:
 	std::vector<float4> CutScale_;
 
 	void ImageScaleCheck();
+
 };
 

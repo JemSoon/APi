@@ -82,8 +82,13 @@ void GameEngine::EngineLoop()
 		}
 		NextLevel_ = nullptr;
 		GameEngineTime::GetInst()->Reset();//리셋 다 끝나고 나서 시간을 잰다
-	}
 
+		//넘어갈때 화면청소
+		Rectangle(WindowMainImage_->ImageDC(), 0, 0, WindowMainImage_->GetScale().ix(), WindowMainImage_->GetScale().iy());
+		Rectangle(BackBufferImage_->ImageDC(), 0, 0, BackBufferImage_->GetScale().ix(), BackBufferImage_->GetScale().iy());
+		
+	}
+		
 	if (nullptr == CurrentLevel_)
 	{
 		MsgBoxAssert("Level is nullptr GameEngine Loop Error");

@@ -5,9 +5,6 @@
     <ClCompile Include="TitleLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="PlayLevel.cpp">
-      <Filter>Level</Filter>
-    </ClCompile>
     <ClCompile Include="EndingLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -32,13 +29,28 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Play</Filter>
     </ClCompile>
+    <ClCompile Include="IntroLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel.cpp">
+      <Filter>Level\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel2.cpp">
+      <Filter>Level\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel3.cpp">
+      <Filter>Level\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Level\Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SuperMario.h" />
     <ClInclude Include="TitleLevel.h">
-      <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="EndingLevel.h">
@@ -65,6 +77,24 @@
     <ClInclude Include="Bullet.h">
       <Filter>Play</Filter>
     </ClInclude>
+    <ClInclude Include="IntroLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel.h">
+      <Filter>Level\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel2.h">
+      <Filter>Level\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel3.h">
+      <Filter>Level\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Level\Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -78,6 +108,15 @@
     </Filter>
     <Filter Include="Ending">
       <UniqueIdentifier>{563b70bc-7a9d-4a63-9efe-df60a91fb783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Intro">
+      <UniqueIdentifier>{b8bb06b4-656b-4885-8017-b549b9567e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage">
+      <UniqueIdentifier>{01846678-2ced-454d-acca-7ccfe32b21f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Global">
+      <UniqueIdentifier>{56164916-61b7-4400-aea3-24f58f433e78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

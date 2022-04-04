@@ -1,5 +1,6 @@
 #include "Bullet.h"
-#include "GameEngineBase/GameEngineTime.h"
+#include <GameEngineBase/GameEngineTime.h>
+#include <GameEngine/GameEngineRenderer.h>
 
 
 Bullet::Bullet()
@@ -15,6 +16,7 @@ Bullet::~Bullet()
 void Bullet::Start()
 {
 	CreateRenderer("Bullet.bmp");
+	
 	//Time = 4.0f;
 	Death(2.0f);//2초뒤에 총알은 사라진다(죽는다)
 }

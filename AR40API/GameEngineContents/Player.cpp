@@ -107,9 +107,10 @@ void Player::Update()
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
+		
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
-		int a = 0;
+
 	}
 	
 }

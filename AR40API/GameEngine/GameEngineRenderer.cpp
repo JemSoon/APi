@@ -75,7 +75,7 @@ void GameEngineRenderer::Render()
 
 }
 
-void GameEngineRenderer::SetIndex(size_t _Index)
+void GameEngineRenderer::SetIndex(size_t _Index)//자른 이미지 고대로 사용
 {
 	if (false == Image_->IsCut())
 	{
@@ -86,5 +86,26 @@ void GameEngineRenderer::SetIndex(size_t _Index)
 
 	RenderImagePivot_ = Image_->GetCutPivot(_Index);
 	RenderScale_ = Image_->GetCutScale(_Index);
+	RenderImageScale_ = Image_->GetCutScale(_Index);
+}
+
+void GameEngineRenderer::SetIndexToScale(size_t _Index, float4 _Scale)//자른 이미지 크기변경(나는 안쓰기에 따로 빼놨다)
+{
+	if (false == Image_->IsCut())
+	{
+		MsgBoxAssert("이미지를 부분적으로 사용할 수 있게 잘려진 이미지가 아닙니다");
+		return;
+	}
+	RenderImagePivot_ = Image_->GetCutPivot(_Index);
+
+	if (-1 == _Scale.x ||
+		-1 == _Scale.y)//-1이라는건 값을 지정해 줄 생각이 없다
+	{
+		RenderScale_ = Image_->GetCutScale(_Index);
+	}
+	else
+	{
+		RenderScale_ = _Scale;
+	}
 	RenderImageScale_ = Image_->GetCutScale(_Index);
 }

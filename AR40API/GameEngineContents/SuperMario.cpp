@@ -1,11 +1,15 @@
 #include "SuperMario.h"
+#include "IntroLevel.h"
 #include "PlayLevel.h"
+#include "PlayLevel2.h"
+#include "PlayLevel3.h"
 #include "EndingLevel.h"
 #include "TitleLevel.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngineBase/GameEngineDirectory.h>
 #include <GameEngineBase/GameEngineFile.h>
 #include <GameEngine/GameEngineImageManager.h>
+#include <GameEngineBase/GameEngineInput.h>
 
 SuperMario::SuperMario()
 {
@@ -20,7 +24,7 @@ SuperMario::~SuperMario()
 void SuperMario::GameInit()
 {
 	//창에 띄울 이미지 영역 사이즈
-	GameEngineWindow::GetInst().SetWindowScaleAndPosition({ 100, 100 }, { 1280, 720 });
+	GameEngineWindow::GetInst().SetWindowScaleAndPosition({1720,120}, {1280, 720});
 
 	GameEngineDirectory ResourcesDir;//생성과 동시에 현재 디렉토리
 
@@ -39,6 +43,16 @@ void SuperMario::GameInit()
 		
 	}
 
+	if (false == GameEngineInput::GetInst()->IsKey("Title"))
+	{	//false면 만들어진 적 없는 키 이다
+		GameEngineInput::GetInst()->CreateKey("Title", 'P');
+		GameEngineInput::GetInst()->CreateKey("Intro", 'O');
+		GameEngineInput::GetInst()->CreateKey("Play1", '1');
+		GameEngineInput::GetInst()->CreateKey("Play2", '2');
+		GameEngineInput::GetInst()->CreateKey("Play3", '3');
+	}
+
+
 	//이미지를 찾아
 	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("walk-L.bmp");
 	
@@ -46,10 +60,13 @@ void SuperMario::GameInit()
 	Image->Cut({ 64, 64 });
 
 	CreateLevel<TitleLevel>("Title");
-	CreateLevel<PlayLevel>("Play");
+	CreateLevel<IntroLevel>("Intro");
+	CreateLevel<PlayLevel>("Play1");
+	CreateLevel<PlayLevel2>("Play2");
+	CreateLevel<PlayLevel3>("Play3");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Play");//인게임 화면 보고싶을때 체크용
-	//ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
+	//ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
+	ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
 }
 
 void SuperMario::GameLoop()

@@ -61,6 +61,7 @@ public:
 
 	void SetImage(const std::string& _Name);
 	void SetIndex(size_t _Index);
+	void SetIndexToScale(size_t _Index, float4 _Scale = {-1.0f, -1.0f});
 
 protected:
 	void Render();
