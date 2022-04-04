@@ -129,7 +129,7 @@ void GameEngine::EngineEnd()
 
 void GameEngine::ChangeLevel(const std::string& _Name)
 {
-	static std::map<std::string, GameEngineLevel*>::iterator FindIter = AllLevel_.find(_Name);
+	std::map<std::string, GameEngineLevel*>::iterator FindIter = AllLevel_.find(_Name);
 
 	if (AllLevel_.end() == FindIter)
 	{

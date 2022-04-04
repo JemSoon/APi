@@ -43,7 +43,7 @@ void SuperMario::GameInit()
 		
 	}
 
-	if (false == GameEngineInput::GetInst()->IsKey("Title"))
+	if (false == GameEngineInput::GetInst()->IsKey("Intro"))
 	{	//false면 만들어진 적 없는 키 이다
 		GameEngineInput::GetInst()->CreateKey("Title", 'P');
 		GameEngineInput::GetInst()->CreateKey("Intro", 'O');
@@ -55,9 +55,15 @@ void SuperMario::GameInit()
 
 	//이미지를 찾아
 	GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("walk-L.bmp");
-	
+
 	//그리구 이미지를 한프레임 단위로 잘라줘
 	Image->Cut({ 64, 64 });
+
+	GameEngineImage* Image2 = GameEngineImageManager::GetInst()->Find("Bullet.bmp");
+
+	//그리구 이미지를 한프레임 단위로 잘라줘
+	Image2->Cut({ 32, 32 });
+	
 
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<IntroLevel>("Intro");

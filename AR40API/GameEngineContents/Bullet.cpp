@@ -15,7 +15,10 @@ Bullet::~Bullet()
 
 void Bullet::Start()
 {
-	CreateRenderer("Bullet.bmp");
+	GameEngineRenderer* Render = CreateRenderer("Bullet.bmp");
+
+	Render->SetIndex(0);
+	//CreateRenderer("Bullet.bmp");
 	
 	//Time = 4.0f;
 	Death(2.0f);//2초뒤에 총알은 사라진다(죽는다)

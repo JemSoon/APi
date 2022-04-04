@@ -107,7 +107,8 @@ void Player::Update()
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
-		
+		SetScale({ 32,32 });
+
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
 
