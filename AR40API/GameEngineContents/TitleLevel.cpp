@@ -1,16 +1,10 @@
 #include "TitleLevel.h"
 #include "GameEngine/GameEngine.h"
-#include "TitleLogo.h"
+#include "ContentsEnum.h"
 #include "TitleBackGround.h"
 #include <GameEngineBase/GameEngineInput.h>
 
-enum class ORDER //이미지 올라갈 순서 설정
-{
-	BACKGROUND,
-	MONSTER,
-	PLAYER,
-	UI
-};
+
 
 TitleLevel::TitleLevel()
 {

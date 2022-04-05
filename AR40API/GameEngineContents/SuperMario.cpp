@@ -43,7 +43,7 @@ void SuperMario::GameInit()
 		
 	}
 
-	if (false == GameEngineInput::GetInst()->IsKey("Intro"))
+	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
 	{	//false면 만들어진 적 없는 키 이다
 		GameEngineInput::GetInst()->CreateKey("Title", 'P');
 		GameEngineInput::GetInst()->CreateKey("Intro", 'O');

@@ -193,10 +193,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="SuperMario.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="SuperMario.h" />
     <ClInclude Include="TitleBackGround.h">
       <SubType>
       </SubType>
@@ -255,10 +252,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SuperMario.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="SuperMario.cpp" />
     <ClCompile Include="TitleBackGround.cpp">
       <SubType>
       </SubType>

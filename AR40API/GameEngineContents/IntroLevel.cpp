@@ -46,6 +46,11 @@ void IntroLevel::Update()
 	{
 		GameEngine::GlobalEngine().ChangeLevel("Play3");//넘기는기능
 	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Title"))
+	{
+		GameEngine::GlobalEngine().ChangeLevel("Title");//넘기는기능
+	}
 }
 
 void IntroLevel::LevelChangeStart()

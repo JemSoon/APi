@@ -147,16 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameEngineActorSubObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineActor.h" />
+    <ClInclude Include="GameEngineActorSubObject.h" />
     <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngine.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="GameEngineActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -172,10 +166,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEngineRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="GameEngineRenderer.h" />
     <ClInclude Include="GameEngineSound.h">
       <SubType>
       </SubType>
@@ -186,14 +177,8 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineActor.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="GameEngineActorSubObject.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineActor.cpp" />
+    <ClCompile Include="GameEngineActorSubObject.cpp" />
     <ClCompile Include="GameEngineImage.cpp">
       <SubType>
       </SubType>
@@ -206,10 +191,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="GameEngineRenderer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="GameEngineRenderer.cpp" />
     <ClCompile Include="GameEngineSound.cpp">
       <SubType>
       </SubType>
