@@ -20,22 +20,27 @@ PlayLevel::~PlayLevel()
 }
 
 void PlayLevel::Loading()
+{	
+	{	//배경 로드
+		BackGround* Back = CreateActor<BackGround>(0);
+		Back->GetRenderer()->SetImage("Map1-1All.bmp");
+	}
+
+	{	//플레이어 로드
+		CreateActor<Player>((int)ORDER::PLAYER);
+	}
+
+	{	//UI로드
+		CreateActor<UI>((int)ORDER::UI);
+	}
+}
+
+void PlayLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
 		GameEngine::GlobalEngine().ChangeLevel("Intro");
 	}
-	
-	//BackGround* Back = CreateActor<BackGround>(0);
-	//Back->GetRenderer()->SetImage("Map1-1All.bmp");
-	//CreateActor<Player>((int)ORDER::PLAYER);
-	CreateActor<UI>((int)ORDER::UI);
-	
-}
-
-void PlayLevel::Update()
-{
-	
 
 }
 
