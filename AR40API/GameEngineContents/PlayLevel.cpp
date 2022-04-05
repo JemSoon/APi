@@ -1,12 +1,13 @@
 #include "PlayLevel.h"
 #include "Player.h"
-#include "UI.h"
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngine/GameEngine.h>
 #include "BackGround.h"
 #include "Player.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
+#include "UI.h"
+
 
 PlayLevel::PlayLevel()
 {
@@ -24,10 +25,12 @@ void PlayLevel::Loading()
 	{
 		GameEngine::GlobalEngine().ChangeLevel("Intro");
 	}
-	BackGround* Back = CreateActor<BackGround>(0);
-	Back->GetRenderer()->SetImage("Map1-1.bmp");
-	CreateActor<Player>((int)ORDER::PLAYER);
+	
+	//BackGround* Back = CreateActor<BackGround>(0);
+	//Back->GetRenderer()->SetImage("Map1-1All.bmp");
+	//CreateActor<Player>((int)ORDER::PLAYER);
 	CreateActor<UI>((int)ORDER::UI);
+	
 }
 
 void PlayLevel::Update()

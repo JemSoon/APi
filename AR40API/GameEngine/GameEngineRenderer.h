@@ -1,12 +1,13 @@
 #pragma once
 #include "GameEngineActorSubObject.h"
 #include "GameEngineEnum.h"
+#include "GameEngineImage.h"
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
 //설명 : 
-class GameEngineImage;
+//class GameEngineImage;
 class GameEngineRenderer : public GameEngineActorSubObject
 {
 	friend GameEngineActor;
@@ -57,6 +58,11 @@ public:
 	{
 		ScaleMode_ = RenderScaleMode::User;
 		RenderScale_ = _Scale;
+	}
+
+	inline GameEngineImage* GetImage()//해당 이미지의 사이즈를 가져온다
+	{
+		return Image_;
 	}
 
 	void SetImage(const std::string& _Name);

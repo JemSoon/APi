@@ -5,6 +5,7 @@
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
 //설명 : 인게임 화면에 출력될 UI
+class GameEngineRenderer;
 class UI : public GameEngineActor
 {
 public:
@@ -29,8 +30,8 @@ public:
 
 protected:
 
-private:
 	void Start() override;
-	void Render() override;
+	//void Render() override;
+private:
 };
 
