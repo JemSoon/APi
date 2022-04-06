@@ -31,9 +31,15 @@ void Player::Start()
 	//CreateRenderer("turtle-back.bmp", RenderPivot::CENTER, { -100,-100 });
 	////CreateRendererToScale("turtle-back.bmp",float4(300.0f, 20.0f), RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
 
-	GameEngineRenderer* Render = CreateRenderer("walk-L.bmp");
+	/*GameEngineRenderer* Render = CreateRenderer("walk-L.bmp");
+	Render->SetIndex(0);*/
 
-	Render->SetIndex(0);
+	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
+	GameEngineRenderer* Render = CreateRenderer();
+	//0~1인덱스 0.1초마다(true면 반복,false면 한번만재생)
+	Render->CreateAnimation("walk_L.bmp", "Walk_L", 0, 1, 0.1f, true);
+	Render->ChangeAnimation("Walk_L");
+
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다

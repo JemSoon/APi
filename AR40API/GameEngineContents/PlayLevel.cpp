@@ -22,7 +22,7 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Loading()
 {	
 	{	//배경 로드
-		BackGround* Back = CreateActor<BackGround>(0);
+		BackGround* Back = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 		Back->GetRenderer()->SetImage("Map1-1All.bmp");
 	}
 

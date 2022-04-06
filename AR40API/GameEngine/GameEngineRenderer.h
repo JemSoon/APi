@@ -2,6 +2,7 @@
 #include "GameEngineActorSubObject.h"
 #include "GameEngineEnum.h"
 #include "GameEngineImage.h"
+#include <map>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -73,6 +74,8 @@ protected:
 	void Render();
 
 private:
+	friend class FrameAnimation;
+
 	GameEngineImage* Image_;
 	RenderPivot PivotType_; //센터 bot
 	RenderScaleMode ScaleMode_;
@@ -82,5 +85,54 @@ private:
 	float4 RenderImagePivot_;
 
 	unsigned int TransColor_;//지우고 싶은 색 설정
+
+
+	//////////////////////////////////////////애니메이션↓
+
+private:
+	class FrameAnimation
+	{
+	public:
+		GameEngineRenderer* Renderer_;
+		GameEngineImage* Image_;
+		int CurrentFrame_;
+		int StartFrame_;
+		int EndFrame_;
+		float CurrentInterTime_;
+		float InterTime_;
+		bool Loop_;
+
+	public:
+		FrameAnimation()
+			:Image_(nullptr),
+			CurrentFrame_(-1),
+			StartFrame_(-1),
+			EndFrame_(-1),
+			CurrentInterTime_(0.1f),
+			InterTime_(0.1f),
+			Loop_(true)
+		{
+
+		}
+
+		void Update();
+
+		void Reset()
+		{
+			CurrentFrame_ = StartFrame_;
+			CurrentInterTime_ = InterTime_;
+		}
+
+	};
+
+public:
+	void CreateAnimation(const std::string& _Image, const std::string& _Name, int _StartIndex, int _EndIndex, float _InterTime, bool _Loop = true);
+
+	void ChangeAnimation(const std::string& _Name);
+
+private:
+		std::map<std::string, FrameAnimation> Animations_;
+		FrameAnimation* CurrentAnimation_;
+
 };
 
