@@ -55,8 +55,8 @@ void GameEngine::EngineInit()
 	//여기서 윈도우의 크기가 결정될 것이므로
 	UserContents_->GameInit();
 	//여기서 백버퍼를 만들어 받아낸다
-	BackBufferImage_ = GameEngineImageManager::GetInst()->Create("BackBuffer", GameEngineWindow::GetHDC());
-	WindowMainImage_ = GameEngineImageManager::GetInst()->Create("WindowMain", GameEngineWindow::GetScale());
+	WindowMainImage_ = GameEngineImageManager::GetInst()->Create("WindowMain", GameEngineWindow::GetHDC());
+	BackBufferImage_ = GameEngineImageManager::GetInst()->Create("BackBuffer", GameEngineWindow::GetScale());
 }
 
 void GameEngine::EngineLoop()

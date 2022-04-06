@@ -65,40 +65,6 @@ void GameEngineLevel::ActorUpdate()
 	}
 }
 
-void GameEngineLevel::ActorRelease()
-{
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
-
-	std::list<GameEngineActor*>::iterator StartActor;
-	std::list<GameEngineActor*>::iterator EndActor;
-
-	GroupStart = AllActor_.begin();
-	GroupEnd = AllActor_.end();
-
-
-	for (; GroupStart != GroupEnd; ++GroupStart)
-	{
-		std::list<GameEngineActor*>& Group = GroupStart->second;
-
-		StartActor = Group.begin();
-		EndActor = Group.end();
-
-		for (; StartActor != EndActor;)
-		{
-			if (true == (*StartActor)->IsDeath())
-			{
-				delete *StartActor;//실제적인 메모리를 날림
-
-				StartActor = Group.erase(StartActor);//리스트 노드를 날림
-
-				continue;
-			}
-			++StartActor;
-		}
-
-	}
-}
 
 void GameEngineLevel::ActorRender()
 {
@@ -144,3 +110,41 @@ void GameEngineLevel::ActorRender()
 		}
 	}
 }
+
+
+
+void GameEngineLevel::ActorRelease()
+{
+	std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
+	std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
+
+	std::list<GameEngineActor*>::iterator StartActor;
+	std::list<GameEngineActor*>::iterator EndActor;
+
+	GroupStart = AllActor_.begin();
+	GroupEnd = AllActor_.end();
+
+
+	for (; GroupStart != GroupEnd; ++GroupStart)
+	{
+		std::list<GameEngineActor*>& Group = GroupStart->second;
+
+		StartActor = Group.begin();
+		EndActor = Group.end();
+
+		for (; StartActor != EndActor;)
+		{
+			if (true == (*StartActor)->IsDeath())
+			{
+				delete *StartActor;//실제적인 메모리를 날림
+
+				StartActor = Group.erase(StartActor);//리스트 노드를 날림
+
+				continue;
+			}
+			++StartActor;
+		}
+
+	}
+}
+

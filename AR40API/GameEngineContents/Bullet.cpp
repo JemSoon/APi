@@ -4,6 +4,7 @@
 
 
 Bullet::Bullet()
+	: Time()
 {
 
 }
