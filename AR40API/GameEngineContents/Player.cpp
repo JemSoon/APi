@@ -37,8 +37,8 @@ void Player::Start()
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	GameEngineRenderer* Render = CreateRenderer();
 	//0~1인덱스 0.1초마다(true면 반복,false면 한번만재생)
-	Render->CreateAnimation("walk_L.bmp", "Walk_L", 0, 1, 0.1f, true);
-	Render->ChangeAnimation("Walk_L");
+	Render->CreateAnimation("walk-L.bmp", "Walk-L", 0, 2, 0.1f, true);
+	Render->ChangeAnimation("Walk-L");
 
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))

@@ -15,12 +15,11 @@ Bullet::~Bullet()
 
 void Bullet::Start()
 {
-	GameEngineRenderer* Render = CreateRenderer("Bullet.bmp");
+	GameEngineRenderer* Render = CreateRenderer();
+	Render->CreateAnimation("Bullet.bmp", "Bullet", 0, 3, 0.1f, true);
+	Render->ChangeAnimation("Bullet");
+	//Render->SetIndex(0);
 
-	Render->SetIndex(0);
-	//CreateRenderer("Bullet.bmp");
-	
-	//Time = 4.0f;
 	Death(2.0f);//2초뒤에 총알은 사라진다(죽는다)
 }
 void Bullet::Update()
