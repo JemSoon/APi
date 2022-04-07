@@ -31,6 +31,9 @@ protected:
 
 private:
 	float Speed_;
+	float Gravity_;
+	float AccGravity_;
+
 	void Start() override;
 	void Render() override;
 	void Update() override;

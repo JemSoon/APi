@@ -21,7 +21,7 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Loading()
 {	
-	{	//배경 로드
+	{	//1스테이지의 배경 로드
 		BackGround* Back = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 		Back->GetRenderer()->SetImage("Map1-1All.bmp");
 
@@ -32,13 +32,17 @@ void PlayLevel::Loading()
 
 			Back->GetRenderer()->SetPivot(BackActor);
 		}
+
+		{
+			//1스테이지의 플레이어 로드
+			Player* Mario = CreateActor<Player>((int)ORDER::PLAYER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Mario->SetPosition({ 300.0f,500.0f });
+		}
 	}
 
-	{	//플레이어 로드
-		CreateActor<Player>((int)ORDER::PLAYER);
-	}
 
-	{	//UI로드
+	{	//1스테이지의 UI 로드
 		CreateActor<UI>((int)ORDER::UI);
 	}
 }

@@ -1,10 +1,11 @@
 #include "GameEngineInput.h"
 #include "GameEngineDebug.h"
 #include "GameEngineString.h"
+//#include "GameEngineTime.h"
 
 
 /*===========================================*/
-void GameEngineInput::GameEngineKey::Update()
+void GameEngineInput::GameEngineKey::Update(float _DeltaTime)
 {
 	if (true == KeyCheck())
 	{	//KeyCheck가 true면 눌렸다
@@ -15,6 +16,9 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = true;
 			Up_ = false;
 			Free_ = false;
+			Time_ = 0.0f;
+			Time_ += _DeltaTime;
+
 		}
 		else if (true == Press_)
 		{	//이미 눌렀고 계속 누르고 있는 상태
@@ -22,6 +26,7 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = true;
 			Up_ = false;
 			Free_ = false;
+			Time_ += _DeltaTime;
 		}
 	}
 	else
@@ -33,6 +38,7 @@ void GameEngineInput::GameEngineKey::Update()
 			Press_ = false;
 			Up_ = true;
 			Free_ = false;
+			Time_ = 0.0f;
 		}
 	
 		else if (true == Up_)
@@ -94,7 +100,7 @@ void GameEngineInput::CreateKey(const std::string& _Name, int _Key)
 	AllInputKey_[UpperKey].Reset();
 }
 
-void GameEngineInput::Update()
+void GameEngineInput::Update(float _DeltaTime)
 {
 	std::map<std::string, GameEngineKey>::iterator KeyUpdateStart = AllInputKey_.begin();
 	std::map<std::string, GameEngineKey>::iterator KeyUpdateEnd = AllInputKey_.end();
@@ -106,9 +112,22 @@ void GameEngineInput::Update()
 		//KeyUpdateStart가 보기 어렵다면
 		GameEngineKey& CurrentKey = KeyUpdateStart->second;
 
-		CurrentKey.Update();
+		CurrentKey.Update(_DeltaTime);
 
 	}
+}
+
+float GameEngineInput::GetTime(const std::string& _Name)
+{
+	std::string UpperKey = GameEngineString::ToUpperReturn(_Name);
+
+	if (AllInputKey_.end() == AllInputKey_.find(UpperKey))//end랑 fine가 같지않으면 중간에 이미 존재한다는것
+	{
+		MsgBoxAssert("이미 존재하는 키 입니다");
+		return false;
+	}
+
+	return AllInputKey_[UpperKey].Time_;
 }
 
 bool GameEngineInput::IsDown(const std::string& _Name)

@@ -11,6 +11,7 @@
 
 Player::Player()
 	:Speed_(150.0f)
+	,Gravity_(100.0f)
 {
 
 }
@@ -23,11 +24,9 @@ Player::~Player()
 void Player::Start()
 {
 	//Player위치는 중앙으로 고정
-	SetPosition(GameEngineWindow::GetScale().Half());
+	//SetPosition(GameEngineWindow::GetScale().Half());
+	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,64 });
-
-	//GameEngineRenderer* Render1 = CreateRendererToScale("idle-R.bmp", { 64,64 });
-	//Render1->SetPivotType(RenderPivot::BOT);
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	GameEngineRenderer* Render = CreateRenderer();
@@ -39,7 +38,6 @@ void Player::Start()
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다
 
-		//입력키는 대문자로 적어줘야함
 		GameEngineInput::GetInst()->CreateKey("Move Left", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("Move Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
@@ -106,6 +104,16 @@ void Player::Update()
 		}
 	}
 
+	{
+		//중력
+		AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
+		//if (/*땅에 닿았다면*/)
+		//{
+		//	AccGravity_ = 0.0f;
+		//}
+		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
+	}
+
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
 		SetScale({ 32,32 });
@@ -114,6 +122,15 @@ void Player::Update()
 		Ptr->SetPosition(GetPosition());
 
 	}
+
+	/*if (2.0f < GameEngineInput::GetInst()->GetTime("Fire")) 2초간 기모으고 연사쏘기
+	{
+		SetScale({ 32,32 });
+
+		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+		Ptr->SetPosition(GetPosition());
+
+	}*/
 
 }
 
