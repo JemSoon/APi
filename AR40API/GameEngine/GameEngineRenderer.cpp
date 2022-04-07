@@ -67,23 +67,23 @@ void GameEngineRenderer::Render()
 	{
 	case RenderPivot::CENTER:
 		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
-		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);//원본
-		//이거 쓰면 스케일 조절안됨
-		//GameEngine::BackBufferImage()->TransCopyCenterScale(Image_, RenderPos, RenderScale_, TransColor_);
-		//이거쓰면 CreateRenderer이 아니라(이거쓰면 일반크기로 나옴) CreateRendererToScale함수 써야 제대로 나옴
-		break;
-	case RenderPivot::BOT:
-		//봇 기준선은 따로 스케일 안만듦(어차피 안쓸듯) 포샵 만세
-		//GameEngine::BackBufferImage()->TransCopyCenter(Image_, RenderPos, TransColor_);
 		
 		break;
+	case RenderPivot::BOT:
+	{
+		float4 Scale = RenderScale_.Half();
+		Scale.y *= 2.0f;
+		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
+
+		break;
+	}
 	default:
 		break;
 	}
 
 }
 
-void GameEngineRenderer::SetIndex(size_t _Index)//자른 이미지 고대로 사용
+void GameEngineRenderer::SetIndex(size_t _Index, const float4& _Scale /*= {-1, -1}*/)//기본적으로 이미지 스케일 설정-1(-1이면 기본사이즈)
 {
 	if (false == Image_->IsCut())
 	{
@@ -91,23 +91,7 @@ void GameEngineRenderer::SetIndex(size_t _Index)//자른 이미지 고대로 사용
 		return;
 	}
 
-
-	RenderImagePivot_ = Image_->GetCutPivot(_Index);
-	RenderScale_ = Image_->GetCutScale(_Index);
-	RenderImageScale_ = Image_->GetCutScale(_Index);
-}
-
-void GameEngineRenderer::SetIndexToScale(size_t _Index, float4 _Scale)//자른 이미지 크기변경(나는 안쓰기에 따로 빼놨다)
-{
-	if (false == Image_->IsCut())
-	{
-		MsgBoxAssert("이미지를 부분적으로 사용할 수 있게 잘려진 이미지가 아닙니다");
-		return;
-	}
-	RenderImagePivot_ = Image_->GetCutPivot(_Index);
-
-	if (-1 == _Scale.x ||
-		-1 == _Scale.y)//-1이라는건 값을 지정해 줄 생각이 없다
+	if (_Scale.x <= 0 || _Scale.y <= 0)
 	{
 		RenderScale_ = Image_->GetCutScale(_Index);
 	}
@@ -115,8 +99,10 @@ void GameEngineRenderer::SetIndexToScale(size_t _Index, float4 _Scale)//자른 이�
 	{
 		RenderScale_ = _Scale;
 	}
+	RenderImagePivot_ = Image_->GetCutPivot(_Index);
 	RenderImageScale_ = Image_->GetCutScale(_Index);
 }
+
 
 //=================애니메이션↓=====================
 

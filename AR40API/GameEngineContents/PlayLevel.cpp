@@ -6,6 +6,7 @@
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
+#include <GameEngineBase/GameEngineWindow.h>
 
 
 PlayLevel::PlayLevel()
@@ -23,6 +24,14 @@ void PlayLevel::Loading()
 	{	//배경 로드
 		BackGround* Back = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 		Back->GetRenderer()->SetImage("Map1-1All.bmp");
+
+		{	//맵 이미지 첫화면에 맞게 맞추기
+			float4 BackActor = {};
+			BackActor.x = (Back->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
+			BackActor.y = (Back->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) - 240;
+
+			Back->GetRenderer()->SetPivot(BackActor);
+		}
 	}
 
 	{	//플레이어 로드

@@ -10,7 +10,7 @@
 #include "Bullet.h"//총알을 만들고 싶다
 
 Player::Player()
-	:Speed_(100.0f)
+	:Speed_(150.0f)
 {
 
 }
@@ -26,19 +26,14 @@ void Player::Start()
 	SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale({ 64,64 });
 
-	////CreateRenderer("idle-R.bmp", RenderPivot::CENTER,{0, 0});
-	//CreateRenderer("idle-R.bmp", RenderPivot::BOT, {-100,0});//약간 뒤로 뺌, 중심점 중간 아래
-	//CreateRenderer("turtle-back.bmp", RenderPivot::CENTER, { -100,-100 });
-	////CreateRendererToScale("turtle-back.bmp",float4(300.0f, 20.0f), RenderPivot::CENTER, { -100,-100 });//HPBAR대용 테스트
-
-	/*GameEngineRenderer* Render = CreateRenderer("walk-L.bmp");
-	Render->SetIndex(0);*/
+	//GameEngineRenderer* Render1 = CreateRendererToScale("idle-R.bmp", { 64,64 });
+	//Render1->SetPivotType(RenderPivot::BOT);
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	GameEngineRenderer* Render = CreateRenderer();
 	//0~1인덱스 0.1초마다(true면 반복,false면 한번만재생)
-	Render->CreateAnimation("walk-L.bmp", "Walk-L", 0, 2, 0.1f, true);
-	Render->ChangeAnimation("Walk-L");
+	Render->CreateAnimation("walk-R.bmp", "Walk-R", 0, 2, 0.1f, true);
+	Render->ChangeAnimation("Walk-R");
 
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
@@ -64,11 +59,11 @@ void Player::Update()
 		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
 		if (true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
-			Speed_ = 300.0f;
+			Speed_ = 450.0f;
 		}
 		else
 		{
-			Speed_ = 100.0f;
+			Speed_ = 150.0f;
 		}
 	}
 
@@ -77,11 +72,11 @@ void Player::Update()
 		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
 		if (true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
-			Speed_ = 300.0f;
+			Speed_ = 450.0f;
 		}
 		else
 		{
-			Speed_ = 100.0f;
+			Speed_ = 150.0f;
 		}
 	}
 
@@ -90,11 +85,11 @@ void Player::Update()
 		SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
 		if (true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
-			Speed_ = 300.0f;
+			Speed_ = 450.0f;
 		}
 		else
 		{
-			Speed_ = 100.0f;
+			Speed_ = 150.0f;
 		}
 	}
 
@@ -103,11 +98,11 @@ void Player::Update()
 		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
 		if (true == GameEngineInput::GetInst()->IsPress("Run"))
 		{
-			Speed_ = 300.0f;
+			Speed_ = 450.0f;
 		}
 		else
 		{
-			Speed_ = 100.0f;
+			Speed_ = 150.0f;
 		}
 	}
 

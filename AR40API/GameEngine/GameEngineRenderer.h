@@ -43,7 +43,7 @@ public:
 		RenderPivot_ = _Pos;
 	}
 
-	inline void SetType(const RenderPivot& _Type)
+	inline void SetPivotType(const RenderPivot& _Type)
 	{
 		PivotType_ = _Type;
 	}
@@ -67,8 +67,8 @@ public:
 	}
 
 	void SetImage(const std::string& _Name);
-	void SetIndex(size_t _Index);
-	void SetIndexToScale(size_t _Index, float4 _Scale = {-1.0f, -1.0f});
+	void SetIndex(size_t _Index, const float4& _Scale = {-1, -1});
+	//void SetIndexToScale(size_t _Index, float4 _Scale = {-1.0f, -1.0f});
 
 protected:
 	void Render();

@@ -73,9 +73,14 @@ public:
 	void CutCount(int _x, int _y);
 
 
-	bool IsCut()
+	inline bool IsCut()
 	{
 		return 0 != CutPivot_.size();
+	}
+
+	inline size_t GetCutCount()//잘린 이미지 개수 인덱스 카운트
+	{
+		return CutPivot_.size();
 	}
 
 	float4 GetCutPivot(size_t _Index)
