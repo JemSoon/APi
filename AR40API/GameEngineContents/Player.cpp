@@ -151,6 +151,7 @@ void Player::Update()
 
 	//	//Áß·Â
 	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//Á¡Á¡ °¡¼ÓµÊ
+	//	
 	//	if (RGB(255, 0, 0)==Color/*¶¥¿¡ ´ê¾Ò´Ù¸é(»¡°£»ö)*/)
 	//	{
 	//		AccGravity_ = 0.0f;
