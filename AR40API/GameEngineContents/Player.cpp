@@ -5,6 +5,7 @@
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
+#include <GameEngine/GameEngineImage.h>
 
 #include <GameEngine/GameEngineLevel.h>//레벨을 통해서
 #include "Bullet.h"//총알을 만들고 싶다
@@ -51,68 +52,109 @@ void Player::Start()
 
 void Player::Update()
 {
-	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{
-		//현재 위치 + 이동하는 방향
-		SetMove(float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_);
-		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	{	//맵과 캐릭터의 충돌설정용
+		//(참고)실제 BG랑 좌표가 안맞음 현재
+		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+
+		if (nullptr == MapColImage_)
 		{
-			Speed_ = 450.0f;
-		}
-		else
-		{
-			Speed_ = 150.0f;
+			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
 		}
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{
-		SetMove(float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_);
-		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	float4 CheckPos;
+	float4 MoveDir = float4::ZERO;
+
+	{	//움직임 조작
+		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			Speed_ = 450.0f;
+			MoveDir = float4::LEFT;
+
+			//현재 위치 + 이동하는 방향
+			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			if (true == GameEngineInput::GetInst()->IsPress("Run"))
+			{
+				Speed_ = 450.0f;
+			}
+			else
+			{
+				Speed_ = 150.0f;
+			}
 		}
-		else
+
+		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
-			Speed_ = 150.0f;
+			MoveDir = float4::RIGHT;
+
+			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			if (true == GameEngineInput::GetInst()->IsPress("Run"))
+			{
+				Speed_ = 450.0f;
+			}
+			else
+			{
+				Speed_ = 150.0f;
+			}
+		}
+
+		if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
+		{	
+			MoveDir = float4::UP;
+
+			//SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
+			if (true == GameEngineInput::GetInst()->IsPress("Run"))
+			{
+				Speed_ = 450.0f;
+			}
+			else
+			{
+				Speed_ = 150.0f;
+			}
+		}
+
+		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
+		{	
+			MoveDir = float4::DOWN;
+
+			//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+			if (true == GameEngineInput::GetInst()->IsPress("Run"))
+			{
+				Speed_ = 450.0f;
+			}
+			else
+			{
+				Speed_ = 150.0f;
+			}
 		}
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
-	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
-		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-		{
-			Speed_ = 450.0f;
+	{	//내 미래위치
+		float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		//그 때 발바닥 위치
+		float4 CheckPos = NextPos + float4(0.0f, 32.0f);
+
+		int Color = MapColImage_->GetImagePixel(CheckPos);//갈수 있냐 없냐 색 체크
+
+		if (RGB(255,0,0) != Color)
+		{	//빨간색이 아니라면 갈수 이써
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 		}
-		else
-		{
-			Speed_ = 150.0f;
-		}
+		
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
-	{			//현재 위치 + 이동하는 방향
-		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
-		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-		{
-			Speed_ = 450.0f;
-		}
-		else
-		{
-			Speed_ = 150.0f;
-		}
-	}
+	//{	//중력 관련
+	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
+	//	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
-	{
-		//중력
-		AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
-		//if (/*땅에 닿았다면*/)
-		//{
-		//	AccGravity_ = 0.0f;
-		//}
-		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
-	}
+
+	//	//중력
+	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
+	//	if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
+	//	{
+	//		AccGravity_ = 0.0f;
+	//	}
+	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
+	//}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
@@ -122,6 +164,7 @@ void Player::Update()
 		Ptr->SetPosition(GetPosition());
 
 	}
+
 
 	/*if (2.0f < GameEngineInput::GetInst()->GetTime("Fire")) 2초간 기모으고 연사쏘기
 	{

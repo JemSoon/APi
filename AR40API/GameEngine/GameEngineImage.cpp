@@ -226,3 +226,8 @@ void GameEngineImage::Cut(const float4& _CutSize)
 	}
 
 }
+
+int GameEngineImage::GetImagePixel(int _x, int _y)
+{
+	return GetPixel(ImageDC_, _x, _y);
+}

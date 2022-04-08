@@ -39,6 +39,7 @@ public:
 	static float4 RIGHT;
 	static float4 UP;
 	static float4 DOWN;
+	static float4 ZERO;
 
 public:
 	float x;

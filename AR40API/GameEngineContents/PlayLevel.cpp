@@ -8,7 +8,6 @@
 #include "UI.h"
 #include <GameEngineBase/GameEngineWindow.h>
 
-
 PlayLevel::PlayLevel()
 {
 
@@ -29,7 +28,7 @@ void PlayLevel::Loading()
 			float4 BackActor = {};
 			BackActor.x = (Back->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
 			BackActor.y = (Back->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) - 240;
-
+			
 			Back->GetRenderer()->SetPivot(BackActor);
 		}
 
@@ -41,11 +40,7 @@ void PlayLevel::Loading()
 		}
 	}
 
-
-	{	//1스테이지의 UI 로드
-		CreateActor<UI>((int)ORDER::UI);
-	}
-}
+ }
 
 void PlayLevel::Update()
 {

@@ -5,6 +5,7 @@
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
 //설명 : 
+class GameEngineImage;
 class Player : public GameEngineActor
 {
 public:
@@ -33,6 +34,8 @@ private:
 	float Speed_;
 	float Gravity_;
 	float AccGravity_;
+
+	GameEngineImage* MapColImage_;
 
 	void Start() override;
 	void Render() override;
