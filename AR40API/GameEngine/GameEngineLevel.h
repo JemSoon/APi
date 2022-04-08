@@ -2,6 +2,7 @@
 #include "GameEngineBase/GameEngineNameObject.h"
 #include <list>
 #include <map>
+#include <GameEngineBase/GameEngineMath.h>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -64,6 +65,20 @@ public:
 		return NewActor;
 	}
 
+	inline float4 GetCameraPos()
+	{
+		return CameraPos_;
+	}
+
+	inline void MoveCameraPos(const float4& _Value)
+	{
+		CameraPos_ += _Value;
+	}
+
+	inline void SetCameraPos(const float4& _Value)
+	{
+		CameraPos_ = _Value;
+	}
 
 protected:
 	virtual void Loading() = 0;
@@ -82,6 +97,8 @@ private:
 
 	//string을 사용하는건 최악의 수다
 	//std::map<std::string, std::list<GameEngineActor* >> AllActor_;
+
+	float4 CameraPos_;
 
 	void ActorUpdate();
 	void ActorRender();

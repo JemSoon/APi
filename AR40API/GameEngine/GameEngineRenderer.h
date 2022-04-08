@@ -86,6 +86,8 @@ private:
 
 	unsigned int TransColor_;//지우고 싶은 색 설정
 
+	bool IsCameraEffect_;
+
 
 	//////////////////////////////////////////애니메이션↓
 

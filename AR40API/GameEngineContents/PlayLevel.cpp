@@ -38,6 +38,11 @@ void PlayLevel::Loading()
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Mario->SetPosition({ 300.0f,500.0f });
 		}
+
+		{	
+			//1스테이지의 UI 로드
+			CreateActor<UI>((int)ORDER::UI);
+		}
 	}
 
  }

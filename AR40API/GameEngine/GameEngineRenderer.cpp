@@ -1,6 +1,7 @@
 #include "GameEngineRenderer.h"
 #include "GameEngineImageManager.h"
 #include "GameEngine.h"
+#include "GameEngineLevel.h"
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 
@@ -12,6 +13,7 @@ GameEngineRenderer::GameEngineRenderer()
 	,ScaleMode_(RenderScaleMode::Image)
 	,TransColor_(RGB(255,0,255))
 	,RenderImagePivot_({0, 0})
+	, IsCameraEffect_(true)
 {
 
 }
@@ -59,9 +61,13 @@ void GameEngineRenderer::Render()
 		MsgBoxAssert("랜더러에 이미지가 세팅되어 있지 않으면 랜더링이 안됨");
 		return;
 	}
-
 	
 	float4 RenderPos = GetActor()->GetPosition() + RenderPivot_;
+
+	if (true == IsCameraEffect_)
+	{	//플레이어 위치 카메라 위치를 뺀다=0이된다 즉 카메라가 플레이어를 따라간다
+		RenderPos -= GetActor()->GetLevel()->GetCameraPos();
+	}
 
 	switch (PivotType_)
 	{

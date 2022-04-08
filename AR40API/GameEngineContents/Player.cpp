@@ -138,9 +138,10 @@ void Player::Update()
 		if (RGB(255,0,0) != Color)
 		{	//빨간색이 아니라면 갈수 이써
 			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-		
+		}	
 	}
+	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
 
 	//{	//중력 관련
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
@@ -181,17 +182,6 @@ void Player::Update()
 //랜더러가 다 돌아가고 랜더링 된다
 void Player::Render()
 {
-	//DebugRectRender();
-
-	//찾기
-	//GameEngineImage* FindImage = GameEngineImageManager::GetInst()->Find("idle-R.bmp");
-
-	//if (nullptr == FindImage)
-	//{
-	//	MsgBoxAssert("못 찾아..");
-	//}
-
-	////주의:상단에 UI배치 해놨고 UI가 맨 앞이라 0,0하면 가림
-	//GameEngine::BackBufferImage()->BitCopyBot(FindImage, GetPosition());
+	
 
 }
