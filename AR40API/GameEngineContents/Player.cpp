@@ -56,6 +56,7 @@ void Player::Update()
 		//(참고)실제 BG랑 좌표가 안맞음 현재
 		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
 
+
 		if (nullptr == MapColImage_)
 		{
 			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");

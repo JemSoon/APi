@@ -27,7 +27,7 @@ void PlayLevel::Loading()
 		{	//맵 이미지 첫화면에 맞게 맞추기
 			float4 BackActor = {};
 			BackActor.x = (Back->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
-			BackActor.y = (Back->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) - 240;
+			BackActor.y = (Back->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) /*- 240*/;
 			
 			Back->GetRenderer()->SetPivot(BackActor);
 		}
@@ -36,7 +36,7 @@ void PlayLevel::Loading()
 			//1스테이지의 플레이어 로드
 			Player* Mario = CreateActor<Player>((int)ORDER::PLAYER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Mario->SetPosition({ 300.0f,500.0f });
+			Mario->SetPosition({ 740.0f,740.0f });
 		}
 
 		{	
