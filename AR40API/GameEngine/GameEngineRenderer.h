@@ -70,6 +70,16 @@ public:
 	void SetIndex(size_t _Index, const float4& _Scale = {-1, -1});
 	//void SetIndexToScale(size_t _Index, float4 _Scale = {-1.0f, -1.0f});
 
+	void CameraEffectOff()
+	{
+		IsCameraEffect_ = false;
+	}
+
+	void CameraEffectOn()
+	{
+		IsCameraEffect_ = true;
+	}
+
 protected:
 	void Render();
 

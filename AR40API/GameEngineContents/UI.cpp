@@ -29,6 +29,8 @@ void UI::Start()
 		UIPivot.y = -333.0f;// Renderer->GetImage()->GetScale().Half().y;//반 아래로 내림
 
 		Renderer->SetPivot(UIPivot);
+
+		Renderer->CameraEffectOff();//UI는 카메라 영향안받는다
 	}
 	//Pos.y *= 2.0f;
 

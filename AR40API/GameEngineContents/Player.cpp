@@ -90,7 +90,7 @@ void Player::Update()
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
 			{
-				Speed_ = 450.0f;
+				Speed_ = 1800.0f;
 			}
 			else
 			{
@@ -142,7 +142,39 @@ void Player::Update()
 		}	
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
-	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half());
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half()-float4(0.0f, 200.0f));
+
+	if (0 > GetLevel()->GetCameraPos().x)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.x = 0;
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+	if (0 > GetLevel()->GetCameraPos().y)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.y = 0;
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+	
+	float MapSizeX = 13504;//맵 가로 오른쪽 끝
+	float MapSizeY = 1920;//맵 세로 끝
+	float CameraRectY = 720;//카메라 세로 끝
+	float CameraRectX = 1280;
+
+	if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
+	{	//카메라가 화면 밖에 못나가게
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+	if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+
 
 	//{	//중력 관련
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
@@ -154,7 +186,7 @@ void Player::Update()
 	//	
 	//	if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
 	//	{
-	//		AccGravity_ = 0.0f;
+	//		AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
 	//	}
 	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	//}
