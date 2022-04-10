@@ -142,7 +142,7 @@ void Player::Update()
 		}	
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
-	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half()-float4(0.0f, 200.0f));
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half()-float4(-200.0f, 200.0f));
 
 	if (0 > GetLevel()->GetCameraPos().x)
 	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
@@ -178,7 +178,7 @@ void Player::Update()
 
 	//{	//중력 관련
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
-	//	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
+	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
 
 	//	//중력

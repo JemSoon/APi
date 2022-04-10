@@ -36,7 +36,7 @@ void PlayLevel::Loading()
 			//1스테이지의 플레이어 로드
 			Player* Mario = CreateActor<Player>((int)ORDER::PLAYER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Mario->SetPosition({ 740.0f,740.0f });
+			Mario->SetPosition({ 320.0f,740.0f });
 		}
 
 		{	
