@@ -11,6 +11,7 @@
 //설명 : 
 class GameEngineRenderer;
 class GameEngineLevel;
+class GameEngineCollision;
 class GameEngineActor : public GameEngineNameObject, public GameEngineUpdateObject
 {
 public:
@@ -95,5 +96,20 @@ private:
 	std::list<GameEngineRenderer*>::iterator EndRenderIter;
 
 	std::list<GameEngineRenderer*> RenderList_;
+
+	
+	
+	
+	
+
+public:
+	/*=================여기서 부터 충돌====================*/
+	GameEngineCollision* CreateCollision(const std::string& _GroupName, float4 _Scale, float4 _Pivot = {0,0});
+	//플레이어그룹,몬스터그룹,플레이어 어택그룹, 몬스터 어택그룹 등//충돌 박스 사이즈//충돌 박스 기준점 (위치)
+
+
+private:
+	std::list<GameEngineCollision*> CollisionList_;
+
 };
 

@@ -6,6 +6,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImage.h>
+#include <GameEngine/GameEngineCollision.h>
 
 #include <GameEngine/GameEngineLevel.h>//레벨을 통해서
 #include "Bullet.h"//총알을 만들고 싶다
@@ -28,6 +29,8 @@ void Player::Start()
 	//SetPosition(GameEngineWindow::GetScale().Half());
 	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,64 });
+
+	PlayerCollision = CreateCollision("PlayerHitBox", {100, 100});
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	GameEngineRenderer* Render = CreateRenderer();
@@ -175,11 +178,23 @@ void Player::Update()
 		GetLevel()->SetCameraPos(CameraPos);
 	}
 
+	if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
+	{
+		PlayerCollision->Collision("Door");
+	}
 
 	//{	//중력 관련
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
-	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
+	//int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
+	//충돌 설정 인터페이스
+	//1.우선 충돌체를 만든다(랜더러와 똑같음)
+	//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
+	//GameEngineCollision* MyCollision;
+	//if (true == MyCollision->Collision("Door"))
+	//{
+	//	int a = 0;
+	//}
 
 	//	//중력
 	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨

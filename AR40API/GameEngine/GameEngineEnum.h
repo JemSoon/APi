@@ -3,11 +3,19 @@
 enum class RenderPivot
 {
 	CENTER,
-	BOT
+	BOT,
 };
 
 enum class RenderScaleMode
 {
 	Image,
-	User
+	User,
+};
+
+enum class CollisionType
+{
+	Point,
+	Circle,
+	Rect,
+	Max
 };

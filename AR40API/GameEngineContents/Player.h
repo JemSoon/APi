@@ -6,6 +6,7 @@
 
 //Ό³Έν : 
 class GameEngineImage;
+class GameEngineCollision;
 class Player : public GameEngineActor
 {
 public:
@@ -36,6 +37,7 @@ private:
 	float AccGravity_;
 
 	GameEngineImage* MapColImage_;
+	GameEngineCollision* PlayerCollision;
 
 	void Start() override;
 	void Render() override;
