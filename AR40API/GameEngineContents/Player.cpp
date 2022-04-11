@@ -257,6 +257,6 @@ void Player::DoorCheck()
 {
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
-		//GameEngine::GetInst().ChangeLevel("Play2");
+		GameEngine::GetInst().ChangeLevel("Play2");
 	}
 }

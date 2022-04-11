@@ -41,7 +41,7 @@ public:
 
 	inline bool IsDeath() override
 	{
-		return GameEngineUpdateObject::IsDeath() || Actor_->IsUpdate();
+		return GameEngineUpdateObject::IsDeath() && Actor_->IsUpdate();//이거 ||로하면 터져..
 	}
 
 protected:
