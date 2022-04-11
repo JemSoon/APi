@@ -180,6 +180,7 @@ void Player::Update()
 
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngine::GetInst().ChangeLevel("Play2");//1탄 문에 닿으면 스테이지 변경
 		int a = 0;
 	}
 

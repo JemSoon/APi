@@ -31,7 +31,7 @@ void TitleLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Intro");//넘기는기능
+		GameEngine::GetInst().ChangeLevel("Intro");//넘기는기능
 	}
 	
 }

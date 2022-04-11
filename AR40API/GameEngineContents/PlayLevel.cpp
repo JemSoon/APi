@@ -53,7 +53,7 @@ void PlayLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Intro");
+		GameEngine::GetInst().ChangeLevel("Intro");
 	}
 
 }

@@ -22,7 +22,7 @@ void PlayLevel2::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Intro");
+		GameEngine::GetInst().ChangeLevel("Intro");
 	}
 }
 

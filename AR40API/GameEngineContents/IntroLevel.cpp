@@ -34,22 +34,22 @@ void IntroLevel::Update()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Play1"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Play1");//넘기는기능
+		GameEngine::GetInst().ChangeLevel("Play1");//넘기는기능
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Play2"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Play2");//넘기는기능
+		GameEngine::GetInst().ChangeLevel("Play2");//넘기는기능
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Play3"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Play3");//넘기는기능
+		GameEngine::GetInst().ChangeLevel("Play3");//넘기는기능
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Title"))
 	{
-		GameEngine::GlobalEngine().ChangeLevel("Title");//넘기는기능
+		GameEngine::GetInst().ChangeLevel("Title");//넘기는기능
 	}
 }
 
