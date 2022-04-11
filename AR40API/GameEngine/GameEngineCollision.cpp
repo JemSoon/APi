@@ -17,7 +17,7 @@ bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
 	GameEngineRect LeftRc = _Left->GetRect();
 	GameEngineRect RightRC = _Right->GetRect();
 
-	return LeftRc.OverLap(RightRc);
+	return LeftRc.OverLap(RightRC);
 }
 
 class CollisionInit
@@ -34,9 +34,9 @@ CollisionInit InitInst = CollisionInit();
 
 GameEngineCollision::GameEngineCollision()
 	:Pivot_(float4::ZERO)
-	,Scale_(float4::ZERO)
+	, Scale_(float4::ZERO)
 {
-	
+
 }
 
 GameEngineCollision::~GameEngineCollision()
@@ -45,7 +45,7 @@ GameEngineCollision::~GameEngineCollision()
 }
 
 bool GameEngineCollision::CollisionCheck(
-	const std::string& _TargetGroup, 
+	const std::string& _TargetGroup,
 	CollisionType _This /*= CollisionType::Circle*/,
 	CollisionType _Target /*= CollisionType::Circle*/)
 {
@@ -73,19 +73,32 @@ bool GameEngineCollision::CollisionCheck(
 	{
 		//나와 상대의 비교
 		//_This, _Tartget
-	
+
 		if (CollisionCheckArray[static_cast<int>(_This)][static_cast<int>(_Target)](this, *StartIter))
 		{
 			return true;
 		}
-		
+
 
 		//bool CollCheck(GameEngineCollision* _Left, GameEngineCollision* _Right);
 		//bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
 		//bool CircleToCircle(GameEngineCollision* _Left, GameEngineCollision* _Right);
 		//bool CollCheck(GameEngineCollision* _Left, GameEngineCollision* _Right);
-		
+
 		//this 비교 (*StartIter)
 	}
 	return false;
+}
+
+void GameEngineCollision::DebugRender()
+{
+	GameEngineRect DebugRect(GetActor()->GetCameraEffectPosition() + Pivot_, Scale_);
+
+	Rectangle(
+		GameEngine::BackBufferDC(),
+		DebugRect.CenterLeft(),
+		DebugRect.CenterTop(),
+		DebugRect.CenterRight(),
+		DebugRect.CenterBot()
+	);
 }

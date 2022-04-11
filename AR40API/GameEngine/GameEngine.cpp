@@ -6,7 +6,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
-GameEngineLevel* GameEngine::CurrentLevel_=nullptr;
+GameEngineLevel* GameEngine::CurrentLevel_ = nullptr;
 GameEngineLevel* GameEngine::NextLevel_ = nullptr;
 GameEngine* GameEngine::UserContents_ = nullptr;
 
@@ -67,7 +67,7 @@ void GameEngine::EngineLoop()
 
 	//시점 함수 라고 하는데 레벨이 바뀌는 순간의 가상함수를 만듦
 
-	if (nullptr!= NextLevel_)
+	if (nullptr != NextLevel_)
 	{
 		if (nullptr != CurrentLevel_)
 		{
@@ -86,9 +86,9 @@ void GameEngine::EngineLoop()
 		//넘어갈때 화면청소
 		Rectangle(WindowMainImage_->ImageDC(), 0, 0, WindowMainImage_->GetScale().ix(), WindowMainImage_->GetScale().iy());
 		Rectangle(BackBufferImage_->ImageDC(), 0, 0, BackBufferImage_->GetScale().ix(), BackBufferImage_->GetScale().iy());
-		
+
 	}
-		
+
 	if (nullptr == CurrentLevel_)
 	{
 		MsgBoxAssert("Level is nullptr GameEngine Loop Error");
@@ -101,6 +101,7 @@ void GameEngine::EngineLoop()
 	CurrentLevel_->Update();
 	CurrentLevel_->ActorUpdate();
 	CurrentLevel_->ActorRender();
+	CurrentLevel_->CollisionDebugRender();
 	WindowMainImage_->BitCopy(BackBufferImage_);
 	CurrentLevel_->ActorRelease();
 }
@@ -109,10 +110,10 @@ void GameEngine::EngineEnd()
 {
 	UserContents_->GameEnd();
 
-	std::map<std::string, GameEngineLevel*>::iterator StartIter= AllLevel_.begin();
-	std::map<std::string, GameEngineLevel*>::iterator EndIter= AllLevel_.end();
+	std::map<std::string, GameEngineLevel*>::iterator StartIter = AllLevel_.begin();
+	std::map<std::string, GameEngineLevel*>::iterator EndIter = AllLevel_.end();
 
-	for (; StartIter!=EndIter;++StartIter)
+	for (; StartIter != EndIter; ++StartIter)
 	{
 		if (nullptr == StartIter->second)
 		{

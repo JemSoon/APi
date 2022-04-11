@@ -12,11 +12,11 @@ private:
 	//디폴트 소멸자
 	~GameEngineMath();
 
-	
-	
-	
+
+
+
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngineMath(const GameEngineMath& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -92,7 +92,7 @@ public:
 
 	float4 Half() const
 	{
-		return { x * 0.5f, y * 0.5f,z * 0.5f, 1.0f};
+		return { x * 0.5f, y * 0.5f,z * 0.5f, 1.0f };
 	}
 
 	float4 operator-(const float4& _Other) const
@@ -179,19 +179,33 @@ public:
 
 	bool OverLap(const GameEngineRect& _Other)
 	{
-		if (CenterBot() > _Other.CenterTop())
+		if (CenterBot() < _Other.CenterTop())
 		{
 			return false;
 		}
-		
-		
-		return;
+
+		if (CenterTop() > _Other.CenterBot())
+		{
+			return false;
+		}
+
+		if (CenterRight() < _Other.CenterLeft())
+		{
+			return false;
+		}
+
+		if (CenterLeft() > _Other.CenterRight())
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 public:
 	GameEngineRect(float4 _Pos, float4 _Scale)
 		:Pos(_Pos)
-		,Scale(_Scale)
+		, Scale(_Scale)
 	{
 
 	}

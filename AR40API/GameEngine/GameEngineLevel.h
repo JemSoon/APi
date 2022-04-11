@@ -23,11 +23,11 @@ public:
 	//디폴트 소멸자
 	virtual ~GameEngineLevel();
 
-	
-	
-	
+
+
+
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngineLevel(const GameEngineLevel& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -38,7 +38,7 @@ public:
 
 
 	template<typename ActorType>
-	ActorType* CreateActor(int _Order = 0, const std::string& _Name="")
+	ActorType* CreateActor(int _Order = 0, const std::string& _Name = "")
 	{
 		//한 화면에 몇개만들지 알수없다(동적할당)
 		ActorType* NewActor = new ActorType();//얘가 Name, Level받는게 낫지않냐? = 상속 받고있는데?
@@ -93,7 +93,7 @@ protected:
 	virtual void LevelChangeEnd() {}
 	//이전레벨->현재레벨 이동시 이전레벨이 실행하는 함수
 
-	
+
 
 private:
 	//내가 마리오를 만들거야 거묵이를 만들거야 다 여기 들어오게됨
@@ -106,6 +106,7 @@ private:
 
 	void ActorUpdate();
 	void ActorRender();
+	void CollisionDebugRender();
 	void ActorRelease();
 
 private:

@@ -113,6 +113,9 @@ GameEngineCollision* GameEngineActor::CreateCollision(const std::string& _GroupN
 	
 	NewCollision->SetActor(this);
 
+	NewCollision->SetPivot(_Pivot);
+	NewCollision->SetScale(_Scale);
+
 	GetLevel()->AddCollision(_GroupName, NewCollision);
 
 	return NewCollision;

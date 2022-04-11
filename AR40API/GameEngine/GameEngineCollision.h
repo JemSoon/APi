@@ -56,14 +56,16 @@ public:
 
 	//충돌한 대상이 존재하면 ture리턴하는 함수(충돌한 대상이 있는지 없는지만 체크하는 함수)
 	bool CollisionCheck(
-		const std::string& _TargetGroup, 
-		CollisionType _This = CollisionType::Circle, 
+		const std::string& _TargetGroup,
+		CollisionType _This = CollisionType::Circle,
 		CollisionType _Target = CollisionType::Circle);
 	//부딪히는 대상이랑 충돌판별, 그리고 나는 무슨타입으로 볼거냐
 	//Player	Bullet
 	//방패		적의 총알을 막는다
 	//방패		적의 총알
-	
+
+	void DebugRender();
+
 
 private:
 	friend class FrameAnimation;

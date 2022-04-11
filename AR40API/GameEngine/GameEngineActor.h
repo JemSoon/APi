@@ -1,4 +1,5 @@
 #pragma once
+#include "GameEngineLevel.h"
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineUpdateObject.h>
 #include <GameEngineBase/GameEngineMath.h>
@@ -23,7 +24,7 @@ public:
 	virtual ~GameEngineActor();
 
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngineActor(const GameEngineActor& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -37,6 +38,10 @@ public:
 		return Level_;
 	}
 
+	inline float4 GetCameraEffectPosition()
+	{
+		return Position_ - GetLevel()->GetCameraPos();
+	}
 	inline float4 GetPosition()
 	{
 		return Position_;
@@ -63,7 +68,7 @@ public:
 protected:
 	//start는 무조건 구현
 	virtual void Start() = 0;//시작하면 뭔갈 하고싶은데 생성자에서는 절대로 못할 부분들을 처리한다
-	
+
 	virtual void Update() {}//스킬을 갖는다 레벨을 올린다 등등을 업데이트(지속적으로 겜이 실행될때 호출됨)
 
 	virtual void Render() {}
@@ -90,21 +95,21 @@ public:
 	GameEngineRenderer* CreateRendererToScale(const std::string& _Image, const float4& _Scale, RenderPivot _PivotType = RenderPivot::CENTER, const float4& _PivotPos = { 0,0 });
 
 	void Renderering();
-	
+
 private:
 	std::list<GameEngineRenderer*>::iterator StartRenderIter;
 	std::list<GameEngineRenderer*>::iterator EndRenderIter;
 
 	std::list<GameEngineRenderer*> RenderList_;
 
-	
-	
-	
-	
+
+
+
+
 
 public:
 	/*=================여기서 부터 충돌====================*/
-	GameEngineCollision* CreateCollision(const std::string& _GroupName, float4 _Scale, float4 _Pivot = {0,0});
+	GameEngineCollision* CreateCollision(const std::string& _GroupName, float4 _Scale, float4 _Pivot = { 0,0 });
 	//플레이어그룹,몬스터그룹,플레이어 어택그룹, 몬스터 어택그룹 등//충돌 박스 사이즈//충돌 박스 기준점 (위치)
 
 
