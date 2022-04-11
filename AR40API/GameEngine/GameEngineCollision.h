@@ -44,6 +44,16 @@ public:
 		Scale_ = _Scale;
 	}
 
+	inline float4 GetCollisionPos()
+	{
+		return GetActor()->GetPosition() + Pivot_;
+	}
+
+	inline GameEngineRect GetRect()
+	{
+		return GameEngineRect(GetActor()->GetPosition() + Pivot_, Scale_);
+	}
+
 	//충돌한 대상이 존재하면 ture리턴하는 함수(충돌한 대상이 있는지 없는지만 체크하는 함수)
 	bool CollisionCheck(
 		const std::string& _TargetGroup, 
@@ -63,6 +73,7 @@ private:
 
 	//그 위치에서 얼만한 크기로
 	float4 Scale_;
+
 
 };
 

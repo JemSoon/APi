@@ -21,15 +21,17 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Loading()
 {	
 	{	//1스테이지의 배경 로드
-		BackGround* Back = CreateActor<BackGround>((int)ORDER::BACKGROUND);
-		Back->GetRenderer()->SetImage("Map1-1All.bmp");
+		BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
+		Actor->GetRenderer()->SetImage("Map1-1All.bmp");
 
 		{	//맵 이미지 첫화면에 맞게 맞추기
 			float4 BackActor = {};
-			BackActor.x = (Back->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
-			BackActor.y = (Back->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) /*- 240*/;
+			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
+			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) /*- 240*/;
 			
-			Back->GetRenderer()->SetPivot(BackActor);
+			Actor->GetRenderer()->SetPivot(BackActor);
+
+			Actor->CreateCollision("Door",{100,100}, {980, 780});//문 콜리젼 임시생성
 		}
 
 		{

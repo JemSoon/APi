@@ -111,5 +111,9 @@ GameEngineCollision* GameEngineActor::CreateCollision(const std::string& _GroupN
 {
 	GameEngineCollision* NewCollision = new GameEngineCollision();
 	
+	NewCollision->SetActor(this);
+
 	GetLevel()->AddCollision(_GroupName, NewCollision);
+
+	return NewCollision;
 }

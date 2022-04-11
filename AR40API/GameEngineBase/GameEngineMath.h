@@ -157,24 +157,35 @@ public:
 	float4 Scale;
 
 public:
-	int CenterLeft()
+	int CenterLeft() const
 	{
 		return Pos.ix() - Scale.hix();//센터 기준으로 할거라 절반
 	}
 
-	int CenterRight()
+	int CenterRight() const
 	{
 		return Pos.ix() + Scale.hix();//센터 기준으로 할거라 절반
 	}
 
-	int CenterTop()
+	int CenterTop() const
 	{
 		return Pos.iy() - Scale.hiy();//센터 기준으로 할거라 절반
 	}
 
-	int CenterBot()
+	int CenterBot() const
 	{
 		return Pos.iy() + Scale.hiy();//센터 기준으로 할거라 절반
+	}
+
+	bool OverLap(const GameEngineRect& _Other)
+	{
+		if (CenterBot() > _Other.CenterTop())
+		{
+			return false;
+		}
+		
+		
+		return;
 	}
 
 public:

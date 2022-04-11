@@ -178,10 +178,15 @@ void Player::Update()
 		GetLevel()->SetCameraPos(CameraPos);
 	}
 
-	if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
+	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
-		PlayerCollision->Collision("Door");
+		int a = 0;
 	}
+
+	//if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
+	//{
+	//	PlayerCollision->Collision("Door");
+	//}
 
 	//{	//중력 관련
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
