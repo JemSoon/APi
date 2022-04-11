@@ -178,11 +178,10 @@ void Player::Update()
 		GetLevel()->SetCameraPos(CameraPos);
 	}
 
-	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
-	{
-		GameEngine::GetInst().ChangeLevel("Play2");//1탄 문에 닿으면 스테이지 변경
-		int a = 0;
-	}
+	WallCheck();
+	DoorCheck();
+
+
 
 	//if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
 	//{
@@ -239,4 +238,25 @@ void Player::Render()
 {
 	
 
+}
+
+void Player::WallCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+		}
+	}
+}
+
+void Player::DoorCheck()
+{
+	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
+	{
+		//GameEngine::GetInst().ChangeLevel("Play2");
+	}
 }

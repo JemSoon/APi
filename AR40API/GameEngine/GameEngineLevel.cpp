@@ -118,18 +118,22 @@ void GameEngineLevel::CollisionDebugRender()
 	std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupStart = AllCollision_.begin();
 	std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupEnd = AllCollision_.end();
 
-	std::list<GameEngineCollision*>::iterator StartActor;
-	std::list<GameEngineCollision*>::iterator EndActor;
+	std::list<GameEngineCollision*>::iterator StartCollision;
+	std::list<GameEngineCollision*>::iterator EndCollision;
 
 	for (; GroupStart != GroupEnd; ++GroupStart)
 	{
 		std::list<GameEngineCollision*>& Group = GroupStart->second;
-		StartActor = Group.begin();
-		EndActor = Group.end();
+		StartCollision = Group.begin();
+		EndCollision = Group.end();
 
-		for (; StartActor != EndActor; ++StartActor)
+		for (; StartCollision != EndCollision; ++StartCollision)
 		{
-			(*StartActor)->DebugRender();
+			if (false == (*StartCollision)->IsUpdate())
+			{
+				continue;
+			}
+			(*StartCollision)->DebugRender();
 		}
 	}
 
@@ -137,36 +141,69 @@ void GameEngineLevel::CollisionDebugRender()
 
 void GameEngineLevel::ActorRelease()
 {
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
-	std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
+	//콜리전, 랜더 삭제(부분 삭제)
+	{	//액터가 날라가면 이미 콜리젼,랜더 다 날라가기땜에 먼저
+		std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupStart = AllCollision_.begin();
+		std::map<std::string, std::list<GameEngineCollision*>>::iterator GroupEnd = AllCollision_.end();
 
-	std::list<GameEngineActor*>::iterator StartActor;
-	std::list<GameEngineActor*>::iterator EndActor;
+		std::list<GameEngineCollision*>::iterator StartCollision;
+		std::list<GameEngineCollision*>::iterator EndCollision;
 
-	GroupStart = AllActor_.begin();
-	GroupEnd = AllActor_.end();
-
-
-	for (; GroupStart != GroupEnd; ++GroupStart)
-	{
-		std::list<GameEngineActor*>& Group = GroupStart->second;
-
-		StartActor = Group.begin();
-		EndActor = Group.end();
-
-		for (; StartActor != EndActor;)
+		for (; GroupStart != GroupEnd; ++GroupStart)
 		{
-			if (true == (*StartActor)->IsDeath())
+			std::list<GameEngineCollision*>& Group = GroupStart->second;
+			StartCollision = Group.begin();
+			EndCollision = Group.end();
+
+			for (; StartCollision != EndCollision;)
 			{
-				delete* StartActor;//실제적인 메모리를 날림
+				if (false == (*StartCollision)->IsDeath())
+				{
+					++StartCollision;
+					continue;//죽은애가 아니니 그냥 지나간다
+				}
 
-				StartActor = Group.erase(StartActor);//리스트 노드를 날림
-
-				continue;
+				StartCollision = Group.erase(StartCollision);
 			}
-			++StartActor;
 		}
+	}
 
+	//액터의 삭제(전체삭제)
+	{
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupStart;
+		std::map<int, std::list<GameEngineActor*>>::iterator GroupEnd;
+
+		std::list<GameEngineActor*>::iterator StartActor;
+		std::list<GameEngineActor*>::iterator EndActor;
+
+		GroupStart = AllActor_.begin();
+		GroupEnd = AllActor_.end();
+
+
+		for (; GroupStart != GroupEnd; ++GroupStart)
+		{
+			std::list<GameEngineActor*>& Group = GroupStart->second;
+
+			StartActor = Group.begin();
+			EndActor = Group.end();
+
+			for (; StartActor != EndActor;)
+			{
+				if (true == (*StartActor)->IsDeath())
+				{
+					delete* StartActor;//실제적인 메모리를 날림
+
+					StartActor = Group.erase(StartActor);//리스트 노드를 날림
+
+					continue;
+				}
+
+				//삭제가 안됬다면 콜리전이나 랜더러를 확인해본다
+				(*StartActor)->Release();
+
+				++StartActor;
+			}
+		}
 	}
 }
 

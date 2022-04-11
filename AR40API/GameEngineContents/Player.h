@@ -42,5 +42,8 @@ private:
 	void Start() override;
 	void Render() override;
 	void Update() override;
+
+	void DoorCheck();
+	void WallCheck();
 };
 

@@ -14,7 +14,7 @@ BackGround::~BackGround()
 }
 
 void BackGround::Start()
-{
+{	//배경을 0,0기준으로 설정
 	SetPosition(GameEngineWindow::GetScale().Half());
 	SetScale(GameEngineWindow::GetScale());
 	Image_ = CreateRenderer();

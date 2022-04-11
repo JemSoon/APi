@@ -73,6 +73,8 @@ protected:
 
 	virtual void Render() {}
 
+	void Release();
+
 	void DebugRectRender();
 private:
 	GameEngineLevel* Level_;

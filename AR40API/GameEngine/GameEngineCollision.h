@@ -2,6 +2,7 @@
 #include "GameEngineActorSubObject.h"
 #include "GameEngineEnum.h"
 #include "GameEngineImage.h"
+#include <vector>
 #include <map>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
@@ -63,6 +64,12 @@ public:
 	//Player	Bullet
 	//방패		적의 총알을 막는다
 	//방패		적의 총알
+
+	bool CollisionResult(
+		const std::string& _TargetGroup,
+		std::vector<GameEngineCollision*>& _ColResult,//니가 여기다 넣어줘
+		CollisionType _This = CollisionType::Circle,
+		CollisionType _Target = CollisionType::Circle);
 
 	void DebugRender();
 

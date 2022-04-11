@@ -5,7 +5,7 @@
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
 //설명 : 
-class GameEngineActorSubObject
+class GameEngineActorSubObject : public GameEngineUpdateObject
 {
 	friend GameEngineActor;
 
@@ -31,6 +31,17 @@ public:
 	inline GameEngineActor* GetActor()
 	{
 		return Actor_;
+	}
+
+	inline bool IsUpdate() override
+	{
+		//나의 IsUpdate_ && false == IsDeath_
+		return GameEngineUpdateObject::IsUpdate() || Actor_->IsUpdate();
+	}
+
+	inline bool IsDeath() override
+	{
+		return GameEngineUpdateObject::IsDeath() || Actor_->IsUpdate();
 	}
 
 protected:

@@ -12,7 +12,6 @@ int __stdcall WinMain(_In_ HINSTANCE hInstance,
 	_In_ char*		lpCmdLine,
 	_In_ int		nCmdShow)
 {
-
 	//new int();//신뢰의 릭
 	// 
 	//내가 만들고 싶은게임의 클래스를 템플릿으로

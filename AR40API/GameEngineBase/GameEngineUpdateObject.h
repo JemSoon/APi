@@ -37,9 +37,14 @@ public:
 		IsUpdate_ = false;
 	}
 
-	virtual bool IsUpdate()
+	inline virtual bool IsUpdate()
 	{
 		return IsUpdate_ && false == IsDeath_;
+	}
+
+	inline virtual bool IsDeath()
+	{
+		return IsDeath_;
 	}
 
 	inline void Death()
@@ -68,10 +73,7 @@ public:
 		DeathTime_ = _Time;
 	}
 
-	inline bool IsDeath()
-	{
-		return IsDeath_;
-	}
+
 
 protected:
 

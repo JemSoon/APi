@@ -13,19 +13,35 @@ GameEngineActor::GameEngineActor()
 
 GameEngineActor::~GameEngineActor()
 {
-	std::list<GameEngineRenderer*>::iterator StartIter = RenderList_.begin();
-	std::list<GameEngineRenderer*>::iterator EndIter = RenderList_.end();
+	{	//랜더러 정리
+		std::list<GameEngineRenderer*>::iterator StartIter = RenderList_.begin();
+		std::list<GameEngineRenderer*>::iterator EndIter = RenderList_.end();
 
-	for (; StartIter != EndIter; ++StartIter)
-	{
-		if (nullptr == (*StartIter))
+		for (; StartIter != EndIter; ++StartIter)
 		{
-			continue;
+			if (nullptr == (*StartIter))
+			{
+				continue;
+			}
+			delete (*StartIter);
+			(*StartIter) = nullptr;
 		}
-		delete (*StartIter);
-		(*StartIter) = nullptr;
 	}
 
+	{	//콜리젼 정리
+		std::list<GameEngineCollision*>::iterator StartIter = CollisionList_.begin();
+		std::list<GameEngineCollision*>::iterator EndIter = CollisionList_.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			if (nullptr == (*StartIter))
+			{
+				continue;
+			}
+			delete (*StartIter);
+			(*StartIter) = nullptr;
+		}
+	}
 }
 
 void GameEngineActor::DebugRectRender()
@@ -85,6 +101,10 @@ void GameEngineActor::Renderering()
 
 	for (; StartRenderIter != EndRenderIter; ++StartRenderIter)
 	{
+		if (false == (*StartRenderIter)->IsUpdate())
+		{
+			continue;
+		}
 		(*StartRenderIter)->Render();
 	}
 }
@@ -118,5 +138,52 @@ GameEngineCollision* GameEngineActor::CreateCollision(const std::string& _GroupN
 
 	GetLevel()->AddCollision(_GroupName, NewCollision);
 
+	CollisionList_.push_back(NewCollision);
+
 	return NewCollision;
+}
+
+void GameEngineActor::Release()
+{	//부분적으로 오브젝트가 뒤져야할때(벽돌 뿌시기같이)
+	//죽을애 있나~ 돌면서 체크해줌
+	//액터를 날리면 어떻게된다? = 다죽는다
+	//즉 콜리전만 파괴하고 싶거나 그럴때 쓴다
+	{
+		std::list<GameEngineRenderer*>::iterator StartIter = RenderList_.begin();
+		std::list<GameEngineRenderer*>::iterator EndIter = RenderList_.end();
+
+		for (; StartIter != EndIter;)
+		{
+			if (false == (*StartIter)->IsDeath())
+			{
+				++StartIter;
+				continue;
+			}
+
+			delete (*StartIter);
+
+			StartIter = RenderList_.erase(StartIter);
+
+		}
+	}
+
+	{	
+		std::list<GameEngineCollision*>::iterator StartIter = CollisionList_.begin();
+		std::list<GameEngineCollision*>::iterator EndIter = CollisionList_.end();
+
+		for (; StartIter != EndIter;)
+		{
+			if (false == (*StartIter)->IsDeath())
+			{
+				++StartIter;
+				continue;
+			}
+
+			delete (*StartIter);
+
+			StartIter = CollisionList_.erase(StartIter);
+
+		}
+	}
+
 }
