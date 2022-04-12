@@ -4,6 +4,14 @@
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
+enum PlayerState
+{
+	Idle,
+	Attack,
+	Move,
+	Max
+};
+
 //설명 : 
 class GameEngineImage;
 class GameEngineCollision;
@@ -31,6 +39,8 @@ public:
 
 protected:
 
+
+
 private:
 	float Speed_;
 	float Gravity_;
@@ -45,5 +55,27 @@ private:
 
 	void DoorCheck();
 	void WallCheck();
+
+private:
+	PlayerState CurState_;
+
+	bool IsMoveKey();
+	void KeyMove();
+
+public:
+	void ChangeState(PlayerState _State);
+	void StateUpdate();
+
+	//FSM======
+	//FSM의 금기 IdelUpdate에서는 AttackUpdate가 절대 실행되선 안된다
+	//(단 하나도 들어가면 안된다)
+	void IdleUpdate();
+	void AttackUpdate();
+	void MoveUpdate();
+	
+	void IdleStart();
+	void AttackStart();
+	void MoveStart();
+
 };
 
