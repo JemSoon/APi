@@ -44,9 +44,22 @@ void SuperMario::GameInit()
 
 		{
 			//이미지를 찾아
-			GameEngineImage* Image = GameEngineImageManager::GetInst()->Find("walk-R.bmp");
+			GameEngineImage* Image0 = GameEngineImageManager::GetInst()->Find("walk-R.bmp");
 			//그리구 이미지를 한프레임 단위로 잘라줘
-			Image->CutCount( 3, 1 );//Walk-L이미지를 가로3 세로1로 짤라라
+			Image0->CutCount( 3, 1 );//Walk-L이미지를 가로3 세로1로 짤라라
+
+			GameEngineImage* Image1 = GameEngineImageManager::GetInst()->Find("walk-L.bmp");
+			
+			Image1->CutCount(3, 1);
+
+			GameEngineImage* Image3 = GameEngineImageManager::GetInst()->Find("idle-L.bmp");
+			
+			Image3->Cut({ 64, 64 });
+
+			GameEngineImage* Image4 = GameEngineImageManager::GetInst()->Find("idle-R.bmp");
+
+			Image4->Cut({ 64, 64 });
+
 			//총알도 찾아
 			GameEngineImage* Image2 = GameEngineImageManager::GetInst()->Find("Bullet.bmp");
 			//그리구 이미지를 한프레임 단위로 잘라줘

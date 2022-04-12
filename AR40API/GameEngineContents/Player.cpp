@@ -31,14 +31,20 @@ void Player::Start()
 	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,64 });
 
-	PlayerCollision = CreateCollision("PlayerHitBox", {100, 100});
+	PlayerCollision = CreateCollision("PlayerHitBox", {64, 64});
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
-	GameEngineRenderer* Render = CreateRenderer();
+	PlayerAnimationRender = CreateRenderer();
 	//0~1인덱스 0.1초마다(true면 반복,false면 한번만재생)
-	Render->CreateAnimation("walk-R.bmp", "Walk-R", 0, 2, 0.1f, true);
-	Render->ChangeAnimation("Walk-R");
+	PlayerAnimationRender->CreateAnimation("walk-R.bmp", "Walk-R", 0, 2, 0.1f, true);
+	PlayerAnimationRender->CreateAnimation("walk-L.bmp", "Walk-L", 0, 2, 0.1f, true);
+	PlayerAnimationRender->CreateAnimation("idle-R.bmp", "idle-R", 0, 0, 0.0f, false);
+	PlayerAnimationRender->CreateAnimation("idle-L.bmp", "idle-L", 0, 0, 0.0f, false);
+	PlayerAnimationRender->ChangeAnimation("idle-R");
+	//PlayerAnimationRender->ChangeAnimation("Walk-L");
 
+	//AnimationName = "Walk-";
+	CurDir_ = PlayerDir::Right;
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다
@@ -56,6 +62,9 @@ void Player::Start()
 
 void Player::Update()
 {
+	DirAnimationCheck();
+	PlayerStateUpdate();
+
 	{	//맵과 캐릭터의 충돌설정용
 		//(참고)실제 BG랑 좌표가 안맞음 현재
 		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
@@ -79,7 +88,7 @@ void Player::Update()
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
 			{
-				Speed_ = 450.0f;
+				Speed_ = 1800.0f;
 			}
 			else
 			{
@@ -260,4 +269,47 @@ void Player::DoorCheck()
 	{
 		GameEngine::GetInst().ChangeLevel("Play2");
 	}
+}
+void Player::DirAnimationCheck()
+{
+	std::string ChangeName;
+
+	PlayerDir CheckDir_ = CurDir_;
+	std::string ChangeDirText = "R";
+
+	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		CheckDir_ = PlayerDir::Right;
+		ChangeName = "Walk-";
+		ChangeDirText = "R";
+	}
+	else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
+	{
+		CheckDir_ = PlayerDir::Right;
+		ChangeName = "idle-";
+		ChangeDirText = "R";
+	}
+
+	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	{
+		CheckDir_ = PlayerDir::Left;
+		ChangeName = "Walk-";
+		ChangeDirText = "L";
+	}
+	else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
+	{
+		CheckDir_ = PlayerDir::Left;
+		ChangeName = "idle-";
+		ChangeDirText = "L";
+	}
+
+	if (CheckDir_ != CurDir_)
+	{
+		PlayerAnimationRender->ChangeAnimation(ChangeName + ChangeDirText);
+	}
+}
+
+void Player::PlayerStateUpdate()
+{
+
 }
