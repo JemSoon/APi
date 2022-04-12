@@ -15,7 +15,7 @@ Player::Player()
 	:Speed_(150.0f)
 	,Gravity_(100.0f)
 {
-	 
+
 }
 
 Player::~Player()
