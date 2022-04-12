@@ -42,6 +42,9 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("idle-L.bmp", "idle-L", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
 	//PlayerAnimationRender->ChangeAnimation("Walk-L");
+	GameEngineRenderer* Render1 = CreateRendererToScale("idle-L.bmp", { 300,300 }, 5);
+	Render1->SetPivot({ 100.0f,0.0f });
+
 
 	//AnimationName = "Walk-";
 	CurDir_ = PlayerDir::Start;
@@ -82,6 +85,7 @@ void Player::Update()
 	{	//움직임 조작
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
+			PlayerAnimationRender->SetOrder(30000);
 			MoveDir = float4::LEFT;
 
 			//현재 위치 + 이동하는 방향
@@ -227,6 +231,18 @@ void Player::Update()
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
+		
+		////플레이어가 보는 방향으로 총알방향을 바꾸고싶은데 안됨
+		//if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
+		//{
+		//	//Ptr->SetMove((float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+		//	Ptr->SetDir();
+		//}
+
+		//if (CurDir_ == PlayerDir::Left)
+		//{
+		//	Ptr->SetMove((float4::LEFT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+		//}
 
 	}
 

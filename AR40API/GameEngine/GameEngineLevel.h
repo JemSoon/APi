@@ -11,11 +11,13 @@
 class GameEngine;
 class GameEngineActor;
 class GameEngineCollision;
+class GameEngineRenderer;
 class GameEngineLevel : public GameEngineNameObject
 {
 	friend GameEngine;
 	friend GameEngineActor;
 	friend GameEngineCollision;
+	friend GameEngineRenderer;
 
 public:
 	//디폴트 생성자
@@ -44,6 +46,8 @@ public:
 		ActorType* NewActor = new ActorType();//얘가 Name, Level받는게 낫지않냐? = 상속 받고있는데?
 
 		GameEngineActor* StartActor = NewActor;
+
+		NewActor->SetOrder(_Order);
 
 		NewActor->SetName(_Name);
 
@@ -108,6 +112,15 @@ private:
 	void ActorRender();
 	void CollisionDebugRender();
 	void ActorRelease();
+
+private:
+	//순서니까 int
+	std::map<int, std::list<GameEngineRenderer*>> AllRenderer_;
+
+public:
+	void AddRenderer(GameEngineRenderer* _Collision);
+
+	void ChangeRenderOrder(GameEngineRenderer* _Renderer, int _NewOrder);
 
 private:
 	//삭제는 액터가 하지만 실제 사용은 Level이 함
