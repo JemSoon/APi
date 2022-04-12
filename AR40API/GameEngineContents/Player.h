@@ -56,26 +56,7 @@ private:
 	void DoorCheck();
 	void WallCheck();
 
-private:
-	PlayerState CurState_;
 
-	bool IsMoveKey();
-	void KeyMove();
-
-public:
-	void ChangeState(PlayerState _State);
-	void StateUpdate();
-
-	//FSM======
-	//FSM의 금기 IdelUpdate에서는 AttackUpdate가 절대 실행되선 안된다
-	//(단 하나도 들어가면 안된다)
-	void IdleUpdate();
-	void AttackUpdate();
-	void MoveUpdate();
-	
-	void IdleStart();
-	void AttackStart();
-	void MoveStart();
 
 };
 
