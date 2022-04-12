@@ -11,6 +11,15 @@ enum class PlayerDir
 	Right
 };
 
+enum PlayerState
+{
+	Idle,
+	Attack,
+	Move,
+	Jump,
+	Max
+};
+
 //설명 : 
 class GameEngineImage;
 class GameEngineCollision;
@@ -47,6 +56,8 @@ protected:
 
 private:
 	float Speed_;
+	float AccSpeed_;
+
 	float Gravity_;
 	float AccGravity_;
 
@@ -61,6 +72,29 @@ private:
 	void WallCheck();
 
 
+
+private:
+	PlayerState CurState_;
+
+	bool IsMoveKey();
+	void KeyMove();
+
+public:
+	void ChangeState(PlayerState _State);
+	void StateUpdate();
+
+	//FSM======
+	//FSM의 금기 IdelUpdate에서는 AttackUpdate가 절대 실행되선 안된다
+	//(단 하나도 들어가면 안된다)
+	void IdleUpdate();
+	void AttackUpdate();
+	void MoveUpdate();
+	//void JumpUpdate();
+
+	void IdleStart();
+	void AttackStart();
+	void MoveStart();
+	//void JumpStart();
 
 };
 
