@@ -44,7 +44,7 @@ void Player::Start()
 	//PlayerAnimationRender->ChangeAnimation("Walk-L");
 
 	//AnimationName = "Walk-";
-	CurDir_ = PlayerDir::Right;
+	CurDir_ = PlayerDir::Start;
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다
