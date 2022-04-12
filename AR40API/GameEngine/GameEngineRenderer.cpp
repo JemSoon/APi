@@ -187,3 +187,23 @@ void GameEngineRenderer::FrameAnimation::Update()
 
 		Renderer_->SetIndex(CurrentFrame_);//이미지의 인덱스 셋팅
 }
+
+void GameEngineRenderer::SetOrder(int _Order)
+{
+	if (nullptr == GetActor())
+	{
+		MsgBoxAssert("액터가 세팅되지 않습니다");
+	}
+
+	if (nullptr == GetActor()->GetLevel())
+	{
+		MsgBoxAssert("레벨이 세팅되지 않았습니다");
+	}
+
+	if (_Order == GetOrder())
+	{
+		return;
+	}
+
+	GetActor()->GetLevel()->ChangeRenderOrder(this, _Order);
+}

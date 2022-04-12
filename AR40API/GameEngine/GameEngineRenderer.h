@@ -12,6 +12,7 @@
 class GameEngineRenderer : public GameEngineActorSubObject
 {
 	friend GameEngineActor;
+	friend GameEngineLevel;
 
 public:
 	//디폴트 생성자
@@ -80,6 +81,8 @@ public:
 		IsCameraEffect_ = true;
 	}
 
+	inline void SetOrder(int _Order) override;
+	
 protected:
 	void Render();
 
