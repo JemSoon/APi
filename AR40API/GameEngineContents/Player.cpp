@@ -247,7 +247,7 @@ void Player::Update()
 void Player::Render()
 {
 	
-
+	
 }
 
 void Player::WallCheck()
