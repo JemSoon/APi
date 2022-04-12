@@ -57,7 +57,7 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
-}¤·
+}
 
 
 void Player::Update()
