@@ -23,15 +23,76 @@ Player::~Player()
 
 }
 
+//아무키도 눌리지 않았다면 false
+//아무키던 눌렸다면 ture
+bool Player::IsMoveKey()
+{
+	if (false == GameEngineInput::GetInst()->IsDown("Move Left") &&
+		false == GameEngineInput::GetInst()->IsDown("Move Right") &&
+		false == GameEngineInput::GetInst()->IsDown("Move Down") &&
+		false == GameEngineInput::GetInst()->IsDown("Move Up") &&
+		false == GameEngineInput::GetInst()->IsDown("Jump") &&
+		false == GameEngineInput::GetInst()->IsDown("Run") &&
+		false == GameEngineInput::GetInst()->IsDown("Fire"))
+	{
+		return false;
+	}
+	return true;
+}
+
+void Player::ChangeState(PlayerState _State)
+{
+	if (CurState_ != _State)
+	{
+		switch (_State)
+		{
+		case Idle:
+			IdleStart();
+			break;
+		case Attack:
+			AttackStart();
+			break;
+		case Move:
+			MoveStart();
+			break;
+		case Max:
+			break;
+		default:
+			break;
+		}
+	}
+	CurState_ = _State;
+}
+
+void Player::StateUpdate()
+{
+	switch (CurState_)
+	{
+	case Idle:
+		IdleUpdate();
+		break;
+	case Attack:
+		AttackUpdate();
+		break;
+	case Move:
+		MoveUpdate();
+		break;
+	case Max:
+		break;
+	default:
+		break;
+	}
+
+}
 
 void Player::Start()
 {
 	//Player위치는 중앙으로 고정
 	//SetPosition(GameEngineWindow::GetScale().Half());
 	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
-	SetScale({ 64,64 });
+	//SetScale({ 64,64 });
 
-	PlayerCollision = CreateCollision("PlayerHitBox", {64, 64});
+	//PlayerCollision = CreateCollision("PlayerHitBox", {64, 64});
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	PlayerAnimationRender = CreateRenderer();
@@ -41,9 +102,7 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("idle-R.bmp", "idle-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("idle-L.bmp", "idle-L", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
-	//PlayerAnimationRender->ChangeAnimation("Walk-L");
 
-	//AnimationName = "Walk-";
 	CurDir_ = PlayerDir::Start;
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
@@ -64,6 +123,7 @@ void Player::Update()
 {
 	DirAnimationCheck();
 	PlayerStateUpdate();
+	StateUpdate();
 
 	{	//맵과 캐릭터의 충돌설정용
 		//(참고)실제 BG랑 좌표가 안맞음 현재
@@ -79,68 +139,68 @@ void Player::Update()
 	float4 CheckPos;
 	float4 MoveDir = float4::ZERO;
 
-	{	//움직임 조작
-		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-		{
-			MoveDir = float4::LEFT;
+	//{	//움직임 조작
+	//	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	//	{
+	//		MoveDir = float4::LEFT;
 
-			//현재 위치 + 이동하는 방향
-			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-			if (true == GameEngineInput::GetInst()->IsPress("Run"))
-			{
-				Speed_ = 1800.0f;
-			}
-			else
-			{
-				Speed_ = 150.0f;
-			}
-		}
+	//		//현재 위치 + 이동하는 방향
+	//		//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	//		{
+	//			Speed_ = 1800.0f;
+	//		}
+	//		else
+	//		{
+	//			Speed_ = 150.0f;
+	//		}
+	//	}
 
-		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-		{
-			MoveDir = float4::RIGHT;
+	//	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	//	{
+	//		MoveDir = float4::RIGHT;
 
-			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-			if (true == GameEngineInput::GetInst()->IsPress("Run"))
-			{
-				Speed_ = 1800.0f;
-			}
-			else
-			{
-				Speed_ = 150.0f;
-			}
-		}
+	//		//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	//		{
+	//			Speed_ = 1800.0f;
+	//		}
+	//		else
+	//		{
+	//			Speed_ = 150.0f;
+	//		}
+	//	}
 
-		if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
-		{	
-			MoveDir = float4::UP;
+	//	if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
+	//	{	
+	//		MoveDir = float4::UP;
 
-			//SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
-			if (true == GameEngineInput::GetInst()->IsPress("Run"))
-			{
-				Speed_ = 450.0f;
-			}
-			else
-			{
-				Speed_ = 150.0f;
-			}
-		}
+	//		//SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
+	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	//		{
+	//			Speed_ = 450.0f;
+	//		}
+	//		else
+	//		{
+	//			Speed_ = 150.0f;
+	//		}
+	//	}
 
-		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
-		{	
-			MoveDir = float4::DOWN;
+	//	if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
+	//	{	
+	//		MoveDir = float4::DOWN;
 
-			//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
-			if (true == GameEngineInput::GetInst()->IsPress("Run"))
-			{
-				Speed_ = 450.0f;
-			}
-			else
-			{
-				Speed_ = 150.0f;
-			}
-		}
-	}
+	//		//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
+	//		{
+	//			Speed_ = 450.0f;
+	//		}
+	//		else
+	//		{
+	//			Speed_ = 150.0f;
+	//		}
+	//	}
+	//}
 
 	{	//내 미래위치
 		float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
@@ -188,8 +248,8 @@ void Player::Update()
 		GetLevel()->SetCameraPos(CameraPos);
 	}
 
-	WallCheck();
-	DoorCheck();
+	//WallCheck();
+	//DoorCheck();
 
 
 
@@ -221,24 +281,36 @@ void Player::Update()
 	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	//}
 
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		SetScale({ 32,32 });
+	//if (true == GameEngineInput::GetInst()->IsDown("Fire"))
+	//{
+	//	SetScale({ 32,32 });
 
-		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-		Ptr->SetPosition(GetPosition());
+	//	Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+	//	Ptr->SetPosition(GetPosition());
+	//	
+	//	//플레이어가 보는 방향으로 총알방향을 바꾸고싶은데 안됨
+	//	if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
+	//	{
+	//		//Ptr->SetMove((float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+	//		Ptr->SetDir();
+	//	}
 
-	}
+	//	if (CurDir_ == PlayerDir::Left)
+	//	{
+	//		Ptr->SetMove((float4::LEFT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+	//	}
+
+	//}
 
 
-	/*if (2.0f < GameEngineInput::GetInst()->GetTime("Fire")) 2초간 기모으고 연사쏘기
-	{
-		SetScale({ 32,32 });
+	///*if (2.0f < GameEngineInput::GetInst()->GetTime("Fire")) 2초간 기모으고 연사쏘기
+	//{
+	//	SetScale({ 32,32 });
 
-		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-		Ptr->SetPosition(GetPosition());
+	//	Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+	//	Ptr->SetPosition(GetPosition());
 
-	}*/
+	//}*/
 
 }
 
@@ -250,26 +322,27 @@ void Player::Render()
 	
 }
 
-void Player::WallCheck()
-{
-	std::vector<GameEngineCollision*> ColList;
+//void Player::WallCheck()
+//{
+//	std::vector<GameEngineCollision*> ColList;
+//
+//	if (true == PlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
+//	{
+//		for (size_t i = 0; i < ColList.size(); i++)
+//		{
+//			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+//		}
+//	}
+//}
 
-	if (true == PlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
-	{
-		for (size_t i = 0; i < ColList.size(); i++)
-		{
-			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
-		}
-	}
-}
+//void Player::DoorCheck()
+//{
+//	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
+//	{
+//		GameEngine::GetInst().ChangeLevel("Play2");
+//	}
+//}
 
-void Player::DoorCheck()
-{
-	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
-	{
-		GameEngine::GetInst().ChangeLevel("Play2");
-	}
-}
 void Player::DirAnimationCheck()
 {
 	std::string ChangeName;
