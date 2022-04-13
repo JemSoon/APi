@@ -1,30 +1,19 @@
 #pragma once
+#include <math.h>
 
-//선생님은 생략된 것들도 명시적으로 칠 것이다
-//직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
-
-//설명 : 3D에 쓰일 것까지 미리
+// 설명 :
 class GameEngineMath
 {
 private:
-	//디폴트 생성자
+	// constrcuter destructer
 	GameEngineMath();
-	//디폴트 소멸자
 	~GameEngineMath();
 
-
-
-
-	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-
-	//디폴트 복사 생성자
+	// delete Function
 	GameEngineMath(const GameEngineMath& _Other) = delete;
-	//RValue Reference 생성자 (나중에 배울것)
 	GameEngineMath(GameEngineMath&& _Other) noexcept = delete;
-	//operater= (자기자신을 리턴하는)
 	GameEngineMath& operator=(const GameEngineMath& _Other) = delete;
 	GameEngineMath& operator=(GameEngineMath&& _Other) noexcept = delete;
-
 
 protected:
 
@@ -74,7 +63,6 @@ public:
 		return static_cast<int>(w);
 	}
 
-
 	int hix() const
 	{
 		return static_cast<int>(x * 0.5f);
@@ -92,12 +80,50 @@ public:
 
 	float4 Half() const
 	{
-		return { x * 0.5f, y * 0.5f,z * 0.5f, 1.0f };
+		return { x * 0.5f, y * 0.5f , z * 0.5f, 1.0f };
 	}
+
+	float Len2D() const
+	{
+		// sqrtf 제곱근 구해줍니다.
+		return sqrtf((x * x) + (y * y));
+	}
+
+	void Normal2D()
+	{
+		float Len = Len2D();
+		if (0 == Len)
+		{
+			return;
+		}
+
+		x /= Len;
+		y /= Len;
+
+		// sqrtf 제곱근 구해줍니다.
+		return;
+	}
+
+	void Range2D(float _Max)
+	{
+		Normal2D();
+
+		x *= _Max;
+		y *= _Max;
+		return;
+	}
+
+
+
 
 	float4 operator-(const float4& _Other) const
 	{
 		return { x - _Other.x, y - _Other.y, z - _Other.z, 1.0f };
+	}
+
+	float4 operator-() const
+	{
+		return { -x, -y, -z, 1.0f };
 	}
 
 	float4 operator+(const float4& _Other) const
@@ -115,6 +141,7 @@ public:
 		x += _Other.x;
 		y += _Other.y;
 		z += _Other.z;
+
 		return *this;
 	}
 
@@ -123,30 +150,64 @@ public:
 		x -= _Other.x;
 		y -= _Other.y;
 		z -= _Other.z;
+
 		return *this;
 	}
 
+	float4& operator*=(const float _Other)
+	{
+		x *= _Other;
+		y *= _Other;
+		z *= _Other;
+
+		return *this;
+	}
+
+
+	float4& operator*=(const float4& _Other)
+	{
+		x *= _Other.x;
+		y *= _Other.y;
+		z *= _Other.z;
+
+		return *this;
+	}
+
+	bool CompareInt2D(const float4& _Value)
+	{
+		return ix() == _Value.ix() && iy() == _Value.iy();
+	}
+
+	bool CompareInt3D(const float4& _Value)
+	{
+		return ix() == _Value.ix() &&
+			iy() == _Value.iy() &&
+			iz() == _Value.iz();
+	}
+
+
 public:
 	float4()
-		:x(0.0f), y(0.0f), z(0.0f), w(1.0f)
+		: x(0.0f), y(0.0f), z(0.0f), w(1.0f)
 	{
 
 	}
 	float4(float _x, float _y)
-		:x(_x), y(_y), z(0.0f), w(1.0f)
+		: x(_x), y(_y), z(0.0f), w(1.0f)
 	{
 
 	}
 	float4(float _x, float _y, float _z)
-		:x(_x), y(_y), z(_z), w(1.0f)
+		: x(_x), y(_y), z(_z), w(1.0f)
 	{
 
 	}
 	float4(float _x, float _y, float _z, float _w)
-		:x(_x), y(_y), z(_z), w(_w)
+		: x(_x), y(_y), z(_z), w(_w)
 	{
 
 	}
+
 
 };
 
@@ -159,22 +220,22 @@ public:
 public:
 	int CenterLeft() const
 	{
-		return Pos.ix() - Scale.hix();//센터 기준으로 할거라 절반
+		return Pos.ix() - Scale.hix();
 	}
 
 	int CenterRight() const
 	{
-		return Pos.ix() + Scale.hix();//센터 기준으로 할거라 절반
+		return Pos.ix() + Scale.hix();
 	}
 
 	int CenterTop() const
 	{
-		return Pos.iy() - Scale.hiy();//센터 기준으로 할거라 절반
+		return Pos.iy() - Scale.hiy();
 	}
 
 	int CenterBot() const
 	{
-		return Pos.iy() + Scale.hiy();//센터 기준으로 할거라 절반
+		return Pos.iy() + Scale.hiy();
 	}
 
 	bool OverLap(const GameEngineRect& _Other)
@@ -204,10 +265,9 @@ public:
 
 public:
 	GameEngineRect(float4 _Pos, float4 _Scale)
-		:Pos(_Pos)
+		: Pos(_Pos)
 		, Scale(_Scale)
 	{
 
 	}
-
 };

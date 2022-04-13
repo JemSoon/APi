@@ -41,7 +41,11 @@ protected:
 private:
 	void Start() override;
 	void Update() override;
-	
+
+	float XSpeed;
+	float YSpeed;
+	float DownSpeed;
 	float4 BulletDir_;
+	float4 YDir_;
 };
 

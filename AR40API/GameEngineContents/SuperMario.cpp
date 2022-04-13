@@ -24,7 +24,7 @@ SuperMario::~SuperMario()
 void SuperMario::GameInit()
 {
 	//창에 띄울 이미지 영역 사이즈
-	GameEngineWindow::GetInst().SetWindowScaleAndPosition({1720,120}, {1280, 720});
+	GameEngineWindow::GetInst().SetWindowScaleAndPosition({860,120}, {1280, 720});
 	{
 		//리소스 경로
 		GameEngineDirectory ResourcesDir;//생성과 동시에 현재 디렉토리

@@ -1,10 +1,12 @@
 #include "Bullet.h"
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
+#include <GameEngine/GameEngineImageManager.h>
 
 
 Bullet::Bullet()
 	: Time()
+	, YDir_(float4::DOWN * 200.0f)
 	//, BulletDir_({1,0})
 {
 
@@ -22,12 +24,38 @@ void Bullet::Start()
 	Render->ChangeAnimation("Bullet");
 	//Render->SetIndex(0);
 
-	Death(2.0f);//2초뒤에 총알은 사라진다(죽는다)
+	Death(20.0f);//2초뒤에 총알은 사라진다(죽는다)
+
+	XSpeed = 500.0f;
+	YSpeed = 600.0f;
+	DownSpeed = 2000.0f;
 }
 void Bullet::Update()
 {
+	float4 ResultDir = float4::ZERO;
+
+	// 모든 힘은 결국?
+
+	ResultDir += BulletDir_ * GameEngineTime::GetDeltaTime() * XSpeed;
+	// ->
+
+	// YDir_ -= float4::DOWN * 200.0f;
+
+	ResultDir += YDir_ * GameEngineTime::GetDeltaTime();
+
 
 
 	//대각선 발사(가로+세로)
-	SetMove((SetDir(float4::RIGHT) * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+	SetMove(ResultDir);
+
+	YDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * DownSpeed;
+
+	GameEngineImage* MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+
+	int Color = MapColImage_->GetImagePixel(GetPosition());//갈수 있냐 없냐 색 체크
+
+	if (RGB(255, 0, 0) == Color)
+	{
+		YDir_ = float4::UP * YSpeed;
+	}
 }
