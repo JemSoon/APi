@@ -12,7 +12,6 @@
 class GameEngineRenderer : public GameEngineActorSubObject
 {
 	friend GameEngineActor;
-	friend GameEngineLevel;
 
 public:
 	//디폴트 생성자
@@ -20,11 +19,11 @@ public:
 	//디폴트 소멸자
 	~GameEngineRenderer();
 
-	
-	
-	
+
+
+
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngineRenderer(const GameEngineRenderer& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -53,7 +52,7 @@ public:
 	{
 		ScaleMode_ = _Mode;
 	}
-	
+
 	void SetImageScale();
 
 	inline void SetScale(const float4& _Scale)
@@ -68,7 +67,7 @@ public:
 	}
 
 	void SetImage(const std::string& _Name);
-	void SetIndex(size_t _Index, const float4& _Scale = {-1, -1});
+	void SetIndex(size_t _Index, const float4& _Scale = { -1, -1 });
 	//void SetIndexToScale(size_t _Index, float4 _Scale = {-1.0f, -1.0f});
 
 	void CameraEffectOff()
@@ -81,8 +80,6 @@ public:
 		IsCameraEffect_ = true;
 	}
 
-	inline void SetOrder(int _Order) override;
-	
 protected:
 	void Render();
 
@@ -146,8 +143,8 @@ public:
 	void ChangeAnimation(const std::string& _Name);
 
 private:
-		std::map<std::string, FrameAnimation> Animations_;
-		FrameAnimation* CurrentAnimation_;
+	std::map<std::string, FrameAnimation> Animations_;
+	FrameAnimation* CurrentAnimation_;
 
 };
 

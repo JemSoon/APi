@@ -17,11 +17,11 @@ public:
 	//디폴트 소멸자
 	~GameEngine();
 
-	
-	
-	
+
+
+
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngine(const GameEngine& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -69,7 +69,7 @@ public:
 
 
 	void ChangeLevel(const std::string& _Name);
-	
+
 
 protected:
 	template<typename LevelType>
@@ -81,13 +81,13 @@ protected:
 		Level->Loading();
 		AllLevel_.insert(std::make_pair(_Name, NewLevel));
 	}
-	
-private: 
+
+private:
 	static std::map<std::string, GameEngineLevel*> AllLevel_;
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
 	static GameEngine* UserContents_;
-	
+
 	static GameEngineImage* WindowMainImage_;//진짜 띄우는 이미지
 	static GameEngineImage* BackBufferImage_;//백버퍼로 미리 그려놓는 이미지(깜박임 땜)
 

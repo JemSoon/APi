@@ -44,9 +44,6 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="SuperMario.cpp" />
-    <ClCompile Include="Play_State.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">

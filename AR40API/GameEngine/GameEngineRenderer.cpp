@@ -9,10 +9,10 @@
 #pragma comment(lib, "msimg32.lib")
 GameEngineRenderer::GameEngineRenderer()
 	:Image_(nullptr)
-	,PivotType_(RenderPivot::CENTER)
-	,ScaleMode_(RenderScaleMode::Image)
-	,TransColor_(RGB(255,0,255))
-	,RenderImagePivot_({0, 0})
+	, PivotType_(RenderPivot::CENTER)
+	, ScaleMode_(RenderScaleMode::Image)
+	, TransColor_(RGB(255, 0, 255))
+	, RenderImagePivot_({ 0, 0 })
 	, IsCameraEffect_(true)
 {
 
@@ -61,7 +61,7 @@ void GameEngineRenderer::Render()
 		MsgBoxAssert("랜더러에 이미지가 세팅되어 있지 않으면 랜더링이 안됨");
 		return;
 	}
-	
+
 	float4 RenderPos = GetActor()->GetPosition() + RenderPivot_;
 
 	if (true == IsCameraEffect_)
@@ -73,7 +73,7 @@ void GameEngineRenderer::Render()
 	{
 	case RenderPivot::CENTER:
 		GameEngine::BackBufferImage()->TransCopy(Image_, RenderPos - RenderScale_.Half(), RenderScale_, RenderImagePivot_, RenderImageScale_, TransColor_);
-		
+
 		break;
 	case RenderPivot::BOT:
 	{
@@ -127,11 +127,11 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _Name)
 
 
 void GameEngineRenderer::CreateAnimation(
-	const std::string& _Image, 
-	const std::string& _Name, 
-	int _StartIndex, 
-	int _EndIndex, 
-	float _InterTime, 
+	const std::string& _Image,
+	const std::string& _Name,
+	int _StartIndex,
+	int _EndIndex,
+	float _InterTime,
 	bool _Loop /*= true*/)
 {
 	GameEngineImage* FindImage = GameEngineImageManager::GetInst()->Find(_Image);
@@ -183,27 +183,7 @@ void GameEngineRenderer::FrameAnimation::Update()
 		}
 
 	}
-		Renderer_->Image_ = Image_;//이미지 세팅
+	Renderer_->Image_ = Image_;//이미지 세팅
 
-		Renderer_->SetIndex(CurrentFrame_);//이미지의 인덱스 셋팅
-}
-
-void GameEngineRenderer::SetOrder(int _Order)
-{
-	if (nullptr == GetActor())
-	{
-		MsgBoxAssert("액터가 세팅되지 않습니다");
-	}
-
-	if (nullptr == GetActor()->GetLevel())
-	{
-		MsgBoxAssert("레벨이 세팅되지 않았습니다");
-	}
-
-	if (_Order == GetOrder())
-	{
-		return;
-	}
-
-	GetActor()->GetLevel()->ChangeRenderOrder(this, _Order);
+	Renderer_->SetIndex(CurrentFrame_);//이미지의 인덱스 셋팅
 }

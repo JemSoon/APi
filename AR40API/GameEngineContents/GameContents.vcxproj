@@ -252,7 +252,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Play_State.cpp" />
     <ClCompile Include="SuperMario.cpp" />
     <ClCompile Include="TitleBackGround.cpp">
       <SubType>

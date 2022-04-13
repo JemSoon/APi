@@ -15,11 +15,11 @@ public:
 	//디폴트 소멸자
 	virtual ~GameEngineActorSubObject();
 
-	
-	
-	
+
+
+
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
+
 	//디폴트 복사 생성자
 	GameEngineActorSubObject(const GameEngineActorSubObject& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
@@ -36,7 +36,7 @@ public:
 	inline bool IsUpdate() override
 	{
 		//나의 IsUpdate_ && false == IsDeath_
-		return GameEngineUpdateObject::IsUpdate() && Actor_->IsUpdate();
+		return GameEngineUpdateObject::IsUpdate() || Actor_->IsUpdate();
 	}
 
 	inline bool IsDeath() override
