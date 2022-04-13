@@ -29,5 +29,5 @@ void Bullet::Update()
 
 
 	//대각선 발사(가로+세로)
-	SetMove((float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+	SetMove((SetDir(float4::RIGHT) * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
 }

@@ -41,9 +41,7 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("idle-R.bmp", "idle-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("idle-L.bmp", "idle-L", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
-	//PlayerAnimationRender->ChangeAnimation("Walk-L");
 
-	//AnimationName = "Walk-";
 	CurDir_ = PlayerDir::Start;
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
@@ -227,6 +225,18 @@ void Player::Update()
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
+
+		//===================총알 발사 방향 설정이 안된다============================
+
+		if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
+		{	//플레이어가 보는 방향이 처음시작or오른쪽이라면 오른쪽으로 쏜다
+			Ptr->SetDir(float4::RIGHT);
+		}
+
+		if (CurDir_ == PlayerDir::Left)
+		{	//플레이어가 보는 방향이 왼쪽이라면 왼쪽으로 쏜다
+			Ptr->SetDir(float4::LEFT);
+		}
 
 	}
 

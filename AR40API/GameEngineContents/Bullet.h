@@ -29,19 +29,19 @@ public:
 
 	float Time;
 
-	//float4 SetDir(float4 Dir_)
-	//{
-	//	//SetMove((float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
-	//	BulletDir_ = Dir_;
-	//	return BulletDir_;
-	//}
+	float4 SetDir(float4 Dir_)
+	{
+		//SetMove((float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f) + (float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f));
+		BulletDir_ = Dir_;
+		return BulletDir_;
+	}
 
 protected:
 
 private:
 	void Start() override;
 	void Update() override;
-	//void Render() override;
-	//float4 BulletDir_;
+	
+	float4 BulletDir_;
 };
 
