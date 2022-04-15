@@ -14,6 +14,7 @@
 Player::Player()
 	:Speed_(150.0f)
 	, Gravity_(100.0f)
+	, MoveDir_(float4::ZERO)
 {
 
 }
@@ -75,12 +76,11 @@ void Player::Update()
 	}
 
 	float4 CheckPos;
-	float4 MoveDir = float4::ZERO;
 
 	{	//움직임 조작
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			MoveDir = float4::LEFT;
+			MoveDir_ = float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
 
 			//현재 위치 + 이동하는 방향
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
@@ -96,7 +96,7 @@ void Player::Update()
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
-			MoveDir = float4::RIGHT;
+			MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
 
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
@@ -111,7 +111,7 @@ void Player::Update()
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
 		{
-			MoveDir = float4::UP;
+			MoveDir_ = float4::UP;
 
 			//SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
@@ -126,7 +126,7 @@ void Player::Update()
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
 		{
-			MoveDir = float4::DOWN;
+			MoveDir_ = float4::DOWN;
 
 			//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
@@ -141,7 +141,7 @@ void Player::Update()
 	}
 
 	{	//내 미래위치
-		float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		//그 때 발바닥 위치
 		float4 CheckPos = NextPos + float4(0.0f, 32.0f);
 
@@ -149,7 +149,7 @@ void Player::Update()
 
 		if (RGB(255, 0, 0) != Color)
 		{	//빨간색이 아니라면 갈수 이써
-			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		}
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다

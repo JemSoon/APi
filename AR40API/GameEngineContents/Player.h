@@ -45,6 +45,7 @@ private:
 	float Speed_;
 	float Gravity_;
 	float AccGravity_;
+	float4 MoveDir_;
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* PlayerCollision;
