@@ -47,5 +47,6 @@ private:
 	float DownSpeed;
 	float4 BulletDir_;
 	float4 YDir_;
+	float4 ResultDir_;
 };
 

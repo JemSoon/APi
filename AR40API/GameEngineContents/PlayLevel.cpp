@@ -3,6 +3,7 @@
 #include <GameEngine/GameEngine.h>
 #include "BackGround.h"
 #include "Player.h"
+#include "Monster.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
@@ -42,6 +43,13 @@ void PlayLevel::Loading()
 			Player* Mario = CreateActor<Player>((int)ORDER::PLAYER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Mario->SetPosition({ 320.0f,740.0f });
+		}
+
+		{
+			//1스테이지의 플레이어 로드
+			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba->SetPosition({ 320.0f,740.0f });
 		}
 
 		{	

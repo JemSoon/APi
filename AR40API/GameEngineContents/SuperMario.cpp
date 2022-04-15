@@ -60,6 +60,10 @@ void SuperMario::GameInit()
 
 			Image4->Cut({ 64, 64 });
 
+			GameEngineImage* Image5 = GameEngineImageManager::GetInst()->Find("gumba-walk.bmp");
+
+			Image5->CutCount(2, 1);
+
 			//총알도 찾아
 			GameEngineImage* Image2 = GameEngineImageManager::GetInst()->Find("Bullet.bmp");
 			//그리구 이미지를 한프레임 단위로 잘라줘
