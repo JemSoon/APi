@@ -42,6 +42,7 @@ protected:
 private:
 	float Speed_;
 	float Gravity_;
+	float AccGravity_;
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* MonsterCollision;

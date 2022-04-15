@@ -12,7 +12,7 @@
 #include "Bullet.h"//총알을 만들고 싶다
 
 Player::Player()
-	:Speed_(150.0f)
+	:Speed_(10.0f)
 	, Gravity_(100.0f)
 	, MoveDir_(float4::ZERO)
 {
@@ -80,32 +80,32 @@ void Player::Update()
 	{	//움직임 조작
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			MoveDir_ = float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
+			MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
 
 			//현재 위치 + 이동하는 방향
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
 			{
-				Speed_ = 1800.0f;
+				Speed_ = 50.0f;
 			}
 			else
 			{
-				Speed_ = 150.0f;
+				Speed_ = 10.0f;
 			}
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
-			MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
+			MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
 
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
 			{
-				Speed_ = 1800.0f;
+				Speed_ = 50.0f;
 			}
 			else
 			{
-				Speed_ = 150.0f;
+				Speed_ = 10.0f;
 			}
 		}
 
@@ -200,14 +200,14 @@ void Player::Update()
 	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
 	//int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
-	//충돌 설정 인터페이스
-	//1.우선 충돌체를 만든다(랜더러와 똑같음)
-	//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
-	//GameEngineCollision* MyCollision;
-	//if (true == MyCollision->Collision("Door"))
-	//{
-	//	int a = 0;
-	//}
+	//	//충돌 설정 인터페이스
+	//	//1.우선 충돌체를 만든다(랜더러와 똑같음)
+	//	//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
+	//	//GameEngineCollision* MyCollision;
+	//	//if (true == MyCollision->Collision("Door"))
+	//	//{
+	//	//	int a = 0;
+	//	//}
 
 	//	//중력
 	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
@@ -216,7 +216,7 @@ void Player::Update()
 	//	{
 	//		AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
 	//	}
-	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
+	//	//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	//}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
