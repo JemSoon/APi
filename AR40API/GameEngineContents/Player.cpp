@@ -24,6 +24,18 @@ Player::~Player()
 
 }
 
+//bool Player::IsMoveKey()
+//{
+//	if (false == GameEngineInput::GetInst()->IsPress("Move Left") &&
+//		false == GameEngineInput::GetInst()->IsPress("Move Right") &&
+//		false == GameEngineInput::GetInst()->IsPress("Move Up") &&
+//		false == GameEngineInput::GetInst()->IsPress("Move Down"))
+//	{
+//		return false;
+//	}
+//
+//	return true;
+//}
 
 void Player::Start()
 {
@@ -138,6 +150,7 @@ void Player::Update()
 				Speed_ = 150.0f;
 			}
 		}
+
 	}
 
 	{	//내 미래위치
@@ -149,7 +162,18 @@ void Player::Update()
 
 		if (RGB(255, 0, 0) != Color)
 		{	//빨간색이 아니라면 갈수 이써
+
+			MoveDir_ += ((-MoveDir_ * 0.5f) * GameEngineTime::GetDeltaTime());
+			//마찰력 if문 걸면 이상해져서 일단 걍
+
 			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+
+			//마찰력이 일정 수치 이하가 되면 그냥 0으로
+			if ((MoveDir_.x < 0.0f&& MoveDir_.x>-1.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Left")
+			|| (MoveDir_.x > 0.0f && MoveDir_.x < 1.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Right"))
+			{
+				MoveDir_.x = 0.0f;
+			}
 		}
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
@@ -228,15 +252,15 @@ void Player::Update()
 
 		//===================총알 발사 방향 설정이 안된다============================
 
-		if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
-		{	//플레이어가 보는 방향이 처음시작or오른쪽이라면 오른쪽으로 쏜다
-			Ptr->SetDir(float4::RIGHT);
-		}
+		//if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
+		//{	//플레이어가 보는 방향이 처음시작or오른쪽이라면 오른쪽으로 쏜다
+		//	Ptr->SetDir(float4::RIGHT);
+		//}
 
-		if (CurDir_ == PlayerDir::Left)
-		{	//플레이어가 보는 방향이 왼쪽이라면 왼쪽으로 쏜다
-			Ptr->SetDir(float4::LEFT);
-		}
+		//if (CurDir_ == PlayerDir::Left)
+		//{	//플레이어가 보는 방향이 왼쪽이라면 왼쪽으로 쏜다
+		//	Ptr->SetDir(float4::LEFT);
+		//}
 
 	}
 

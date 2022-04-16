@@ -50,6 +50,8 @@ private:
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* PlayerCollision;
 
+	//bool IsMoveKey();
+
 	void Start() override;
 	void Render() override;
 	void Update() override;

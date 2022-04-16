@@ -44,12 +44,13 @@ void Bullet::Update()
 
 	ResultDir_ += YDir_ * GameEngineTime::GetDeltaTime();
 
-
-
 	//대각선 발사(가로+세로)
 	SetMove(ResultDir_);
 
 	YDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * DownSpeed;
+
+
+
 
 	GameEngineImage* MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
 
