@@ -163,17 +163,24 @@ void Player::Update()
 		if (RGB(255, 0, 0) != Color)
 		{	//빨간색이 아니라면 갈수 이써
 
-			MoveDir_ += ((-MoveDir_ * 0.5f) * GameEngineTime::GetDeltaTime());
+			MoveDir_ += ((-MoveDir_ * 0.9f) * GameEngineTime::GetDeltaTime());
 			//마찰력 if문 걸면 이상해져서 일단 걍
 
 			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
 			//마찰력이 일정 수치 이하가 되면 그냥 0으로
-			if ((MoveDir_.x < 0.0f&& MoveDir_.x>-1.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Left")
-			|| (MoveDir_.x > 0.0f && MoveDir_.x < 1.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Right"))
+			//if ((MoveDir_.x < 0.0f&& MoveDir_.x>-5.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Left")
+			//|| (MoveDir_.x > 0.0f && MoveDir_.x < 5.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Right"))
+			//{
+			//	MoveDir_.x = 0.0f;
+			//}
+			//뛰고있을때 마찰력(아니 그런데 이러면 걸을때도 포함아닌가?그러니 위에 주석
+			if ((MoveDir_.x < 0.0f && MoveDir_.x>-20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Left")&& (GameEngineInput::GetInst()->IsPress("Run")|| GameEngineInput::GetInst()->IsFree("Run"))
+				|| (MoveDir_.x > 0.0f && MoveDir_.x < 20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Right")&& (GameEngineInput::GetInst()->IsPress("Run") || GameEngineInput::GetInst()->IsFree("Run")))
 			{
 				MoveDir_.x = 0.0f;
 			}
+
 		}
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
