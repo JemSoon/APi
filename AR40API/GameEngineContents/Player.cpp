@@ -12,7 +12,7 @@
 #include "Bullet.h"//총알을 만들고 싶다
 
 Player::Player()
-	:Speed_(10.0f)
+	:Speed_(150.0f)
 	, Gravity_(100.0f)
 	, MoveDir_(float4::ZERO)
 {
@@ -102,8 +102,9 @@ void Player::Update()
 			}
 			else
 			{
-				Speed_ = 10.0f;
+				Speed_ = 20.0f;
 			}
+
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
@@ -117,7 +118,7 @@ void Player::Update()
 			}
 			else
 			{
-				Speed_ = 10.0f;
+				Speed_ = 20.0f;
 			}
 		}
 
@@ -149,11 +150,30 @@ void Player::Update()
 			{
 				Speed_ = 150.0f;
 			}
+		
+		}
+
+		if (true == GameEngineInput::GetInst()->IsPress("Jump"))
+		{
+			MoveDir_ = float4::UP;
+			Speed_ = 450.0f;
+		}
+
+		if (1000.0f <= MoveDir_.Len2D())
+		{	//속도 최대치 제한
+			MoveDir_.Range2D(1000.0f);
+		}
+
+
+		if (MoveDir_.Len2D() >= 100)
+		{
+			//속도 최대치 정규화
+			MoveDir_.Normal2D();
 		}
 
 	}
 
-	{	//내 미래위치
+	{	//내 미래위치 (Speed_는 가속력)
 		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		//그 때 발바닥 위치
 		float4 CheckPos = NextPos + float4(0.0f, 32.0f);
@@ -168,13 +188,6 @@ void Player::Update()
 
 			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
-			//마찰력이 일정 수치 이하가 되면 그냥 0으로
-			//if ((MoveDir_.x < 0.0f&& MoveDir_.x>-5.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Left")
-			//|| (MoveDir_.x > 0.0f && MoveDir_.x < 5.0f)&& true == GameEngineInput::GetInst()->IsFree("Move Right"))
-			//{
-			//	MoveDir_.x = 0.0f;
-			//}
-			//뛰고있을때 마찰력(아니 그런데 이러면 걸을때도 포함아닌가?그러니 위에 주석
 			if ((MoveDir_.x < 0.0f && MoveDir_.x>-20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Left")&& (GameEngineInput::GetInst()->IsPress("Run")|| GameEngineInput::GetInst()->IsFree("Run"))
 				|| (MoveDir_.x > 0.0f && MoveDir_.x < 20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Right")&& (GameEngineInput::GetInst()->IsPress("Run") || GameEngineInput::GetInst()->IsFree("Run")))
 			{
@@ -227,28 +240,28 @@ void Player::Update()
 	//	PlayerCollision->Collision("Door");
 	//}
 
-	//{	//중력 관련
-	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
-	//int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
+	{	//중력 관련
+		//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
+	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
-	//	//충돌 설정 인터페이스
-	//	//1.우선 충돌체를 만든다(랜더러와 똑같음)
-	//	//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
-	//	//GameEngineCollision* MyCollision;
-	//	//if (true == MyCollision->Collision("Door"))
-	//	//{
-	//	//	int a = 0;
-	//	//}
+		//충돌 설정 인터페이스
+		//1.우선 충돌체를 만든다(랜더러와 똑같음)
+		//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
+		//GameEngineCollision* MyCollision;
+		//if (true == MyCollision->Collision("Door"))
+		//{
+		//	int a = 0;
+		//}
 
-	//	//중력
-	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
-	//	
-	//	if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
-	//	{
-	//		AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
-	//	}
-	//	//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
-	//}
+		//중력
+		AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
+		
+		if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
+		{
+			AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
+		}
+		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
+	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
