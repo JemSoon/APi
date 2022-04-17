@@ -68,6 +68,10 @@ void SuperMario::GameInit()
 			GameEngineImage* Image2 = GameEngineImageManager::GetInst()->Find("Bullet.bmp");
 			//그리구 이미지를 한프레임 단위로 잘라줘
 			Image2->Cut({ 32, 32 });
+			//총알 터짐
+			GameEngineImage* Image6 = GameEngineImageManager::GetInst()->Find("Hit.bmp");
+
+			Image6->Cut({ 32, 32 });
 
 		}
 	}

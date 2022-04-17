@@ -176,14 +176,22 @@ void Player::Update()
 
 	{	//내 미래위치 (Speed_는 가속력)
 		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		
 		//그 때 발바닥 위치
-		float4 CheckPos = NextPos + float4(0.0f, 32.0f);
+		float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+		//그 때 머리 위치
+		float4 CheckPos2 = NextPos + float4(0.0f, -32.0f);
 
-		int Color = MapColImage_->GetImagePixel(CheckPos);//갈수 있냐 없냐 색 체크
+		int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
+		int Color2 = MapColImage_->GetImagePixel(CheckPos2);
 
-		if (RGB(255, 0, 0) != Color)
-		{	//빨간색이 아니라면 갈수 이써
-
+		if (RGB(255, 0, 0) != Color1 &&
+			RGB(55, 55, 55) != Color1 && 
+			RGB(0, 255, 255) != Color1 && 
+			RGB(0, 255, 0) != Color1)
+		{	
+			//빨간색+@이 아니라면 갈수 이써
+			//문제 발바닥 가운데 기준이라 머리통은 통과됨(블록 밑에서 위로 부딪힐시)
 			MoveDir_ += ((-MoveDir_ * 0.9f) * GameEngineTime::GetDeltaTime());
 			//마찰력 if문 걸면 이상해져서 일단 걍
 
@@ -214,7 +222,7 @@ void Player::Update()
 	}
 
 	float MapSizeX = 13504;//맵 가로 오른쪽 끝
-	float MapSizeY = 1920;//맵 세로 끝
+	float MapSizeY = 960;//맵 세로 끝
 	float CameraRectY = 720;//카메라 세로 끝
 	float CameraRectX = 1280;
 
@@ -271,7 +279,6 @@ void Player::Update()
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
  		Ptr->SetDir(CurDir());
-
 	}
 
 

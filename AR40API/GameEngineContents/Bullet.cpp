@@ -22,6 +22,7 @@ void Bullet::Start()
 {
 	GameEngineRenderer* Render = CreateRenderer();
 	Render->CreateAnimation("Bullet.bmp", "Bullet", 0, 3, 0.1f, true);
+	Render->CreateAnimation("Hit.bmp", "Hit", 0, 0, 1.0f, false);
 	Render->ChangeAnimation("Bullet");
 	//Render->SetIndex(0);
 
@@ -58,5 +59,14 @@ void Bullet::Update()
 	if (RGB(255, 0, 0) == Color)
 	{
 		YDir_ = float4::UP * YSpeed;
+	}
+	if (RGB(0, 255, 0) == Color|| RGB(55, 55, 55) == Color|| RGB(0, 255, 255) == Color)
+	{
+		//GameEngineRenderer* Render = CreateRenderer();
+		//Render->CreateAnimation("Hit.bmp", "Hit", 0, 0, 0.1f, false);
+		//Render->ChangeAnimation("Hit");
+		//바닥 말고 사물에 부딪히면 Hit이미지로 바꿔주고싶은데 바로 사라져서 안됨
+		//펑 터지는 이미지만 잠깐 남았다 사라지게 하고싶음
+		Death(0.0f);
 	}
 }
