@@ -32,6 +32,11 @@ public:
 	Player& operator=(Player&& _Other) noexcept = delete;
 
 
+	float4 CurDir()
+	{
+		return PlayerDir_;
+	}
+
 protected:
 	GameEngineRenderer* PlayerAnimationRender;
 	PlayerDir CurDir_;
@@ -47,6 +52,8 @@ private:
 	float Gravity_;
 	float AccGravity_;
 	float4 MoveDir_;
+	float4 PlayerDir_;
+	PlayerDir CheckDir_;
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* PlayerCollision;

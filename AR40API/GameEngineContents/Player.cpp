@@ -15,6 +15,7 @@ Player::Player()
 	:Speed_(150.0f)
 	, Gravity_(100.0f)
 	, MoveDir_(float4::ZERO)
+	, PlayerDir_(float4::RIGHT)
 {
 
 }
@@ -88,12 +89,12 @@ void Player::Update()
 	}
 
 	float4 CheckPos;
-
+	
 	{	//움직임 조작
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
 			MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
-
+			PlayerDir_ = float4::LEFT;//총알 발사 방향 잡기용
 			//현재 위치 + 이동하는 방향
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
@@ -110,7 +111,7 @@ void Player::Update()
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
 			MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
-
+			PlayerDir_ = float4::RIGHT;//총알 발사 방향 잡기용
 			//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			if (true == GameEngineInput::GetInst()->IsPress("Run"))
 			{
@@ -197,7 +198,7 @@ void Player::Update()
 		}
 	}
 	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
-	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 200.0f));
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 250.0f));
 
 	if (0 > GetLevel()->GetCameraPos().x)
 	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
@@ -269,18 +270,7 @@ void Player::Update()
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
-
-		//===================총알 발사 방향 설정이 안된다============================
-
-		//if (CurDir_ == PlayerDir::Start || CurDir_ == PlayerDir::Right)
-		//{	//플레이어가 보는 방향이 처음시작or오른쪽이라면 오른쪽으로 쏜다
-		//	Ptr->SetDir(float4::RIGHT);
-		//}
-
-		//if (CurDir_ == PlayerDir::Left)
-		//{	//플레이어가 보는 방향이 왼쪽이라면 왼쪽으로 쏜다
-		//	Ptr->SetDir(float4::LEFT);
-		//}
+ 		Ptr->SetDir(CurDir());
 
 	}
 
@@ -328,7 +318,7 @@ void Player::DirAnimationCheck()
 {
 	std::string ChangeName;
 
-	PlayerDir CheckDir_ = CurDir_;
+	CheckDir_ = CurDir_;
 	std::string ChangeDirText = "R";
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
