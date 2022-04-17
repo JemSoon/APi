@@ -1,6 +1,7 @@
 #include "SuperMario.h"
 #include "IntroLevel.h"
 #include "PlayLevel.h"
+#include "BonusLevel.h"
 #include "PlayLevel2.h"
 #include "PlayLevel3.h"
 #include "EndingLevel.h"
@@ -80,6 +81,7 @@ void SuperMario::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Title", 'P');
 		GameEngineInput::GetInst()->CreateKey("Intro", 'O');
 		GameEngineInput::GetInst()->CreateKey("Play1", '1');
+		GameEngineInput::GetInst()->CreateKey("Pipe1", 'F');
 		GameEngineInput::GetInst()->CreateKey("Play2", '2');
 		GameEngineInput::GetInst()->CreateKey("Play3", '3');
 	}
@@ -99,6 +101,7 @@ void SuperMario::GameInit()
 	CreateLevel<TitleLevel>("Title");
 	CreateLevel<IntroLevel>("Intro");
 	CreateLevel<PlayLevel>("Play1");
+	CreateLevel<BonusLevel>("Pipe1");
 	CreateLevel<PlayLevel2>("Play2");
 	CreateLevel<PlayLevel3>("Play3");
 	CreateLevel<EndingLevel>("Ending");

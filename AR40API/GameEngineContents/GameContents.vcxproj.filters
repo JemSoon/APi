@@ -44,6 +44,9 @@
       <Filter>Title</Filter>
     </ClCompile>
     <ClCompile Include="SuperMario.cpp" />
+    <ClCompile Include="BonusLevel.cpp">
+      <Filter>Level\Stage\Bonus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -90,6 +93,9 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="SuperMario.h" />
+    <ClInclude Include="BonusLevel.h">
+      <Filter>Level\Stage\Bonus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -112,6 +118,9 @@
     </Filter>
     <Filter Include="Level\Global">
       <UniqueIdentifier>{56164916-61b7-4400-aea3-24f58f433e78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Stage\Bonus">
+      <UniqueIdentifier>{c35e4778-84e7-4183-887c-5a5cd35cd740}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

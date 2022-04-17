@@ -37,6 +37,11 @@ void IntroLevel::Update()
 		GameEngine::GetInst().ChangeLevel("Play1");//넘기는기능
 	}
 
+	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
+	{
+		GameEngine::GetInst().ChangeLevel("Pipe1");//넘기는기능
+	}
+
 	if (true == GameEngineInput::GetInst()->IsDown("Play2"))
 	{
 		GameEngine::GetInst().ChangeLevel("Play2");//넘기는기능

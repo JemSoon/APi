@@ -67,6 +67,11 @@ void PlayLevel::Update()
 		GameEngine::GetInst().ChangeLevel("Intro");
 	}
 
+	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
+	{
+		GameEngine::GetInst().ChangeLevel("Pipe1");
+	}
+
 }
 
 void PlayLevel::LevelChangeStart()
