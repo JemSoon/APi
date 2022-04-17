@@ -23,7 +23,7 @@ void PlayLevel::Loading()
 {	
 	{	//1스테이지의 배경 로드
 		BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
-		Actor->GetRenderer()->SetImage("Map1-1All.bmp");
+		Actor->GetRenderer()->SetImage("Map1-1.bmp");
 
 		{	//맵 이미지 첫화면에 맞게 맞추기
 			float4 BackActor = {};
