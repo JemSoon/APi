@@ -84,6 +84,7 @@ void SuperMario::GameInit()
 		GameEngineInput::GetInst()->CreateKey("Pipe1", 'F');
 		GameEngineInput::GetInst()->CreateKey("Play2", '2');
 		GameEngineInput::GetInst()->CreateKey("Play3", '3');
+		GameEngineInput::GetInst()->CreateKey("Debug", 'R');
 	}
 
 

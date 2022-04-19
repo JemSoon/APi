@@ -4,7 +4,6 @@
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 
-//전역변수
 bool (*CollisionCheckArray[static_cast<int>(CollisionType::Max)][static_cast<int>(CollisionType::Max)])(GameEngineCollision*, GameEngineCollision*);
 
 bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
@@ -15,10 +14,11 @@ bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right)
 	}
 
 	GameEngineRect LeftRc = _Left->GetRect();
-	GameEngineRect RightRC = _Right->GetRect();
+	GameEngineRect RightRc = _Right->GetRect();
 
-	return LeftRc.OverLap(RightRC);
+	return LeftRc.OverLap(RightRc);
 }
+
 
 class CollisionInit
 {
@@ -29,38 +29,37 @@ public:
 	}
 };
 
-//전역변수
 CollisionInit InitInst = CollisionInit();
 
 GameEngineCollision::GameEngineCollision()
-	:Pivot_(float4::ZERO)
-	, Scale_(float4::ZERO)
+	: Pivot_(float4::ZERO),
+	Scale_(float4::ZERO)
 {
-
+	// 
 }
 
 GameEngineCollision::~GameEngineCollision()
 {
-
 }
 
 bool GameEngineCollision::CollisionCheck(
 	const std::string& _TargetGroup,
 	CollisionType _This /*= CollisionType::Circle*/,
-	CollisionType _Target /*= CollisionType::Circle*/)
+	CollisionType _Target /*= CollisionType::Rect*/
+)
 {
 	std::map<std::string, std::list<GameEngineCollision*>>::iterator FindTargetGroup = GetActor()->GetLevel()->AllCollision_.find(_TargetGroup);
-	//_TargetGroup랑 충돌할 것이다
 
 	if (FindTargetGroup == GetActor()->GetLevel()->AllCollision_.end())
 	{
-		//MsgBoxAssert("존재하지 않는 충돌 그룹과 충돌하려 했습니다");//test용
+		// MsgBoxAssert("존재하지 않는 충돌 그룹과 충돌하려고 했습니다.");
+
 		return false;
 	}
 
 	if (nullptr == CollisionCheckArray[static_cast<int>(_This)][static_cast<int>(_Target)])
 	{
-		MsgBoxAssert("처리할 수 없는 충돌체크 조합입니다");
+		MsgBoxAssert("처리할수 없는 충돌체크 조합입니다.");
 		return false;
 	}
 
@@ -71,22 +70,12 @@ bool GameEngineCollision::CollisionCheck(
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
-		//나와 상대의 비교
-		//_This, _Tartget
-
 		if (CollisionCheckArray[static_cast<int>(_This)][static_cast<int>(_Target)](this, *StartIter))
 		{
 			return true;
 		}
-
-
-		//bool CollCheck(GameEngineCollision* _Left, GameEngineCollision* _Right);
-		//bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
-		//bool CircleToCircle(GameEngineCollision* _Left, GameEngineCollision* _Right);
-		//bool CollCheck(GameEngineCollision* _Left, GameEngineCollision* _Right);
-
-		//this 비교 (*StartIter)
 	}
+
 	return false;
 }
 
@@ -101,28 +90,30 @@ void GameEngineCollision::DebugRender()
 		DebugRect.CenterRight(),
 		DebugRect.CenterBot()
 	);
+
 }
 
 bool GameEngineCollision::CollisionResult(
 	const std::string& _TargetGroup,
-	std::vector<GameEngineCollision*>& _ColResult,//니가 여기다 넣어줘
+	std::vector<GameEngineCollision*>& _ColResult,
 	CollisionType _This /*= CollisionType::Circle*/,
-	CollisionType _Target /*= CollisionType::Circle*/)
+	CollisionType _Target /*= CollisionType::Circle*/
+)
 {
-	size_t StartSize = _TargetGroup.size();
+	size_t StartSize = _ColResult.size();
 
 	std::map<std::string, std::list<GameEngineCollision*>>::iterator FindTargetGroup = GetActor()->GetLevel()->AllCollision_.find(_TargetGroup);
-	//_TargetGroup랑 충돌할 것이다
 
 	if (FindTargetGroup == GetActor()->GetLevel()->AllCollision_.end())
 	{
-		//MsgBoxAssert("존재하지 않는 충돌 그룹과 충돌하려 했습니다");//test용
+		// MsgBoxAssert("존재하지 않는 충돌 그룹과 충돌하려고 했습니다.");
+
 		return false;
 	}
 
 	if (nullptr == CollisionCheckArray[static_cast<int>(_This)][static_cast<int>(_Target)])
 	{
-		MsgBoxAssert("처리할 수 없는 충돌체크 조합입니다");
+		MsgBoxAssert("처리할수 없는 충돌체크 조합입니다.");
 		return false;
 	}
 
@@ -133,14 +124,11 @@ bool GameEngineCollision::CollisionResult(
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
-		//나와 상대의 비교
-		//_This, _Tartget
-
 		if (CollisionCheckArray[static_cast<int>(_This)][static_cast<int>(_Target)](this, *StartIter))
 		{
 			_ColResult.push_back(*StartIter);
 		}
-
 	}
+
 	return StartSize != _ColResult.size();
 }

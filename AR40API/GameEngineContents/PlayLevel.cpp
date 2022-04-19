@@ -9,6 +9,8 @@
 #include "UI.h"
 #include <GameEngineBase/GameEngineWindow.h>
 
+#include "GameEngine/GameEngineLevel.h"//내가추가
+
 PlayLevel::PlayLevel()
 {
 
@@ -27,8 +29,8 @@ void PlayLevel::Loading()
 
 		{	//맵 이미지 첫화면에 맞게 맞추기
 			float4 BackActor = {};
-			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x) - (GameEngineWindow::GetScale().Half().x);
-			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y) - (GameEngineWindow::GetScale().Half().y) /*- 240*/;
+			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 			
 			Actor->GetRenderer()->SetPivot(BackActor);
 
@@ -72,11 +74,28 @@ void PlayLevel::Update()
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 	}
 
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+
 }
 
-void PlayLevel::LevelChangeStart()
+void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
-	//CreateActor<Player>((int)ORDER::PLAYER);
-	//CreateActor<UI>((int)ORDER::UI);
+	if (_NextLevel->GetNameCopy() != "Title")
+	{
+		Player::MainPlayer->NextLevelOn();
+	}
+}
+
+void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	// Player->SetPosition();
+
+	// BgmPlayer = GameEngineSound::SoundPlayControl("BGM.MP3");
+
+	/*GameEngineSound::SoundPlayOneShot("vo_shk.mp3");
+	Time = 5.0f;*/
 
 }

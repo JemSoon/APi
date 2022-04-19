@@ -74,6 +74,14 @@ void Player::Start()
 
 void Player::Update()
 {
+	//// 식물이 자라는거라고 하면
+	//// GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
+	//if (5.0f <= GetAccTime())
+	//{
+	//	ReSetAccTime();
+	//	int a = 0;
+	//}
+
 	DirAnimationCheck();
 	PlayerStateUpdate();
 
