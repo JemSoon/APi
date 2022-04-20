@@ -273,13 +273,13 @@ void Player::Update()
 		//}
 
 		//중력
-		//AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
-		//
-		//if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
-		//{
-		//	AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
-		//}
-		//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
+		AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
+		
+		if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
+		{
+			AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
+		}
+		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
 	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
