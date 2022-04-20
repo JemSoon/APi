@@ -6,6 +6,7 @@
 
 //Ό³Έν : 
 class Player;
+class GameEngineImage;
 class PlayLevel : public GameEngineLevel 
 {
 public:
@@ -32,6 +33,8 @@ public:
 
 	Player* MainPlayer;
 
+
+
 protected:
 	void Loading() override;
 	void Update() override;
@@ -40,6 +43,6 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _NextLevel) override;
 
 private:
-
+	//GameEngineImage* MapColImage_;
 };
 

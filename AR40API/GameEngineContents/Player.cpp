@@ -138,7 +138,7 @@ void Player::Update()
 	//PlayerStateUpdate();
 
 	//{	//맵과 캐릭터의 충돌설정용
-	//	//(참고)실제 BG랑 좌표가 안맞음 현재
+	//	
 	//	MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
 	//	
 

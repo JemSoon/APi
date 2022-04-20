@@ -11,6 +11,7 @@
 
 #include "GameEngine/GameEngineLevel.h"//내가추가
 #include <GameEngine/GameEngineImage.h>
+#include <GameEngine/GameEngineImageManager.h>
 
 PlayLevel::PlayLevel()
 {
@@ -66,6 +67,18 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update()
 {
+	//{	//맵과 캐릭터의 충돌설정용
+	//	//(참고)실제 BG랑 좌표가 안맞음 현재
+	//	MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+
+
+	//	if (nullptr == MapColImage_)
+	//	{
+	//		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
+	//	}
+	//}
+
+
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
 		GameEngine::GetInst().ChangeLevel("Intro");
