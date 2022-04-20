@@ -5,7 +5,13 @@
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
-
+enum PlayerState
+{
+	Idle,
+	Attck,
+	Move,
+	Max,
+};
 
 //설명 : 
 class GameEngineImage;
@@ -52,18 +58,20 @@ private:
 	static float4 NextLevelPosition;
 	GameEngineRenderer* Render1;
 
+	float4 MoveDir;
+
 	float Speed_;
-	//float AccSpeed_;
+	float AccSpeed_;
 	float Gravity_;
 	float AccGravity_;
 	float4 MoveDir_;
 	float4 PlayerDir_;
 	PlayerDir CheckDir_;
 
+	PlayerState CurState_;
+
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* PlayerCollision;
-
-	//bool IsMoveKey();
 
 	void Start() override;
 	void Render() override;
@@ -72,7 +80,22 @@ private:
 	void DoorCheck();
 	void WallCheck();
 
+	bool IsMoveKey();
+	void KeyMove();
 
+public:
+	void ChangeState(PlayerState _State);
+	void StateUpdate();
 
+private:
+	// FSM에서 금기가 있습니다.
+	void IdleUpdate();
+	void AttackUpdate();
+	void MoveUpdate();
+
+	void IdleStart();
+	void AttackStart();
+	void MoveStart();
 };
+
 
