@@ -36,12 +36,12 @@ public:
 	inline bool IsUpdate() override
 	{
 		//나의 IsUpdate_ && false == IsDeath_
-		return GameEngineUpdateObject::IsUpdate() || Actor_->IsUpdate();
+		return GameEngineUpdateObject::IsUpdate() && Actor_->IsUpdate();
 	}
 
 	inline bool IsDeath() override
 	{
-		return GameEngineUpdateObject::IsDeath() && Actor_->IsUpdate();//이거 ||로하면 터져..
+		return GameEngineUpdateObject::IsDeath() || Actor_->IsDeath();
 	}
 
 protected:
