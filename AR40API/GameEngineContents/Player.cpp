@@ -14,7 +14,7 @@
 Player* Player::MainPlayer = nullptr;
 
 Player::Player()
-	:Speed_(150.0f)
+	:Speed_(250.0f)
 	, Gravity_(100.0f)
 	, MoveDir_(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
@@ -32,9 +32,8 @@ Player::~Player()
 bool Player::IsMoveKey()
 {
 	if (false == GameEngineInput::GetInst()->IsPress("Move Left") &&
-		false == GameEngineInput::GetInst()->IsPress("Move Right") &&
-		false == GameEngineInput::GetInst()->IsPress("Move Up") &&
-		false == GameEngineInput::GetInst()->IsPress("Move Down"))
+		false == GameEngineInput::GetInst()->IsPress("Move Right"))
+
 	{
 		return false;
 	}
@@ -265,40 +264,7 @@ void Player::Update()
 
 	//	}
 	//}
-	////플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
-	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 250.0f));
-
-	//if (0 > GetLevel()->GetCameraPos().x)
-	//{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
-	//	float4 CameraPos = GetLevel()->GetCameraPos();
-	//	CameraPos.x = 0;
-	//	GetLevel()->SetCameraPos(CameraPos);
-	//}
-	//if (0 > GetLevel()->GetCameraPos().y)
-	//{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
-	//	float4 CameraPos = GetLevel()->GetCameraPos();
-	//	CameraPos.y = 0;
-	//	GetLevel()->SetCameraPos(CameraPos);
-	//}
-
-	//float MapSizeX = 13504;//맵 가로 오른쪽 끝
-	//float MapSizeY = 960;//맵 세로 끝
-	//float CameraRectY = 720;//카메라 세로 끝
-	//float CameraRectX = 1280;
-
-	//if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
-	//{	//카메라가 화면 밖에 못나가게
-	//	float4 CameraPos = GetLevel()->GetCameraPos();
-	//	CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
-	//	GetLevel()->SetCameraPos(CameraPos);
-	//}
-	//if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
-	//{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
-	//	float4 CameraPos = GetLevel()->GetCameraPos();
-	//	CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
-	//	GetLevel()->SetCameraPos(CameraPos);
-	//}
-
+	
 	//WallCheck();
 	//DoorCheck();
 
@@ -428,4 +394,41 @@ void Player::Render()
 void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	MainPlayer = this;
+}
+
+void Player::CameraOutCheck()
+{
+	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
+	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 250.0f));
+
+	if (0 > GetLevel()->GetCameraPos().x)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.x = 0;
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+	if (0 > GetLevel()->GetCameraPos().y)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.y = 0;
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+
+	float MapSizeX = 13504;//맵 가로 오른쪽 끝
+	float MapSizeY = 960;//맵 세로 끝
+	float CameraRectY = 720;//카메라 세로 끝
+	float CameraRectX = 1280;
+
+	if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
+	{	//카메라가 화면 밖에 못나가게
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
+		GetLevel()->SetCameraPos(CameraPos);
+	}
+	if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
+	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+		float4 CameraPos = GetLevel()->GetCameraPos();
+		CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
+		GetLevel()->SetCameraPos(CameraPos);
+	}
 }

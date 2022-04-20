@@ -81,7 +81,7 @@ private:
 	void WallCheck();
 
 	bool IsMoveKey();
-	void KeyMove();
+	void CameraOutCheck();
 
 public:
 	void ChangeState(PlayerState _State);

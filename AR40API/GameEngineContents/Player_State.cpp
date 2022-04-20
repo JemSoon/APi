@@ -37,6 +37,8 @@ void Player::IdleUpdate()
 		return;
 	}
 
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_;
+
 	//내 미래위치 (Speed_는 가속력)
 	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	//그 때 발바닥 위치
@@ -50,6 +52,8 @@ void Player::IdleUpdate()
 	{	//해당색상의 충돌체가 없으면 계속 아래로
 		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
 	}
+
+	CameraOutCheck();
 }
 
 void Player::AttackUpdate()
@@ -80,13 +84,6 @@ void Player::MoveUpdate()
 		}
 	}
 
-	//내 미래위치 (Speed_는 가속력)
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	//그 때 발바닥 위치
-	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
-	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
-
-
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
 		ChangeState(PlayerState::Attck);
@@ -97,43 +94,33 @@ void Player::MoveUpdate()
 	{
 		// 가속력
 		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
-
-		//내 미래위치 (Speed_는 가속력)
-		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		//그 때 발바닥 위치
-		float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
-		int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
-		if (RGB(255, 0, 0) != Color1 &&
-			RGB(55, 55, 55) != Color1 &&
-			RGB(0, 255, 255) != Color1 &&
-			RGB(0, 255, 0) != Color1)
-		{	//해당색상의 충돌체가 없으면 계속 아래로
-			SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
 		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
+	}
 
-		//내 미래위치 (Speed_는 가속력)
-		float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		//그 때 발바닥 위치
-		float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_;
 
-		int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
+	//내 미래위치 (Speed_는 가속력)
+	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	//그 때 발바닥 위치
+	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
+	{
 		if (RGB(255, 0, 0) != Color1 &&
-			RGB(55, 55, 55) != Color1 &&
-			RGB(0, 255, 255) != Color1 &&
-			RGB(0, 255, 0) != Color1)
-		{	//해당색상의 충돌체가 없으면 계속 아래로
+		RGB(55, 55, 55) != Color1 &&
+		RGB(0, 255, 255) != Color1 &&
+		RGB(0, 255, 0) != Color1)
+		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 			SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
 		}
+		else
+		{	//땅에 있을땐 위로 띄워주는 힘이 가해진다(안떨어지게) 문제-플레이어가 지진난것처럼 덜덜떨림
+			SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
+		}
 	}
-	
-
-	// MoveDir*= Speed_;
 
 	if (0.3f <= MoveDir.Len2D())
 	{
@@ -155,11 +142,9 @@ void Player::MoveUpdate()
 		return;
 	}
 
-
-
 	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 
-
+	CameraOutCheck();
 }
 
 
