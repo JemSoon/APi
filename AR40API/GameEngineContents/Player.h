@@ -19,7 +19,7 @@ public:
 	~Player();
 
 
-
+	static Player* MainPlayer;
 
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 
@@ -47,6 +47,10 @@ protected:
 
 
 private:
+	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
+	static float4 NextLevelPosition;
+	GameEngineRenderer* Render1;
+
 	float Speed_;
 	//float AccSpeed_;
 	float Gravity_;

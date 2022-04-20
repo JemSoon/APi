@@ -26,6 +26,12 @@ void PlayLevel2::Update()
 	}
 }
 
-void PlayLevel2::LevelChangeStart()
+void PlayLevel2::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
 }
+
+void PlayLevel2::LevelChangeStart(GameEngineLevel* _NextLevel)
+{
+}
+
+

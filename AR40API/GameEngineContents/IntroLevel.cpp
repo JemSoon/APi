@@ -58,7 +58,11 @@ void IntroLevel::Update()
 	}
 }
 
-void IntroLevel::LevelChangeStart()
+void IntroLevel::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
-
 }
+
+void IntroLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
+{
+}
+

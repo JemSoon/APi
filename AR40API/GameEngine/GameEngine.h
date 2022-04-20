@@ -18,8 +18,6 @@ public:
 	~GameEngine();
 
 
-
-
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 
 	//디폴트 복사 생성자
@@ -54,7 +52,6 @@ public:
 		UserContents_ = &UserGame;
 
 		WindowCreate();//창을 만듦
-
 		EngineEnd();
 	}
 
@@ -70,6 +67,10 @@ public:
 
 	void ChangeLevel(const std::string& _Name);
 
+	static inline GameEngineLevel* GetPrevLevel()
+	{
+		return PrevLevel_;
+	}
 
 protected:
 	template<typename LevelType>
@@ -86,6 +87,7 @@ private:
 	static std::map<std::string, GameEngineLevel*> AllLevel_;
 	static GameEngineLevel* CurrentLevel_;
 	static GameEngineLevel* NextLevel_;
+	static GameEngineLevel* PrevLevel_;
 	static GameEngine* UserContents_;
 
 	static GameEngineImage* WindowMainImage_;//진짜 띄우는 이미지
@@ -93,9 +95,9 @@ private:
 
 
 	static void WindowCreate();
-
 	static void EngineInit();
 	static void EngineLoop();
 	static void EngineEnd();
+
 };
 

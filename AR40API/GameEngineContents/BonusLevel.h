@@ -30,8 +30,8 @@ public:
 protected:
 	void Loading() override;
 	void Update() override;
-	void LevelChangeStart() override;
-
+	void LevelChangeEnd(GameEngineLevel* _PrevLevel) override;
+	void LevelChangeStart(GameEngineLevel* _NextLevel) override;
 private:
 
 };

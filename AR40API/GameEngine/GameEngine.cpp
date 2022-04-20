@@ -69,17 +69,26 @@ void GameEngine::EngineLoop()
 
 	if (nullptr != NextLevel_)
 	{
+		PrevLevel_ = CurrentLevel_;
+
 		if (nullptr != CurrentLevel_)
 		{
-			CurrentLevel_->LevelChangeEnd();
+			CurrentLevel_->ActorLevelChangeEnd(NextLevel_);
+			CurrentLevel_->LevelChangeEnd(NextLevel_);
+
+			CurrentLevel_->ObjectLevelMoveCheck(NextLevel_);
+
 		}
 
+		GameEngineLevel* PrevLevel = CurrentLevel_;
 		CurrentLevel_ = NextLevel_;
 
 		if (nullptr != CurrentLevel_)
 		{
-			CurrentLevel_->LevelChangeStart();
+			CurrentLevel_->LevelChangeStart(PrevLevel);
+			CurrentLevel_->ActorLevelChangeStart(PrevLevel);
 		}
+
 		NextLevel_ = nullptr;
 		GameEngineTime::GetInst()->Reset();//리셋 다 끝나고 나서 시간을 잰다
 
@@ -103,6 +112,7 @@ void GameEngine::EngineLoop()
 	CurrentLevel_->ActorRender();
 	CurrentLevel_->CollisionDebugRender();
 	WindowMainImage_->BitCopy(BackBufferImage_);
+
 	CurrentLevel_->ActorRelease();
 }
 
@@ -122,6 +132,7 @@ void GameEngine::EngineEnd()
 		delete StartIter->second;
 	}
 
+	//GameEngineSound::AllResourcesDestroy();
 	GameEngineImageManager::Destroy();
 	GameEngineWindow::Destroy();
 	GameEngineInput::Destroy();

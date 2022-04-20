@@ -26,6 +26,10 @@ void PlayLevel3::Update()
 	}
 }
 
-void PlayLevel3::LevelChangeStart()
+void PlayLevel3::LevelChangeEnd(GameEngineLevel* _PrevLevel)
+{
+}
+
+void PlayLevel3::LevelChangeStart(GameEngineLevel* _NextLevel)
 {
 }

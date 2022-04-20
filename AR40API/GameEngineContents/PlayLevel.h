@@ -14,8 +14,6 @@ public:
 	~PlayLevel();
 
 	
-	
-	
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 	
 	//디폴트 복사 생성자
@@ -27,14 +25,19 @@ public:
 	PlayLevel& operator=(PlayLevel&& _Other) noexcept = delete;
 
 
+	float Time;
+
+	//GameEngineSoundPlayer BgmPlayer;
+
+	Player* MainPlayer;
+
 protected:
 	void Loading() override;
 	void Update() override;
+	
+	void LevelChangeEnd(GameEngineLevel* _PrevLevel) override;
 	void LevelChangeStart(GameEngineLevel* _NextLevel) override;
 
-	void LevelChangeEnd(GameEngineLevel* _PrevLevel) override;
-
-	
 private:
 
 };

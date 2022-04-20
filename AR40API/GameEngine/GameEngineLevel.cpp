@@ -441,7 +441,7 @@ void GameEngineLevel::ObjectLevelMoveCheck(GameEngineLevel* _NextLevel)
 			for (; StartCollision != EndCollision; )
 			{
 				if (false == (*StartCollision)->GetActor()->NextLevelOn_)
-				{
+				{	//부모인 액터가 옮겨가면 따라간다
 					++StartCollision;
 					continue;
 				}

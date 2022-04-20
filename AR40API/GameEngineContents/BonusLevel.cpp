@@ -51,6 +51,10 @@ void BonusLevel::Update()
 	}
 }
 
-void BonusLevel::LevelChangeStart()
+void BonusLevel::LevelChangeEnd(GameEngineLevel* _PrevLevel)
+{
+}
+
+void BonusLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
 {
 }

@@ -302,13 +302,6 @@ void Player::Update()
 }
 
 
-//랜더러가 다 돌아가고 랜더링 된다
-void Player::Render()
-{
-
-
-}
-
 void Player::WallCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
@@ -371,4 +364,16 @@ void Player::DirAnimationCheck()
 void Player::PlayerStateUpdate()
 {
 
+}
+
+//랜더러가 다 돌아가고 랜더링 된다
+void Player::Render()
+{
+
+
+}
+
+void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainPlayer = this;
 }

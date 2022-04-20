@@ -11,6 +11,7 @@ class GameEngineDirectory : public GameEnginePath
 public:
 	//디폴트 생성자
 	GameEngineDirectory();
+	GameEngineDirectory(const std::string& _Path);
 	//디폴트 소멸자
 	~GameEngineDirectory();
 
