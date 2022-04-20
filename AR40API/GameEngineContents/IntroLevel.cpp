@@ -6,6 +6,7 @@
 #include <GameEngine/GameEngineRenderer.h>
 
 
+
 enum class ORDER //이미지 올라갈 순서 설정
 {
 	BACKGROUND,
@@ -32,6 +33,13 @@ void IntroLevel::Loading()
 
 void IntroLevel::Update()
 {
+
+	//if (3.0f <= GetAccTime())
+	//{
+	//	ReSetAccTime();
+	//	GameEngine::GetInst().ChangeLevel("Play1");//넘기는기능
+	//}
+
 	if (true == GameEngineInput::GetInst()->IsDown("Play1"))
 	{
 		GameEngine::GetInst().ChangeLevel("Play1");//넘기는기능

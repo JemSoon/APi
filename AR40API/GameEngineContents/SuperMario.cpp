@@ -78,8 +78,8 @@ void SuperMario::GameInit()
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
 	{	//false면 만들어진 적 없는 키 이다
-		GameEngineInput::GetInst()->CreateKey("Title", 'P');
-		GameEngineInput::GetInst()->CreateKey("Intro", 'O');
+		GameEngineInput::GetInst()->CreateKey("Title", VK_RETURN);
+		GameEngineInput::GetInst()->CreateKey("Intro", VK_RETURN);
 		GameEngineInput::GetInst()->CreateKey("Play1", '1');
 		GameEngineInput::GetInst()->CreateKey("Pipe1", 'F');
 		GameEngineInput::GetInst()->CreateKey("Play2", '2');
@@ -106,8 +106,8 @@ void SuperMario::GameInit()
 	CreateLevel<PlayLevel2>("Play2");
 	CreateLevel<PlayLevel3>("Play3");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
-	//ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
+	//ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
+	ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
 }
 
 void SuperMario::GameLoop()

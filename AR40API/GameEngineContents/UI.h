@@ -9,6 +9,8 @@ class GameEngineRenderer;
 class UI : public GameEngineActor
 {
 public:
+	static UI* MainUI;
+
 	//디폴트 생성자
 	UI();
 	//디폴트 소멸자
@@ -33,5 +35,6 @@ protected:
 	void Start() override;
 	//void Render() override;
 private:
+	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 };
 

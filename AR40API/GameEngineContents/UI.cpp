@@ -2,6 +2,8 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineRenderer.h>
 
+UI* UI::MainUI = nullptr;
+
 UI::UI()
 {
 
@@ -35,5 +37,10 @@ void UI::Start()
 	//Pos.y *= 2.0f;
 
 	//SetScale(GameEngineWindow::GetScale());
+}
+
+void UI::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainUI = this;
 }
 
