@@ -8,8 +8,9 @@
 std::map<std::string, GameEngineLevel*> GameEngine::AllLevel_;
 GameEngineLevel* GameEngine::CurrentLevel_ = nullptr;
 GameEngineLevel* GameEngine::NextLevel_ = nullptr;
-GameEngine* GameEngine::UserContents_ = nullptr;
+GameEngineLevel* GameEngine::PrevLevel_ = nullptr;
 
+GameEngine* GameEngine::UserContents_ = nullptr;
 GameEngineImage* GameEngine::BackBufferImage_ = nullptr;//백버퍼
 GameEngineImage* GameEngine::WindowMainImage_ = nullptr;//진짜 그려지는 이미지
 

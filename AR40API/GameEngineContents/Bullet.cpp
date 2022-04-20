@@ -27,7 +27,7 @@ void Bullet::Start()
 	Render->ChangeAnimation("Bullet");
 	//Render->SetIndex(0);
 
-	//CreateCollision("PlayerAttackBox", { 32, 32 });
+	CreateCollision("PlayerAttackBox", { 32, 32 });
 	//콜리젼 상자 만들기 쓰면 터짐
 
 	Death(5.0f);//5초뒤에 총알은 사라진다(죽는다)

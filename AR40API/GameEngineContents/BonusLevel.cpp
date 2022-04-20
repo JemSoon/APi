@@ -8,6 +8,7 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngine/GameEngineImage.h>
 
 BonusLevel::BonusLevel()
 {

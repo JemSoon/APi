@@ -11,6 +11,8 @@
 #include <GameEngine/GameEngineLevel.h>//레벨을 통해서
 #include "Bullet.h"//총알을 만들고 싶다
 
+Player* Player::MainPlayer = nullptr;
+
 Player::Player()
 	:Speed_(150.0f)
 	, Gravity_(100.0f)

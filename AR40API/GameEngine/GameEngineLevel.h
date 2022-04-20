@@ -48,7 +48,7 @@ public:
 
 	bool IsDebugModeSwitch()
 	{
-		IsDebug = !IsDebug;
+		return IsDebug = !IsDebug;
 	}
 
 	template<typename ActorType>

@@ -10,6 +10,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 
 #include "GameEngine/GameEngineLevel.h"//내가추가
+#include <GameEngine/GameEngineImage.h>
 
 PlayLevel::PlayLevel()
 {
@@ -27,18 +28,18 @@ void PlayLevel::Loading()
 		BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 		Actor->GetRenderer()->SetImage("Map1-1.bmp");
 
-		//{	//맵 이미지 첫화면에 맞게 맞추기
-		//	float4 BackActor = {};
-		//	BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-		//	BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
-		//	
-		//	Actor->GetRenderer()->SetPivot(BackActor);
+		{	//맵 이미지 첫화면에 맞게 맞추기
+			float4 BackActor = {};
+			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
+			
+			Actor->GetRenderer()->SetPivot(BackActor);
 
-		//	Actor->CreateCollision("Door",{100,100}, {0, 0});//문 콜리젼 임시생성
+			Actor->CreateCollision("Door",{100,100}, {0, 0});//문 콜리젼 임시생성
 
-		//	Actor->CreateCollision("Wall", { 100,100 }, { 0, -200 });
+			Actor->CreateCollision("Wall", { 100,100 }, { 0, -200 });
 
-		//}
+		}
 
 		{
 			if (nullptr == Player::MainPlayer)
