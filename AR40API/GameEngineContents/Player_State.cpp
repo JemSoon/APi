@@ -40,9 +40,6 @@ void Player::IdleUpdate()
 	// wndc
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	//float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	////그 때 발바닥 위치
-	//float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
 	FootCheck();
 
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
@@ -107,16 +104,13 @@ void Player::MoveUpdate()
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	//내 미래위치 (Speed_는 가속력)
-	float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//그 때 발바닥 위치
-	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
-	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
+	FootCheck();
+
 	{
-		if (RGB(255, 0, 0) != Color1 &&
-			RGB(55, 55, 55) != Color1 &&
-			RGB(0, 255, 255) != Color1 &&
-			RGB(0, 255, 0) != Color1)
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
 		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 		}
@@ -124,9 +118,9 @@ void Player::MoveUpdate()
 		{
 			MoveDir.y = 0.0f;
 
-			NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			//그 때 발바닥 위치
-			float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+			float4 CheckPos1 = NextPos_ + float4(0.0f, 32.0f);
 			int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
 
 			if (RGB(255, 0, 0) != Color1 &&
