@@ -14,9 +14,9 @@
 Player* Player::MainPlayer = nullptr;
 
 Player::Player()
-	:Speed_(250.0f)
-	, Gravity_(100.0f)
-	, MoveDir_(float4::ZERO)
+	: Speed_(10.0f)
+	, AccSpeed_(10.0f)
+	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 {
 
@@ -264,7 +264,7 @@ void Player::Update()
 
 	//	}
 	//}
-	
+
 	//WallCheck();
 	//DoorCheck();
 
@@ -431,4 +431,13 @@ void Player::CameraOutCheck()
 		CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
 		GetLevel()->SetCameraPos(CameraPos);
 	}
+}
+
+void Player::FootCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(0.0f, 32.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }

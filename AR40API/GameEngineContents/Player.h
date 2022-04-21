@@ -58,21 +58,18 @@ private:
 	static float4 NextLevelPosition;
 	GameEngineRenderer* Render1;
 
-	float4 MoveDir;
-
 	float Speed_;
 	float AccSpeed_;
-	float Gravity_;
-	float AccGravity_;
-	float4 MoveDir_;
-	float4 PlayerDir_;
-	PlayerDir CheckDir_;
-
-	PlayerState CurState_;
+	float4 MoveDir;
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* PlayerCollision;
 
+	// bullet 용 dir
+	float4 PlayerDir_;
+	PlayerDir CheckDir_;
+
+public:
 	void Start() override;
 	void Render() override;
 	void Update() override;
@@ -83,7 +80,20 @@ private:
 	bool IsMoveKey();
 	void CameraOutCheck();
 
-public:
+	//===내가 추가한 퍼블릭 함수===//
+	void FootCheck();//발 위치 확인용
+	
+	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
+private:
+	float4 NextPos_;
+	float4 CheckPos_;
+	int Color_;
+
+
+	// state용 함수
+private:
+	PlayerState CurState_;
+
 	void ChangeState(PlayerState _State);
 	void StateUpdate();
 

@@ -37,20 +37,24 @@ void Player::IdleUpdate()
 		return;
 	}
 
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_;
+	// wndc
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	//내 미래위치 (Speed_는 가속력)
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	//그 때 발바닥 위치
-	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+	//float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	////그 때 발바닥 위치
+	//float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+	FootCheck();
 
-	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
-	if (RGB(255, 0, 0) != Color1 &&
-		RGB(55, 55, 55) != Color1 &&
-		RGB(0, 255, 255) != Color1 &&
-		RGB(0, 255, 0) != Color1)
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
+	if (RGB(255, 0, 0) != Color_ &&
+		RGB(55, 55, 55) != Color_ &&
+		RGB(0, 255, 255) != Color_ &&
+		RGB(0, 255, 0) != Color_)
 	{	//해당색상의 충돌체가 없으면 계속 아래로
-		SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	else {
+		MoveDir.y = 0.0f;
 	}
 
 	CameraOutCheck();
@@ -93,56 +97,53 @@ void Player::MoveUpdate()
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		// 가속력
-		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
+		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
+		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_;
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	//내 미래위치 (Speed_는 가속력)
-	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+	float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그 때 발바닥 위치
 	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
 	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
 	{
 		if (RGB(255, 0, 0) != Color1 &&
-		RGB(55, 55, 55) != Color1 &&
-		RGB(0, 255, 255) != Color1 &&
-		RGB(0, 255, 0) != Color1)
+			RGB(55, 55, 55) != Color1 &&
+			RGB(0, 255, 255) != Color1 &&
+			RGB(0, 255, 0) != Color1)
 		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
-			SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 		}
 		else
-		{	//땅에 있을땐 위로 띄워주는 힘이 가해진다(안떨어지게) 문제-플레이어가 지진난것처럼 덜덜떨림
-			SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-	}
-
-	if (0.3f <= MoveDir.Len2D())
-	{
-		MoveDir.Range2D(0.3f);
-	}
-
-	if (false == IsMoveKey())
-	{
-		MoveDir += -MoveDir * GameEngineTime::GetDeltaTime();
-
-		if (0.005f >= MoveDir.Len2D())
 		{
-			MoveDir = float4::ZERO;
-			return;
-		}
+			MoveDir.y = 0.0f;
 
-	
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-		return;
+			NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			//그 때 발바닥 위치
+			float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
+			int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
+
+			if (RGB(255, 0, 0) != Color1 &&
+				RGB(55, 55, 55) != Color1 &&
+				RGB(0, 255, 255) != Color1 &&
+				RGB(0, 255, 0) != Color1)
+			{
+				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			}
+			else {
+				MoveDir.x = 0.0f;
+			}
+		}
 	}
 
-	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	// rka
+	//MoveDir.
 
 	CameraOutCheck();
 }
