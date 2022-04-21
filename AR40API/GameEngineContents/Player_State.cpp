@@ -85,13 +85,13 @@ void Player::MoveUpdate()
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
 		}
-		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
-		{	//버튼 떼면 idle애니메이션으로
-			PlayerAnimationRender->ChangeAnimation("idle-R");
-			ChangeState(PlayerState::Idle);
-			MoveDir.x = 0.0f;
-			return;
-		}
+		//else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
+		//{	//버튼 떼면 idle애니메이션으로
+		//	PlayerAnimationRender->ChangeAnimation("idle-R");
+		//	ChangeState(PlayerState::Idle);
+		//	MoveDir.x = 0.0f;
+		//	return;
+		//}
 	}
 
 	{	//왼쪽
@@ -101,13 +101,13 @@ void Player::MoveUpdate()
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::LEFT;
 		}
-		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
-		{
-			PlayerAnimationRender->ChangeAnimation("idle-L");
-			ChangeState(PlayerState::Idle);
-			MoveDir.x = 0.0f;
-			return;
-		}
+		//else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
+		//{
+		//	PlayerAnimationRender->ChangeAnimation("idle-L");
+		//	ChangeState(PlayerState::Idle);
+		//	MoveDir.x = 0.0f;
+		//	return;
+		//}
 	}
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
@@ -143,7 +143,7 @@ void Player::MoveUpdate()
 	}
 
 	//감속
-	//MoveDir.
+	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
 
 	CameraOutCheck();
 }
