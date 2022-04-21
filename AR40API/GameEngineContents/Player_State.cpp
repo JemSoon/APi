@@ -186,11 +186,20 @@ void Player::AttackUpdate()
 	CameraOutCheck();
 }
 
+void Player::JumpUpdate()
+{
+	if (true == GameEngineInput::GetInst()->IsPress("Jump"))
+	{
+		MoveDir = float4::UP;
+		PlayerAnimationRender->ChangeAnimation("Jump-R");
+	}
+}
+
 void Player::DeadUpdate()
 {
 	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
 
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f;
 }
 
 
@@ -213,6 +222,10 @@ void Player::MoveStart()
 void Player::AttackStart()
 {
 
+}
+
+void Player::JumpStart()
+{
 }
 
 void Player::DeadStart()

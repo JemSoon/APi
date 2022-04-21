@@ -73,13 +73,12 @@ void Player::StateUpdate()
 	case Idle:
 		IdleUpdate();
 		AttackUpdate();
-		break;
-	case Attck:
-		AttackUpdate();
+		JumpUpdate();
 		break;
 	case Move:
 		MoveUpdate();
 		AttackUpdate();
+		JumpUpdate();
 		break;
 	case Max:
 		break;
@@ -105,6 +104,8 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("walk-L.bmp", "Walk-L", 0, 2, 0.1f, true);
 	PlayerAnimationRender->CreateAnimation("idle-R.bmp", "idle-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("idle-L.bmp", "idle-L", 0, 0, 0.0f, false);
+	PlayerAnimationRender->CreateAnimation("jump-L.bmp", "Jump-L", 0, 0, 0.0f, false);
+	PlayerAnimationRender->CreateAnimation("jump-R.bmp", "Jump-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
 
 	CurDir_ = PlayerDir::Start;
@@ -133,6 +134,10 @@ void Player::Update()
 	//}
 
 	StateUpdate();
+
+	WallCheck();
+	DoorCheck();
+
 
 	//DirAnimationCheck();
 	//PlayerStateUpdate();
@@ -266,9 +271,6 @@ void Player::Update()
 	//	}
 	//}
 
-	//WallCheck();
-	//DoorCheck();
-
 
 
 	////if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
@@ -276,47 +278,7 @@ void Player::Update()
 	////	PlayerCollision->Collision("Door");
 	////}
 
-	//{	//중력 관련
-	//	//내 포지션에서 (CENTER중심이라 바닥 기준이니 32아래로)
-	//int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
 
-	//	//충돌 설정 인터페이스
-	//	//1.우선 충돌체를 만든다(랜더러와 똑같음)
-	//	//이동하고 나서 a=0이되려면 여기 이동하기전에 하려면 업데이트에
-	//	//GameEngineCollision* MyCollision;
-	//	//if (true == MyCollision->Collision("Door"))
-	//	//{
-	//	//	int a = 0;
-	//	//}
-
-	//	//중력
-	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
-	//	
-	//	if (RGB(255, 0, 0)==Color/*땅에 닿았다면(빨간색)*/)
-	//	{
-	//		AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
-	//	}
-	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
-	//}
-
-	//if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	//{
-	//	SetScale({ 32,32 });
-
-	//	Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-	//	Ptr->SetPosition(GetPosition());
- //		Ptr->SetDir(CurDir());
-	//}
-
-
-	///*if (2.0f < GameEngineInput::GetInst()->GetTime("Fire")) 2초간 기모으고 연사쏘기
-	//{
-	//	SetScale({ 32,32 });
-
-	//	Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-	//	Ptr->SetPosition(GetPosition());
-
-	//}*/
 
 }
 

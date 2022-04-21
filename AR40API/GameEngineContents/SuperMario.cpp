@@ -74,6 +74,14 @@ void SuperMario::GameInit()
 
 			Image6->Cut({ 32, 32 });
 
+			GameEngineImage* Image7 = GameEngineImageManager::GetInst()->Find("jump-R.bmp");
+
+			Image7->Cut({ 64, 64 });
+
+			GameEngineImage* Image8 = GameEngineImageManager::GetInst()->Find("jump-L.bmp");
+
+			Image8->Cut({ 64, 64 });
+
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
