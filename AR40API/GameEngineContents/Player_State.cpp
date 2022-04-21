@@ -31,13 +31,6 @@ void Player::IdleUpdate()
 		return;
 	}
 
-
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		ChangeState(PlayerState::Attck);
-		return;
-	}
-
 	// wndc
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
@@ -51,10 +44,14 @@ void Player::IdleUpdate()
 	{	//해당색상의 충돌체가 없으면 계속 아래로
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	}
-	else {
+	else 
+	{
 		MoveDir.y = 0.0f;
 	}
-	//DirAnimationCheck();
+	
+	//=================문제 idle상태일때 총알 발사가 안됨 ====================
+	Fire();
+	//=================문제 idle상태일때 총알 발사가 안됨 ====================
 	CameraOutCheck();
 }
 
@@ -71,11 +68,6 @@ void Player::MoveUpdate()
 		}
 	}
 
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		ChangeState(PlayerState::Attck);
-		return;
-	}
 
 	{	//오른쪽
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
@@ -84,14 +76,14 @@ void Player::MoveUpdate()
 			PlayerAnimationRender->ChangeAnimation("Walk-R");
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
+			Fire();
 		}
-		//else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
-		//{	//버튼 떼면 idle애니메이션으로
-		//	PlayerAnimationRender->ChangeAnimation("idle-R");
-		//	ChangeState(PlayerState::Idle);
-		//	MoveDir.x = 0.0f;
-		//	return;
-		//}
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
+		{	
+			PlayerAnimationRender->ChangeAnimation("idle-R");
+			//ChangeState(PlayerState::Idle);//이거넣으면 바로 멈춰버림+멈춰있는데 가속도는 유지되어있음
+			return;
+		}
 	}
 
 	{	//왼쪽
@@ -100,14 +92,14 @@ void Player::MoveUpdate()
 			PlayerAnimationRender->ChangeAnimation("Walk-L");
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::LEFT;
+			Fire();
 		}
-		//else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
-		//{
-		//	PlayerAnimationRender->ChangeAnimation("idle-L");
-		//	ChangeState(PlayerState::Idle);
-		//	MoveDir.x = 0.0f;
-		//	return;
-		//}
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
+		{
+			PlayerAnimationRender->ChangeAnimation("idle-L");
+			//ChangeState(PlayerState::Idle);
+			return;
+		}
 	}
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
@@ -144,44 +136,6 @@ void Player::MoveUpdate()
 
 	//감속
 	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
-
-	CameraOutCheck();
-}
-
-void Player::AttackUpdate()
-{
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-
-	FootCheck();
-
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//해당색상의 충돌체가 없으면 계속 아래로
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	}
-	else 
-	{
-		MoveDir.y = 0.0f;
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		SetScale({ 32,32 });
-
-		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-		Ptr->SetPosition(GetPosition());
-		Ptr->SetDir(CurDir());
-	}
-
-	if (true == IsMoveKey())
-	{
-		ChangeState(PlayerState::Move);
-		return;
-	}
-
 
 	CameraOutCheck();
 }

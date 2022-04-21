@@ -72,12 +72,12 @@ void Player::StateUpdate()
 	{
 	case Idle:
 		IdleUpdate();
-		AttackUpdate();
+		//AttackUpdate();
 		JumpUpdate();
 		break;
 	case Move:
 		MoveUpdate();
-		AttackUpdate();
+		//AttackUpdate();
 		JumpUpdate();
 		break;
 	case Max:
@@ -406,4 +406,16 @@ void Player::FootCheck()
 	//그때 내 발바닥 위치
 	CheckPos_ = NextPos_ + float4(0.0f, 32.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void Player::Fire()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
+	{
+		SetScale({ 32,32 });
+
+		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+		Ptr->SetPosition(GetPosition());
+		Ptr->SetDir(CurDir());
+	}
 }
