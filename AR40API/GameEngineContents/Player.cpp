@@ -72,12 +72,14 @@ void Player::StateUpdate()
 	{
 	case Idle:
 		IdleUpdate();
+		AttackUpdate();
 		break;
 	case Attck:
 		AttackUpdate();
 		break;
 	case Move:
 		MoveUpdate();
+		AttackUpdate();
 		break;
 	case Max:
 		break;
