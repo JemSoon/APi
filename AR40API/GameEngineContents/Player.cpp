@@ -50,9 +50,6 @@ void Player::ChangeState(PlayerState _State)
 		case Idle:
 			IdleStart();
 			break;
-		case Attck:
-			AttackStart();
-			break;
 		case Move:
 			MoveStart();
 			break;
@@ -72,12 +69,10 @@ void Player::StateUpdate()
 	{
 	case Idle:
 		IdleUpdate();
-		//AttackUpdate();
 		JumpUpdate();
 		break;
 	case Move:
 		MoveUpdate();
-		//AttackUpdate();
 		JumpUpdate();
 		break;
 	case Max:
@@ -137,7 +132,7 @@ void Player::Update()
 
 	WallCheck();
 	DoorCheck();
-
+	Fire();
 
 	//DirAnimationCheck();
 	//PlayerStateUpdate();

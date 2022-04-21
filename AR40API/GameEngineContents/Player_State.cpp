@@ -49,9 +49,6 @@ void Player::IdleUpdate()
 		MoveDir.y = 0.0f;
 	}
 	
-	//=================문제 idle상태일때 총알 발사가 안됨 ====================
-	Fire();
-	//=================문제 idle상태일때 총알 발사가 안됨 ====================
 	CameraOutCheck();
 }
 
@@ -76,7 +73,6 @@ void Player::MoveUpdate()
 			PlayerAnimationRender->ChangeAnimation("Walk-R");
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
-			Fire();
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
 		{	
@@ -92,7 +88,6 @@ void Player::MoveUpdate()
 			PlayerAnimationRender->ChangeAnimation("Walk-L");
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::LEFT;
-			Fire();
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
 		{
@@ -135,7 +130,7 @@ void Player::MoveUpdate()
 	}
 
 	//감속
-	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+	MoveDir.x += ((-MoveDir.x * 0.99f) * GameEngineTime::GetDeltaTime());
 
 	CameraOutCheck();
 }
@@ -149,12 +144,7 @@ void Player::JumpUpdate()
 	}
 }
 
-void Player::DeadUpdate()
-{
-	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
 
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 300.0f;
-}
 
 
 //////////////////////////////////////// State
@@ -173,18 +163,6 @@ void Player::MoveStart()
 
 }
 
-void Player::AttackStart()
-{
-
-}
-
 void Player::JumpStart()
 {
-}
-
-void Player::DeadStart()
-{
-	// GameEngineTime::SetTimeScale(GameMonster::);
-
-	MoveDir = float4::UP * 500.0f;
 }

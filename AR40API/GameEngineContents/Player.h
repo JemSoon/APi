@@ -105,15 +105,11 @@ private:
 private:
 	// FSM에서 금기가 있습니다.
 	void IdleUpdate();
-	//void AttackUpdate();
 	void MoveUpdate();
-	void DeadUpdate();
 	void JumpUpdate();
 
 	void IdleStart();
-	void AttackStart();
 	void MoveStart();
-	void DeadStart();
 	void JumpStart();
 };
 
