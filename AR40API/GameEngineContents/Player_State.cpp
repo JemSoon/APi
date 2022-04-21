@@ -139,9 +139,14 @@ void Player::JumpUpdate()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Jump"))
 	{
-		MoveDir = float4::UP;
+		MoveDir += float4::UP* 0.2f;
+
 		PlayerAnimationRender->ChangeAnimation("Jump-R");
+		
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		//점프 추락 가속도는 이게 아닌가..?
 	}
+
 }
 
 

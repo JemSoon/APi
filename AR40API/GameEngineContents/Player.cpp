@@ -14,7 +14,7 @@
 Player* Player::MainPlayer = nullptr;
 
 Player::Player()
-	: Speed_(10.0f)
+	: Speed_(50.0f)
 	, AccSpeed_(10.0f)
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
