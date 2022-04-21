@@ -54,7 +54,7 @@ void Player::IdleUpdate()
 	else {
 		MoveDir.y = 0.0f;
 	}
-	DirAnimationCheck();
+	//DirAnimationCheck();
 	CameraOutCheck();
 }
 
@@ -83,10 +83,13 @@ void Player::MoveUpdate()
 			// 가속력
 			PlayerAnimationRender->ChangeAnimation("Walk-R");
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
 		{	//버튼 떼면 idle애니메이션으로
 			PlayerAnimationRender->ChangeAnimation("idle-R");
+			ChangeState(PlayerState::Idle);
+			return;
 		}
 	}
 
@@ -95,10 +98,13 @@ void Player::MoveUpdate()
 		{
 			PlayerAnimationRender->ChangeAnimation("Walk-L");
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+			PlayerDir_ = float4::LEFT;
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
 		{
 			PlayerAnimationRender->ChangeAnimation("idle-L");
+			ChangeState(PlayerState::Idle);
+			return;
 		}
 	}
 
@@ -130,7 +136,8 @@ void Player::MoveUpdate()
 			{
 				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 			}
-			else {
+			else 
+			{
 				MoveDir.x = 0.0f;
 			}
 		}
@@ -142,15 +149,25 @@ void Player::MoveUpdate()
 	CameraOutCheck();
 }
 
-void Player::DeadUpdate()
-{
-	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
-
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
-}
-
 void Player::AttackUpdate()
 {
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
+	FootCheck();
+
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
+	if (RGB(255, 0, 0) != Color_ &&
+		RGB(55, 55, 55) != Color_ &&
+		RGB(0, 255, 255) != Color_ &&
+		RGB(0, 255, 0) != Color_)
+	{	//해당색상의 충돌체가 없으면 계속 아래로
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+	else 
+	{
+		MoveDir.y = 0.0f;
+	}
+
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
 		SetScale({ 32,32 });
@@ -159,7 +176,23 @@ void Player::AttackUpdate()
 		Ptr->SetPosition(GetPosition());
 		Ptr->SetDir(CurDir());
 	}
+
+	if (true == IsMoveKey())
+	{
+		ChangeState(PlayerState::Move);
+		return;
+	}
+
+	CameraOutCheck();
 }
+
+void Player::DeadUpdate()
+{
+	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
+
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+}
+
 
 //////////////////////////////////////// State
 

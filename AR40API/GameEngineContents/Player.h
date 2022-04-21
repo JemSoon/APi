@@ -90,7 +90,9 @@ private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
-
+	
+	//카메라 좌표 설정용 멤버변수
+	float4 CameraPos_;
 
 	// state용 함수
 private:

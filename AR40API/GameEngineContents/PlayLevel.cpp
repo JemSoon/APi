@@ -48,7 +48,7 @@ void PlayLevel::Loading()
 			//스테이지의 플레이어 로드
 			Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Player::MainPlayer -> SetPosition({ 64.0f,64.0f }); //320.0f,740.0f
+			Player::MainPlayer -> SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
 
 			//스테이지의 UI 로드
 			CreateActor<UI>((int)ORDER::UI);

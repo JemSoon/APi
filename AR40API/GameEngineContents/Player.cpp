@@ -397,8 +397,11 @@ void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void Player::CameraOutCheck()
 {
-	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다
-	GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 250.0f));
+	CameraPos_.x = GetPosition().x - GameEngineWindow::GetInst().GetScale().Half().x + 200.0f;
+	CameraPos_.y = GameEngineWindow::GetInst().GetScale().Half().y;
+	//플레이어가 카메라 중심에 있길 원하면 그만큼 위치를 더하거나 뺀다 하지만 y축은 고정
+	GetLevel()->SetCameraPos(CameraPos_);
+	//GetLevel()->SetCameraPos(GetPosition() - GameEngineWindow::GetInst().GetScale().Half() - float4(-200.0f, 250.0f));
 
 	if (0 > GetLevel()->GetCameraPos().x)
 	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
