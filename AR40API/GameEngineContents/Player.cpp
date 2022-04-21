@@ -128,11 +128,11 @@ void Player::Update()
 	//	int a = 0;
 	//}
 
+	Fire();//총알 발사함수
 	StateUpdate();
 
 	WallCheck();
 	DoorCheck();
-	Fire();
 
 	//DirAnimationCheck();
 	//PlayerStateUpdate();
