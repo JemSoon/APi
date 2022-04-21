@@ -10,6 +10,8 @@ enum PlayerState
 	Idle,
 	Attck,
 	Move,
+	Jump,
+	Dead,
 	Max,
 };
 
@@ -102,10 +104,14 @@ private:
 	void IdleUpdate();
 	void AttackUpdate();
 	void MoveUpdate();
+	void DeadUpdate();
+	void JumpUpdate();
 
 	void IdleStart();
 	void AttackStart();
 	void MoveStart();
+	void DeadStart();
+	void JumpStart();
 };
 
 

@@ -113,7 +113,6 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Left", VK_LEFT);
 		GameEngineInput::GetInst()->CreateKey("Move Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
-		GameEngineInput::GetInst()->CreateKey("Move Up", VK_UP);
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
@@ -347,26 +346,26 @@ void Player::DirAnimationCheck()
 	CheckDir_ = CurDir_;
 	std::string ChangeDirText = "R";
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{
-		CheckDir_ = PlayerDir::Right;
-		ChangeName = "Walk-";
-		ChangeDirText = "R";
-	}
-	else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
+	//if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	//{
+	//	CheckDir_ = PlayerDir::Right;
+	//	ChangeName = "Walk-";
+	//	ChangeDirText = "R";
+	//}
+	if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
 	{
 		CheckDir_ = PlayerDir::Right;
 		ChangeName = "idle-";
 		ChangeDirText = "R";
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{
-		CheckDir_ = PlayerDir::Left;
-		ChangeName = "Walk-";
-		ChangeDirText = "L";
-	}
-	else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
+	//if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	//{
+	//	CheckDir_ = PlayerDir::Left;
+	//	ChangeName = "Walk-";
+	//	ChangeDirText = "L";
+	//}
+	if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
 	{
 		CheckDir_ = PlayerDir::Left;
 		ChangeName = "idle-";

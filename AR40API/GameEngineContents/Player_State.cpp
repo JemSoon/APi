@@ -8,6 +8,7 @@
 
 #include <GameEngine/GameEngineLevel.h> // 레벨을 통해서
 #include "Bullet.h" // 총알을 만들고 싶다.
+#include "ContentsEnum.h"
 
 
 
@@ -53,23 +54,8 @@ void Player::IdleUpdate()
 	else {
 		MoveDir.y = 0.0f;
 	}
-
+	DirAnimationCheck();
 	CameraOutCheck();
-}
-
-void Player::AttackUpdate()
-{
-	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
-
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
-
-	//if (MoveDir.y)
-	//{
-
-	//}
-
-
-
 }
 
 void Player::MoveUpdate()
@@ -91,15 +77,29 @@ void Player::MoveUpdate()
 		return;
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{
-		// 가속력
-		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	{	//오른쪽
+		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			// 가속력
+			PlayerAnimationRender->ChangeAnimation("Walk-R");
+			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		}
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
+		{	//버튼 떼면 idle애니메이션으로
+			PlayerAnimationRender->ChangeAnimation("idle-R");
+		}
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{
-		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	{	//왼쪽
+		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			PlayerAnimationRender->ChangeAnimation("Walk-L");
+			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		}
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
+		{
+			PlayerAnimationRender->ChangeAnimation("idle-L");
+		}
 	}
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
@@ -136,12 +136,30 @@ void Player::MoveUpdate()
 		}
 	}
 
-	// rka
+	//감속
 	//MoveDir.
 
 	CameraOutCheck();
 }
 
+void Player::DeadUpdate()
+{
+	SetMove(MoveDir * GameEngineTime::GetDeltaTime());
+
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1000.0f;
+}
+
+void Player::AttackUpdate()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
+	{
+		SetScale({ 32,32 });
+
+		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
+		Ptr->SetPosition(GetPosition());
+		Ptr->SetDir(CurDir());
+	}
+}
 
 //////////////////////////////////////// State
 
@@ -154,15 +172,19 @@ void Player::IdleStart()
 
 }
 
-void Player::AttackStart()
-{
-	// GameEngineTime::SetTimeScale(GameMonster::);
-
-	MoveDir = float4::UP * 500.0f;
-}
-
 void Player::MoveStart()
 {
 
 }
 
+void Player::AttackStart()
+{
+
+}
+
+void Player::DeadStart()
+{
+	// GameEngineTime::SetTimeScale(GameMonster::);
+
+	MoveDir = float4::UP * 500.0f;
+}
