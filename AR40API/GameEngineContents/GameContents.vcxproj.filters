@@ -7,9 +7,6 @@
     <ClCompile Include="EndingLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
     <ClCompile Include="EndingCredit.cpp">
       <Filter>Ending</Filter>
     </ClCompile>
@@ -47,8 +44,11 @@
     <ClCompile Include="BonusLevel.cpp">
       <Filter>Level\Stage\Bonus</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
     <ClCompile Include="Player_State.cpp">
-      <Filter>Play</Filter>
+      <Filter>Play\Mario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +57,6 @@
     </ClInclude>
     <ClInclude Include="EndingLevel.h">
       <Filter>Level</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Play</Filter>
     </ClInclude>
     <ClInclude Include="EndingCredit.h">
       <Filter>Ending</Filter>
@@ -99,6 +96,9 @@
     <ClInclude Include="BonusLevel.h">
       <Filter>Level\Stage\Bonus</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Play\Mario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -124,6 +124,9 @@
     </Filter>
     <Filter Include="Level\Stage\Bonus">
       <UniqueIdentifier>{c35e4778-84e7-4183-887c-5a5cd35cd740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Mario">
+      <UniqueIdentifier>{b72d942d-77be-4b43-a55b-03be9c88f919}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -104,14 +104,12 @@ void Player::MoveUpdate()
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
 			// 가속력
-			PlayerAnimationRender->ChangeAnimation("Walk-R");
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
 		{
-			PlayerAnimationRender->ChangeAnimation("idle-R");
-			//ChangeState(PlayerState::Idle);//이거넣으면 바로 멈춰버림+멈춰있는데 가속도는 유지되어있음
+			ChangeState(PlayerState::Idle);//이거넣으면 바로 멈춰버림+멈춰있는데 가속도는 유지되어있음
 			return;
 		}
 	}
@@ -119,14 +117,12 @@ void Player::MoveUpdate()
 	{	//왼쪽
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			PlayerAnimationRender->ChangeAnimation("Walk-L");
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 			PlayerDir_ = float4::LEFT;
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
 		{
-			PlayerAnimationRender->ChangeAnimation("idle-L");
-			//ChangeState(PlayerState::Idle);
+			ChangeState(PlayerState::Idle);
 			return;
 		}
 	}
@@ -203,6 +199,7 @@ void Player::JumpUpdate()
 	}
 	else
 	{
+		MoveDir.y = 0.0f;
 		ChangeState(Idle);
 	}
 
