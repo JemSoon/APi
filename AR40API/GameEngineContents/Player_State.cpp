@@ -61,7 +61,7 @@ void Player::IdleUpdate()
 		MoveDir.y = 0.0f;
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Jump"))
+	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
 		ChangeState(PlayerState::Jump);
 	}
@@ -93,7 +93,7 @@ void Player::MoveUpdate()
 	}
 
 	// 점프
-	if (true == GameEngineInput::GetInst()->IsPress("Jump"))
+	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
 		ChangeState(PlayerState::Jump);
 		return;
@@ -164,7 +164,7 @@ void Player::MoveUpdate()
 	}
 
 	//감속
-	MoveDir.x += ((-MoveDir.x * 0.99f) * GameEngineTime::GetDeltaTime());
+	MoveDir.x += ((-MoveDir.x * 0.999f) * GameEngineTime::GetDeltaTime());
 
 	CameraOutCheck();
 }
@@ -172,8 +172,6 @@ void Player::MoveUpdate()
 void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-
-
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
@@ -193,8 +191,15 @@ void Player::JumpUpdate()
 		RGB(55, 55, 55) != Color_ &&
 		RGB(0, 255, 255) != Color_ &&
 		RGB(0, 255, 0) != Color_)
-	{
+	{	//허공에 떠있다
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+
+	else if (true == GameEngineInput::GetInst()->IsPress("Move Right")||
+			 true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	{	
+		MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+		ChangeState(Move);
 	}
 	else
 	{
@@ -274,5 +279,5 @@ void Player::JumpStart()
 
 
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
-	MoveDir = float4::UP * 15.0f;
+	MoveDir += float4::UP * 15.0f;
 }
