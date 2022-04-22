@@ -26,6 +26,8 @@ void Player::IdleUpdate()
 		}
 	}
 
+	MoveDir.x = 0.0f;
+
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		DirString = 'R';

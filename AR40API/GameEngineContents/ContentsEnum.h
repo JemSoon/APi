@@ -3,6 +3,7 @@ enum class ORDER //이미지 올라갈 순서 설정
 {
 	BACKGROUND,
 	MONSTER,
+	ITEM,
 	PLAYER,
 	UI
 };
