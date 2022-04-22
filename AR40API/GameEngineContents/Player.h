@@ -65,7 +65,10 @@ private:
 	float4 MoveDir;
 
 	GameEngineImage* MapColImage_;
-	GameEngineCollision* PlayerCollision;
+
+	GameEngineCollision* PlayerCollision;//기본 충돌체
+	GameEngineCollision* PlayerHeadCollision;//머리
+	GameEngineCollision* PlayerFootCollision;//발
 
 	// bullet 용 dir
 	float4 PlayerDir_;

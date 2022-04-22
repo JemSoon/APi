@@ -43,6 +43,11 @@ private:
 	float Speed_;
 	float Gravity_;
 	float AccGravity_;
+	
+	float4 NextPos_;
+	float4 CheckPos_;
+	float4 MoveDir_;
+	int Color_;
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* MonsterCollision;
@@ -52,8 +57,11 @@ private:
 	void Render() override;
 	void Update() override;
 
+
+public:
 	//void DoorCheck();
 	void WallCheck();
+	void FootCheck();
 
 };
 
