@@ -53,6 +53,9 @@ void Player::ChangeState(PlayerState _State)
 		case Move:
 			MoveStart();
 			break;
+		case Jump:
+			JumpStart();
+			break;
 		case Max:
 			break;
 		default:
@@ -69,11 +72,15 @@ void Player::StateUpdate()
 	{
 	case Idle:
 		IdleUpdate();
-		JumpUpdate();
+		
 		break;
 	case Move:
 		MoveUpdate();
+		
+		break;
+	case Jump:
 		JumpUpdate();
+
 		break;
 	case Max:
 		break;

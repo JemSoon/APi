@@ -36,7 +36,7 @@ void PlayLevel::Loading()
 			
 			Actor->GetRenderer()->SetPivot(BackActor);
 
-			Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
+			//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
 
 			Actor->CreateCollision("Wall", { 100,100 }, { 600, 720 });
 
