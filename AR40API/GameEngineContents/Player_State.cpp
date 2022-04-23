@@ -191,6 +191,8 @@ void Player::JumpUpdate()
 		RGB(0, 255, 255) != Color_ &&
 		RGB(0, 255, 0) != Color_)
 	{	//허공에 떠있다
+		//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 
@@ -279,5 +281,5 @@ void Player::JumpStart()
 	}
 
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
-	MoveDir += float4::UP * 15.0f;
+	MoveDir += float4::UP * 40.0f;
 }
