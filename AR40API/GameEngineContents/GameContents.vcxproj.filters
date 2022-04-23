@@ -13,12 +13,6 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Play</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
     <ClCompile Include="IntroLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -50,6 +44,15 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Play\Mario</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -62,12 +65,6 @@
       <Filter>Ending</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Play</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Play</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
       <Filter>Play</Filter>
     </ClInclude>
     <ClInclude Include="IntroLevel.h">
@@ -99,6 +96,15 @@
     <ClInclude Include="Player.h">
       <Filter>Play\Mario</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Play\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Play\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -127,6 +133,9 @@
     </Filter>
     <Filter Include="Play\Mario">
       <UniqueIdentifier>{b72d942d-77be-4b43-a55b-03be9c88f919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Item">
+      <UniqueIdentifier>{cf01946a-6c7f-4159-adb0-8ead2f731ae8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -90,6 +90,14 @@ void SuperMario::GameInit()
 
 			Image10->Cut({ 64, 64 });
 
+			GameEngineImage* Image11 = GameEngineImageManager::GetInst()->Find("QBox.bmp");
+
+			Image11->CutCount(4, 1);
+
+			GameEngineImage* Image12 = GameEngineImageManager::GetInst()->Find("Mushroom.bmp");
+
+			Image12->Cut({ 64, 64 });
+
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

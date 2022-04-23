@@ -21,3 +21,11 @@ enum class PlayerDir
 	Left,
 	Right
 };
+
+enum class ItemType
+{
+	Mushroom,
+	Fireflower,
+	Star,
+	UP
+};

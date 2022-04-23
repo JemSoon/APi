@@ -12,6 +12,7 @@
 #include "GameEngine/GameEngineLevel.h"//내가추가
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineImageManager.h>
+#include "Mushroom.h"
 
 PlayLevel::PlayLevel()
 {
@@ -60,6 +61,12 @@ void PlayLevel::Loading()
 			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba->SetPosition({ 320.0f,740.0f });
+		}
+
+		{
+			//아이템 로드 체크
+			Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
+			Item->SetPosition({ 120.0f, 740.0f });
 		}
 
 	}

@@ -265,7 +265,9 @@ void Player::MoveStart()
 
 void Player::JumpStart()
 {
+
 	DirString = 'R';
+	
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{

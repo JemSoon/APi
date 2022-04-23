@@ -159,83 +159,10 @@ void Player::Update()
 	//	}
 	//}
 
-	//float4 CheckPos;
-	//
-	//{	//움직임 조작
-	//	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	//	{
-	//		MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * Speed_;
-	//		PlayerDir_ = float4::LEFT;//총알 발사 방향 잡기용
-	//		//현재 위치 + 이동하는 방향
-	//		//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-	//		{
-	//			Speed_ = 50.0f;
-	//		}
-	//		else
-	//		{
-	//			Speed_ = 20.0f;
-	//		}
-
-	//	}
-
-	//	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	//	{
-	//		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
-	//		PlayerDir_ = float4::RIGHT;//총알 발사 방향 잡기용
-	//		//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-	//		{
-	//			Speed_ = 50.0f;
-	//		}
-	//		else
-	//		{
-	//			Speed_ = 20.0f;
-	//		}
-	//	}
-
-	//	if (true == GameEngineInput::GetInst()->IsPress("Move Up"))
-	//	{
-	//		MoveDir_ = float4::UP;
-
-	//		//SetMove(float4::UP * GameEngineTime::GetDeltaTime() * Speed_);
-	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-	//		{
-	//			Speed_ = 450.0f;
-	//		}
-	//		else
-	//		{
-	//			Speed_ = 150.0f;
-	//		}
-	//	}
-
-	//	if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
-	//	{
-	//		MoveDir_ = float4::DOWN;
-
-	//		//SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * Speed_);
-	//		if (true == GameEngineInput::GetInst()->IsPress("Run"))
-	//		{
-	//			Speed_ = 450.0f;
-	//		}
-	//		else
-	//		{
-	//			Speed_ = 150.0f;
-	//		}
-	//	
-	//	}
-
-	//	if (true == GameEngineInput::GetInst()->IsPress("Jump"))
-	//	{
-	//		MoveDir_ = float4::UP;
-	//		Speed_ = 450.0f;
-	//	}
-
 	//	if (1000.0f <= MoveDir_.Len2D())
 	//	{	//속도 최대치 제한
 	//		MoveDir_.Range2D(1000.0f);
 	//	}
-
 
 	//	if (MoveDir_.Len2D() >= 100)
 	//	{
@@ -243,48 +170,10 @@ void Player::Update()
 	//		MoveDir_.Normal2D();
 	//	}
 
+	//if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
+	//{
+	//	PlayerCollision->Collision("Door");
 	//}
-
-	//{	//내 미래위치 (Speed_는 가속력)
-	//	float4 NextPos = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-	//	
-	//	//그 때 발바닥 위치
-	//	float4 CheckPos1 = NextPos + float4(0.0f, 32.0f);
-	//	//그 때 머리 위치
-	//	float4 CheckPos2 = NextPos + float4(0.0f, -32.0f);
-
-	//	int Color1 = MapColImage_->GetImagePixel(CheckPos1);//갈수 있냐 없냐 색 체크
-	//	int Color2 = MapColImage_->GetImagePixel(CheckPos2);
-
-	//	if (RGB(255, 0, 0) != Color1 &&
-	//		RGB(55, 55, 55) != Color1 && 
-	//		RGB(0, 255, 255) != Color1 && 
-	//		RGB(0, 255, 0) != Color1)
-	//	{	
-	//		//빨간색+@이 아니라면 갈수 이써
-	//		//문제 발바닥 가운데 기준이라 머리통은 통과됨(블록 밑에서 위로 부딪힐시)
-	//		MoveDir_ += ((-MoveDir_ * 0.9f) * GameEngineTime::GetDeltaTime());
-	//		//마찰력 if문 걸면 이상해져서 일단 걍
-
-	//		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-
-	//		if ((MoveDir_.x < 0.0f && MoveDir_.x>-20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Left")&& (GameEngineInput::GetInst()->IsPress("Run")|| GameEngineInput::GetInst()->IsFree("Run"))
-	//			|| (MoveDir_.x > 0.0f && MoveDir_.x < 20.0f) && true == GameEngineInput::GetInst()->IsFree("Move Right")&& (GameEngineInput::GetInst()->IsPress("Run") || GameEngineInput::GetInst()->IsFree("Run")))
-	//		{
-	//			MoveDir_.x = 0.0f;
-	//		}
-
-	//	}
-	//}
-
-
-
-	////if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
-	////{
-	////	PlayerCollision->Collision("Door");
-	////}
-
-
 
 }
 
@@ -302,19 +191,6 @@ void Player::WallCheck()
 	}
 }
 
-void Player::ItemCheck()
-{
-	std::vector<GameEngineCollision*> ColList;
-
-	if (true == PlayerCollision->CollisionResult("Item", ColList, CollisionType::Rect, CollisionType::Rect))
-	{
-		for (size_t i = 0; i < ColList.size(); i++)
-		{
-			ColList[i]->Death();//나랑 충돌한 템은 사라짐
-		}
-	}
-}
-
 void Player::DoorCheck()
 {
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
@@ -322,6 +198,20 @@ void Player::DoorCheck()
 		GameEngine::GetInst().ChangeLevel("Play2");
 	}
 }
+
+void Player::MushroomCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == PlayerCollision->CollisionResult("Mushroom", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//나랑 충돌한 템은 사라짐
+		}
+		int a = 0;
+	}
+}
+
 void Player::DirAnimationCheck()
 {
 	std::string ChangeName;
