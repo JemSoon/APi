@@ -26,8 +26,6 @@ void Player::IdleUpdate()
 		}
 	}
 
-	MoveDir.x = 0.0f;
-
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		DirString = 'R';
@@ -66,6 +64,10 @@ void Player::IdleUpdate()
 		ChangeState(PlayerState::Jump);
 	}
 
+	if (false == IsMoveKey())
+	{	//키에 손 떼놓고 있으면 감속(브레키)
+		MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+	}
 
 	CameraOutCheck();
 }
@@ -160,7 +162,8 @@ void Player::MoveUpdate()
 	}
 
 	//감속
-	MoveDir.x += ((-MoveDir.x * 0.999f) * GameEngineTime::GetDeltaTime());
+	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+	//근데 idle상태로 넘어가면 x가 0되서 걍 섬
 
 	CameraOutCheck();
 }
@@ -263,7 +266,7 @@ void Player::MoveStart()
 void Player::JumpStart()
 {
 	//처음 아무것도 안눌렀을땐 R
-	DirString = 'R';
+	PlayerAnimationRender->ChangeAnimation("Jump-R");
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
@@ -273,7 +276,6 @@ void Player::JumpStart()
 	{
 		DirString = 'L';
 	}
-
 
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
 	MoveDir += float4::UP * 15.0f;
