@@ -9,7 +9,7 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Monster::Monster()
-	: Speed_(20.0f)
+	: Speed_(50.0f)
 	, AccSpeed_(20.0f)
 	, MoveDir_(float4::ZERO)
 {
@@ -29,6 +29,9 @@ void Monster::Start()
 	MonsterAnimationRender = CreateRenderer();
 	MonsterAnimationRender->CreateAnimation("gumba-walk.bmp", "gumba-walk", 0, 1, 0.3f, true);
 	MonsterAnimationRender->ChangeAnimation("gumba-walk");
+	
+	MoveDir_ = float4::LEFT;
+	Speed_ = 100.0f;
 }
 
 void Monster::Render()
@@ -58,22 +61,35 @@ void Monster::Update()
 		if (RGB(255, 0, 0) != Color_ &&
 			RGB(55, 55, 55) != Color_ &&
 			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)
+			RGB(0, 255, 0) != Color_)//허공에 있다
 		{	//빨간색이 아니라면 갈수 이써
 			SetMove(MoveDir_);
 		}
-		else
+		else//바닥에 닿았다
 		{
 			MoveDir_.y = 0.0f;
-			//MoveDir_.x = -50.0f;
-			LeftCheck();
+			LeftCheck();//왼쪽 벽체크
 			Color_ = MapColImage_->GetImagePixel(CheckPos_);
 			if (RGB(255, 0, 0) != Color_ &&
 				RGB(55, 55, 55) != Color_ &&
 				RGB(0, 255, 255) != Color_ &&
 				RGB(0, 255, 0) != Color_)
 			{	//빨간색이 아니라면 갈수 이써
-				MoveDir_.x = -50.0f;
+				MoveDir_.x = MoveDir_.x;
+			}
+			else
+			{
+				MoveDir_.x = MoveDir_.x * -1;
+			}
+
+			RightCheck();//오른쪽 벽체크
+			Color_ = MapColImage_->GetImagePixel(CheckPos_);
+			if (RGB(255, 0, 0) != Color_ &&
+				RGB(55, 55, 55) != Color_ &&
+				RGB(0, 255, 255) != Color_ &&
+				RGB(0, 255, 0) != Color_)
+			{	//빨간색이 아니라면 갈수 이써
+				MoveDir_.x = MoveDir_.x;
 			}
 			else
 			{
@@ -81,7 +97,7 @@ void Monster::Update()
 			}
 		}
 
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 		
 	}
 }
