@@ -131,8 +131,8 @@ void Player::Start()
 
 void Player::Update()
 {
-	//// 식물이 자라는거라고 하면
-	//// GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
+	// //식물이 자라는거라고 하면
+	// //GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
 	//if (5.0f <= GetAccTime())
 	//{
 	//	ReSetAccTime();
@@ -298,6 +298,19 @@ void Player::WallCheck()
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+		}
+	}
+}
+
+void Player::ItemCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerCollision->CollisionResult("Item", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//나랑 충돌한 템은 사라짐
 		}
 	}
 }

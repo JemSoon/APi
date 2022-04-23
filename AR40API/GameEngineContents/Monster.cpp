@@ -9,8 +9,9 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Monster::Monster()
-	: Speed_(50.0f)
-	, Gravity_(100.0f)
+	: Speed_(20.0f)
+	, AccSpeed_(20.0f)
+	, MoveDir_(float4::ZERO)
 {
 
 }
@@ -37,9 +38,6 @@ void Monster::Render()
 
 void Monster::Update()
 {
-	float4 CheckPos;
-	float4 MoveDir = float4::ZERO;
-
 	{	//맵과 캐릭터의 충돌설정용
 		//(참고)실제 BG랑 좌표가 안맞음 현재
 		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
@@ -52,43 +50,65 @@ void Monster::Update()
 	}
 
 
-	{	//내 미래위치
-		float4 NextPos = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-		//그 때 발바닥 위치
-		float4 CheckPos = NextPos + float4(0.0f, 32.0f);//발바닥을 체크하면 아예 못감
-
-		int Color = MapColImage_->GetImagePixel(CheckPos);//갈수 있냐 없냐 색 체크
-
-		if (RGB(255, 0, 0) != Color)
+	{	
+		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		//내 미래위치
+		FootCheck();//발바닥 밑 닿은 색 체크
+		Color_ = MapColImage_->GetImagePixel(CheckPos_);
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
 		{	//빨간색이 아니라면 갈수 이써
-			MoveDir = float4::LEFT;
-			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-			//왜 맵 밖으로 나가버리지?? 맵 밖은 빨간색으로 다 칠해뒀는데 GameEngineImage::GetImagePixel참고
+			SetMove(MoveDir_);
 		}
-	
+		else
+		{
+			MoveDir_.y = 0.0f;
+			//MoveDir_.x = -50.0f;
+			LeftCheck();
+			Color_ = MapColImage_->GetImagePixel(CheckPos_);
+			if (RGB(255, 0, 0) != Color_ &&
+				RGB(55, 55, 55) != Color_ &&
+				RGB(0, 255, 255) != Color_ &&
+				RGB(0, 255, 0) != Color_)
+			{	//빨간색이 아니라면 갈수 이써
+				MoveDir_.x = -50.0f;
+			}
+			else
+			{
+				MoveDir_.x = MoveDir_.x * -1;
+			}
+		}
 
-		//SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 		
 	}
-
-	//{	//중력
-	//	int Color = MapColImage_->GetImagePixel(GetPosition() + float4(0.0f, 32.0f));
-
-	//	AccGravity_ += GameEngineTime::GetDeltaTime() * Gravity_;//점점 가속됨
-
-	//	if (RGB(255, 0, 0) == Color/*땅에 닿았다면(빨간색)*/)
-	//	{
-	//		AccGravity_ = 0.0f;//문제-중력0되면 밑에 이동이 0이되서 땅에 닿으면 이동못함
-	//	}
-	//	SetMove(float4::DOWN * GameEngineTime::GetDeltaTime() * AccGravity_);
-	//}
 }
 
 void Monster::FootCheck()
 {
-	////내 미래위치
-	//NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	////그때 내 발바닥 위치
-	//CheckPos_ = NextPos_ + float4(0.0f, 32.0f);
-	//Color_ = MapColImage_->GetImagePixel(CheckPos_);
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(0.0f, 32.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void Monster::LeftCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(-32.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void Monster::RightCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(32.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }

@@ -81,6 +81,7 @@ public:
 
 	void DoorCheck();
 	void WallCheck();
+	void ItemCheck();
 
 	bool IsMoveKey();
 	void CameraOutCheck();

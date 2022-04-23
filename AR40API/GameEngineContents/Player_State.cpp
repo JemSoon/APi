@@ -265,8 +265,7 @@ void Player::MoveStart()
 
 void Player::JumpStart()
 {
-	//처음 아무것도 안눌렀을땐 R
-	PlayerAnimationRender->ChangeAnimation("Jump-R");
+	DirString = 'R';
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{

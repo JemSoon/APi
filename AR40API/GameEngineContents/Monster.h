@@ -41,8 +41,7 @@ protected:
 
 private:
 	float Speed_;
-	float Gravity_;
-	float AccGravity_;
+	float AccSpeed_;
 	
 	float4 NextPos_;
 	float4 CheckPos_;
@@ -59,9 +58,9 @@ private:
 
 
 public:
-	//void DoorCheck();
 	void WallCheck();
 	void FootCheck();
-
+	void LeftCheck();
+	void RightCheck();
 };
 
