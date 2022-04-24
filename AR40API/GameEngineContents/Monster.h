@@ -32,11 +32,7 @@ public:
 
 protected:
 	GameEngineRenderer* MonsterAnimationRender;
-	PlayerDir CurDir_;
 	std::string AnimationName;
-
-	//void DirAnimationCheck();
-	//void MonsterStateUpdate();
 
 
 private:

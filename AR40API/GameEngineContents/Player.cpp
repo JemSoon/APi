@@ -114,7 +114,6 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("break-R.bmp", "Break-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
 
-	CurDir_ = PlayerDir::Start;
 
 	if (false == GameEngineInput::GetInst()->IsKey("Move Left"))
 	{	//false면 만들어진 적 없는 키 이다
@@ -209,45 +208,6 @@ void Player::MushroomCheck()
 			ColList[i]->Death();//나랑 충돌한 템은 사라짐
 		}
 		int a = 0;
-	}
-}
-
-void Player::DirAnimationCheck()
-{
-	std::string ChangeName;
-
-	CheckDir_ = CurDir_;
-	std::string ChangeDirText = "R";
-
-	//if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	//{
-	//	CheckDir_ = PlayerDir::Right;
-	//	ChangeName = "Walk-";
-	//	ChangeDirText = "R";
-	//}
-	if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
-	{
-		CheckDir_ = PlayerDir::Right;
-		ChangeName = "idle-";
-		ChangeDirText = "R";
-	}
-
-	//if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	//{
-	//	CheckDir_ = PlayerDir::Left;
-	//	ChangeName = "Walk-";
-	//	ChangeDirText = "L";
-	//}
-	if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
-	{
-		CheckDir_ = PlayerDir::Left;
-		ChangeName = "idle-";
-		ChangeDirText = "L";
-	}
-
-	if (CheckDir_ != CurDir_)
-	{
-		PlayerAnimationRender->ChangeAnimation(ChangeName + ChangeDirText);
 	}
 }
 

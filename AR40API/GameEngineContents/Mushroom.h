@@ -32,7 +32,6 @@ public:
 
 protected:
 	GameEngineRenderer* MushroomAnimationRender;
-	PlayerDir CurDir_;
 	std::string AnimationName;
 
 private:

@@ -16,13 +16,6 @@ enum class MARIOstate
 	White
 };
 
-enum class PlayerDir
-{
-	Start,
-	Left,
-	Right
-};
-
 enum class ItemType
 {
 	Mushroom,
