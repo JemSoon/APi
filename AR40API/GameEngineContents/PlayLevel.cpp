@@ -14,6 +14,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include "Mushroom.h"
 #include "Box.h"
+#include "FireFlower.h"
 
 PlayLevel::PlayLevel()
 {
@@ -68,6 +69,12 @@ void PlayLevel::Loading()
 			//아이템 로드 체크
 			Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
 			Item->SetPosition({ 120.0f, 740.0f });
+		}
+
+		{
+			//아이템 로드 체크
+			FireFlower* Item = CreateActor<FireFlower>((int)ORDER::ITEM);
+			Item->SetPosition({ 120.0f, 700.0f });
 		}
 
 		{

@@ -97,9 +97,9 @@ void Player::Start()
 	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,64 });
 
-	PlayerHeadCollision = CreateCollision("PlayerHead", { 50, 2 },{0,-31});
+	//PlayerHeadCollision = CreateCollision("PlayerHead", { 50, 2 },{0,-31});
 	PlayerCollision = CreateCollision("PlayerHitBox", { 50, 61 });
-	PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
+	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	PlayerAnimationRender = CreateRenderer();

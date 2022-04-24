@@ -121,6 +121,10 @@ void SuperMario::GameInit()
 			GameEngineImage* Image18 = GameEngineImageManager::GetInst()->Find("big-jump-R.bmp");
 
 			Image18->Cut({ 64, 128 });
+
+			GameEngineImage* Image19 = GameEngineImageManager::GetInst()->Find("FireFlower.bmp");
+
+			Image19->CutCount(4, 1);
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

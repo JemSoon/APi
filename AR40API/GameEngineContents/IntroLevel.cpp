@@ -29,6 +29,7 @@ void IntroLevel::Loading()
 {
 	BackGround* Back = CreateActor<BackGround>(0);
 	Back->GetRenderer()->SetImage("idle-R.bmp");
+	Back->SetPosition({ 640,360 });
 }
 
 void IntroLevel::Update()

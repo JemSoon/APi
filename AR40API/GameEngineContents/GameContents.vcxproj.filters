@@ -59,6 +59,12 @@
     <ClCompile Include="BigPlayer.cpp">
       <Filter>Play\Mario</Filter>
     </ClCompile>
+    <ClCompile Include="WhitePlayer.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -116,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="BigPlayer.h">
       <Filter>Play\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="WhitePlayer.h">
+      <Filter>Play\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
