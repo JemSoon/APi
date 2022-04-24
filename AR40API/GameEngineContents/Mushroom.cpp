@@ -31,7 +31,7 @@ void Mushroom::Start()
 	MushroomAnimationRender->CreateAnimation("Mushroom.bmp", "Mushroom", 0, 0, 1.0f, false);
 	MushroomAnimationRender->ChangeAnimation("Mushroom");
 
-	//MoveDir_ = float4::LEFT;
+	//MoveDir_ = float4::RIGHT;
 	Speed_ = 100.0f;
 }
 
