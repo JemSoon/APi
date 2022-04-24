@@ -98,6 +98,29 @@ void SuperMario::GameInit()
 
 			Image12->Cut({ 64, 64 });
 
+			GameEngineImage* Image13 = GameEngineImageManager::GetInst()->Find("big-walk-R.bmp");
+
+			Image13->CutCount(3, 1);
+
+			GameEngineImage* Image14 = GameEngineImageManager::GetInst()->Find("big-walk-L.bmp");
+
+			Image14->CutCount(3, 1);
+
+			GameEngineImage* Image15 = GameEngineImageManager::GetInst()->Find("big-idle-R.bmp");
+
+			Image15->Cut({ 64, 128 });
+
+			GameEngineImage* Image16 = GameEngineImageManager::GetInst()->Find("big-idle-L.bmp");
+
+			Image16->Cut({ 64, 128 });
+
+			GameEngineImage* Image17 = GameEngineImageManager::GetInst()->Find("big-jump-L.bmp");
+
+			Image17->Cut({ 64, 128 });
+
+			GameEngineImage* Image18 = GameEngineImageManager::GetInst()->Find("big-jump-R.bmp");
+
+			Image18->Cut({ 64, 128 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

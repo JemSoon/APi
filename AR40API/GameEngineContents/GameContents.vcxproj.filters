@@ -56,6 +56,9 @@
     <ClCompile Include="Box.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="BigPlayer.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -110,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Box.h">
       <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BigPlayer.h">
+      <Filter>Play\Mario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

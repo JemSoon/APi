@@ -48,11 +48,11 @@ public:
 
 protected:
 	GameEngineRenderer* PlayerAnimationRender;
-	//PlayerDir CurDir_;
+	
 	std::string AnimationName;
 
 
-	void PlayerStateUpdate();
+	//void PlayerStateUpdate();
 
 
 private:
@@ -72,7 +72,6 @@ private:
 
 	// bullet ¿ë dir
 	float4 PlayerDir_;
-	//PlayerDir CheckDir_;
 
 public:
 	void Start() override;

@@ -144,9 +144,6 @@ void Player::Update()
 	WallCheck();
 	DoorCheck();
 
-	//DirAnimationCheck();
-	//PlayerStateUpdate();
-
 	//{	//맵과 캐릭터의 충돌설정용
 	//	
 	//	MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
@@ -168,11 +165,6 @@ void Player::Update()
 	//		//속도 최대치 정규화
 	//		MoveDir_.Normal2D();
 	//	}
-
-	//if (true== PlayerCollision->Collision("Door"))//문과 충돌 했다면
-	//{
-	//	PlayerCollision->Collision("Door");
-	//}
 
 }
 
@@ -209,11 +201,6 @@ void Player::MushroomCheck()
 		}
 		int a = 0;
 	}
-}
-
-void Player::PlayerStateUpdate()
-{
-
 }
 
 //랜더러가 다 돌아가고 랜더링 된다
