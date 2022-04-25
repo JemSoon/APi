@@ -98,7 +98,7 @@ void Player::Start()
 	SetScale({ 64,64 });
 
 	//PlayerHeadCollision = CreateCollision("PlayerHead", { 50, 2 },{0,-31});
-	PlayerCollision = CreateCollision("PlayerHitBox", { 50, 61 });
+	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
 	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
