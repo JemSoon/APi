@@ -143,6 +143,7 @@ void Player::Update()
 
 	WallCheck();
 	DoorCheck();
+	MushroomCheck();
 
 	//{	//맵과 캐릭터의 충돌설정용
 	//	
@@ -197,7 +198,7 @@ void Player::MushroomCheck()
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->Death();//나랑 충돌한 템은 사라짐
+			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
 		}
 		int a = 0;
 	}
