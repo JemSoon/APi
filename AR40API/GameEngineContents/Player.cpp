@@ -200,7 +200,7 @@ void Player::MushroomCheck()
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
-		int a = 0;
+		MainPlayer->Off();
 	}
 }
 

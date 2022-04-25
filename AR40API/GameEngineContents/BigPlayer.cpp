@@ -92,9 +92,8 @@ void BigPlayer::StateUpdate()
 
 void BigPlayer::Start()
 {
-	//BigPlayer위치는 중앙으로 고정
-	//SetPosition(GameEngineWindow::GetScale().Half());
-	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
+	MainBigPlayer->Off();//터짐
+
 	SetScale({ 64,128 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
@@ -166,8 +165,8 @@ void BigPlayer::MushroomCheck()
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
-			//BigPlayerAnimationRender->On();
 		}
+		MainBigPlayer->On();
 	}
 	else
 	{

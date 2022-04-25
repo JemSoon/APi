@@ -130,6 +130,7 @@ void WhitePlayer::Start()
 
 void WhitePlayer::Update()
 {
+	MainWhitePlayer->Off();
 	Fire();//총알 발사함수
 	StateUpdate();
 

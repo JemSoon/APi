@@ -24,7 +24,6 @@ public:
 
 	inline void Off()
 	{
-
 		IsUpdate_ = false;
 	}
 
