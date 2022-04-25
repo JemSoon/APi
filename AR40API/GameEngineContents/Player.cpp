@@ -47,16 +47,16 @@ void Player::ChangeState(PlayerState _State)
 	{
 		switch (_State)
 		{
-		case Idle:
+		case PlayerState::Idle:
 			IdleStart();
 			break;
-		case Move:
+		case PlayerState::Move:
 			MoveStart();
 			break;
-		case Jump:
+		case PlayerState::Jump:
 			JumpStart();
 			break;
-		case Max:
+		case PlayerState::Max:
 			break;
 		default:
 			break;
@@ -70,19 +70,19 @@ void Player::StateUpdate()
 {
 	switch (CurState_)
 	{
-	case Idle:
+	case PlayerState::Idle:
 		IdleUpdate();
 		
 		break;
-	case Move:
+	case PlayerState::Move:
 		MoveUpdate();
 		
 		break;
-	case Jump:
+	case PlayerState::Jump:
 		JumpUpdate();
 
 		break;
-	case Max:
+	case PlayerState::Max:
 		break;
 	default:
 		break;
@@ -130,8 +130,8 @@ void Player::Start()
 
 void Player::Update()
 {
-	// //식물이 자라는거라고 하면
-	// //GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
+	////식물이 자라는거라고 하면
+	////GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
 	//if (5.0f <= GetAccTime())
 	//{
 	//	ReSetAccTime();

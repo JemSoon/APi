@@ -3,6 +3,7 @@
 #include <GameEngine/GameEngine.h>
 #include "BackGround.h"
 #include "Player.h"
+#include "BigPlayer.h"
 #include "Monster.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
@@ -52,6 +53,11 @@ void PlayLevel::Loading()
 			Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Player::MainPlayer -> SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+
+			//큰마리오
+			BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
 
 			//스테이지의 UI 로드
 			CreateActor<UI>((int)ORDER::UI);
@@ -122,6 +128,7 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
 	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
 		Player::MainPlayer->NextLevelOn();
+		BigPlayer::MainBigPlayer->NextLevelOn();
 	}
 }
 

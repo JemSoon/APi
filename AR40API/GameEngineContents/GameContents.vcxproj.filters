@@ -65,6 +65,9 @@
     <ClCompile Include="FireFlower.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="BigPlayer_State.cpp">
+      <Filter>Play\Mario</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">

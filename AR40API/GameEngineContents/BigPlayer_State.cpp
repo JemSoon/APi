@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "BigPlayer.h"
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -10,10 +10,10 @@
 #include "Bullet.h" // 총알을 만들고 싶다.
 #include "ContentsEnum.h"
 
-std::string DirString;//지금 방향
-std::string PrevDirString;//방향이 바뀌었을때
+std::string BigDirString;//지금 방향
+//std::string PrevDirString;//방향이 바뀌었을때
 
-void Player::IdleUpdate()
+void BigPlayer::IdleUpdate()
 {
 	{	//맵과 캐릭터의 충돌설정용
 
@@ -28,16 +28,16 @@ void Player::IdleUpdate()
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		DirString = 'R';
+		BigDirString = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		DirString = 'L';
+		BigDirString = 'L';
 	}
 
 	if (true == IsMoveKey())
 	{
-		ChangeState(PlayerState::Move);
+		ChangeState(BigPlayerState::Move);
 		return;
 	}
 
@@ -61,7 +61,7 @@ void Player::IdleUpdate()
 
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
-		ChangeState(PlayerState::Jump);
+		ChangeState(BigPlayerState::Jump);
 	}
 
 	if (false == IsMoveKey())
@@ -72,15 +72,15 @@ void Player::IdleUpdate()
 	CameraOutCheck();
 }
 
-void Player::MoveUpdate()
+void BigPlayer::MoveUpdate()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		DirString = 'R';
+		BigDirString = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		DirString = 'L';
+		BigDirString = 'L';
 	}
 
 	{	//맵과 캐릭터의 충돌설정용
@@ -97,7 +97,7 @@ void Player::MoveUpdate()
 	// 점프
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
-		ChangeState(PlayerState::Jump);
+		ChangeState(BigPlayerState::Jump);
 		return;
 	}
 
@@ -107,11 +107,11 @@ void Player::MoveUpdate()
 		{
 			// 가속력
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-			PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
+			BigPlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Right"))
 		{
-			ChangeState(PlayerState::Idle);//이거넣으면 바로 멈춰버림+멈춰있는데 가속도는 유지되어있음
+			ChangeState(BigPlayerState::Idle);//이거넣으면 바로 멈춰버림+멈춰있는데 가속도는 유지되어있음
 			return;
 		}
 	}
@@ -120,11 +120,11 @@ void Player::MoveUpdate()
 		if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
 			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-			PlayerDir_ = float4::LEFT;
+			BigPlayerDir_ = float4::LEFT;
 		}
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Left"))
 		{
-			ChangeState(PlayerState::Idle);
+			ChangeState(BigPlayerState::Idle);
 			return;
 		}
 	}
@@ -168,7 +168,7 @@ void Player::MoveUpdate()
 	CameraOutCheck();
 }
 
-void Player::JumpUpdate()
+void BigPlayer::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
@@ -196,16 +196,16 @@ void Player::JumpUpdate()
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 
-	else if (true == GameEngineInput::GetInst()->IsPress("Move Right")||
-			 true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{	
+	else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+		true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	{
 		MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-		ChangeState(PlayerState::Move);
+		ChangeState(BigPlayerState::Move);
 	}
 	else
 	{
 		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Idle);
+		ChangeState(BigPlayerState::Idle);
 	}
 
 	CameraOutCheck();
@@ -227,20 +227,20 @@ void Player::JumpUpdate()
 
 //////////////////////////////////////// State
 
-void Player::IdleStart()
+void BigPlayer::IdleStart()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		DirString = 'R';
+		BigDirString = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		DirString = 'L';
+		BigDirString = 'L';
 	}
 
 	// 내방향이 왼쪽이며
 
-	PlayerAnimationRender->ChangeAnimation("idle-" + DirString);
+	BigPlayerAnimationRender->ChangeAnimation("Bidle-" + BigDirString);
 
 	// 애니메이션이 바뀐다.
 
@@ -251,35 +251,35 @@ void Player::IdleStart()
 
 }
 
-void Player::MoveStart()
+void BigPlayer::MoveStart()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		DirString = 'R';
+		BigDirString = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		DirString = 'L';
+		BigDirString = 'L';
 	}
 
-	PlayerAnimationRender->ChangeAnimation("Walk-" + DirString);
+	BigPlayerAnimationRender->ChangeAnimation("BWalk-" + BigDirString);
 }
 
-void Player::JumpStart()
+void BigPlayer::JumpStart()
 {
 
-	DirString = 'R';
-	
+	BigDirString = 'R';
+
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		DirString = 'R';
+		BigDirString = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		DirString = 'L';
+		BigDirString = 'L';
 	}
 
-	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
+	BigPlayerAnimationRender->ChangeAnimation("BJump-" + BigDirString);
 	MoveDir += float4::UP * 40.0f;
 }

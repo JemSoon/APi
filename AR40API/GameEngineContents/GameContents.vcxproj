@@ -244,6 +244,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="BigPlayer_State.cpp" />
     <ClCompile Include="BonusLevel.cpp">
       <SubType>
       </SubType>
