@@ -92,9 +92,6 @@ void Player::StateUpdate()
 
 void Player::Start()
 {
-	//Player위치는 중앙으로 고정
-	//SetPosition(GameEngineWindow::GetScale().Half());
-	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,64 });
 
 	//PlayerHeadCollision = CreateCollision("PlayerHead", { 50, 2 },{0,-31});
@@ -130,42 +127,12 @@ void Player::Start()
 
 void Player::Update()
 {
-	////식물이 자라는거라고 하면
-	////GetAccTime() 이 오브젝트가 몇초간 살아있었느냐.
-	//if (5.0f <= GetAccTime())
-	//{
-	//	ReSetAccTime();
-	//	int a = 0;
-	//}
-
-	Fire();//총알 발사함수
+	//Fire();//총알 발사함수
 	StateUpdate();
 
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
-
-	//{	//맵과 캐릭터의 충돌설정용
-	//	
-	//	MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
-	//	
-
-	//	if (nullptr == MapColImage_)
-	//	{
-	//		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
-	//	}
-	//}
-
-	//	if (1000.0f <= MoveDir_.Len2D())
-	//	{	//속도 최대치 제한
-	//		MoveDir_.Range2D(1000.0f);
-	//	}
-
-	//	if (MoveDir_.Len2D() >= 100)
-	//	{
-	//		//속도 최대치 정규화
-	//		MoveDir_.Normal2D();
-	//	}
 
 }
 

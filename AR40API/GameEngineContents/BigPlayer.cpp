@@ -127,7 +127,7 @@ void BigPlayer::Start()
 
 void BigPlayer::Update()
 {
-	Fire();//총알 발사함수
+	//Fire();//총알 발사함수
 	StateUpdate();
 
 	WallCheck();
