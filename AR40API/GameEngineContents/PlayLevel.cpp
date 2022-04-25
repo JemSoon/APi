@@ -4,6 +4,7 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "BigPlayer.h"
+#include "WhitePlayer.h"
 #include "Monster.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
@@ -56,8 +57,11 @@ void PlayLevel::Loading()
 
 			//큰마리오
 			BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
-			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+
+			//흰마리오
+			WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
+			WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
 
 			//스테이지의 UI 로드
 			CreateActor<UI>((int)ORDER::UI);

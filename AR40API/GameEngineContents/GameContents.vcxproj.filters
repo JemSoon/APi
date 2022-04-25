@@ -38,17 +38,11 @@
     <ClCompile Include="BonusLevel.cpp">
       <Filter>Level\Stage\Bonus</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Play\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_State.cpp">
-      <Filter>Play\Mario</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Play\Mario</Filter>
+      <Filter>Play\Player</Filter>
     </ClCompile>
     <ClCompile Include="UI.cpp">
-      <Filter>Play\Mario</Filter>
+      <Filter>Play\Player</Filter>
     </ClCompile>
     <ClCompile Include="Mushroom.cpp">
       <Filter>Play\Item</Filter>
@@ -56,17 +50,26 @@
     <ClCompile Include="Box.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
-    <ClCompile Include="BigPlayer.cpp">
-      <Filter>Play\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="WhitePlayer.cpp">
-      <Filter>Play\Mario</Filter>
-    </ClCompile>
     <ClCompile Include="FireFlower.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="BigPlayer.cpp">
+      <Filter>Play\Player\Big</Filter>
+    </ClCompile>
     <ClCompile Include="BigPlayer_State.cpp">
-      <Filter>Play\Mario</Filter>
+      <Filter>Play\Player\Big</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Play\Player\Small</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_State.cpp">
+      <Filter>Play\Player\Small</Filter>
+    </ClCompile>
+    <ClCompile Include="WhitePlayer.cpp">
+      <Filter>Play\Player\White</Filter>
+    </ClCompile>
+    <ClCompile Include="WhitePlayer_State.cpp">
+      <Filter>Play\Player\White</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,14 +111,11 @@
     <ClInclude Include="BonusLevel.h">
       <Filter>Level\Stage\Bonus</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Play\Mario</Filter>
-    </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Play\Mario</Filter>
+      <Filter>Play\Player</Filter>
     </ClInclude>
     <ClInclude Include="UI.h">
-      <Filter>Play\Mario</Filter>
+      <Filter>Play\Player</Filter>
     </ClInclude>
     <ClInclude Include="Mushroom.h">
       <Filter>Play\Item</Filter>
@@ -123,14 +123,17 @@
     <ClInclude Include="Box.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
-    <ClInclude Include="BigPlayer.h">
-      <Filter>Play\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="WhitePlayer.h">
-      <Filter>Play\Mario</Filter>
-    </ClInclude>
     <ClInclude Include="FireFlower.h">
       <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BigPlayer.h">
+      <Filter>Play\Player\Big</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Play\Player\Small</Filter>
+    </ClInclude>
+    <ClInclude Include="WhitePlayer.h">
+      <Filter>Play\Player\White</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,11 +161,20 @@
     <Filter Include="Level\Stage\Bonus">
       <UniqueIdentifier>{c35e4778-84e7-4183-887c-5a5cd35cd740}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Play\Mario">
-      <UniqueIdentifier>{b72d942d-77be-4b43-a55b-03be9c88f919}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Play\Item">
       <UniqueIdentifier>{cf01946a-6c7f-4159-adb0-8ead2f731ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player">
+      <UniqueIdentifier>{b72d942d-77be-4b43-a55b-03be9c88f919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player\Big">
+      <UniqueIdentifier>{152dde0f-02de-4ea9-8ef8-d655b3505185}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player\Small">
+      <UniqueIdentifier>{ad7ba7b3-166d-422b-9817-9a134f00cc01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player\White">
+      <UniqueIdentifier>{10b0e82e-58de-45eb-abcf-c327816617d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

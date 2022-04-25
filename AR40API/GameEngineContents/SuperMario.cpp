@@ -125,6 +125,55 @@ void SuperMario::GameInit()
 			GameEngineImage* Image19 = GameEngineImageManager::GetInst()->Find("FireFlower.bmp");
 
 			Image19->CutCount(4, 1);
+
+
+			GameEngineImage* Image20 = GameEngineImageManager::GetInst()->Find("big-break-R.bmp");
+
+			Image20->Cut({ 64, 128 });
+
+			GameEngineImage* Image21 = GameEngineImageManager::GetInst()->Find("big-break-L.bmp");
+
+			Image21->Cut({ 64, 128 });
+
+			GameEngineImage* Image22 = GameEngineImageManager::GetInst()->Find("fire-walk-R.bmp");
+
+			Image22->CutCount(3, 1);
+
+			GameEngineImage* Image23 = GameEngineImageManager::GetInst()->Find("fire-walk-L.bmp");
+
+			Image23->CutCount(3, 1);
+
+			GameEngineImage* Image24 = GameEngineImageManager::GetInst()->Find("fire-idle-R.bmp");
+
+			Image24->Cut({ 64, 128 });
+
+			GameEngineImage* Image25 = GameEngineImageManager::GetInst()->Find("fire-idle-L.bmp");
+
+			Image25->Cut({ 64, 128 });
+
+			GameEngineImage* Image26 = GameEngineImageManager::GetInst()->Find("fire-jump-L.bmp");
+
+			Image26->Cut({ 64, 128 });
+
+			GameEngineImage* Image27 = GameEngineImageManager::GetInst()->Find("fire-jump-R.bmp");
+
+			Image27->Cut({ 64, 128 });
+
+			GameEngineImage* Image28 = GameEngineImageManager::GetInst()->Find("fire-break-R.bmp");
+
+			Image28->Cut({ 64, 128 });
+
+			GameEngineImage* Image29 = GameEngineImageManager::GetInst()->Find("fire-break-L.bmp");
+
+			Image29->Cut({ 64, 128 });
+
+			GameEngineImage* Image30 = GameEngineImageManager::GetInst()->Find("FireAttack-L.bmp");
+
+			Image30->Cut({ 64, 128 });
+
+			GameEngineImage* Image31 = GameEngineImageManager::GetInst()->Find("FireAttack-R.bmp");
+
+			Image31->Cut({ 64, 128 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

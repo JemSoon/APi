@@ -166,12 +166,12 @@ void BigPlayer::MushroomCheck()
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
-			BigPlayerAnimationRender->On();
+			//BigPlayerAnimationRender->On();
 		}
 	}
 	else
 	{
-		BigPlayerAnimationRender->Off();
+		//BigPlayerAnimationRender->Off();
 	}
 }
 

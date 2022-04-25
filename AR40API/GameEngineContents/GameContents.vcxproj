@@ -319,6 +319,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="WhitePlayer_State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngineBase\GameEngineBase.vcxproj">
