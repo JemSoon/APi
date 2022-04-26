@@ -45,7 +45,11 @@ void Box::FootCheck()
 }
 
 void Box::PlayerCheck()
-{
+{	
+	//문제
+	//애니메이션 변경뿐만아니라 인식후 아이템이 올라와야하고(움직여야하고)
+	//박스에 아이템을 어떻게 담을 것인가?
+	//플레이어는 부딪힌 즉시 관통이 아니라 떨어져야한다
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BoxCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
@@ -53,6 +57,11 @@ void Box::PlayerCheck()
 	}
 
 	if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		BoxAnimationRender->ChangeAnimation("EmptyBox");
+	}
+
+	if (true == BoxCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		BoxAnimationRender->ChangeAnimation("EmptyBox");
 	}
