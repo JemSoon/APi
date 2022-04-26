@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "BigPlayer.h"
+#include "WhitePlayer.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -20,6 +22,7 @@ Player::Player()
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
+	, Type_(PlayerType::Small)
 {
 
 }
@@ -135,7 +138,7 @@ void Player::Update()
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
-
+	FireFlowerCheck();
 }
 
 
@@ -172,6 +175,21 @@ void Player::MushroomCheck()
 		MainPlayer->Off();
 		BigPlayer::MainBigPlayer->SetPosition(GetPosition() + float4{ 0, -32 });
 		BigPlayer::MainBigPlayer->On();
+	}
+}
+
+void Player::FireFlowerCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == PlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
+		}
+		MainPlayer->Off();
+		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition() + float4{ 0, -32 });
+		WhitePlayer::MainWhitePlayer->On();
 	}
 }
 

@@ -5,6 +5,7 @@ enum class ORDER //이미지 올라갈 순서 설정
 	MONSTER,
 	ITEM,
 	BOX,
+	EMPTYBOX,
 	PLAYER,
 	UI
 };

@@ -71,6 +71,9 @@
     <ClCompile Include="WhitePlayer_State.cpp">
       <Filter>Play\Player\White</Filter>
     </ClCompile>
+    <ClCompile Include="EmptyBox.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="WhitePlayer.h">
       <Filter>Play\Player\White</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyBox.h">
+      <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

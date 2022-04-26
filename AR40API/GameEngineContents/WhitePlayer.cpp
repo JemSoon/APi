@@ -141,6 +141,7 @@ void WhitePlayer::Update()
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
+	FireFlowerCheck();
 }
 
 
@@ -175,7 +176,18 @@ void WhitePlayer::MushroomCheck()
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
 		}
 	}
+}
 
+void WhitePlayer::FireFlowerCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == WhitePlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
+		}
+	}
 }
 
 //랜더러가 다 돌아가고 랜더링 된다

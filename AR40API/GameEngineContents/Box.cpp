@@ -1,4 +1,7 @@
 #include "Box.h"
+#include "EmptyBox.h"
+#include "Mushroom.h"
+#include "FireFlower.h"
 
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
@@ -26,9 +29,8 @@ void Box::Start()
 	BoxCollision = CreateCollision("Box", { 64, 64 });
 	BoxAnimationRender = CreateRenderer();
 	BoxAnimationRender->CreateAnimation("QBox.bmp", "Box", 0, 3, 0.3f, true);
-	BoxAnimationRender->CreateAnimation("empty-Box.bmp", "EmptyBox", 0, 0, 0.1f, false);
 	BoxAnimationRender->ChangeAnimation("Box");
-
+	
 }
 
 void Box::Render()
@@ -53,16 +55,28 @@ void Box::PlayerCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BoxCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		BoxAnimationRender->ChangeAnimation("EmptyBox");
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
+		Ptr->SetPosition(GetPosition());
+		BoxCollision->GetActor()->Off();
 	}
 
 	if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		BoxAnimationRender->ChangeAnimation("EmptyBox");
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		FireFlower* Ptr = GetLevel()->CreateActor<FireFlower>();
+		Ptr->SetPosition(GetPosition());
+		BoxCollision->GetActor()->Off();
 	}
 
 	if (true == BoxCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		BoxAnimationRender->ChangeAnimation("EmptyBox");
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		FireFlower* Ptr = GetLevel()->CreateActor<FireFlower>();
+		Ptr->SetPosition(GetPosition());
+		BoxCollision->GetActor()->Off();
 	}
 }

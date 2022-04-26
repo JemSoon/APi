@@ -1,4 +1,6 @@
 #include "BigPlayer.h"
+#include "WhitePlayer.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -19,6 +21,7 @@ BigPlayer::BigPlayer()
 	, MoveDir(float4::ZERO)
 	, BigPlayerDir_(float4::RIGHT)
 	, BigDirString("R")
+	, Type_(PlayerType::Big)
 {
 
 }
@@ -136,6 +139,7 @@ void BigPlayer::Update()
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
+	FireFlowerCheck();
 }
 
 
@@ -169,7 +173,21 @@ void BigPlayer::MushroomCheck()
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
-		//MainBigPlayer->On();
+	}
+}
+
+void BigPlayer::FireFlowerCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == BigPlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
+		}
+		MainBigPlayer->Off();
+		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition());
+		WhitePlayer::MainWhitePlayer->On();
 	}
 }
 

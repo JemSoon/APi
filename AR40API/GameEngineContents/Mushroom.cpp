@@ -1,4 +1,6 @@
 #include "Mushroom.h"
+#include "Player.h"
+#include "BigPlayer.h"
 
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
