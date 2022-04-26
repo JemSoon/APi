@@ -178,6 +178,10 @@ void SuperMario::GameInit()
 			GameEngineImage* Image32 = GameEngineImageManager::GetInst()->Find("FireAttack-R.bmp");
 
 			Image32->Cut({ 64, 64 });
+
+			GameEngineImage* Image33 = GameEngineImageManager::GetInst()->Find("empty-Box.bmp");
+
+			Image33->Cut({ 64, 64 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

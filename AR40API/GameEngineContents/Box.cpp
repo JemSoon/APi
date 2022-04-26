@@ -37,8 +37,23 @@ void Box::Render()
 
 void Box::Update()
 {
+	PlayerCheck();
 }
 
 void Box::FootCheck()
 {
+}
+
+void Box::PlayerCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == BoxCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		BoxAnimationRender->ChangeAnimation("EmptyBox");
+	}
+
+	if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		BoxAnimationRender->ChangeAnimation("EmptyBox");
+	}
 }

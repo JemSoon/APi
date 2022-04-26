@@ -37,7 +37,7 @@ public:
 
 public:
 	void FootCheck();
-
+	void PlayerCheck();
 protected:
 	GameEngineRenderer* BoxAnimationRender;
 
