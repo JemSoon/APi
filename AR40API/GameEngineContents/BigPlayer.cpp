@@ -122,7 +122,8 @@ void BigPlayer::Start()
 	}
 
 	Off();
-
+	MainBigPlayer = this;
+	//나는 this 어차피 하나만 만들어지니까
 }
 
 

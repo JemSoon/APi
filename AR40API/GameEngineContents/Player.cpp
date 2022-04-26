@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "BigPlayer.h"
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -168,6 +169,8 @@ void Player::MushroomCheck()
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
 		MainPlayer->Off();
+		BigPlayer::MainBigPlayer->SetPosition(GetPosition() + float4{ 0, -32 });
+		BigPlayer::MainBigPlayer->On();
 	}
 }
 
