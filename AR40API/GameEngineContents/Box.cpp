@@ -26,6 +26,7 @@ void Box::Start()
 	BoxCollision = CreateCollision("Box", { 64, 64 });
 	BoxAnimationRender = CreateRenderer();
 	BoxAnimationRender->CreateAnimation("QBox.bmp", "Box", 0, 3, 0.3f, true);
+	BoxAnimationRender->CreateAnimation("empty-Box.bmp", "EmptyBox", 0, 0, 0.1f, false);
 	BoxAnimationRender->ChangeAnimation("Box");
 
 }
