@@ -18,6 +18,7 @@ WhitePlayer::WhitePlayer()
 	, AccSpeed_(40.0f)
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
+	, WhiteDirString("R")
 {
 
 }
@@ -127,6 +128,7 @@ void WhitePlayer::Start()
 	}
 
 	Off();
+	MainWhitePlayer = this;
 }
 
 
@@ -171,13 +173,9 @@ void WhitePlayer::MushroomCheck()
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
-			//WhitePlayerAnimationRender->On();
 		}
 	}
-	else
-	{
-		//WhitePlayerAnimationRender->Off();
-	}
+
 }
 
 //랜더러가 다 돌아가고 랜더링 된다

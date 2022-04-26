@@ -10,9 +10,6 @@
 #include "Bullet.h" // 총알을 만들고 싶다.
 #include "ContentsEnum.h"
 
-std::string WhiteDirString;//지금 방향
-//std::string PrevDirString;//방향이 바뀌었을때
-
 void WhitePlayer::IdleUpdate()
 {
 	{	//맵과 캐릭터의 충돌설정용

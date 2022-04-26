@@ -95,6 +95,9 @@ private:
 	float4 CheckPos_;
 	int Color_;
 
+	//점프 방향 설정용
+	std::string BigDirString;//지금 방향
+
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;
 

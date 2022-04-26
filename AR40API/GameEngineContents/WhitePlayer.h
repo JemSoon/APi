@@ -64,6 +64,8 @@ private:
 	float AccSpeed_;
 	float4 MoveDir;
 
+	std::string WhiteDirString;//애니메이션 방향용
+
 	GameEngineImage* MapColImage_;
 
 	GameEngineCollision* WhitePlayerCollision;//기본 충돌체

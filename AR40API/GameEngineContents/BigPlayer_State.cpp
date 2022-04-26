@@ -10,9 +10,6 @@
 #include "Bullet.h" // 총알을 만들고 싶다.
 #include "ContentsEnum.h"
 
-std::string BigDirString;//지금 방향
-//std::string PrevDirString;//방향이 바뀌었을때
-
 void BigPlayer::IdleUpdate()
 {
 	{	//맵과 캐릭터의 충돌설정용
@@ -267,10 +264,6 @@ void BigPlayer::MoveStart()
 
 void BigPlayer::JumpStart()
 {
-
-	BigDirString = 'R';
-
-
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		BigDirString = 'R';

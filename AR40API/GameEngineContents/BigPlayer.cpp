@@ -18,6 +18,7 @@ BigPlayer::BigPlayer()
 	, AccSpeed_(40.0f)
 	, MoveDir(float4::ZERO)
 	, BigPlayerDir_(float4::RIGHT)
+	, BigDirString("R")
 {
 
 }
