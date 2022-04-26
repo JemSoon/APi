@@ -10,8 +10,8 @@
 #include "Bullet.h" // 총알을 만들고 싶다.
 #include "ContentsEnum.h"
 
-std::string DirString;//지금 방향
-std::string PrevDirString;//방향이 바뀌었을때
+//std::string DirString;//지금 방향
+//std::string PrevDirString;//방향이 바뀌었을때
 
 void Player::IdleUpdate()
 {
@@ -267,10 +267,6 @@ void Player::MoveStart()
 
 void Player::JumpStart()
 {
-
-	DirString = 'R';
-	
-
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		DirString = 'R';

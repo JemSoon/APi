@@ -19,6 +19,7 @@ Player::Player()
 	, AccSpeed_(40.0f)
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
+	, DirString("R")
 {
 
 }

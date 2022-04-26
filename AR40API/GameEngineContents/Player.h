@@ -73,6 +73,10 @@ private:
 	// bullet 용 dir
 	float4 PlayerDir_;
 
+	// 애니메이션 방향체크용
+	std::string DirString;//지금 방향
+	std::string PrevDirString;//방향이 바뀌었을때
+
 public:
 	void Start() override;
 	void Render() override;
