@@ -125,12 +125,14 @@ void WhitePlayer::Start()
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
+
+	Off();
 }
 
 
 void WhitePlayer::Update()
 {
-	MainWhitePlayer->Off();//일단꺼둠
+	
 	Fire();//총알 발사함수
 	StateUpdate();
 

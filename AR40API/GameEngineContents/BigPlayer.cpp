@@ -92,8 +92,6 @@ void BigPlayer::StateUpdate()
 
 void BigPlayer::Start()
 {
-	MainBigPlayer->Off();//ÅÍÁü
-
 	SetScale({ 64,128 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
@@ -122,6 +120,9 @@ void BigPlayer::Start()
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
+
+	Off();
+
 }
 
 
@@ -166,11 +167,7 @@ void BigPlayer::MushroomCheck()
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
-		MainBigPlayer->On();
-	}
-	else
-	{
-		//BigPlayerAnimationRender->Off();
+		//MainBigPlayer->On();
 	}
 }
 
