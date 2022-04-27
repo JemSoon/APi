@@ -182,30 +182,54 @@ void Player::JumpUpdate()
 		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	}
 	// 아이들로 바꾸는게 아니에영
+	
+	{	//앞 체크
+		RightCheck();
 
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{	
+		}
 
-	FootCheck();
-
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//허공에 떠있다
-		//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
-		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(PlayerState::Move);
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(PlayerState::Idle);
+		}
 	}
 
-	else if (true == GameEngineInput::GetInst()->IsPress("Move Right")||
-			 true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{	
-		MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-		ChangeState(PlayerState::Move);
-	}
-	else
-	{
-		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Idle);
+	{	//발바닥 체크
+		FootCheck();
+
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{	//허공에 떠있다
+			//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+			MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(PlayerState::Move);
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(PlayerState::Idle);
+		}
 	}
 
 	CameraOutCheck();
