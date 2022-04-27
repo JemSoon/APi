@@ -206,6 +206,30 @@ void Player::JumpUpdate()
 		}
 	}
 
+
+	{	//앞아래 꼭지점 체크
+		RightBotCheck();
+
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(PlayerState::Move);
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(PlayerState::Idle);
+		}
+	}
+
 	{	//발바닥 체크
 		FootCheck();
 
