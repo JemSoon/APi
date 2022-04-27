@@ -212,6 +212,26 @@ void Player::JumpUpdate()
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		}
 
+	}
+
+		//앞 아래 꼭지점 체크는 Fall일때만 하는게 맞는것 같다 여기에 하면 착지후 속도가 초기화 되버린다.(일단 보류)
+	{	/////앞아래 꼭지점 체크
+		//RightBotCheck();
+		////바닥은 빼야함(255,0,0)
+		//if (RGB(55, 55, 55) == Color_ ||
+		//	RGB(0, 255, 255) == Color_ ||
+		//	RGB(0, 255, 0) == Color_)
+		//{
+		//	MoveDir.x = 0.0f;
+		//}
+		//
+		//else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+		//	true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		//{
+		//	//MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+		//	ChangeState(PlayerState::Fall);
+		//	return;
+		//}
 		//else
 		//{
 		//	MoveDir.y = 0.0f;
@@ -219,31 +239,6 @@ void Player::JumpUpdate()
 		//	return;
 		//}
 	}
-
-
-	//{	//앞아래 꼭지점 체크
-	//	RightBotCheck();
-	//	//바닥은 빼야함(255,0,0)
-	//	if (RGB(55, 55, 55) != Color_ &&
-	//		RGB(0, 255, 255) != Color_ &&
-	//		RGB(0, 255, 0) != Color_)
-	//	{
-	//	}
-
-	//	else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-	//		true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	//	{
-	//		//MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-	//		ChangeState(PlayerState::Fall);
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		MoveDir.y = 0.0f;
-	//		ChangeState(PlayerState::Idle);
-	//		return;
-	//	}
-	//}
 
 	{	//발바닥 체크
 		FootCheck();
@@ -261,7 +256,6 @@ void Player::JumpUpdate()
 		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
 			true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			//MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
 			ChangeState(PlayerState::Fall);
 			return;
 		}
@@ -279,6 +273,7 @@ void Player::JumpUpdate()
 
 void Player::FallUpdate()
 {
+
 	RightCheck();
 	//앞이 바닥or장애물이면 x가 0이된다.
 	if (RGB(255, 0, 0) == Color_ ||
@@ -289,7 +284,14 @@ void Player::FallUpdate()
 		MoveDir.x = 0.0f;
 	}
 
-	//MoveDir.x = 0.0f;
+	RightBotCheck(); //마찬가지로 x속도가 땅에 닿았을때 초기화 되버린다.
+	if ((RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)&&MoveDir.y != 0.0f)
+	{
+		MoveDir.x = 0.0f;
+	}
+
 	MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	FootCheck();
@@ -314,12 +316,14 @@ void Player::FallUpdate()
 	{
 		//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
 		ChangeState(PlayerState::Move);
+		return;
 	}
 
 	else
 	{
 		MoveDir.y = 0.0f;
 		ChangeState(PlayerState::Idle);
+		return;
 	}
 
 	CameraOutCheck();
