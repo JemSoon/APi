@@ -94,6 +94,16 @@ void Player::MoveUpdate()
 		}
 	}
 
+	RightCheck();
+	//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.
+	if ((RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)&& true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		MoveDir.x = 0.0f;
+	}
+
 	// 점프
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
@@ -172,10 +182,10 @@ void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{
-		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-	}
+	//if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	//{
+	//	MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	//}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
@@ -186,49 +196,54 @@ void Player::JumpUpdate()
 	{	//앞 체크
 		RightCheck();
 
-		if (RGB(255, 0, 0) != Color_ &&
-			RGB(55, 55, 55) != Color_ &&
-			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)
-		{	
+		if ((RGB(255,0,0) ==Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_)&& true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{	//점프중 앞에 장애물이 있다면 x방향은 0
+			MoveDir.x = 0.0f;
 		}
 
-		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-			true == GameEngineInput::GetInst()->IsPress("Move Left"))
-		{
-			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-			ChangeState(PlayerState::Move);
+		else if ((RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{	//앞에 장애물이 없다면
+			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		}
-		else
-		{
-			MoveDir.y = 0.0f;
-			ChangeState(PlayerState::Idle);
-		}
+
+		//else
+		//{
+		//	MoveDir.y = 0.0f;
+		//	ChangeState(PlayerState::Idle);
+		//	return;
+		//}
 	}
 
 
-	{	//앞아래 꼭지점 체크
-		RightBotCheck();
+	//{	//앞아래 꼭지점 체크
+	//	RightBotCheck();
+	//	//바닥은 빼야함(255,0,0)
+	//	if (RGB(55, 55, 55) != Color_ &&
+	//		RGB(0, 255, 255) != Color_ &&
+	//		RGB(0, 255, 0) != Color_)
+	//	{
+	//	}
 
-		if (RGB(255, 0, 0) != Color_ &&
-			RGB(55, 55, 55) != Color_ &&
-			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)
-		{
-		}
-
-		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-			true == GameEngineInput::GetInst()->IsPress("Move Left"))
-		{
-			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-			ChangeState(PlayerState::Move);
-		}
-		else
-		{
-			MoveDir.y = 0.0f;
-			ChangeState(PlayerState::Idle);
-		}
-	}
+	//	else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+	//		true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	//	{
+	//		//MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+	//		ChangeState(PlayerState::Fall);
+	//		return;
+	//	}
+	//	else
+	//	{
+	//		MoveDir.y = 0.0f;
+	//		ChangeState(PlayerState::Idle);
+	//		return;
+	//	}
+	//}
 
 	{	//발바닥 체크
 		FootCheck();
@@ -246,13 +261,15 @@ void Player::JumpUpdate()
 		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
 			true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
-			MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-			ChangeState(PlayerState::Move);
+			//MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(PlayerState::Fall);
+			return;
 		}
 		else
 		{
 			MoveDir.y = 0.0f;
 			ChangeState(PlayerState::Idle);
+			return;
 		}
 	}
 
@@ -260,7 +277,53 @@ void Player::JumpUpdate()
 
 }
 
+void Player::FallUpdate()
+{
+	RightCheck();
+	//앞이 바닥or장애물이면 x가 0이된다.
+	if (RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)
+	{
+		MoveDir.x = 0.0f;
+	}
 
+	//MoveDir.x = 0.0f;
+	MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
+	FootCheck();
+
+	if (RGB(255, 0, 0) != Color_ &&
+		RGB(55, 55, 55) != Color_ &&
+		RGB(0, 255, 255) != Color_ &&
+		RGB(0, 255, 0) != Color_)
+	{	//허공에 떠있다
+		//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+
+	//else if (MoveDir.y == 0.0f)
+	//{
+	//	ChangeState(PlayerState::Move);
+	//}
+	
+	else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+		true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y==0.0f)
+	{
+		//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+		ChangeState(PlayerState::Move);
+	}
+
+	else
+	{
+		MoveDir.y = 0.0f;
+		ChangeState(PlayerState::Idle);
+	}
+
+	CameraOutCheck();
+}
 
 
 //////////////////////////////////////// State
@@ -316,4 +379,9 @@ void Player::JumpStart()
 
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
 	MoveDir += float4::UP * 40.0f;
+}
+
+void Player::FallStart()
+{
+	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
 }

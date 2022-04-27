@@ -121,10 +121,12 @@ private:
 	void IdleUpdate();
 	void MoveUpdate();
 	void JumpUpdate();
+	void FallUpdate();
 
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
+	void FallStart();
 };
 
 

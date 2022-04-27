@@ -267,8 +267,8 @@ void Player::LeftCheck()
 	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(-32.0f, 0.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+	CheckPos_ = NextPos_ + float4(-26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_ + float4{ -1.0f,0.0f });
 }
 
 void Player::RightCheck()
@@ -276,8 +276,8 @@ void Player::RightCheck()
 	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(32.0f, 0.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+	CheckPos_ = NextPos_ + float4(26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);//한픽셀 앞을 체크하자..점프가안되..
 }
 
 void Player::RightBotCheck()
@@ -285,7 +285,7 @@ void Player::RightBotCheck()
 	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(32.0f, 32.0f);
+	CheckPos_ = NextPos_ + float4(26.0f, 32.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 
