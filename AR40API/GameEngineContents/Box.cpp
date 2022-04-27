@@ -62,7 +62,7 @@ void Box::PlayerCheck()
 		BoxCollision->GetActor()->Off();
 	}
 
-	if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	else if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
@@ -71,7 +71,7 @@ void Box::PlayerCheck()
 		BoxCollision->GetActor()->Off();
 	}
 
-	if (true == BoxCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	else if (true == BoxCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());

@@ -11,6 +11,7 @@ enum class PlayerState
 	Attck,
 	Move,
 	Jump,
+	Fall,
 	Dead,
 	Max,
 };

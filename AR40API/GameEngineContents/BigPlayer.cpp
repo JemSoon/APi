@@ -257,7 +257,7 @@ void BigPlayer::RightBotCheck()
 	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(32.0f, 32.0f);
+	CheckPos_ = NextPos_ + float4(32.0f, 64.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 

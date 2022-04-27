@@ -127,10 +127,59 @@ void BigPlayer::MoveUpdate()
 	}
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	
+	{	//앞 체크
+		RightCheck();
 
-	FootCheck();
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(BigPlayerState::Move);
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(BigPlayerState::Idle);
+		}
+	}
+
+
+	{	//앞아래 꼭지점 체크
+		RightBotCheck();
+
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(BigPlayerState::Move);
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(BigPlayerState::Idle);
+		}
+	}
+
+	
 
 	{
+		FootCheck();
+
 		if (RGB(255, 0, 0) != Color_ &&
 			RGB(55, 55, 55) != Color_ &&
 			RGB(0, 255, 255) != Color_ &&
@@ -157,7 +206,7 @@ void BigPlayer::MoveUpdate()
 			}
 		}
 	}
-
+	
 	//감속
 	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
 	//근데 idle상태로 넘어가면 x가 0되서 걍 섬
@@ -206,16 +255,6 @@ void BigPlayer::JumpUpdate()
 	}
 
 	CameraOutCheck();
-
-	//if (true == GameEngineInput::GetInst()->IsPress("Jump"))
-	//{
-		//MoveDir += float4::UP* 0.2f;
-
-		// PlayerAnimationRender->ChangeAnimation("Jump-R");
-		//
-		//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-		//점프 추락 가속도는 이게 아닌가..?
-	//}
 
 }
 

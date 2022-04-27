@@ -61,6 +61,9 @@ void Player::ChangeState(PlayerState _State)
 		case PlayerState::Jump:
 			JumpStart();
 			break;
+		case PlayerState::Fall:
+			FallStart();
+			break;
 		case PlayerState::Max:
 			break;
 		default:
@@ -82,6 +85,11 @@ void Player::StateUpdate()
 	case PlayerState::Move:
 		MoveUpdate();
 		
+		break;
+
+	case PlayerState::Fall:
+		FallUpdate();
+
 		break;
 	case PlayerState::Jump:
 		JumpUpdate();
