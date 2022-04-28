@@ -98,14 +98,16 @@ public:
 	void RightCheck();
 	void RightBotCheck();
 	void Fire();//총알 발사함수
+
+	//====충돌 체크 테스트====//
+	void HeadHitCheck();
 	
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
-	//아이템 체크용 마리오상태
-	//PlayerType Type_;
+
 	
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;

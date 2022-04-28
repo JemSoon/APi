@@ -21,7 +21,7 @@ BigPlayer::BigPlayer()
 	, MoveDir(float4::ZERO)
 	, BigPlayerDir_(float4::RIGHT)
 	, BigDirString("R")
-	//, Type_(PlayerType::Big)
+
 {
 
 }

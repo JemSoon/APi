@@ -22,7 +22,7 @@ Player::Player()
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
-	//, Type_(PlayerType::Small)
+
 {
 
 }
@@ -107,7 +107,7 @@ void Player::Start()
 {
 	SetScale({ 64,64 });
 
-	//PlayerHeadCollision = CreateCollision("PlayerHead", { 50, 2 },{0,-31});
+	PlayerHeadCollision = CreateCollision("PlayerHead", { 54, 2 },{0,-32});
 	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
 	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 
@@ -311,4 +311,17 @@ void Player::Fire()
 void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	MainPlayer = this;
+}
+
+void Player::HeadHitCheck()
+{	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;//충돌체가 이미 그려져 있으니까..?따로 추가로 더할게 없지..?
+
+	if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{	//박스랑 머리랑 충돌하면
+		MoveDir.y=0.0f;
+		ChangeState(PlayerState::Fall);
+		return;
+	}
 }

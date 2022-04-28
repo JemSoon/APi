@@ -99,8 +99,7 @@ private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
-	//아이템 체크용 마리오상태
-	//PlayerType Type_;
+
 
 	//점프 방향 설정용
 	std::string BigDirString;//지금 방향

@@ -43,5 +43,6 @@ protected:
 
 private:
 	GameEngineCollision* BoxCollision;
+	GameEngineCollision* BoxBotCollision;
 };
 

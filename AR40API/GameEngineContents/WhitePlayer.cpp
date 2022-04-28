@@ -20,7 +20,7 @@ WhitePlayer::WhitePlayer()
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
 	, WhiteDirString_("R")
-	//, Type_(PlayerType::White)
+
 {
 
 }

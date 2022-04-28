@@ -17,10 +17,3 @@ enum class ItemType
 	Star,
 	UP
 };
-
-//enum class PlayerType
-//{
-//	Small,
-//	Big,
-//	White
-//};
