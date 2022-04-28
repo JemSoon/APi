@@ -160,6 +160,8 @@ void Player::MoveUpdate()
 			RGB(0, 255, 0) != Color_)
 		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			ChangeState(PlayerState::Fall);
+			return;
 		}
 		else
 		{
@@ -311,7 +313,30 @@ void Player::FallUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
+	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		// 가속력
+		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		PlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
+	}
+	else if (true == GameEngineInput::GetInst()->IsPress("Move LEft"))
+	{
+		// 가속력
+		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		PlayerDir_ = float4::LEFT;//총알 발사 방향 설정용
+	}
+
 	RightCheck();
+	//앞이 바닥or장애물이면 x가 0이된다.
+	if (RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)
+	{
+		MoveDir.x = 0.0f;
+	}
+
+	LeftCheck();
 	//앞이 바닥or장애물이면 x가 0이된다.
 	if (RGB(255, 0, 0) == Color_ ||
 		RGB(55, 55, 55) == Color_ ||
