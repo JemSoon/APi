@@ -194,6 +194,13 @@ void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
+	if (true == GameEngineInput::GetInst()->IsUp("Jump"))
+	{
+		MoveDir.y = 0.0f;
+		ChangeState(PlayerState::Fall);
+		return;
+	}
+
 	// 아이들로 바꾸는게 아니에영
 	
 	{	//머리 체크

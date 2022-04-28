@@ -214,8 +214,8 @@ void SuperMario::GameInit()
 	CreateLevel<PlayLevel2>("Play2");
 	CreateLevel<PlayLevel3>("Play3");
 	CreateLevel<EndingLevel>("Ending");
-	//ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
-	ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
+	ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
+	//ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
 }
 
 void SuperMario::GameLoop()
