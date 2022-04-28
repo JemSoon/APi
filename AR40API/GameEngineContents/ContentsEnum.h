@@ -18,9 +18,9 @@ enum class ItemType
 	UP
 };
 
-enum class PlayerType
-{
-	Small,
-	Big,
-	White
-};
+//enum class PlayerType
+//{
+//	Small,
+//	Big,
+//	White
+//};

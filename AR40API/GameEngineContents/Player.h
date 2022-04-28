@@ -105,7 +105,7 @@ private:
 	float4 CheckPos_;
 	int Color_;
 	//아이템 체크용 마리오상태
-	PlayerType Type_;
+	//PlayerType Type_;
 	
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;

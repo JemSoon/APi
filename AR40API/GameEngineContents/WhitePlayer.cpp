@@ -1,4 +1,5 @@
 #include "WhitePlayer.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -18,7 +19,8 @@ WhitePlayer::WhitePlayer()
 	, AccSpeed_(40.0f)
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
-	, WhiteDirString("R")
+	, WhiteDirString_("R")
+	//, Type_(PlayerType::White)
 {
 
 }
@@ -57,6 +59,9 @@ void WhitePlayer::ChangeState(WhitePlayerState _State)
 		case WhitePlayerState::Jump:
 			JumpStart();
 			break;
+		case WhitePlayerState::Fall:
+			FallStart();
+			break;
 		case WhitePlayerState::Max:
 			break;
 		default:
@@ -83,6 +88,10 @@ void WhitePlayer::StateUpdate()
 		JumpUpdate();
 
 		break;
+	case WhitePlayerState::Fall:
+		FallUpdate();
+
+		break;
 	case WhitePlayerState::Max:
 		break;
 	default:
@@ -93,9 +102,6 @@ void WhitePlayer::StateUpdate()
 
 void WhitePlayer::Start()
 {
-	//WhitePlayer위치는 중앙으로 고정
-	//SetPosition(GameEngineWindow::GetScale().Half());
-	//선생님 왈 여기다 지정하면 안됨(스테이지 진입할때마다 다르니까)
 	SetScale({ 64,128 });
 
 	WhitePlayerCollision = CreateCollision("WhitePlayerHitBox", { 50, 128 });
@@ -109,10 +115,11 @@ void WhitePlayer::Start()
 	WhitePlayerAnimationRender->CreateAnimation("fire-idle-L.bmp", "Widle-L", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-jump-L.bmp", "WJump-L", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-jump-R.bmp", "WJump-R", 0, 0, 0.0f, false);
-	WhitePlayerAnimationRender->CreateAnimation("FireAttack-L.bmp", "Fire-L", 0, 0, 0.0f, false);
-	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "Fire-R", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-break-L.bmp", "WBreak-L", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-break-R.bmp", "WBreak-R", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("FireAttack-L.bmp", "WFire-L", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "WFire-R", 0, 0, 0.0f, false);
+
 	WhitePlayerAnimationRender->ChangeAnimation("Widle-R");
 
 
@@ -129,12 +136,12 @@ void WhitePlayer::Start()
 
 	Off();
 	MainWhitePlayer = this;
+	//나는 this 어차피 하나만 만들어지니까
 }
 
 
 void WhitePlayer::Update()
 {
-	
 	Fire();//총알 발사함수
 	StateUpdate();
 
@@ -187,6 +194,9 @@ void WhitePlayer::FireFlowerCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
 		}
+		MainWhitePlayer->Off();
+		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition());
+		WhitePlayer::MainWhitePlayer->On();
 	}
 }
 
@@ -251,10 +261,39 @@ void WhitePlayer::FootCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 
+void WhitePlayer::HeadCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 머리 위치
+	CheckPos_ = NextPos_ + float4(0.0f, -54.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void WhitePlayer::LeftCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(-26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void WhitePlayer::RightCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
 void WhitePlayer::Fire()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
+		WhitePlayerAnimationRender->ChangeAnimation("WFire-" + WhiteDirString_);
+
 		SetScale({ 32,32 });
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();

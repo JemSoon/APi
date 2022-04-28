@@ -21,7 +21,7 @@ BigPlayer::BigPlayer()
 	, MoveDir(float4::ZERO)
 	, BigPlayerDir_(float4::RIGHT)
 	, BigDirString("R")
-	, Type_(PlayerType::Big)
+	//, Type_(PlayerType::Big)
 {
 
 }
@@ -285,16 +285,6 @@ void BigPlayer::RightCheck()
 	CheckPos_ = NextPos_ + float4(26.0f, 0.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
-
-//void BigPlayer::RightBotCheck()
-//{
-//	//내 미래위치
-//	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-//	//그때 내 발바닥 위치
-//	CheckPos_ = NextPos_ + float4(32.0f, 64.0f);
-//	Color_ = MapColImage_->GetImagePixel(CheckPos_);
-//}
-
 
 void BigPlayer::Fire()
 {

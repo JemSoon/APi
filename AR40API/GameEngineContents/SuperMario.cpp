@@ -186,6 +186,7 @@ void SuperMario::GameInit()
 			GameEngineImage* Image34 = GameEngineImageManager::GetInst()->Find("Hit.bmp");
 
 			Image34->Cut({ 32, 32 });
+
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

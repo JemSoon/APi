@@ -91,6 +91,26 @@ void WhitePlayer::MoveUpdate()
 		}
 	}
 
+	RightCheck();
+	//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.
+	if ((RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		MoveDir.x = 0.0f;
+	}
+
+	LeftCheck();
+	//뒤가 충돌색이고 뒤키를 누르고있으면 x가 0이된다.
+	if ((RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	{
+		MoveDir.x = 0.0f;
+	}
+
 	// 점프
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
@@ -128,15 +148,16 @@ void WhitePlayer::MoveUpdate()
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	FootCheck();
-
 	{
+		FootCheck();
 		if (RGB(255, 0, 0) != Color_ &&
 			RGB(55, 55, 55) != Color_ &&
 			RGB(0, 255, 255) != Color_ &&
 			RGB(0, 255, 0) != Color_)
 		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			ChangeState(WhitePlayerState::Fall);
+			return;
 		}
 		else
 		{
@@ -169,17 +190,138 @@ void WhitePlayer::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	{
-		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-	}
+	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
+	//{	//점프 누른 시간에 따른 점프 길이 변화용
+	//	MoveDir.y = 0.0f;
+	//	ChangeState(PlayerState::Fall);
+	//	return;
+	//}
 
-	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{
-		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-	}
 	// 아이들로 바꾸는게 아니에영
 
+	{	//머리 체크
+		HeadCheck();
+
+		if (RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_)
+		{	//장애물과 부딪혔다면 바로 낙하 상태로 변경
+			MoveDir.y = 0.0f;
+			ChangeState(WhitePlayerState::Fall);
+			return;
+		}
+	}
+
+	{	//앞 체크
+		RightCheck();
+
+		if ((RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{	//점프중 앞에 장애물이 있다면 x방향은 0
+			MoveDir.x = 0.0f;
+		}
+
+		else if ((RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{	//앞에 장애물이 없다면
+			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		}
+
+	}
+
+	{	//뒤 체크
+		LeftCheck();
+
+		if ((RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{	//점프중 앞에 장애물이 있다면 x방향은 0
+			MoveDir.x = 0.0f;
+		}
+
+		else if ((RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{	//앞에 장애물이 없다면
+			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		}
+
+	}
+
+	{	//발바닥 체크
+		FootCheck();
+
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{	//허공에 떠있다
+			//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+			MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{	//낙하시작할때 Fall로 되야하지않나..?
+			ChangeState(WhitePlayerState::Fall);
+			return;
+		}
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(WhitePlayerState::Idle);
+			return;
+		}
+	}
+
+	CameraOutCheck();
+
+}
+
+void WhitePlayer::FallUpdate()
+{
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
+	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		// 가속력
+		MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		WhitePlayerDir_ = float4::RIGHT;//총알 발사 방향 설정용
+	}
+	else if (true == GameEngineInput::GetInst()->IsPress("Move LEft"))
+	{
+		// 가속력
+		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		WhitePlayerDir_ = float4::LEFT;//총알 발사 방향 설정용
+	}
+
+	RightCheck();
+	//앞이 바닥or장애물이면 x가 0이된다.
+	if (RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)
+	{
+		MoveDir.x = 0.0f;
+	}
+
+	LeftCheck();
+	//앞이 바닥or장애물이면 x가 0이된다.
+	if (RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_)
+	{
+		MoveDir.x = 0.0f;
+	}
 
 	FootCheck();
 
@@ -193,34 +335,28 @@ void WhitePlayer::JumpUpdate()
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 
-	else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-		true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	//else if (MoveDir.y == 0.0f)
+	//{
+	//	ChangeState(PlayerState::Move);
+	//}
+
+	else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+		true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y == 0.0f)
 	{
-		MoveDir.y = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+		//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
 		ChangeState(WhitePlayerState::Move);
+		return;
 	}
+
 	else
 	{
 		MoveDir.y = 0.0f;
 		ChangeState(WhitePlayerState::Idle);
+		return;
 	}
 
 	CameraOutCheck();
-
-	//if (true == GameEngineInput::GetInst()->IsPress("Jump"))
-	//{
-		//MoveDir += float4::UP* 0.2f;
-
-		// PlayerAnimationRender->ChangeAnimation("Jump-R");
-		//
-		//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-		//점프 추락 가속도는 이게 아닌가..?
-	//}
-
 }
-
-
-
 
 //////////////////////////////////////// State
 
@@ -228,16 +364,16 @@ void WhitePlayer::IdleStart()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		WhiteDirString = 'R';
+		WhiteDirString_ = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		WhiteDirString = 'L';
+		WhiteDirString_ = 'L';
 	}
 
 	// 내방향이 왼쪽이며
 
-	WhitePlayerAnimationRender->ChangeAnimation("Widle-" + WhiteDirString);
+	WhitePlayerAnimationRender->ChangeAnimation("Widle-" + WhiteDirString_);
 
 	// 애니메이션이 바뀐다.
 
@@ -252,31 +388,32 @@ void WhitePlayer::MoveStart()
 {
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		WhiteDirString = 'R';
+		WhiteDirString_ = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		WhiteDirString = 'L';
+		WhiteDirString_ = 'L';
 	}
 
-	WhitePlayerAnimationRender->ChangeAnimation("WWalk-" + WhiteDirString);
+	WhitePlayerAnimationRender->ChangeAnimation("WWalk-" + WhiteDirString_);
 }
 
 void WhitePlayer::JumpStart()
 {
-
-	WhiteDirString = 'R';
-
-
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
-		WhiteDirString = 'R';
+		WhiteDirString_ = 'R';
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
 	{
-		WhiteDirString = 'L';
+		WhiteDirString_ = 'L';
 	}
 
-	WhitePlayerAnimationRender->ChangeAnimation("WJump-" + WhiteDirString);
+	WhitePlayerAnimationRender->ChangeAnimation("WJump-" + WhiteDirString_);
 	MoveDir += float4::UP * 40.0f;
+}
+
+void WhitePlayer::FallStart()
+{
+	WhitePlayerAnimationRender->ChangeAnimation("WJump-" + WhiteDirString_);
 }

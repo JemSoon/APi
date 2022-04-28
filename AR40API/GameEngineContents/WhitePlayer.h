@@ -11,6 +11,7 @@ enum class WhitePlayerState
 	Attck,
 	Move,
 	Jump,
+	Fall,
 	Dead,
 	Max,
 };
@@ -90,6 +91,9 @@ public:
 
 	//===내가 추가한 퍼블릭 함수===//
 	void FootCheck();//발 위치 확인용
+	void HeadCheck();
+	void LeftCheck();
+	void RightCheck();
 	void Fire();//총알 발사함수
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
@@ -97,6 +101,9 @@ private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
+
+	//점프 방향 설정용
+	std::string WhiteDirString_;//지금 방향
 
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;
@@ -113,10 +120,14 @@ private:
 	void IdleUpdate();
 	void MoveUpdate();
 	void JumpUpdate();
+	void FallUpdate();
+
 
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
+	void FallStart();
+
 };
 
 

@@ -22,7 +22,7 @@ Player::Player()
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
-	, Type_(PlayerType::Small)
+	//, Type_(PlayerType::Small)
 {
 
 }
@@ -263,7 +263,7 @@ void Player::HeadCheck()
 	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 머리 위치
-	CheckPos_ = NextPos_ + float4(0.0f, -32.0f);
+	CheckPos_ = NextPos_ + float4(0.0f, -22.0f);//머리는 실제이미지 -10픽셀 해야 좀 부딪히는거같음
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 
