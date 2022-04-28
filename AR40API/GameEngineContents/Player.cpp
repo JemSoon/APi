@@ -314,13 +314,22 @@ void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 }
 
 void Player::HeadHitCheck()
-{	//내 미래위치
+{	
+	//내 미래위치
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	CheckPos_ = NextPos_;//충돌체가 이미 그려져 있으니까..?따로 추가로 더할게 없지..?
 
 	if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{	//박스랑 머리랑 충돌하면
 		MoveDir.y=0.0f;
+		ChangeState(PlayerState::Fall);
+		return;
+	}
+
+	//이건 빈박스
+	if (true == PlayerHeadCollision->NextPosCollisionCheck("EmptyBox", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{	
+		MoveDir.y = 0.0f;
 		ChangeState(PlayerState::Fall);
 		return;
 	}
