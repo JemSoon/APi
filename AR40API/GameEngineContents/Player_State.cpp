@@ -104,6 +104,16 @@ void Player::MoveUpdate()
 		MoveDir.x = 0.0f;
 	}
 
+	LeftCheck();
+	//뒤가 충돌색이고 뒤키를 누르고있으면 x가 0이된다.
+	if ((RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+	{
+		MoveDir.x = 0.0f;
+	}
+
 	// 점프
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
@@ -182,15 +192,6 @@ void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	//if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
-	//{
-	//	MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-	//}
-
-	if (true == GameEngineInput::GetInst()->IsPress("Move Left"))
-	{
-		MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
-	}
 	// 아이들로 바꾸는게 아니에영
 	
 	{	//앞 체크
@@ -210,6 +211,27 @@ void Player::JumpUpdate()
 			RGB(0, 255, 0) != Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{	//앞에 장애물이 없다면
 			MoveDir += float4::RIGHT * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		}
+
+	}
+
+	{	//뒤 체크
+		LeftCheck();
+
+		if ((RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{	//점프중 앞에 장애물이 있다면 x방향은 0
+			MoveDir.x = 0.0f;
+		}
+
+		else if ((RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_) && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{	//앞에 장애물이 없다면
+			MoveDir += float4::LEFT * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		}
 
 	}

@@ -77,14 +77,14 @@ void PlayLevel::Loading()
 
 		{
 			//아이템 로드 체크
-			Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
-			Item->SetPosition({ 500.0f, 740.0f });
+			//Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
+			//Item->SetPosition({ 500.0f, 740.0f });
 		}
 
 		{
 			//아이템 로드 체크
-			FireFlower* Item = CreateActor<FireFlower>((int)ORDER::ITEM);
-			Item->SetPosition({ 628.0f, 740.0f });
+			//FireFlower* Item = CreateActor<FireFlower>((int)ORDER::ITEM);
+			//Item->SetPosition({ 628.0f, 740.0f });
 		}
 
 		{
