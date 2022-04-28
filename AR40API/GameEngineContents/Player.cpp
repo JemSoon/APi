@@ -208,10 +208,6 @@ void Player::Render()
 
 }
 
-void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	MainPlayer = this;
-}
 
 void Player::CameraOutCheck()
 {
@@ -310,4 +306,9 @@ void Player::Fire()
 		Ptr->SetPosition(GetPosition());
 		Ptr->SetDir(CurDir());
 	}
+}
+
+void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainPlayer = this;
 }
