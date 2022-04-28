@@ -193,6 +193,8 @@ void Player::MoveUpdate()
 void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	
+	HeadHitCheck();//충돌체 테스트인데 안됨
 
 	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
 	//{	//점프 누른 시간에 따른 점프 길이 변화용
@@ -215,6 +217,7 @@ void Player::JumpUpdate()
 			ChangeState(PlayerState::Fall);
 			return;
 		}
+		
 	}
 
 	{	//앞 체크
