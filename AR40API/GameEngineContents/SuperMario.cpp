@@ -182,6 +182,10 @@ void SuperMario::GameInit()
 			GameEngineImage* Image33 = GameEngineImageManager::GetInst()->Find("empty-Box.bmp");
 
 			Image33->Cut({ 64, 64 });
+
+			GameEngineImage* Image34 = GameEngineImageManager::GetInst()->Find("Hit.bmp");
+
+			Image34->Cut({ 32, 32 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
@@ -214,8 +218,8 @@ void SuperMario::GameInit()
 	CreateLevel<PlayLevel2>("Play2");
 	CreateLevel<PlayLevel3>("Play3");
 	CreateLevel<EndingLevel>("Ending");
-	ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
-	//ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
+	//ChangeLevel("Play1");//인게임 화면 보고싶을때 체크용
+	ChangeLevel("Title");//플레이를 킬거면 이건 꺼야지!
 }
 
 void SuperMario::GameLoop()

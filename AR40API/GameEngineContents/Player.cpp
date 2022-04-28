@@ -140,7 +140,7 @@ void Player::Start()
 
 void Player::Update()
 {
-	//Fire();//총알 발사함수
+	Fire();//총알 발사함수
 	StateUpdate();
 
 	WallCheck();
@@ -297,6 +297,8 @@ void Player::RightBotCheck()
 	CheckPos_ = NextPos_ + float4(26.0f, 32.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
+
+
 
 void Player::Fire()
 {

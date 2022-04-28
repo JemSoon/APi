@@ -74,6 +74,9 @@
     <ClCompile Include="EmptyBox.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Hit.cpp">
+      <Filter>Play\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="EmptyBox.h">
       <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Hit.h">
+      <Filter>Play\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

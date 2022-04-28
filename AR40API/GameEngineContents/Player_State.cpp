@@ -194,12 +194,12 @@ void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	if (true == GameEngineInput::GetInst()->IsUp("Jump"))
-	{
-		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Fall);
-		return;
-	}
+	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
+	//{	//점프 누른 시간에 따른 점프 길이 변화용
+	//	MoveDir.y = 0.0f;
+	//	ChangeState(PlayerState::Fall);
+	//	return;
+	//}
 
 	// 아이들로 바꾸는게 아니에영
 	
