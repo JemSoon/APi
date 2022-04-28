@@ -194,6 +194,20 @@ void Player::JumpUpdate()
 
 	// 아이들로 바꾸는게 아니에영
 	
+	{	//머리 체크
+		HeadCheck();
+
+		if (RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_)
+		{	//장애물과 부딪혔다면 바로 낙하 상태로 변경
+			MoveDir.y = 0.0f;
+			ChangeState(PlayerState::Fall);
+			return;
+		}
+	}
+
 	{	//앞 체크
 		RightCheck();
 
@@ -277,7 +291,7 @@ void Player::JumpUpdate()
 
 		else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
 			true == GameEngineInput::GetInst()->IsPress("Move Left"))
-		{
+		{	//낙하시작할때 Fall로 되야하지않나..?
 			ChangeState(PlayerState::Fall);
 			return;
 		}
@@ -295,6 +309,7 @@ void Player::JumpUpdate()
 
 void Player::FallUpdate()
 {
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	RightCheck();
 	//앞이 바닥or장애물이면 x가 0이된다.
@@ -314,8 +329,6 @@ void Player::FallUpdate()
 	//{
 	//	MoveDir.x = 0.0f;
 	//}
-
-	MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	FootCheck();
 

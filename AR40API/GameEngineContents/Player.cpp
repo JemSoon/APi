@@ -262,6 +262,15 @@ void Player::FootCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 
+void Player::HeadCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 머리 위치
+	CheckPos_ = NextPos_ + float4(0.0f, -32.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
 void Player::LeftCheck()
 {
 	//내 미래위치

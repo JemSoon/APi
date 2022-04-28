@@ -93,6 +93,7 @@ public:
 
 	//===내가 추가한 퍼블릭 함수===//
 	void FootCheck();//발 위치 확인용
+	void HeadCheck();
 	void LeftCheck();
 	void RightCheck();
 	void RightBotCheck();
