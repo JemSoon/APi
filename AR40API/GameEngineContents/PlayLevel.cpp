@@ -73,12 +73,17 @@ void PlayLevel::Loading()
 			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba->SetPosition({ 320.0f,740.0f });
+
+			//카메라 인식 테스트용
+			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba1->SetPosition({ 4830.0f,810.0f });
 		}
 
 		{
 			//아이템 로드 체크
-			//Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
-			//Item->SetPosition({ 500.0f, 740.0f });
+			Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
+			Item->SetPosition({ 500.0f, 740.0f });
 		}
 
 		{

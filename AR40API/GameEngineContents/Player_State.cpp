@@ -151,9 +151,9 @@ void Player::MoveUpdate()
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	FootCheck();
 
 	{
+		FootCheck();
 		if (RGB(255, 0, 0) != Color_ &&
 			RGB(55, 55, 55) != Color_ &&
 			RGB(0, 255, 255) != Color_ &&

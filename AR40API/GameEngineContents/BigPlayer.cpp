@@ -60,6 +60,9 @@ void BigPlayer::ChangeState(BigPlayerState _State)
 		case BigPlayerState::Jump:
 			JumpStart();
 			break;
+		case BigPlayerState::Fall:
+			FallStart();
+			break;
 		case BigPlayerState::Max:
 			break;
 		default:
@@ -84,6 +87,10 @@ void BigPlayer::StateUpdate()
 		break;
 	case BigPlayerState::Jump:
 		JumpUpdate();
+
+		break;
+	case BigPlayerState::Fall:
+		FallUpdate();
 
 		break;
 	case BigPlayerState::Max:
@@ -243,24 +250,6 @@ void BigPlayer::CameraOutCheck()
 	}
 }
 
-void BigPlayer::RightCheck()
-{
-	//내 미래위치
-	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(32.0f, 0.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);
-}
-
-void BigPlayer::RightBotCheck()
-{
-	//내 미래위치
-	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(32.0f, 64.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);
-}
-
 void BigPlayer::FootCheck()
 {
 	//내 미래위치
@@ -269,6 +258,43 @@ void BigPlayer::FootCheck()
 	CheckPos_ = NextPos_ + float4(0.0f, 64.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
+
+void BigPlayer::HeadCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 머리 위치
+	CheckPos_ = NextPos_ + float4(0.0f, -54.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void BigPlayer::LeftCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(-26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void BigPlayer::RightCheck()
+{
+	//내 미래위치
+	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//그때 내 발바닥 위치
+	CheckPos_ = NextPos_ + float4(26.0f, 0.0f);
+	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+//void BigPlayer::RightBotCheck()
+//{
+//	//내 미래위치
+//	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+//	//그때 내 발바닥 위치
+//	CheckPos_ = NextPos_ + float4(32.0f, 64.0f);
+//	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+//}
+
 
 void BigPlayer::Fire()
 {

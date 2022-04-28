@@ -11,6 +11,7 @@ enum class BigPlayerState
 	Attck,
 	Move,
 	Jump,
+	Fall,
 	Dead,
 	Max,
 };
@@ -88,8 +89,9 @@ public:
 
 	//===내가 추가한 퍼블릭 함수===//
 	void FootCheck();//발 위치 확인용
+	void HeadCheck();
+	void LeftCheck();
 	void RightCheck();
-	void RightBotCheck();
 	void Fire();//총알 발사함수
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
@@ -118,10 +120,12 @@ private:
 	void IdleUpdate();
 	void MoveUpdate();
 	void JumpUpdate();
+	void FallUpdate();
 
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
+	void FallStart();
 };
 
 

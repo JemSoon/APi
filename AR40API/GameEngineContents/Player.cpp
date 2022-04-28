@@ -273,7 +273,7 @@ void Player::LeftCheck()
 	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
 	CheckPos_ = NextPos_ + float4(-26.0f, 0.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_ + float4{ -1.0f,0.0f });
+	Color_ = MapColImage_->GetImagePixel(CheckPos_ /*+ float4{ -1.0f,0.0f }*/);
 }
 
 void Player::RightCheck()
