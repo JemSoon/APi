@@ -45,5 +45,7 @@ private:
 	GameEngineCollision* BoxCollision;
 	GameEngineCollision* BoxBotCollision;
 	GameEngineCollision* BoxTopCollision;
+	GameEngineCollision* BoxLeftCollision;
+	GameEngineCollision* BoxRightCollision;
 };
 

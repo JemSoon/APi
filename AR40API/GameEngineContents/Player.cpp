@@ -107,7 +107,10 @@ void Player::Start()
 {
 	SetScale({ 64,64 });
 
-	PlayerHeadCollision = CreateCollision("PlayerHead", { 20, 2 },{0,-32});
+	PlayerHeadCollision = CreateCollision("PlayerHead", { 20, 2 },{0,-34});
+	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 2 }, { 0,34 });
+	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, -64 }, { -34,0 });
+	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 34,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
 	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 
@@ -147,6 +150,7 @@ void Player::Update()
 	DoorCheck();
 	MushroomCheck();
 	FireFlowerCheck();
+
 }
 
 
@@ -285,14 +289,14 @@ void Player::RightCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);//한픽셀 앞을 체크하자..점프가안되..
 }
 
-void Player::RightBotCheck()
-{
-	//내 미래위치
-	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	//그때 내 발바닥 위치
-	CheckPos_ = NextPos_ + float4(26.0f, 32.0f);
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);
-}
+//void Player::RightBotCheck()
+//{
+//	//내 미래위치
+//	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+//	//그때 내 발바닥 위치
+//	CheckPos_ = NextPos_ + float4(26.0f, 32.0f);
+//	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+//}
 
 
 
@@ -325,7 +329,7 @@ void Player::HeadHitCheck()
 		ChangeState(PlayerState::Fall);
 		return;
 	}
-
+	
 	//이건 빈박스
 	if (true == PlayerHeadCollision->NextPosCollisionCheck("EmptyBox", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{	
@@ -333,4 +337,51 @@ void Player::HeadHitCheck()
 		ChangeState(PlayerState::Fall);
 		return;
 	}
+
+	//if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	//{
+	//	MoveDir.y = 0.0f;
+	//	if (false == GameEngineInput::GetInst()->IsPress("Move Left") &&
+	//		false == GameEngineInput::GetInst()->IsPress("Move Right"))
+	//	{
+	//		ChangeState(PlayerState::Idle);
+	//		return;
+	//	}
+	//	else
+	//	{
+	//		ChangeState(PlayerState::Move);
+	//		return;
+	//	}
+	//}
+
+	if (true == PlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == PlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.x = 0.0f;
+		return;
+	}
+
+}
+
+void Player::FootHitCheck()
+{
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+
+	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		if (true == GameEngineInput::GetInst()->IsPress("Move Left") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			ChangeState(PlayerState::Move);
+			return;
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+			return;
+		}
+	}
+	
 }

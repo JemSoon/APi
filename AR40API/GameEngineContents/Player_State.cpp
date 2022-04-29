@@ -6,6 +6,7 @@
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 
+#include "GameEngine/GameEngineCollision.h"
 #include <GameEngine/GameEngineLevel.h> // 레벨을 통해서
 #include "Bullet.h" // 총알을 만들고 싶다.
 #include "ContentsEnum.h"
@@ -42,22 +43,37 @@ void Player::IdleUpdate()
 	}
 
 	// wndc
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	FootCheck();
 
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//해당색상의 충돌체가 없으면 계속 아래로
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	}
-	else
+	//if (RGB(255, 0, 0) != Color_ &&
+	//	RGB(55, 55, 55) != Color_ &&
+	//	RGB(0, 255, 255) != Color_ &&
+	//	RGB(0, 255, 0) != Color_)
+	//{	//해당색상의 충돌체가 없으면 계속 아래로
+	//	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	//}
+	//else
+	//{
+	//	MoveDir.y = 0.0f;
+	//}
+
+	if ((true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))||
+		(RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_))
 	{
 		MoveDir.y = 0.0f;
 	}
+	else
+	{
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	}
+
 
 	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
 	{
@@ -194,7 +210,8 @@ void Player::JumpUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	
-	HeadHitCheck();//충돌체 테스트인데 안됨
+	HeadHitCheck();
+	FootHitCheck();
 
 	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
 	//{	//점프 누른 시간에 따른 점프 길이 변화용
@@ -262,32 +279,7 @@ void Player::JumpUpdate()
 
 	}
 
-		//앞 아래 꼭지점 체크는 Fall일때만 하는게 맞는것 같다 여기에 하면 착지후 속도가 초기화 되버린다.(일단 보류)
-	{	/////앞아래 꼭지점 체크
-		//RightBotCheck();
-		////바닥은 빼야함(255,0,0)
-		//if (RGB(55, 55, 55) == Color_ ||
-		//	RGB(0, 255, 255) == Color_ ||
-		//	RGB(0, 255, 0) == Color_)
-		//{
-		//	MoveDir.x = 0.0f;
-		//}
-		//
-		//else if (true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-		//	true == GameEngineInput::GetInst()->IsPress("Move Left"))
-		//{
-		//	//MoveDir.x = 0.0f;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-		//	ChangeState(PlayerState::Fall);
-		//	return;
-		//}
-		//else
-		//{
-		//	MoveDir.y = 0.0f;
-		//	ChangeState(PlayerState::Idle);
-		//	return;
-		//}
-	}
-
+	//FootHitCheck();
 	{	//발바닥 체크
 		FootCheck();
 
@@ -308,7 +300,8 @@ void Player::JumpUpdate()
 			return;
 		}
 		else
-		{
+		{	
+			//FootHitCheck();
 			MoveDir.y = 0.0f;
 			ChangeState(PlayerState::Idle);
 			return;
@@ -322,6 +315,7 @@ void Player::JumpUpdate()
 void Player::FallUpdate()
 {
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
@@ -356,46 +350,58 @@ void Player::FallUpdate()
 		MoveDir.x = 0.0f;
 	}
 
-	//이걸쓰면 착지시 속도가 초기화 된다..
-	//RightBotCheck(); //마찬가지로 x속도가 땅에 닿았을때 초기화 되버린다.
-	//if ((RGB(55, 55, 55) == Color_ ||
-	//	RGB(0, 255, 255) == Color_ ||
-	//	RGB(0, 255, 0) == Color_)&&MoveDir.y != 0.0f)
-	//{
-	//	MoveDir.x = 0.0f;
-	//}
-
 	FootCheck();
 
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//허공에 떠있다
-		//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
-		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	}
-
-	//else if (MoveDir.y == 0.0f)
-	//{
-	//	ChangeState(PlayerState::Move);
+	//if (RGB(255, 0, 0) != Color_ &&
+	//	RGB(55, 55, 55) != Color_ &&
+	//	RGB(0, 255, 255) != Color_ &&
+	//	RGB(0, 255, 0) != Color_)
+	//{	//허공에 떠있다
+	//	//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+	//	MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+	//	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	//}
-	
-	else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-		true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y==0.0f)
-	{
-		//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-		ChangeState(PlayerState::Move);
-		return;
-	}
 
-	else
+	if ((true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect)) ||
+		(RGB(255, 0, 0) == Color_ ||
+		RGB(55, 55, 55) == Color_ ||
+		RGB(0, 255, 255) == Color_ ||
+		RGB(0, 255, 0) == Color_))
 	{
 		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Idle);
-		return;
+		if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y == 0.0f)
+		{
+			ChangeState(PlayerState::Move);
+			return;
+		}
+		else if ((false == GameEngineInput::GetInst()->IsPress("Move Right") &&
+			false == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y == 0.0f)
+		{
+			ChangeState(PlayerState::Idle);
+			return;
+		}
 	}
+	else
+	{
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+
+	}
+	
+	//else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+	//	true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y==0.0f)
+	//{
+	//	ChangeState(PlayerState::Move);
+	//	return;
+	//}
+
+	//else
+	//{
+	//	MoveDir.y = 0.0f;
+	//	ChangeState(PlayerState::Idle);
+	//	return;
+	//}
 
 	CameraOutCheck();
 }

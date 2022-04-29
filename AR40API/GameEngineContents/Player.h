@@ -70,6 +70,8 @@ private:
 	GameEngineCollision* PlayerCollision;//기본 충돌체
 	GameEngineCollision* PlayerHeadCollision;//머리
 	GameEngineCollision* PlayerFootCollision;//발
+	GameEngineCollision* PlayerLeftCollision;//왼쪽
+	GameEngineCollision* PlayerRightCollision;//오른쪽
 
 	// bullet 용 dir
 	float4 PlayerDir_;
@@ -96,12 +98,13 @@ public:
 	void HeadCheck();
 	void LeftCheck();
 	void RightCheck();
-	void RightBotCheck();
+
 	void Fire();//총알 발사함수
 
 	//====충돌 체크 테스트====//
 	void HeadHitCheck();
-	
+	void FootHitCheck();
+
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
