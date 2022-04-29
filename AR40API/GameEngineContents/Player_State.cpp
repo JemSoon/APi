@@ -43,7 +43,7 @@ void Player::IdleUpdate()
 	}
 
 	// wndc
-	//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	FootCheck();
 
@@ -70,7 +70,6 @@ void Player::IdleUpdate()
 	}
 	else
 	{
-		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	}
 
