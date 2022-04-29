@@ -13,7 +13,7 @@
 
 Mushroom::Mushroom()
 	: Speed_(80.0f)
-	, AccSpeed_(20.0f)
+	, AccSpeed_(10.0f)
 	, MoveDir_(float4::ZERO)
 {
 
