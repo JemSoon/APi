@@ -46,7 +46,9 @@ private:
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* MonsterCollision;
-	GameEngineCollision* MonsterTopCollision;
+	GameEngineCollision* MonsterTopCollision; 
+	GameEngineCollision* MonsterLeftCollision;
+	GameEngineCollision* MonsterRightCollision;
 
 
 	void Start() override;
@@ -59,5 +61,7 @@ public:
 	void FootCheck();
 	void LeftCheck();
 	void RightCheck();
+
+	void AnotherMonsterCheck();
 };
 

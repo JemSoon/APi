@@ -187,6 +187,10 @@ void SuperMario::GameInit()
 
 			Image34->Cut({ 32, 32 });
 
+			GameEngineImage* Image35 = GameEngineImageManager::GetInst()->Find("gumba-Bdead.bmp");
+
+			Image35->Cut({ 64, 64 });
+
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

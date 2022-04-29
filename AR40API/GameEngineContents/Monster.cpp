@@ -26,10 +26,14 @@ void Monster::Start()
 {
 	SetScale({ 64,64 });
 
-	MonsterCollision = CreateCollision("MonsterHitBox", { 64, 64 });
-	MonsterTopCollision = CreateCollision("MonsterHead", { 64, 2 }, {0,-32});
+	MonsterCollision = CreateCollision("MonsterHitBox", { 64, 54 });
+	MonsterTopCollision = CreateCollision("MonsterHead", { 64, 1 }, {0,-32});
+	MonsterLeftCollision = CreateCollision("MonsterLeft", { 1, 64 }, { -32,0 });
+	MonsterRightCollision = CreateCollision("MonsterRight", { 1, 64 }, { 32,0 });
+
 	MonsterAnimationRender = CreateRenderer((int)ORDER::MONSTER);
 	MonsterAnimationRender->CreateAnimation("gumba-walk.bmp", "gumba-walk", 0, 1, 0.3f, true);
+	MonsterAnimationRender->CreateAnimation("gumba-Bdead.bmp", "gumba-Bdead", 0, 0, 0.3f, false);
 	MonsterAnimationRender->ChangeAnimation("gumba-walk");
 	
 	MoveDir_ = float4::LEFT;
@@ -100,7 +104,8 @@ void Monster::Update()
 		}
 
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
-		
+
+		AnotherMonsterCheck();
 	}
 }
 
@@ -129,4 +134,17 @@ void Monster::RightCheck()
 	//그때 내 발바닥 위치
 	CheckPos_ = NextPos_ + float4(32.0f, 0.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void Monster::AnotherMonsterCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == MonsterLeftCollision->CollisionResult("MonsterRight", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir_.x = MoveDir_.x * -1;
+	}
+	else if (true == MonsterRightCollision->CollisionResult("MonsterLeft", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir_.x = MoveDir_.x * -1;
+	}
 }

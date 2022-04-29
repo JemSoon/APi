@@ -37,6 +37,7 @@ void Bullet::Start()
 	YSpeed = 600.0f;
 	DownSpeed = 2000.0f;
 }
+
 void Bullet::Update()
 {
 	ResultDir_ = float4::ZERO;
@@ -84,7 +85,7 @@ void Bullet::HitToMonster()
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ¸÷Àº Áê±Ý
+			ColList[i]->GetActor()->Death(0.0f);
 		}
 
 		Hit* Boom = GetLevel()->CreateActor<Hit>();
