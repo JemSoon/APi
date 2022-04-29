@@ -27,8 +27,8 @@ void Box::Start()
 	SetScale({ 64,64 });
 
 	BoxCollision = CreateCollision("Box", { 64, 64 });
-	BoxBotCollision = CreateCollision("BoxBot", { 64, 2 },{0,35});
-	BoxTopCollision = CreateCollision("BoxTop", { 64, 2 }, { 0,-32 });
+	BoxBotCollision = CreateCollision("BoxBot", { 64, 1 },{0,32});
+	BoxTopCollision = CreateCollision("BoxTop", { 64, 1 }, { 0,-32 });
 	BoxAnimationRender = CreateRenderer((int)ORDER::BOX);
 	BoxAnimationRender->CreateAnimation("QBox.bmp", "Box", 0, 3, 0.3f, true);
 	BoxAnimationRender->ChangeAnimation("Box");
