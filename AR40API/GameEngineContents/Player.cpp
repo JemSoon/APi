@@ -150,7 +150,7 @@ void Player::Update()
 	DoorCheck();
 	MushroomCheck();
 	FireFlowerCheck();
-
+	MonsterOnCheck();
 }
 
 
@@ -202,6 +202,20 @@ void Player::FireFlowerCheck()
 		MainPlayer->Off();
 		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition() + float4{ 0, -32 });
 		WhitePlayer::MainWhitePlayer->On();
+	}
+}
+
+void Player::MonsterOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerFootCollision->CollisionResult("MonsterHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 벽들 다 주거
+		}
+		MainPlayer->JumpStart();
 	}
 }
 

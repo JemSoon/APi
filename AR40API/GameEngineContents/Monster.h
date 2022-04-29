@@ -46,6 +46,7 @@ private:
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* MonsterCollision;
+	GameEngineCollision* MonsterTopCollision;
 
 
 	void Start() override;

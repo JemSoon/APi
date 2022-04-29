@@ -27,6 +27,7 @@ void Monster::Start()
 	SetScale({ 64,64 });
 
 	MonsterCollision = CreateCollision("MonsterHitBox", { 64, 64 });
+	MonsterTopCollision = CreateCollision("MonsterHead", { 64, 2 }, {0,-32});
 	MonsterAnimationRender = CreateRenderer((int)ORDER::MONSTER);
 	MonsterAnimationRender->CreateAnimation("gumba-walk.bmp", "gumba-walk", 0, 1, 0.3f, true);
 	MonsterAnimationRender->ChangeAnimation("gumba-walk");
