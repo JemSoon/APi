@@ -36,6 +36,8 @@ public:
 		return BulletDir_;
 	}
 
+	void HitToMonster();
+
 protected:
 
 private:
@@ -48,5 +50,10 @@ private:
 	float4 BulletDir_;
 	float4 YDir_;
 	float4 ResultDir_;
+
+	//총알 충돌체 변수명 지정용
+	GameEngineCollision* BulletCollision;
+	//렌더러 변수명 지정용
+	GameEngineRenderer* BulletRender;
 };
 

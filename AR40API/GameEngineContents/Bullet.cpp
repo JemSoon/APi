@@ -23,13 +23,13 @@ Bullet::~Bullet()
 
 void Bullet::Start()
 {
-	GameEngineRenderer* Render = CreateRenderer();
-	Render->CreateAnimation("Bullet.bmp", "Bullet", 0, 3, 0.1f, true);
-	Render->CreateAnimation("Hit.bmp", "Hit", 0, 0, 1.0f, false);
-	Render->ChangeAnimation("Bullet");
+	BulletRender = CreateRenderer();
+	BulletRender->CreateAnimation("Bullet.bmp", "Bullet", 0, 3, 0.1f, true);
+	BulletRender->CreateAnimation("Hit.bmp", "Hit", 0, 0, 1.0f, false);
+	BulletRender->ChangeAnimation("Bullet");
 	//Render->SetIndex(0);
 
-	CreateCollision("PlayerAttackBox", { 32, 32 });
+	BulletCollision = CreateCollision("PlayerAttackBox", { 32, 32 });
 
 	Death(5.0f);//5ÃÊµÚ¿¡ ÃÑ¾ËÀº »ç¶óÁø´Ù(Á×´Â´Ù)
 
@@ -67,6 +67,26 @@ void Bullet::Update()
 	}
 	if (RGB(0, 255, 0) == Color|| RGB(55, 55, 55) == Color|| RGB(0, 255, 255) == Color)
 	{
+		Hit* Boom = GetLevel()->CreateActor<Hit>();
+		Boom->SetPosition(GetPosition());
+
+		Death(0.0f);
+
+	}
+
+	HitToMonster();
+}
+
+void Bullet::HitToMonster()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == BulletCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ¸÷Àº Áê±Ý
+		}
+
 		Hit* Boom = GetLevel()->CreateActor<Hit>();
 		Boom->SetPosition(GetPosition());
 
