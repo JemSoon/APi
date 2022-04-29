@@ -213,7 +213,7 @@ void Player::MonsterOnCheck()
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->GetActor()->Death();//나랑 충돌한 벽들 다 주거
+			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
 		MainPlayer->JumpStart();
 		MoveDir.y = -10.0f;//약간의 높이 조절
