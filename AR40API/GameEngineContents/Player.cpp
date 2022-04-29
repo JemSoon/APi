@@ -216,6 +216,8 @@ void Player::MonsterOnCheck()
 			ColList[i]->GetActor()->Death();//나랑 충돌한 벽들 다 주거
 		}
 		MainPlayer->JumpStart();
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(PlayerState::Fall);
 	}
 }
 
