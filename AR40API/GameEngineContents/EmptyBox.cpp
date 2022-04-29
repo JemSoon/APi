@@ -26,6 +26,7 @@ void EmptyBox::Start()
 
 	EmptyBoxCollision = CreateCollision("Box", { 64, 64 });
 	EmptyBoxTopCollision = CreateCollision("BoxTop", { 64, 1 }, {0,-32});
+	EmptyBoxBotCollision = CreateCollision("BoxTop", { 64, 1 }, { 0,32 });
 	EmptyBoxAnimationRender = CreateRenderer((int)ORDER::EMPTYBOX);
 	EmptyBoxAnimationRender->CreateAnimation("empty-Box.bmp", "EmptyBox", 0, 0, 0.1f, false);
 	EmptyBoxAnimationRender->ChangeAnimation("EmptyBox");

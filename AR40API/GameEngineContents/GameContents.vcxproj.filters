@@ -77,6 +77,9 @@
     <ClCompile Include="Hit.cpp">
       <Filter>Play\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="Hit.h">
       <Filter>Play\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

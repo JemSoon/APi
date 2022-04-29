@@ -16,6 +16,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include "Mushroom.h"
 #include "Box.h"
+#include "Block.h"
 #include "FireFlower.h"
 
 PlayLevel::PlayLevel()
@@ -104,6 +105,10 @@ void PlayLevel::Loading()
 			//박스 로드 체크
 			Box* QBox1 = CreateActor<Box>((int)ORDER::BOX);
 			QBox1->SetPosition({ 184.0f,600.0f });
+
+			//블록 로드 체크
+			Block* Block1 = CreateActor<Block>((int)ORDER::BOX);
+			Block1->SetPosition({ 248.0f,600.0f });
 		}
 
 	}

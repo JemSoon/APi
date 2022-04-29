@@ -5,16 +5,17 @@
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
 
-//설명 : 머리로 부딪혀서 템먹는 상자
+//설명 : 
+
 class GameEngineImage;
 class GameEngineCollision;
-class Box : public GameEngineActor
+class Block : public GameEngineActor
 {
 public:
 	//디폴트 생성자
-	Box();
+	Block();
 	//디폴트 소멸자
-	~Box();
+	~Block();
 
 	
 	
@@ -22,12 +23,12 @@ public:
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 	
 	//디폴트 복사 생성자
-	Box(const Box& _Other) = delete;
+	Block(const Block& _Other) = delete;
 	//RValue Reference 생성자 (나중에 배울것)
-	Box(Box&& _Other) noexcept = delete;
+	Block(Block&& _Other) noexcept = delete;
 	//operater= (자기자신을 리턴하는)
-	Box& operator=(const Box& _Other) = delete;
-	Box& operator=(Box&& _Other) noexcept = delete;
+	Block& operator=(const Block& _Other) = delete;
+	Block& operator=(Block&& _Other) noexcept = delete;
 
 
 	void Start() override;
@@ -38,13 +39,14 @@ public:
 public:
 	void PlayerCheck();
 protected:
-	GameEngineRenderer* BoxAnimationRender;
+	GameEngineRenderer* BlockAnimationRender;
 
 private:
-	GameEngineCollision* BoxCollision;
-	GameEngineCollision* BoxBotCollision;
-	GameEngineCollision* BoxTopCollision;
-	GameEngineCollision* BoxLeftCollision;
-	GameEngineCollision* BoxRightCollision;
+	GameEngineCollision* BlockCollision;
+	GameEngineCollision* BlockBotCollision;
+	GameEngineCollision* BlockTopCollision;
+	GameEngineCollision* BlockLeftCollision;
+	GameEngineCollision* BlockRightCollision;
+
 };
 

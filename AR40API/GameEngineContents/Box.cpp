@@ -47,10 +47,6 @@ void Box::Update()
 	PlayerCheck();
 }
 
-void Box::FootCheck()
-{
-}
-
 void Box::PlayerCheck()
 {	
 	//¹®Á¦

@@ -352,6 +352,14 @@ void Player::HeadHitCheck()
 		return;
 	}
 
+	//이건 벽돌
+	if (true == PlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		ChangeState(PlayerState::Fall);
+		return;
+	}
+
 	//if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	//{
 	//	MoveDir.y = 0.0f;

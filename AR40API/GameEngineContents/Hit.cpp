@@ -22,7 +22,7 @@ void Hit::Start()
 
 	//CreateCollision("PlayerAttackBox", { 32, 32 });
 
-	Death(0.2f);//5초뒤에 총알은 사라진다(죽는다)
+	Death(0.1f);//5초뒤에 총알은 사라진다(죽는다)
 }
 
 void Hit::Update()

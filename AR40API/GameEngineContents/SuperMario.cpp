@@ -191,6 +191,9 @@ void SuperMario::GameInit()
 
 			Image35->Cut({ 64, 64 });
 
+			GameEngineImage* Image36 = GameEngineImageManager::GetInst()->Find("Block.bmp");
+
+			Image36->Cut({ 64, 64 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

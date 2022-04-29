@@ -38,6 +38,7 @@ protected:
 private:
 	GameEngineCollision* EmptyBoxCollision;
 	GameEngineCollision* EmptyBoxTopCollision;
+	GameEngineCollision* EmptyBoxBotCollision;
 
 };
 
