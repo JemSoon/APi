@@ -28,7 +28,8 @@ void Box::Start()
 
 	BoxCollision = CreateCollision("Box", { 64, 64 });
 	BoxBotCollision = CreateCollision("BoxBot", { 64, 2 },{0,35});
-	BoxAnimationRender = CreateRenderer();
+	BoxTopCollision = CreateCollision("BoxTop", { 64, 2 }, { 0,-32 });
+	BoxAnimationRender = CreateRenderer((int)ORDER::BOX);
 	BoxAnimationRender->CreateAnimation("QBox.bmp", "Box", 0, 3, 0.3f, true);
 	BoxAnimationRender->ChangeAnimation("Box");
 	
@@ -66,8 +67,8 @@ void Box::PlayerCheck()
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
-		//Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-		//Ptr->SetPosition(GetPosition() + float4{ 0,-64 });//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
+		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
+		Ptr->SetPosition(GetPosition() + float4{ 0,-16 });//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
 		BoxCollision->GetActor()->Off();
 	}
 

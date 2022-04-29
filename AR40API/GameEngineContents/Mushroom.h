@@ -45,6 +45,7 @@ private:
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* MushroomCollision;
+	GameEngineCollision* MushroomBotCollision;
 
 
 	void Start() override;
@@ -57,5 +58,6 @@ public:
 	void FootCheck();
 	void LeftCheck();
 	void RightCheck();
+	void ColBotCheck();
 };
 

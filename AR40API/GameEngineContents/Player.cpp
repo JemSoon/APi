@@ -112,7 +112,7 @@ void Player::Start()
 	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
-	PlayerAnimationRender = CreateRenderer();
+	PlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);
 	//0~1인덱스 0.1초마다(true면 반복,false면 한번만재생)
 	PlayerAnimationRender->CreateAnimation("walk-R.bmp", "Walk-R", 0, 2, 0.1f, true);
 	PlayerAnimationRender->CreateAnimation("walk-L.bmp", "Walk-L", 0, 2, 0.1f, true);
@@ -316,7 +316,7 @@ void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 void Player::HeadHitCheck()
 {	
 	//내 미래위치
-	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	CheckPos_ = NextPos_;//충돌체가 이미 그려져 있으니까..?따로 추가로 더할게 없지..?
 
 	if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect))

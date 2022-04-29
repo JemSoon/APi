@@ -12,7 +12,7 @@
 #include <GameEngine/GameEngineCollision.h>
 
 Mushroom::Mushroom()
-	: Speed_(50.0f)
+	: Speed_(120.0f)
 	, AccSpeed_(20.0f)
 	, MoveDir_(float4::ZERO)
 {
@@ -29,12 +29,13 @@ void Mushroom::Start()
 	SetScale({ 64,64 });
 
 	MushroomCollision = CreateCollision("Mushroom", { 64, 64 });
-	MushroomAnimationRender = CreateRenderer();
+	MushroomBotCollision = CreateCollision("MushroomBot", { 64,2 }, {0,32});
+	MushroomAnimationRender = CreateRenderer((int)ORDER::ITEM);
 	MushroomAnimationRender->CreateAnimation("Mushroom.bmp", "Mushroom", 0, 0, 1.0f, false);
 	MushroomAnimationRender->ChangeAnimation("Mushroom");
 
-	//MoveDir_ = float4::RIGHT;
-	Speed_ = 100.0f;
+	MoveDir_ = float4::UP * GameEngineTime::GetDeltaTime();
+	Speed_ = 120.0f;
 }
 
 void Mushroom::Render()
@@ -54,10 +55,17 @@ void Mushroom::Update()
 			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
 		}
 	}
-
+	ColBotCheck();
 
 	{
-		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		if (true == MushroomCollision->NextPosCollisionCheck("Box", NextPos_, CollisionType::Rect, CollisionType::Rect))
+		{
+			MoveDir_ = float4::UP * GameEngineTime::GetDeltaTime() * Speed_;
+		}
+		else
+		{
+			MoveDir_ += float4::DOWN;
+		}
 		//내 미래위치
 		FootCheck();//발바닥 밑 닿은 색 체크
 		Color_ = MapColImage_->GetImagePixel(CheckPos_);
@@ -130,4 +138,19 @@ void Mushroom::RightCheck()
 	//그때 내 발바닥 위치
 	CheckPos_ = NextPos_ + float4(32.0f, 0.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
+}
+
+void Mushroom::ColBotCheck()
+{
+	NextPos_ = (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+
+
+	if (true == MushroomBotCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		//박스위랑 버섯아래 충돌하면
+		MoveDir_ = float4::RIGHT;
+		MoveDir_.y = 0.0f;
+	
+	}
+	
 }

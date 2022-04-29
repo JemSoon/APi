@@ -8,6 +8,7 @@
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineCollision.h>
 
+
 Monster::Monster()
 	: Speed_(50.0f)
 	, AccSpeed_(20.0f)
@@ -26,7 +27,7 @@ void Monster::Start()
 	SetScale({ 64,64 });
 
 	MonsterCollision = CreateCollision("MonsterHitBox", { 64, 64 });
-	MonsterAnimationRender = CreateRenderer();
+	MonsterAnimationRender = CreateRenderer((int)ORDER::MONSTER);
 	MonsterAnimationRender->CreateAnimation("gumba-walk.bmp", "gumba-walk", 0, 1, 0.3f, true);
 	MonsterAnimationRender->ChangeAnimation("gumba-walk");
 	
