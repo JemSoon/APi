@@ -55,22 +55,10 @@ void Mushroom::Update()
 	}
 
 	{
-		ColBotCheck();
-
-		if (true == MushroomCollision->NextPosCollisionCheck("Box", NextPos_, CollisionType::Rect, CollisionType::Rect))
-		{
-			MoveDir_ = float4::UP * GameEngineTime::GetDeltaTime() * Speed_;
-			if (true == MushroomBotCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-			{
-				//박스위랑 버섯아래 충돌하면(버섯이 위로 끝까지 올라오면)
-				MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
-				MoveDir_.y = 0.0f;
-			}
-		}
-		
 		
 		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_; 
 		
+		ColBotCheck();
 
 		//내 미래위치
 		FootCheck();//발바닥 밑 닿은 색 체크
@@ -149,12 +137,15 @@ void Mushroom::ColBotCheck()
 {
 	NextPos_ = (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
-
-	if (true == MushroomBotCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	if (true == MushroomCollision->NextPosCollisionCheck("Box", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
-		//박스위랑 버섯아래 충돌하면(버섯이 위로 끝까지 올라오면)
-		MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
-		MoveDir_.y = 0.0f;
-	}
+		MoveDir_ = float4::UP * GameEngineTime::GetDeltaTime() * Speed_;
 
+		if (true == MushroomBotCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+		{
+			//박스위랑 버섯아래 충돌하면(버섯이 위로 끝까지 올라오면)
+			MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * Speed_;
+			MoveDir_.y = 0.0f;
+		}
+	}
 }
