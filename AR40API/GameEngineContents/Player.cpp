@@ -107,7 +107,7 @@ void Player::Start()
 {
 	SetScale({ 64,64 });
 
-	PlayerHeadCollision = CreateCollision("PlayerHead", { 20, 2 },{0,-35});
+	PlayerHeadCollision = CreateCollision("PlayerHead", { 20, 2 },{0,-32});
 	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
 	//PlayerFootCollision = CreateCollision("PlayerFoot", { 50, 2 }, { 0,32 });
 

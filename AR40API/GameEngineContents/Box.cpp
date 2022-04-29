@@ -68,7 +68,7 @@ void Box::PlayerCheck()
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
 		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-		Ptr->SetPosition(GetPosition() + float4{ 0,-16 });//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
+		Ptr->SetPosition(GetPosition() /*+ float4{ 0,-16 }*/);//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
 		BoxCollision->GetActor()->Off();
 	}
 
