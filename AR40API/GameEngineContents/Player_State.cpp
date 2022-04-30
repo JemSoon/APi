@@ -41,7 +41,7 @@ void Player::IdleUpdate()
 		return;
 	}
 
-	{	//===============충돌체용 중력 설정=================//
+		//===============충돌체용 중력 설정=================//
 		NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 		CheckPos_ = NextPos_;
 		//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
@@ -84,7 +84,7 @@ void Player::IdleUpdate()
 				MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
 			}
 		}
-	}
+	
 	CameraOutCheck();
 }
 
@@ -211,7 +211,8 @@ void Player::IdleUpdate()
 void Player::JumpUpdate()
 {
 	HeadHitCheck();
-	
+	FootHitCheck();
+
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	
 
