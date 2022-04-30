@@ -90,6 +90,7 @@ public:
 	void MushroomCheck();
 	void FireFlowerCheck();
 	void MonsterOnCheck();
+	void GravityCheck();
 
 	bool IsMoveKey();
 	void CameraOutCheck();

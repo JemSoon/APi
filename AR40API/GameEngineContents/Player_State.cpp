@@ -70,7 +70,8 @@ void Player::IdleUpdate()
 		MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
 	}
 
-	FootHitCheck();
+	//GravityCheck();
+
 	CameraOutCheck();
 }
 

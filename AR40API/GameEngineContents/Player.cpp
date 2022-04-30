@@ -410,14 +410,15 @@ void Player::FootHitCheck()
 	}
 	
 }
-//void Player::GravityCheck()
-//{
-//	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-//	CheckPos_ = NextPos_;
-//
-//	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-//	{
-//		MoveDir.y = 0.0f;
-//		return;
-//	}
-//}
+
+void Player::GravityCheck()
+{
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		return;
+	}
+}
