@@ -406,6 +406,18 @@ void Player::FootHitCheck()
 			ChangeState(PlayerState::Idle);
 			return;
 		}
+		return;
 	}
 	
 }
+//void Player::GravityCheck()
+//{
+//	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+//	CheckPos_ = NextPos_;
+//
+//	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+//	{
+//		MoveDir.y = 0.0f;
+//		return;
+//	}
+//}

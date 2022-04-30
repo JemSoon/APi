@@ -70,6 +70,7 @@ void Player::IdleUpdate()
 		MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
 	}
 
+	FootHitCheck();
 	CameraOutCheck();
 }
 
@@ -94,6 +95,8 @@ void Player::MoveUpdate()
 			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
 		}
 	}
+
+	FootHitCheck();
 
 	RightCheck();
 	//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.
@@ -193,9 +196,10 @@ void Player::MoveUpdate()
 
 void Player::JumpUpdate()
 {
+	HeadHitCheck();
+	FootHitCheck();
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	
-	HeadHitCheck();
 
 	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
 	//{	//점프 누른 시간에 따른 점프 길이 변화용
