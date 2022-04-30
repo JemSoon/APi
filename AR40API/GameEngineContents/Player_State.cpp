@@ -48,6 +48,11 @@ void Player::IdleUpdate()
 		if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		{
 			MoveDir.y = 0.0f;
+			MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+			if (false == IsMoveKey())
+			{	//키에 손 떼놓고 있으면 감속(브레키)
+				MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+			}
 
 			return;
 		}
@@ -90,6 +95,7 @@ void Player::IdleUpdate()
 
 	void Player::MoveUpdate()
 	{
+
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
 			DirString = 'R';
@@ -109,8 +115,6 @@ void Player::IdleUpdate()
 				MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
 			}
 		}
-
-		GravityCheck();
 
 		RightCheck();
 		//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.
@@ -171,32 +175,47 @@ void Player::IdleUpdate()
 
 
 		{
-			FootCheck();
-			if (RGB(255, 0, 0) != Color_ &&
-				RGB(55, 55, 55) != Color_ &&
-				RGB(0, 255, 255) != Color_ &&
-				RGB(0, 255, 0) != Color_)
-			{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
-				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-				ChangeState(PlayerState::Fall);
-				return;
-			}
-			else
+			//===============충돌체용 중력 설정=================//
+			NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			CheckPos_ = NextPos_;
+			//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+			if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 			{
 				MoveDir.y = 0.0f;
+				MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
+				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+				return;
+			}
 
+			else
+			{
 				FootCheck();
-
 				if (RGB(255, 0, 0) != Color_ &&
 					RGB(55, 55, 55) != Color_ &&
 					RGB(0, 255, 255) != Color_ &&
 					RGB(0, 255, 0) != Color_)
-				{
+				{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 					SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+					ChangeState(PlayerState::Fall);
+					return;
 				}
 				else
 				{
-					MoveDir.x = 0.0f;
+					MoveDir.y = 0.0f;
+
+					FootCheck();
+
+					if (RGB(255, 0, 0) != Color_ &&
+						RGB(55, 55, 55) != Color_ &&
+						RGB(0, 255, 255) != Color_ &&
+						RGB(0, 255, 0) != Color_)
+					{
+						SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+					}
+					else
+					{
+						MoveDir.x = 0.0f;
+					}
 				}
 			}
 		}
