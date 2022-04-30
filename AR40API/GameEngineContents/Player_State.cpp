@@ -41,49 +41,48 @@ void Player::IdleUpdate()
 		return;
 	}
 
-	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	CheckPos_ = NextPos_;
-	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
-	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{
-		MoveDir.y = 0.0f;
-		if (true == GameEngineInput::GetInst()->IsPress("Move Left") ||
-			true == GameEngineInput::GetInst()->IsPress("Move Right"))
-		{
-			ChangeState(PlayerState::Move);
-			return;
-		}
-		return;
-	}
-	else
-	{
-		// wndc
-		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-
-		FootCheck();
-
-		Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
-		if (RGB(255, 0, 0) != Color_ &&
-			RGB(55, 55, 55) != Color_ &&
-			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)
-		{	//해당색상의 충돌체가 없으면 계속 아래로
-			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-		}
-
-		else
+	{	//===============충돌체용 중력 설정=================//
+		NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		CheckPos_ = NextPos_;
+		//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+		if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		{
 			MoveDir.y = 0.0f;
+
+			return;
 		}
 
-		if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+		//================컬러충돌용 중력 설정===================//
+		else
 		{
-			ChangeState(PlayerState::Jump);
-		}
+			// wndc
+			MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-		if (false == IsMoveKey())
-		{	//키에 손 떼놓고 있으면 감속(브레키)
-			MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+			FootCheck();
+
+			Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
+			if (RGB(255, 0, 0) != Color_ &&
+				RGB(55, 55, 55) != Color_ &&
+				RGB(0, 255, 255) != Color_ &&
+				RGB(0, 255, 0) != Color_)
+			{	//해당색상의 충돌체가 없으면 계속 아래로
+				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			}
+
+			else
+			{
+				MoveDir.y = 0.0f;
+			}
+
+			if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+			{
+				ChangeState(PlayerState::Jump);
+			}
+
+			if (false == IsMoveKey())
+			{	//키에 손 떼놓고 있으면 감속(브레키)
+				MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+			}
 		}
 	}
 	CameraOutCheck();
