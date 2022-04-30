@@ -54,24 +54,15 @@ void Box::PlayerCheck()
 	//박스에 아이템을 어떻게 담을 것인가?
 	//플레이어는 부딪힌 즉시 관통이 아니라 떨어져야한다
 	std::vector<GameEngineCollision*> ColList;
-	//if (true == BoxCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
-	//{
-	//	EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-	//	EBox->SetPosition(GetPosition());
-	//	Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-	//	Ptr->SetPosition(GetPosition() + float4{0,-64});//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
-	//	BoxCollision->GetActor()->Off();
-	//}
+
 	if (true == BoxBotCollision->CollisionResult("PlayerHead", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		//EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-		//EBox->SetPosition(GetPosition());
-		//Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-		//Ptr->SetPosition(GetPosition() /*+ float4{ 0,-16 }*/);//원래는 움직여서 -64만큼 위로 이동해야하지만..일단..
-		//BoxCollision->GetActor()->Off();
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
+		Ptr->SetPosition(GetPosition());
+		BoxCollision->GetActor()->Off();
 	}
-
-
 
 	else if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{

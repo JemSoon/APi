@@ -40,6 +40,9 @@ void Player::IdleUpdate()
 		ChangeState(PlayerState::Move);
 		return;
 	}
+		
+	// 중력
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 		//===============충돌체용 중력 설정=================//
 		NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
@@ -48,7 +51,13 @@ void Player::IdleUpdate()
 		if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		{
 			MoveDir.y = 0.0f;
-			MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+			//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
+			if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+			{
+				ChangeState(PlayerState::Jump);
+			}
+
 			if (false == IsMoveKey())
 			{	//키에 손 떼놓고 있으면 감속(브레키)
 				MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
@@ -60,9 +69,6 @@ void Player::IdleUpdate()
 		//================컬러충돌용 중력 설정===================//
 		else
 		{
-			// wndc
-			MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-
 			FootCheck();
 
 			Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
@@ -188,7 +194,7 @@ void Player::IdleUpdate()
 			}
 
 			else
-			{
+			{	//==============컬러용 중력 설정==================//
 				FootCheck();
 				if (RGB(255, 0, 0) != Color_ &&
 					RGB(55, 55, 55) != Color_ &&

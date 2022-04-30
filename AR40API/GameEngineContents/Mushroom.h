@@ -59,5 +59,6 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void ColBotCheck();
+	void ColBotCheck2();
 };
 
