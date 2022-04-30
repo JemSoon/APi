@@ -494,7 +494,7 @@ void Player::JumpStart()
 	}
 
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
-	MoveDir += float4::UP * 40.0f;
+	MoveDir += float4::UP * 35.0f;
 }
 
 void Player::FallStart()

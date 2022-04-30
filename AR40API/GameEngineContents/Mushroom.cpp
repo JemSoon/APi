@@ -142,7 +142,7 @@ void Mushroom::ColBotCheck()
 	{	
 		MoveDir_ = float4::UP * GameEngineTime::GetDeltaTime() * Speed_;
 		//박스 안에서 다 올라올때까진 위로 움직임
-		return;
+		return;//다 올라올때까진 딴 함수로 진행 못 해
 	}
 }
 
