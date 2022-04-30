@@ -41,6 +41,8 @@ void Player::IdleUpdate()
 		return;
 	}
 
+	GravityCheck();
+
 	// wndc
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
@@ -70,8 +72,6 @@ void Player::IdleUpdate()
 		MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
 	}
 
-	//GravityCheck();
-
 	CameraOutCheck();
 }
 
@@ -97,7 +97,7 @@ void Player::MoveUpdate()
 		}
 	}
 
-	FootHitCheck();
+	GravityCheck();
 
 	RightCheck();
 	//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.
@@ -268,7 +268,6 @@ void Player::JumpUpdate()
 
 	}
 
-	//FootHitCheck();
 	{	//발바닥 체크
 		FootCheck();
 
@@ -302,6 +301,8 @@ void Player::JumpUpdate()
 
 void Player::FallUpdate()
 {
+	GravityCheck();
+
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
