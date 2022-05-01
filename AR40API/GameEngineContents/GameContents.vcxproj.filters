@@ -80,6 +80,9 @@
     <ClCompile Include="Block.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Play\Player\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="Block.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Play\Player\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -193,6 +199,9 @@
     </Filter>
     <Filter Include="Play\Player\White">
       <UniqueIdentifier>{10b0e82e-58de-45eb-abcf-c327816617d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player\Camera">
+      <UniqueIdentifier>{3969926a-9981-4398-8b0f-437f63c40313}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

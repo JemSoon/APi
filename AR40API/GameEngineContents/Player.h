@@ -68,6 +68,8 @@ private:
 
 	GameEngineImage* MapColImage_;
 
+	GameEngineCollision* PlayerCameraCollision;//카메라 충돌체(여기에 닿아야 몬스터가 움직임)
+
 	GameEngineCollision* PlayerCollision;//기본 충돌체
 	GameEngineCollision* PlayerHeadCollision;//머리
 	GameEngineCollision* PlayerFootCollision;//발
