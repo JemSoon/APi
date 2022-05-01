@@ -108,11 +108,11 @@ void Player::Start()
 	SetScale({ 64,64 });
 
 	//몬스터 카메라 범위안에 있을때 움직이기용
-	PlayerCameraCollision = CreateCollision("PlayerCamera", { 64, 1024 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
-
-	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });
+	PlayerCameraCollision = CreateCollision("PlayerCamera", { 1300, 1024 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
+	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });//박스 충돌용(1개만 충돌하게끔)
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
+	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 64 }, { -32,0 });
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 32,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 62, 62 });
@@ -154,6 +154,7 @@ void Player::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
+
 }
 
 
@@ -212,7 +213,7 @@ void Player::MonsterOnCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == PlayerFootCollision->CollisionResult("MonsterHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == PlayerFootHitCollision->CollisionResult("MonsterHead", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
@@ -308,17 +309,6 @@ void Player::RightCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);//한픽셀 앞을 체크하자..점프가안되..
 }
 
-//void Player::RightBotCheck()
-//{
-//	//내 미래위치
-//	NextPos_ = GetPosition() + (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-//	//그때 내 발바닥 위치
-//	CheckPos_ = NextPos_ + float4(26.0f, 32.0f);
-//	Color_ = MapColImage_->GetImagePixel(CheckPos_);
-//}
-
-
-
 void Player::Fire()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
@@ -336,84 +326,28 @@ void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	MainPlayer = this;
 }
 
-void Player::HeadHitCheck()
-{	
-	//내 미래위치
-	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	CheckPos_ = NextPos_;//충돌체가 이미 그려져 있으니까..?따로 추가로 더할게 없지..?
-
-	if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{	//박스랑 머리랑 충돌하면
-		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Fall);
-		return;
-	}
-	
-	//이건 벽돌
-	if (true == PlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{
-		MoveDir.y = 0.0f;
-		ChangeState(PlayerState::Fall);
-		return;
-	}
-
-	//if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	//{
-	//	MoveDir.y = 0.0f;
-	//	if (false == GameEngineInput::GetInst()->IsPress("Move Left") &&
-	//		false == GameEngineInput::GetInst()->IsPress("Move Right"))
-	//	{
-	//		ChangeState(PlayerState::Idle);
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		ChangeState(PlayerState::Move);
-	//		return;
-	//	}
-	//}
-
-	if (true == PlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
-		true == PlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{
-		MoveDir.x = 0.0f;
-		return;
-	}
-
-}
-
-void Player::FootHitCheck()
+void Player::BreakAnimation()
 {
-	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	CheckPos_ = NextPos_;
-
-	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{
-		MoveDir.y = 0.0f;
-		if (true == GameEngineInput::GetInst()->IsPress("Move Left") ||
-			true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{	//왼쪽에서 오른쪽으로 틀때
+		if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
-			ChangeState(PlayerState::Move);
-			return;
+			PlayerAnimationRender->ChangeAnimation("Break-L");
 		}
-		else
+		else if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
-			ChangeState(PlayerState::Idle);
-			return;
+			PlayerAnimationRender->ChangeAnimation("Walk-R");
 		}
-		return;
 	}
-	
-}
 
-void Player::GravityCheck()
-{
-	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	CheckPos_ = NextPos_;
-	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
-	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
-		MoveDir.y = 0.0f;
-		return;
+		//오른쪽에서 왼쪽으로 틀때
+		if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			PlayerAnimationRender->ChangeAnimation("Break-R");
+		}
+		else if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			PlayerAnimationRender->ChangeAnimation("Walk-L");
+		}
 	}
 }

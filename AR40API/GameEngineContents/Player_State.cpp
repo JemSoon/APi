@@ -101,7 +101,7 @@ void Player::IdleUpdate()
 
 	void Player::MoveUpdate()
 	{
-
+		BreakAnimation();
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
 			DirString = 'R';
@@ -287,7 +287,7 @@ void Player::JumpUpdate()
 		MoveDir.x = 0.0f;
 	}
 
-
+	//===============컬러용 중력 설정=================//
 	else
 	{	
 		//컬러 충돌용 체크
@@ -381,9 +381,6 @@ void Player::JumpUpdate()
 
 void Player::FallUpdate()
 {	
-	
-	//HeadHitCheck();
-	//FootHitCheck();
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
