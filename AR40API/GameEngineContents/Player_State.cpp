@@ -339,7 +339,7 @@ void Player::JumpUpdate()
 }
 
 void Player::FallUpdate()
-{
+{	//충돌용 설정
 	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
 	CheckPos_ = NextPos_;
 
@@ -359,9 +359,11 @@ void Player::FallUpdate()
 		}
 		return;
 	}
+	
+
 
 	else
-	{
+	{	//컬러용 설정
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
@@ -396,15 +398,6 @@ void Player::FallUpdate()
 		{
 			MoveDir.x = 0.0f;
 		}
-
-		//이걸쓰면 착지시 속도가 초기화 된다..
-		//RightBotCheck(); //마찬가지로 x속도가 땅에 닿았을때 초기화 되버린다.
-		//if ((RGB(55, 55, 55) == Color_ ||
-		//	RGB(0, 255, 255) == Color_ ||
-		//	RGB(0, 255, 0) == Color_)&&MoveDir.y != 0.0f)
-		//{
-		//	MoveDir.x = 0.0f;
-		//}
 
 		FootCheck();
 
