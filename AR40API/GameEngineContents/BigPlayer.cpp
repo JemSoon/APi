@@ -111,7 +111,7 @@ void BigPlayer::Start()
 	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	BigPlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
 	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,65 });//¸÷ Ãæµ¹¿ë(1¸¶¸®¸¸ ¹â°Ô²û)
-	BigPlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 126 }, { -32,0 });
+	BigPlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 126 }, { -32,0 });//µÎ²² 2·ÎÇØ¾ß Å¾ÀÌ³ª º¿¿¡ ¾È°ãÃÄ¿ë~
 	BigPlayerRightCollision = CreateCollision("PlayerRight", { 2, 126 }, { 32,0 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
