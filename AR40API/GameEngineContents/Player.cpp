@@ -113,8 +113,8 @@ void Player::Start()
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
 	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
-	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 64 }, { -32,0 });
-	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 32,0 });
+	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 63 }, { -32,0 });
+	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 63 }, { 32,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 62, 62 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다

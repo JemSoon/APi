@@ -399,7 +399,17 @@ void Player::FallUpdate()
 		}
 	}
 
-
+	else if (true == PlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == PlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.x = 0.0f;
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		if (MoveDir.y == 0)
+		{
+			ChangeState(PlayerState::Idle);
+			return;
+		}
+	}
 
 	else
 	{	

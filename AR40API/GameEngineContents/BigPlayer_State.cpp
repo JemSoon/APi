@@ -191,7 +191,7 @@ void BigPlayer::MoveUpdate()
 			return;
 		}
 
-		////문제의 함수->카메라 안쫓아오게 되고 바닥에 닿아도 Fall상태가 유지됨..
+		////문제의 함수->카메라 안쫓아오게 되고 바닥에 닿아도 Fall상태가 유지됨..(쓰지마십시오)
 		//else if (false == BigPlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		//{
 		//	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
@@ -418,7 +418,7 @@ void BigPlayer::FallUpdate()
 		}
 	}
 
-	//문제의 함수
+	//문제의 함수(해결)
 	else if (true == BigPlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
 		true == BigPlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
