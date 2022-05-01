@@ -113,8 +113,8 @@ void Player::Start()
 	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
-	PlayerLeftCollision = CreateCollision("PlayerLeft", { 1, 64 }, { -32,0 });
-	PlayerRightCollision = CreateCollision("PlayerRight", { 1, 64 }, { 32,0 });
+	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 64 }, { -32,0 });
+	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 32,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 62, 62 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
@@ -344,19 +344,11 @@ void Player::HeadHitCheck()
 
 	if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{	//박스랑 머리랑 충돌하면
-		MoveDir.y=0.0f;
-		ChangeState(PlayerState::Fall);
-		return;
-	}
-	
-	//이건 빈박스
-	if (true == PlayerHeadCollision->NextPosCollisionCheck("EmptyBox", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{	
 		MoveDir.y = 0.0f;
 		ChangeState(PlayerState::Fall);
 		return;
 	}
-
+	
 	//이건 벽돌
 	if (true == PlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{

@@ -235,8 +235,8 @@ void Player::IdleUpdate()
 
 void Player::JumpUpdate()
 {
-	HeadHitCheck();
-	FootHitCheck();
+	//HeadHitCheck();
+	//FootHitCheck();
 
 	
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
@@ -250,9 +250,48 @@ void Player::JumpUpdate()
 	//}
 
 	// 아이들로 바꾸는게 아니에영
-
 	
-	{	//머리 체크
+	
+	//===============충돌체용 중력 설정=================//
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+
+		if (true == IsMoveKey())
+		{	
+			ChangeState(PlayerState::Move);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+		}
+		return;
+	}
+	
+	else if (true == PlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect)||
+			 true == PlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{	//박스랑 머리랑 충돌하면
+		MoveDir.y = 0.0f;
+		ChangeState(PlayerState::Fall);
+		return;
+	}
+
+	else if (true == PlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == PlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.x = 0.0f;
+	}
+
+
+	else
+	{	
+		//컬러 충돌용 체크
+		//머리 체크
 		HeadCheck();
 
 		if (RGB(255, 0, 0) == Color_ ||
@@ -342,11 +381,32 @@ void Player::JumpUpdate()
 
 void Player::FallUpdate()
 {	
-	HeadHitCheck();
-	FootHitCheck();
+	
+	//HeadHitCheck();
+	//FootHitCheck();
 
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		
+		if (true == IsMoveKey())
+		{
+			ChangeState(PlayerState::Move);
+		}
+		else
+		{
+			ChangeState(PlayerState::Idle);
+		}
+	}
+
+	else
 	{	
 		//컬러용 설정
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))

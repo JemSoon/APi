@@ -57,11 +57,11 @@ void Box::PlayerCheck()
 
 	if (true == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-		EBox->SetPosition(GetPosition());
-		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-		Ptr->SetPosition(GetPosition());
-		BoxCollision->GetActor()->Off();
+		//EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		//EBox->SetPosition(GetPosition());
+		//Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
+		//Ptr->SetPosition(GetPosition());
+		//BoxCollision->GetActor()->Off();
 	}
 
 	else if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))

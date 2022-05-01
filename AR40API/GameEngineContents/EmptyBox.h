@@ -39,6 +39,9 @@ private:
 	GameEngineCollision* EmptyBoxCollision;
 	GameEngineCollision* EmptyBoxTopCollision;
 	GameEngineCollision* EmptyBoxBotCollision;
+	GameEngineCollision* EmptyBoxLeftCollision;
+	GameEngineCollision* EmptyBoxRightCollision;
+
 
 };
 
