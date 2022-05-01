@@ -105,6 +105,8 @@ void BigPlayer::Start()
 {
 	SetScale({ 64,128 });
 
+	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 64, 1280 }, { 200, -50 });
+
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다

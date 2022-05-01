@@ -67,10 +67,11 @@ private:
 
 	GameEngineImage* MapColImage_;
 
+	GameEngineCollision* BigPlayerCameraCollision;//카메라 세팅
+
 	GameEngineCollision* BigPlayerCollision;//기본 충돌체
 	GameEngineCollision* BigPlayerHeadCollision;//머리
 	GameEngineCollision* BigPlayerFootCollision;//발
-
 	// bullet 용 dir
 	float4 BigPlayerDir_;
 

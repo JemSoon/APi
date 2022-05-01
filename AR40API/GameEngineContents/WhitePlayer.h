@@ -69,6 +69,8 @@ private:
 
 	GameEngineImage* MapColImage_;
 
+	GameEngineCollision* WhitePlayerCameraCollision;
+
 	GameEngineCollision* WhitePlayerCollision;//기본 충돌체
 	GameEngineCollision* WhitePlayerHeadCollision;//머리
 	GameEngineCollision* WhitePlayerFootCollision;//발

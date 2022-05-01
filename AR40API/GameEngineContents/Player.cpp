@@ -107,12 +107,14 @@ void Player::Start()
 {
 	SetScale({ 64,64 });
 
+	//몬스터 카메라 범위안에 있을때 움직이기용
+	PlayerCameraCollision = CreateCollision("PlayerCamera", { 64, 1024 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
+
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 20, 2 },{0,-34});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 2 }, { 0,34 });
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, -64 }, { -34,0 });
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 34,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
-	PlayerCameraCollision = CreateCollision("PlayerCamera", { 700, 720 }, {200, -200});//200,-200이 플레이어 기준 딱 한가운데
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	PlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);
