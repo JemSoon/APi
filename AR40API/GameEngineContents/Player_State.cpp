@@ -238,8 +238,9 @@ void Player::JumpUpdate()
 	HeadHitCheck();
 	FootHitCheck();
 
-	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 	
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
 
 	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
 	//{	//점프 누른 시간에 따른 점프 길이 변화용
@@ -249,6 +250,7 @@ void Player::JumpUpdate()
 	//}
 
 	// 아이들로 바꾸는게 아니에영
+
 	
 	{	//머리 체크
 		HeadCheck();
@@ -262,16 +264,16 @@ void Player::JumpUpdate()
 			ChangeState(PlayerState::Fall);
 			return;
 		}
-		
+
 	}
 
 	{	//앞 체크
 		RightCheck();
 
-		if ((RGB(255,0,0) ==Color_ ||
+		if ((RGB(255, 0, 0) == Color_ ||
 			RGB(55, 55, 55) == Color_ ||
 			RGB(0, 255, 255) == Color_ ||
-			RGB(0, 255, 0) == Color_)&& true == GameEngineInput::GetInst()->IsPress("Move Right"))
+			RGB(0, 255, 0) == Color_) && true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{	//점프중 앞에 장애물이 있다면 x방향은 0
 			MoveDir.x = 0.0f;
 		}
@@ -333,39 +335,20 @@ void Player::JumpUpdate()
 			return;
 		}
 	}
-
+	
 	CameraOutCheck();
 
 }
 
 void Player::FallUpdate()
-{	//충돌용 설정
-	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	CheckPos_ = NextPos_;
+{	
+	HeadHitCheck();
+	FootHitCheck();
 
-	if (true == PlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
-	{
-		MoveDir.y = 0.0f;
-		if (true == GameEngineInput::GetInst()->IsPress("Move Left") ||
-			true == GameEngineInput::GetInst()->IsPress("Move Right"))
-		{
-			ChangeState(PlayerState::Move);
-			return;
-		}
-		else
-		{
-			ChangeState(PlayerState::Idle);
-			return;
-		}
-		return;
-	}
-	
+	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-
-	else
-	{	//컬러용 설정
-		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-
+	{	
+		//컬러용 설정
 		if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 		{
 			// 가속력

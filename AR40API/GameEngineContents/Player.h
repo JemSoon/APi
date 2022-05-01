@@ -71,7 +71,8 @@ private:
 	GameEngineCollision* PlayerCameraCollision;//카메라 충돌체(여기에 닿아야 몬스터가 움직임)
 
 	GameEngineCollision* PlayerCollision;//기본 충돌체
-	GameEngineCollision* PlayerHeadCollision;//머리
+	GameEngineCollision* PlayerHeadCollision;//머리(떨구기용)
+	GameEngineCollision* PlayerHeadHitCollision;//박스 히트용(중복안되게)
 	GameEngineCollision* PlayerFootCollision;//발
 	GameEngineCollision* PlayerLeftCollision;//왼쪽
 	GameEngineCollision* PlayerRightCollision;//오른쪽

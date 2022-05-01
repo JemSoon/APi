@@ -26,8 +26,8 @@ void Block::Start()
 	BlockCollision = CreateCollision("Block", { 64, 64 });
 	BlockBotCollision = CreateCollision("BlockBot", { 64, 1 }, { 0,32 });//얘는 큰마리오부터 뿌셔지는 옵션있으니 이름을 따로
 	BlockTopCollision = CreateCollision("BoxTop", { 64, 1 }, { 0,-32 });
-	BlockLeftCollision = CreateCollision("BoxLeft", { 64, 1 }, { -32 , 0 });
-	BlockRightCollision = CreateCollision("BoxRight", { 64, 1 }, { 32 , 0 });
+	BlockLeftCollision = CreateCollision("BoxLeft", { 1, 64 }, { -32 , 0 });
+	BlockRightCollision = CreateCollision("BoxRight", { 1, 64 }, { 32 , 0 });
 
 	BlockAnimationRender = CreateRenderer((int)ORDER::BOX);
 	BlockAnimationRender->CreateAnimation("Block.bmp", "Block", 0, 0, 0.1f, false);

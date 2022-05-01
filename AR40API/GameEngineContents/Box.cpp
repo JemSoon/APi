@@ -29,8 +29,8 @@ void Box::Start()
 	BoxCollision = CreateCollision("Box", { 64, 64 });
 	BoxBotCollision = CreateCollision("BoxBot", { 64, 1 },{0,32});
 	BoxTopCollision = CreateCollision("BoxTop", { 64, 1 }, { 0,-32 });
-	BoxLeftCollision = CreateCollision("BoxLeft", { 64, 1 }, { -32 , 0 });
-	BoxRightCollision = CreateCollision("BoxRight", { 64, 1 }, { 32 , 0 });
+	BoxLeftCollision = CreateCollision("BoxLeft", { 1, 64 }, { -32 , 0 });
+	BoxRightCollision = CreateCollision("BoxRight", { 1, 64 }, { 32 , 0 });
 
 	BoxAnimationRender = CreateRenderer((int)ORDER::BOX);
 	BoxAnimationRender->CreateAnimation("QBox.bmp", "Box", 0, 3, 0.3f, true);
@@ -55,13 +55,13 @@ void Box::PlayerCheck()
 	//플레이어는 부딪힌 즉시 관통이 아니라 떨어져야한다
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == BoxBotCollision->CollisionResult("PlayerHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-		EBox->SetPosition(GetPosition());
-		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
-		Ptr->SetPosition(GetPosition());
-		BoxCollision->GetActor()->Off();
+		//EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		//EBox->SetPosition(GetPosition());
+		//Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
+		//Ptr->SetPosition(GetPosition());
+		//BoxCollision->GetActor()->Off();
 	}
 
 	else if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
