@@ -64,7 +64,7 @@ void Box::PlayerCheck()
 		BoxCollision->GetActor()->Off();
 	}
 
-	else if (true == BoxCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	else if (true == BoxCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());

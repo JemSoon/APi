@@ -70,8 +70,12 @@ private:
 	GameEngineCollision* BigPlayerCameraCollision;//카메라 세팅
 
 	GameEngineCollision* BigPlayerCollision;//기본 충돌체
-	GameEngineCollision* BigPlayerHeadCollision;//머리
+	GameEngineCollision* BigPlayerHeadCollision;//머리(떨구기용)
+	GameEngineCollision* BigPlayerHeadHitCollision;//박스 히트용(중복안되게)
+	GameEngineCollision* BigPlayerFootHitCollision;//몹 히트용(중복안되게)
 	GameEngineCollision* BigPlayerFootCollision;//발
+	GameEngineCollision* BigPlayerLeftCollision;//왼쪽
+	GameEngineCollision* BigPlayerRightCollision;//오른쪽
 	// bullet 용 dir
 	float4 BigPlayerDir_;
 
@@ -94,6 +98,8 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void Fire();//총알 발사함수
+
+	void BreakAnimation();
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:

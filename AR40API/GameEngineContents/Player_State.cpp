@@ -234,11 +234,7 @@ void Player::IdleUpdate()
 }
 
 void Player::JumpUpdate()
-{
-	//HeadHitCheck();
-	//FootHitCheck();
-
-	
+{	
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 
@@ -402,6 +398,8 @@ void Player::FallUpdate()
 			ChangeState(PlayerState::Idle);
 		}
 	}
+
+
 
 	else
 	{	

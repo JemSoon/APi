@@ -105,7 +105,14 @@ void BigPlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 64, 1280 }, { 200, -50 });
+	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 1, 1280 }, { 200, -50 });
+
+	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
+	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
+	BigPlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
+	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
+	BigPlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 126 }, { -32,0 });
+	BigPlayerRightCollision = CreateCollision("PlayerRight", { 2, 126 }, { 32,0 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
 
@@ -297,5 +304,31 @@ void BigPlayer::Fire()
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
 		Ptr->SetDir(CurDir());
+	}
+}
+
+void BigPlayer::BreakAnimation()
+{
+	{	//왼쪽에서 오른쪽으로 틀때
+		if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			BigPlayerAnimationRender->ChangeAnimation("BBreak-L");
+		}
+		else if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			BigPlayerAnimationRender->ChangeAnimation("BWalk-R");
+		}
+	}
+
+	{
+		//오른쪽에서 왼쪽으로 틀때
+		if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			BigPlayerAnimationRender->ChangeAnimation("BBreak-R");
+		}
+		else if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			BigPlayerAnimationRender->ChangeAnimation("BWalk-L");
+		}
 	}
 }
