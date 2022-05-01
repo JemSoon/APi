@@ -112,7 +112,7 @@ void Player::Start()
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, -64 }, { -34,0 });
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 64 }, { 34,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 64, 64 });
-	PlayerCameraCollision = CreateCollision("PlayerCamera", { 700, 500 });
+	PlayerCameraCollision = CreateCollision("PlayerCamera", { 700, 720 }, {200, -200});//200,-200이 플레이어 기준 딱 한가운데
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	PlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);
