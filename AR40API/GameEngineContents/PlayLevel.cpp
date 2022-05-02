@@ -44,7 +44,7 @@ void PlayLevel::Loading()
 
 			//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
 
-			Actor->CreateCollision("Wall", { 100,100 }, { 600, 720 });
+			Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });
 
 		}
 
@@ -176,10 +176,10 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	//if (true == Player::MainPlayer->IsDeath())
+	//if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
 	//{
 	//	//리셋
-	//	Reset();
+	//	int a = 0;
 	//}
 }
 

@@ -1,4 +1,5 @@
 #include "PlayerDie.h"
+#include "Player.h"
 #include <GameEngine/GameEngineRenderer.h>
 
 #include <GameEngine/GameEngine.h>
@@ -50,5 +51,6 @@ void PlayerDie::Update()
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 20000.0f;
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
 	}
+
 }
 

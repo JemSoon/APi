@@ -165,12 +165,14 @@ void Player::WallCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == PlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == PlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect)&& 
+		true == GameEngineInput::GetInst()->IsPress("Move Down"))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
 		}
+		GameEngine::GetInst().ChangeLevel("Pipe1");
 	}
 }
 
@@ -363,8 +365,8 @@ void Player::MonsterHit()
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
 		die->SetPosition(GetPosition());
-		PlayerCollision->GetActor()->Off();
-		ChangeState(PlayerState::Dead);
+		PlayerCollision->GetActor()->Death();
+		//ChangeState(PlayerState::Dead);
 		return;
 	}
 }
