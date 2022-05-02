@@ -35,6 +35,8 @@ protected:
 	std::string AnimationName;
 private:
 	float4 CheckPos_;
+	float4 NextPos_;
+	float4 MoveDir_;
 	int Color_;
 
 	GameEngineCollision* FireFlowerCollision;
@@ -44,6 +46,7 @@ private:
 	void Update() override;
 
 public:
-	void FootCheck();
+	//void FootCheck();
+	void ColBotCheck();
 };
 
