@@ -72,7 +72,17 @@ void Bullet::Update()
 		Boom->SetPosition(GetPosition());
 
 		Death(0.0f);
+	}
 
+	float4 NextPos = (ResultDir_ * GameEngineTime::GetDeltaTime() * DownSpeed);
+	
+	if (true == BulletCollision->NextPosCollisionCheck("Box", NextPos, CollisionType::Rect, CollisionType::Rect)||
+		true == BulletCollision->NextPosCollisionCheck("Block", NextPos, CollisionType::Rect, CollisionType::Rect))
+	{
+		Hit* Boom = GetLevel()->CreateActor<Hit>();
+		Boom->SetPosition(GetPosition());
+
+		Death(0.0f);
 	}
 
 	HitToMonster();

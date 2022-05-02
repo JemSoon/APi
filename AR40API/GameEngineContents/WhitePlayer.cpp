@@ -127,8 +127,8 @@ void WhitePlayer::Start()
 	WhitePlayerAnimationRender->CreateAnimation("fire-jump-R.bmp", "WJump-R", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-break-L.bmp", "WBreak-L", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("fire-break-R.bmp", "WBreak-R", 0, 0, 0.0f, false);
-	WhitePlayerAnimationRender->CreateAnimation("FireAttack-L.bmp", "WFire-L", 0, 0, 0.0f, false);
-	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "WFire-R", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("FireAttack-L.bmp", "WFire-L", 0, 0, 1.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "WFire-R", 0, 0, 1.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("white-down-R.bmp", "WDown-R", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("white-down-L.bmp", "WDown-L", 0, 0, 0.0f, false);
 
@@ -305,13 +305,16 @@ void WhitePlayer::Fire()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
-		WhitePlayerAnimationRender->ChangeAnimation("WFire-" + WhiteDirString_);
-
 		SetScale({ 32,32 });
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
 		Ptr->SetDir(CurDir());
+
+		if (CurState_ == WhitePlayerState::Idle)
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("WFire-" + WhiteDirString);
+		}
 	}
 }
 

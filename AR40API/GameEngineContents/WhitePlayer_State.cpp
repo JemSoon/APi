@@ -103,13 +103,13 @@ void WhitePlayer::IdleUpdate()
 		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
 		{
 			WhitePlayerCollision->Off();
-			WhitePlayerAnimationRender->ChangeAnimation("BDown-" + WhiteDirString);
+			WhitePlayerAnimationRender->ChangeAnimation("WDown-" + WhiteDirString);
 		}
 
 		else if (true == GameEngineInput::GetInst()->IsUp("Move Down"))
 		{
 			WhitePlayerCollision->On();
-			WhitePlayerAnimationRender->ChangeAnimation("Bidle-" + WhiteDirString);
+			WhitePlayerAnimationRender->ChangeAnimation("Widle-" + WhiteDirString);
 		}
 
 		if (false == IsMoveKey())
