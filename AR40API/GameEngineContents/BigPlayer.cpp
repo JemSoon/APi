@@ -115,6 +115,7 @@ void BigPlayer::Start()
 	BigPlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
+	BigPlayerDownCollision = CreateCollision("BigPlayerDownHitBox", { 50, 80 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	BigPlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);
@@ -127,6 +128,8 @@ void BigPlayer::Start()
 	BigPlayerAnimationRender->CreateAnimation("big-jump-R.bmp", "BJump-R", 0, 0, 0.0f, false);
 	BigPlayerAnimationRender->CreateAnimation("big-break-L.bmp", "BBreak-L", 0, 0, 0.0f, false);
 	BigPlayerAnimationRender->CreateAnimation("big-break-R.bmp", "BBreak-R", 0, 0, 0.0f, false);
+	BigPlayerAnimationRender->CreateAnimation("big-down-R.bmp", "BDown-R", 0, 0, 0.0f, false);
+	BigPlayerAnimationRender->CreateAnimation("big-down-L.bmp", "BDown-L", 0, 0, 0.0f, false);
 	BigPlayerAnimationRender->ChangeAnimation("Bidle-R");
 
 

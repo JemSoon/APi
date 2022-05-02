@@ -77,6 +77,7 @@ private:
 	GameEngineCollision* BigPlayerFootCollision;//발
 	GameEngineCollision* BigPlayerLeftCollision;//왼쪽
 	GameEngineCollision* BigPlayerRightCollision;//오른쪽
+	GameEngineCollision* BigPlayerDownCollision;
 	// bullet 용 dir
 	float4 BigPlayerDir_;
 
