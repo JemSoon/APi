@@ -11,7 +11,7 @@
 
 Monster::Monster()
 	: Speed_(50.0f)
-	, AccSpeed_(20.0f)
+	, AccSpeed_(50.0f)
 	, MoveDir_(float4::ZERO)
 {
 
@@ -77,7 +77,7 @@ void Monster::Update()
 			RGB(0, 255, 255) != Color_ &&
 			RGB(0, 255, 0) != Color_)//허공에 있다
 		{	//빨간색이 아니라면 갈수 이써
-			SetMove(MoveDir_);
+			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * AccSpeed_);
 		}
 		else//바닥에 닿았다
 		{

@@ -77,7 +77,7 @@ void PlayLevel::Loading()
 			
 			Monster* Gumba2 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba2->SetPosition({ 2585.0f,771.0f });
+			Gumba2->SetPosition({ 2785.0f,771.0f });
 
 			Monster* Gumba3 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
@@ -176,11 +176,13 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	//if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
-	//{
-	//	//리셋
-	//	int a = 0;
-	//}
+	if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
+	{
+		//리셋
+		Reset();
+		GameEngine::GetInst().ChangeLevel("Intro");
+		int a = 0;
+	}
 }
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
