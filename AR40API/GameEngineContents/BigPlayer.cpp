@@ -365,8 +365,10 @@ void BigPlayer::MonsterHit()
 		MainBigPlayer->Off();
 		Player::MainPlayer->SetPosition(GetPosition());
 		Player::MainPlayer->On();
+	
+		Player::MainPlayer->NoHit();
 
-		Player::MainPlayer->GetCollision();
+		Player::MainPlayer->HitTimeCheck();
 	}
 	
 }

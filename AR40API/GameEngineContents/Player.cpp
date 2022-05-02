@@ -24,6 +24,7 @@ Player::Player()
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
 	, Time_(0.0f)
+	, HitTime_(0.0f)
 
 {
 
@@ -114,7 +115,7 @@ void Player::Start()
 	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });//¹Ú½º Ãæµ¹¿ë(1°³¸¸ Ãæµ¹ÇÏ°Ô²û)
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
-	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,33 });//¸÷ Ãæµ¹¿ë(1¸¶¸®¸¸ ¹â°Ô²û)
+	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 0 }, { 0,33 });//¸÷ Ãæµ¹¿ë(1¸¶¸®¸¸ ¹â°Ô²û)
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 63 }, { -32,0 });//µÎ²² 2·ÎÇØ¾ß Å¾ÀÌ³ª º¿¿¡ ¾È°ãÃÄ¿ë~
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 63 }, { 32,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 62, 62 });
@@ -144,6 +145,7 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Run", 'C');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
+
 }
 
 
@@ -158,6 +160,13 @@ void Player::Update()
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
+
+	HitTime_ -= GameEngineTime::GetDeltaTime();
+	
+	if (HitTime_ < 0.0f)
+	{
+		OnHit();
+	}
 }
 
 
@@ -369,4 +378,10 @@ void Player::MonsterHit()
 		//ChangeState(PlayerState::Dead);
 		return;
 	}
+}
+
+void Player::HitTimeCheck()
+{
+
+	MainPlayer->HitTime_ = 3.0f;
 }

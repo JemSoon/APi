@@ -111,40 +111,36 @@ public:
 
 	void BreakAnimation();
 
-	void GetCollision()
+	void NoHit()
 	{
+		PlayerCollision->Off();
+		PlayerHeadCollision->Off();
+		PlayerHeadHitCollision->Off();
+		PlayerFootHitCollision->Off();
+		PlayerFootCollision->Off();
+		PlayerLeftCollision->Off();
+		PlayerRightCollision->Off();
+	}
+	void OnHit() 
+	{
+		PlayerCollision->On();
+		PlayerHeadCollision->On();
+		PlayerHeadHitCollision->On();
+		PlayerFootHitCollision->On();
+		PlayerFootCollision->On();
+		PlayerLeftCollision->On();
+		PlayerRightCollision->On();
 
-		Time_ += GameEngineTime::GetDeltaTime();
-		if (Time_ < 1.0f)
-		{
-			PlayerCollision->Off();
-			PlayerHeadCollision->Off();
-			PlayerHeadHitCollision->Off();
-			PlayerFootHitCollision->Off();
-			PlayerFootCollision->Off();
-			PlayerLeftCollision->Off();
-			PlayerRightCollision->Off();
-			return;
-		}
-		else if(Time_ >= 1.1f)
-		{
-			PlayerCollision->On();
-			PlayerHeadCollision->On();
-			PlayerHeadHitCollision->On();
-			PlayerFootHitCollision->On();
-			PlayerFootCollision->On();
-			PlayerLeftCollision->On();
-			PlayerRightCollision->On();
-			int a = 0;
-		}
 	}
 
+	void HitTimeCheck();
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
 	float Time_;
+	float HitTime_;
 	
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;

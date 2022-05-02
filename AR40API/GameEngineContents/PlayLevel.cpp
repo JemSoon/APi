@@ -138,7 +138,7 @@ void PlayLevel::Loading()
 
 		}
 
-		{
+		{	
 			//박스 로드 체크
 			Box* QBox = CreateActor<Box>((int)ORDER::BOX);
 			QBox->SetPosition({ 120.0f,600.0f });
