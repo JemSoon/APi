@@ -86,18 +86,6 @@ void PlayLevel::Loading()
 		}
 
 		{
-			//아이템 로드 체크
-			//Mushroom* Item = CreateActor<Mushroom>((int)ORDER::ITEM);
-			//Item->SetPosition({ 500.0f, 740.0f });
-		}
-
-		{
-			//아이템 로드 체크
-			//FireFlower* Item = CreateActor<FireFlower>((int)ORDER::ITEM);
-			//Item->SetPosition({ 628.0f, 740.0f });
-		}
-
-		{
 			//박스 로드 체크
 			Box* QBox = CreateActor<Box>((int)ORDER::BOX);
 			QBox->SetPosition({ 120.0f,600.0f });
@@ -109,6 +97,9 @@ void PlayLevel::Loading()
 			//블록 로드 체크
 			Block* Block1 = CreateActor<Block>((int)ORDER::BOX);
 			Block1->SetPosition({ 248.0f,600.0f });
+
+			Block* Block2 = CreateActor<Block>((int)ORDER::BOX);
+			Block2->SetPosition({ 312.0f,600.0f });
 		}
 
 	}
@@ -116,17 +107,6 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update()
 {
-	//{	//맵과 캐릭터의 충돌설정용
-	//	//(참고)실제 BG랑 좌표가 안맞음 현재
-	//	MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
-
-
-	//	if (nullptr == MapColImage_)
-	//	{
-	//		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
-	//	}
-	//}
-
 
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{

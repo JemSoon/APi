@@ -159,6 +159,7 @@ void BigPlayer::Update()
 	DoorCheck();
 	MushroomCheck();
 	FireFlowerCheck();
+	MonsterOnCheck();
 }
 
 
@@ -333,5 +334,21 @@ void BigPlayer::BreakAnimation()
 		{
 			BigPlayerAnimationRender->ChangeAnimation("BWalk-L");
 		}
+	}
+}
+
+void BigPlayer::MonsterOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == BigPlayerFootHitCollision->CollisionResult("MonsterHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
+		}
+		MainBigPlayer->JumpStart();
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(BigPlayerState::Fall);
 	}
 }

@@ -290,7 +290,8 @@ void BigPlayer::JumpUpdate()
 	}
 
 	else if (true == BigPlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
-		true == BigPlayerHeadHitCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+		true == BigPlayerHeadHitCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == BigPlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{	//¹Ú½º¶û ¸Ó¸®¶û Ãæµ¹ÇÏ¸é
 		MoveDir.y = 0.0f;
 		ChangeState(BigPlayerState::Fall);
@@ -556,7 +557,7 @@ void BigPlayer::JumpStart()
 	}
 
 	BigPlayerAnimationRender->ChangeAnimation("BJump-" + BigDirString);
-	MoveDir += float4::UP * 40.0f;
+	MoveDir += float4::UP * 35.0f;
 }
 
 void BigPlayer::FallStart()

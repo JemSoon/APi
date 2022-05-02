@@ -89,6 +89,7 @@ public:
 	void WallCheck();
 	void MushroomCheck();
 	void FireFlowerCheck();
+	void MonsterOnCheck();
 
 	bool IsMoveKey();
 	void CameraOutCheck();
