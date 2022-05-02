@@ -242,6 +242,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="UI.h">
       <SubType>
       </SubType>
@@ -340,6 +344,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
       <SubType>
       </SubType>
     </ClCompile>

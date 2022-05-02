@@ -214,6 +214,14 @@ void SuperMario::GameInit()
 			GameEngineImage* Image41 = GameEngineImageManager::GetInst()->Find("die.bmp");
 
 			Image41->Cut({ 64, 64 });
+
+			GameEngineImage* Image42 = GameEngineImageManager::GetInst()->Find("turtle-L.bmp");
+
+			Image42->CutCount(2, 1);
+
+			GameEngineImage* Image43 = GameEngineImageManager::GetInst()->Find("turtle-R.bmp");
+
+			Image43->CutCount(2, 1);
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

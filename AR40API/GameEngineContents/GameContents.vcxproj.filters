@@ -10,9 +10,6 @@
     <ClCompile Include="EndingCredit.cpp">
       <Filter>Ending</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Play</Filter>
-    </ClCompile>
     <ClCompile Include="IntroLevel.cpp">
       <Filter>Level</Filter>
     </ClCompile>
@@ -83,6 +80,12 @@
     <ClCompile Include="PlayerDie.cpp">
       <Filter>Play\Player_Die</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Play\Mon</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
+      <Filter>Play\Mon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -93,9 +96,6 @@
     </ClInclude>
     <ClInclude Include="EndingCredit.h">
       <Filter>Ending</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Play</Filter>
     </ClInclude>
     <ClInclude Include="IntroLevel.h">
       <Filter>Level</Filter>
@@ -159,6 +159,12 @@
     <ClInclude Include="PlayerDie.h">
       <Filter>Play\Player_Die</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Play\Mon</Filter>
+    </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <Filter>Play\Mon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -202,6 +208,9 @@
     </Filter>
     <Filter Include="Play\Player_Die">
       <UniqueIdentifier>{aa0cbfed-0ffe-435c-804e-af2d0781dcc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Mon">
+      <UniqueIdentifier>{e7ff46f4-eb4b-4a88-a9f0-dab5a7fa1b3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "BigPlayer.h"
 #include "WhitePlayer.h"
 #include "Monster.h"
+#include "Turtle.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
@@ -139,9 +140,15 @@ void PlayLevel::Loading()
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba16->SetPosition({ 11232.0f,771.0f });
 
-
 		}
-
+		
+		{	
+			//거북이 테스트
+			Turtle* Turtle1 = CreateActor<Turtle>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Turtle1->SetPosition({ 2100.0f,771.0f });
+		}
+		
 		{	
 			//박스 로드 체크
 			Box* QBox = CreateActor<Box>((int)ORDER::BOX);
