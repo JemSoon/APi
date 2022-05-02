@@ -71,13 +71,13 @@ void PlayLevel::Loading()
 
 		{
 			//1스테이지의 몬스터 로드
-			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
-			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba->SetPosition({ 320.0f,740.0f });
-
+			//Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
+			////Player->SetPosition(GameEngineWindow::GetScale().Half());
+			//Gumba->SetPosition({ 320.0f,740.0f });
+			//
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba1->SetPosition({ 385.0f,740.0f });
+			Gumba1->SetPosition({ 685.0f,740.0f });
 
 			//카메라 인식 테스트용
 			Monster* Gumba2 = CreateActor<Monster>((int)ORDER::MONSTER);

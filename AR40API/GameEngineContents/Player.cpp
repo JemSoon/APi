@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "BigPlayer.h"
 #include "WhitePlayer.h"
+#include "PlayerDie.h"
 
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
@@ -22,6 +23,7 @@ Player::Player()
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
+	, Time_(0.0f)
 
 {
 
@@ -128,6 +130,7 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("jump-R.bmp", "Jump-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("break-L.bmp", "Break-L", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("break-R.bmp", "Break-R", 0, 0, 0.0f, false);
+	PlayerAnimationRender->CreateAnimation("die.bmp", "Die", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
 
 
@@ -154,7 +157,8 @@ void Player::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
-
+	MonsterHit();
+	TimeCheck();
 }
 
 
@@ -348,6 +352,33 @@ void Player::BreakAnimation()
 		else if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
 		{
 			PlayerAnimationRender->ChangeAnimation("Walk-L");
+		}
+	}
+}
+
+void Player::MonsterHit()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(GetPosition());
+		PlayerCollision->GetActor()->Off();
+		ChangeState(PlayerState::Dead);
+		return;
+	}
+}
+
+void Player::TimeCheck()
+{
+	if (CurState_ == PlayerState::Dead)
+	{
+		Time_ = 0.0f;
+		Time_ += GameEngineTime::GetDeltaTime();
+		if (1.0 <= Time_)
+		{
+			int a = 0;
 		}
 	}
 }

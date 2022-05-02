@@ -96,6 +96,7 @@ public:
 	void FireFlowerCheck();
 	void MonsterOnCheck();
 
+	void MonsterHit();
 
 	bool IsMoveKey();
 	void CameraOutCheck();
@@ -106,6 +107,8 @@ public:
 	void LeftCheck();
 	void RightCheck();
 
+	void TimeCheck();
+
 	void Fire();//총알 발사함수
 
 	void BreakAnimation();
@@ -115,7 +118,7 @@ private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
-
+	float Time_;
 	
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;

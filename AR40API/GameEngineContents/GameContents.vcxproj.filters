@@ -80,6 +80,9 @@
     <ClCompile Include="Block.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerDie.cpp">
+      <Filter>Play\Player_Die</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="Block.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerDie.h">
+      <Filter>Play\Player_Die</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -193,6 +199,9 @@
     </Filter>
     <Filter Include="Play\Player\White">
       <UniqueIdentifier>{10b0e82e-58de-45eb-abcf-c327816617d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Play\Player_Die">
+      <UniqueIdentifier>{aa0cbfed-0ffe-435c-804e-af2d0781dcc4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
