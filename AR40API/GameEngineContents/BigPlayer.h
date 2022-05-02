@@ -12,6 +12,7 @@ enum class BigPlayerState
 	Move,
 	Jump,
 	Fall,
+	Down,
 	Dead,
 	Max,
 };
@@ -127,11 +128,13 @@ private:
 	void MoveUpdate();
 	void JumpUpdate();
 	void FallUpdate();
+	void DownUpdate();
 
 	void IdleStart();
 	void MoveStart();
 	void JumpStart();
 	void FallStart();
+	void DownStart();
 };
 
 
