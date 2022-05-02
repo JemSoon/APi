@@ -69,11 +69,16 @@ private:
 
 	GameEngineImage* MapColImage_;
 
-	GameEngineCollision* WhitePlayerCameraCollision;
+	GameEngineCollision* WhitePlayerCameraCollision;//카메라 세팅
 
 	GameEngineCollision* WhitePlayerCollision;//기본 충돌체
-	GameEngineCollision* WhitePlayerHeadCollision;//머리
+	GameEngineCollision* WhitePlayerHeadCollision;//머리(떨구기용)
+	GameEngineCollision* WhitePlayerHeadHitCollision;//박스 히트용(중복안되게)
+	GameEngineCollision* WhitePlayerFootHitCollision;//몹 히트용(중복안되게)
 	GameEngineCollision* WhitePlayerFootCollision;//발
+	GameEngineCollision* WhitePlayerLeftCollision;//왼쪽
+	GameEngineCollision* WhitePlayerRightCollision;//오른쪽
+	GameEngineCollision* WhitePlayerDownCollision;
 
 	// bullet 용 dir
 	float4 WhitePlayerDir_;
@@ -97,6 +102,8 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void Fire();//총알 발사함수
+	void BreakAnimation();
+	void MonsterOnCheck();
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:

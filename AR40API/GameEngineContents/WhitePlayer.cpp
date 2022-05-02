@@ -104,9 +104,17 @@ void WhitePlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 64, 1280 }, { 200, -50 });
+	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 1, 1280 }, { 200, -50 });
+
+	WhitePlayerHeadHitCollision = CreateCollision("WhitePlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
+	WhitePlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
+	WhitePlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
+	WhitePlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
+	WhitePlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
+	WhitePlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
 
 	WhitePlayerCollision = CreateCollision("WhitePlayerHitBox", { 50, 128 });
+	WhitePlayerDownCollision = CreateCollision("WhitePlayerDownHitBox", { 50, 80 }, { 0,22 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	WhitePlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);
@@ -121,6 +129,8 @@ void WhitePlayer::Start()
 	WhitePlayerAnimationRender->CreateAnimation("fire-break-R.bmp", "WBreak-R", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("FireAttack-L.bmp", "WFire-L", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "WFire-R", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("white-down-R.bmp", "WDown-R", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("white-down-L.bmp", "WDown-L", 0, 0, 0.0f, false);
 
 	WhitePlayerAnimationRender->ChangeAnimation("Widle-R");
 
@@ -151,6 +161,7 @@ void WhitePlayer::Update()
 	DoorCheck();
 	MushroomCheck();
 	FireFlowerCheck();
+	MonsterOnCheck();
 }
 
 
@@ -301,5 +312,47 @@ void WhitePlayer::Fire()
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
 		Ptr->SetPosition(GetPosition());
 		Ptr->SetDir(CurDir());
+	}
+}
+
+void WhitePlayer::BreakAnimation()
+{
+	{	//왼쪽에서 오른쪽으로 틀때
+		if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("WBreak-L");
+		}
+		else if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Right"))
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("WWalk-R");
+		}
+	}
+
+	{
+		//오른쪽에서 왼쪽으로 틀때
+		if (MoveDir.x > 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("WBreak-R");
+		}
+		else if (MoveDir.x < 0 && true == GameEngineInput::GetInst()->IsPress("Move Left"))
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("WWalk-L");
+		}
+	}
+}
+
+void WhitePlayer::MonsterOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == WhitePlayerFootHitCollision->CollisionResult("MonsterHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
+		}
+		MainWhitePlayer->JumpStart();
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(WhitePlayerState::Fall);
 	}
 }

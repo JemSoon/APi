@@ -5,6 +5,7 @@
 #include <GameEngineBase/GameEngineInput.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
+#include <GameEngine/GameEngineCollision.h>
 
 #include <GameEngine/GameEngineLevel.h> // 레벨을 통해서
 #include "Bullet.h" // 총알을 만들고 싶다.
@@ -38,32 +39,83 @@ void WhitePlayer::IdleUpdate()
 		return;
 	}
 
-	// wndc
+	// 중력
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-	FootCheck();
-
-	Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//해당색상의 충돌체가 없으면 계속 아래로
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-	}
-	else
+	//===============충돌체용 중력 설정=================//
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == WhitePlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
 		MoveDir.y = 0.0f;
+		//MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+
+		if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+		{
+			ChangeState(WhitePlayerState::Jump);
+		}
+
+		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
+		{
+			WhitePlayerCollision->Off();
+			WhitePlayerAnimationRender->ChangeAnimation("WDown-" + WhiteDirString);
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Down"))
+		{
+			WhitePlayerCollision->On();
+			WhitePlayerAnimationRender->ChangeAnimation("Widle-" + WhiteDirString);
+		}
+
+		if (false == IsMoveKey())
+		{	//키에 손 떼놓고 있으면 감속(브레키)
+			MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+		}
+
+		return;
 	}
 
-	if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+	//================컬러충돌용 중력 설정===================//
+	else
 	{
-		ChangeState(WhitePlayerState::Jump);
-	}
+		FootCheck();
 
-	if (false == IsMoveKey())
-	{	//키에 손 떼놓고 있으면 감속(브레키)
-		MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+		Color_ = MapColImage_->GetImagePixel(CheckPos_);//갈수 있냐 없냐 색 체크
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{	//해당색상의 충돌체가 없으면 계속 아래로
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+
+		else
+		{
+			MoveDir.y = 0.0f;
+		}
+
+		if (true == GameEngineInput::GetInst()->IsDown("Jump"))
+		{
+			ChangeState(WhitePlayerState::Jump);
+		}
+
+		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
+		{
+			WhitePlayerCollision->Off();
+			WhitePlayerAnimationRender->ChangeAnimation("BDown-" + WhiteDirString);
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Down"))
+		{
+			WhitePlayerCollision->On();
+			WhitePlayerAnimationRender->ChangeAnimation("Bidle-" + WhiteDirString);
+		}
+
+		if (false == IsMoveKey())
+		{	//키에 손 떼놓고 있으면 감속(브레키)
+			MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
+		}
 	}
 
 	CameraOutCheck();
@@ -71,6 +123,8 @@ void WhitePlayer::IdleUpdate()
 
 void WhitePlayer::MoveUpdate()
 {
+	BreakAnimation();
+
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		WhiteDirString = 'R';
@@ -149,32 +203,47 @@ void WhitePlayer::MoveUpdate()
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	{
-		FootCheck();
-		if (RGB(255, 0, 0) != Color_ &&
-			RGB(55, 55, 55) != Color_ &&
-			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)
-		{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
-			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
-			ChangeState(WhitePlayerState::Fall);
-			return;
-		}
-		else
+		//===============충돌체용 중력 설정=================//
+		NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		CheckPos_ = NextPos_;
+		//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+		if (true == WhitePlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		{
 			MoveDir.y = 0.0f;
+			MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			return;
+		}
 
+		else
+		{	//==============컬러용 중력 설정==================//
 			FootCheck();
-
 			if (RGB(255, 0, 0) != Color_ &&
 				RGB(55, 55, 55) != Color_ &&
 				RGB(0, 255, 255) != Color_ &&
 				RGB(0, 255, 0) != Color_)
-			{
+			{	//허공에 떠있을때(땅에 안닿았을땐) 내려가는 힘이 가해진다
 				SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+				ChangeState(WhitePlayerState::Fall);
+				return;
 			}
 			else
 			{
-				MoveDir.x = 0.0f;
+				MoveDir.y = 0.0f;
+
+				FootCheck();
+
+				if (RGB(255, 0, 0) != Color_ &&
+					RGB(55, 55, 55) != Color_ &&
+					RGB(0, 255, 255) != Color_ &&
+					RGB(0, 255, 0) != Color_)
+				{
+					SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+				}
+				else
+				{
+					MoveDir.x = 0.0f;
+				}
 			}
 		}
 	}
@@ -199,7 +268,47 @@ void WhitePlayer::JumpUpdate()
 
 	// 아이들로 바꾸는게 아니에영
 
-	{	//머리 체크
+	//===============충돌체용 중력 설정=================//
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == WhitePlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.y = 0.0f;
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+
+		if (true == IsMoveKey())
+		{
+			ChangeState(WhitePlayerState::Move);
+		}
+		else
+		{
+			ChangeState(WhitePlayerState::Idle);
+		}
+		return;
+	}
+
+	else if (true == WhitePlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == WhitePlayerHeadHitCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == WhitePlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{	//박스랑 머리랑 충돌하면
+		MoveDir.y = 0.0f;
+		ChangeState(WhitePlayerState::Fall);
+		return;
+	}
+
+	else if (true == WhitePlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == WhitePlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
+	{
+		MoveDir.x = 0.0f;
+	}
+
+	//===============컬러용 중력 설정=================//
+	else
+	{
+		//컬러 충돌용 체크
+		//머리 체크
 		HeadCheck();
 
 		if (RGB(255, 0, 0) == Color_ ||
@@ -211,6 +320,7 @@ void WhitePlayer::JumpUpdate()
 			ChangeState(WhitePlayerState::Fall);
 			return;
 		}
+
 	}
 
 	{	//앞 체크
@@ -303,56 +413,91 @@ void WhitePlayer::FallUpdate()
 		WhitePlayerDir_ = float4::LEFT;//총알 발사 방향 설정용
 	}
 
-	RightCheck();
-	//앞이 바닥or장애물이면 x가 0이된다.
-	if (RGB(255, 0, 0) == Color_ ||
-		RGB(55, 55, 55) == Color_ ||
-		RGB(0, 255, 255) == Color_ ||
-		RGB(0, 255, 0) == Color_)
+	NextPos_ = (MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+	CheckPos_ = NextPos_;
+	//다음 미래 위치에 플레이어 발바닥 충돌이 박스탑 충돌에 닿으면 중력은 0이 된다.
+	if (true == WhitePlayerFootCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
-		MoveDir.x = 0.0f;
-	}
-
-	LeftCheck();
-	//앞이 바닥or장애물이면 x가 0이된다.
-	if (RGB(255, 0, 0) == Color_ ||
-		RGB(55, 55, 55) == Color_ ||
-		RGB(0, 255, 255) == Color_ ||
-		RGB(0, 255, 0) == Color_)
-	{
-		MoveDir.x = 0.0f;
-	}
-
-	FootCheck();
-
-	if (RGB(255, 0, 0) != Color_ &&
-		RGB(55, 55, 55) != Color_ &&
-		RGB(0, 255, 255) != Color_ &&
-		RGB(0, 255, 0) != Color_)
-	{	//허공에 떠있다
-		//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
-		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+		MoveDir.y = 0.0f;
+		MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//감속
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+
+		if (true == IsMoveKey())
+		{
+			ChangeState(WhitePlayerState::Move);
+		}
+		else
+		{
+			ChangeState(WhitePlayerState::Idle);
+		}
 	}
 
-	//else if (MoveDir.y == 0.0f)
-	//{
-	//	ChangeState(PlayerState::Move);
-	//}
-
-	else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
-		true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y == 0.0f)
+	//문제의 함수(해결)
+	else if (true == WhitePlayerLeftCollision->NextPosCollisionCheck("BoxRight", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
+		true == WhitePlayerRightCollision->NextPosCollisionCheck("BoxLeft", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{
-		//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
-		ChangeState(WhitePlayerState::Move);
-		return;
+		MoveDir.x = 0.0f;
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		if (MoveDir.y == 0)
+		{
+			ChangeState(WhitePlayerState::Idle);
+			return;
+		}
 	}
 
 	else
 	{
-		MoveDir.y = 0.0f;
-		ChangeState(WhitePlayerState::Idle);
-		return;
+		RightCheck();
+		//앞이 바닥or장애물이면 x가 0이된다.
+		if (RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_)
+		{
+			MoveDir.x = 0.0f;
+		}
+
+		LeftCheck();
+		//앞이 바닥or장애물이면 x가 0이된다.
+		if (RGB(255, 0, 0) == Color_ ||
+			RGB(55, 55, 55) == Color_ ||
+			RGB(0, 255, 255) == Color_ ||
+			RGB(0, 255, 0) == Color_)
+		{
+			MoveDir.x = 0.0f;
+		}
+
+		FootCheck();
+
+		if (RGB(255, 0, 0) != Color_ &&
+			RGB(55, 55, 55) != Color_ &&
+			RGB(0, 255, 255) != Color_ &&
+			RGB(0, 255, 0) != Color_)
+		{	//허공에 떠있다
+			//허공에서 움직일때도 계속 가속되기에 그러지 못하도록 감속을 넣어준다
+			MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());
+			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+		}
+
+		//else if (MoveDir.y == 0.0f)
+		//{
+		//	ChangeState(PlayerState::Move);
+		//}
+
+		else if ((true == GameEngineInput::GetInst()->IsPress("Move Right") ||
+			true == GameEngineInput::GetInst()->IsPress("Move Left")) && MoveDir.y == 0.0f)
+		{
+			//MoveDir.y += 1.0f * GameEngineTime::GetDeltaTime()*AccSpeed_;//땅에 닿아서 y가 아래로 떨어질 필요가 없으니 y=0
+			ChangeState(WhitePlayerState::Move);
+			return;
+		}
+
+		else
+		{
+			MoveDir.y = 0.0f;
+			ChangeState(WhitePlayerState::Idle);
+			return;
+		}
 	}
 
 	CameraOutCheck();
@@ -410,7 +555,7 @@ void WhitePlayer::JumpStart()
 	}
 
 	WhitePlayerAnimationRender->ChangeAnimation("WJump-" + WhiteDirString_);
-	MoveDir += float4::UP * 40.0f;
+	MoveDir += float4::UP * 35.0f;
 }
 
 void WhitePlayer::FallStart()
