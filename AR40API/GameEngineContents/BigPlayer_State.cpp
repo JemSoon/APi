@@ -266,7 +266,7 @@ void BigPlayer::JumpUpdate()
 	}
 
 	else if (true == BigPlayerHeadCollision->NextPosCollisionCheck("BoxBot", NextPos_, CollisionType::Rect, CollisionType::Rect) ||
-		true == BigPlayerHeadCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
+		true == BigPlayerHeadHitCollision->NextPosCollisionCheck("BlockBot", NextPos_, CollisionType::Rect, CollisionType::Rect))
 	{	//¹Ú½º¶û ¸Ó¸®¶û Ãæµ¹ÇÏ¸é
 		MoveDir.y = 0.0f;
 		ChangeState(BigPlayerState::Fall);

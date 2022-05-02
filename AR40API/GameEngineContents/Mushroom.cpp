@@ -29,7 +29,7 @@ void Mushroom::Start()
 	SetScale({ 64,64 });
 
 	MushroomCollision = CreateCollision("Mushroom", { 64, 64 });
-	MushroomBotCollision = CreateCollision("MushroomBot", { 64,1 }, {0,32});
+	MushroomBotCollision = CreateCollision("MushroomBot", { 64,2 }, {0,32});
 	MushroomAnimationRender = CreateRenderer((int)ORDER::ITEM);
 	MushroomAnimationRender->CreateAnimation("Mushroom.bmp", "Mushroom", 0, 0, 1.0f, false);
 	MushroomAnimationRender->ChangeAnimation("Mushroom");

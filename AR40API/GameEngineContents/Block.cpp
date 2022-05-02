@@ -53,13 +53,15 @@ void Block::PlayerCheck()
 			return;
 		}
 
-		else if (true == BlockBotCollision->CollisionResult("BigPlayerHead", ColList, CollisionType::Rect, CollisionType::Rect))
+		else if (true == BlockBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 		{
+			BlockCollision->GetActor()->Death();
 			//บฮผลมü
 		}
 
-		else if (true == BlockBotCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+		else if (true == BlockBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 		{
+			BlockCollision->GetActor()->Death();
 			//บฮผลมü
 		}
 	}
