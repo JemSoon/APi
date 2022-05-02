@@ -62,6 +62,12 @@ void BigPlayer::IdleUpdate()
 			BigPlayerAnimationRender->ChangeAnimation("BDown-" + BigDirString);
 		}
 
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Down"))
+		{
+			BigPlayerCollision->On();
+			BigPlayerAnimationRender->ChangeAnimation("Bidle-" + BigDirString);
+		}
+
 		if (false == IsMoveKey())
 		{	//키에 손 떼놓고 있으면 감속(브레키)
 			MoveDir.x *= -MoveDir.x * GameEngineTime::GetDeltaTime();
@@ -497,15 +503,6 @@ void BigPlayer::FallUpdate()
 	CameraOutCheck();
 }
 
-void BigPlayer::DownUpdate()
-{
-	if (false == IsMoveKey())
-	{
-		BigPlayerCollision->On();
-		ChangeState(BigPlayerState::Idle);
-		return;
-	}
-}
 
 //////////////////////////////////////// State
 
@@ -565,11 +562,4 @@ void BigPlayer::JumpStart()
 void BigPlayer::FallStart()
 {
 	BigPlayerAnimationRender->ChangeAnimation("BJump-" + BigDirString);
-}
-
-void BigPlayer::DownStart()
-{
-	BigPlayerCollision->Off();
-	BigPlayerAnimationRender->ChangeAnimation("BDown-" + BigDirString);
-	
 }
