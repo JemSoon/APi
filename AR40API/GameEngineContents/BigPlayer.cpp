@@ -367,6 +367,8 @@ void BigPlayer::MonsterHit()
 		Player::MainPlayer->On();
 	
 		Player::MainPlayer->NoHit();
+	
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(244); //내가 이미지 알파 설정을 안함..ㅠ
 
 		Player::MainPlayer->HitTimeCheck();
 	}

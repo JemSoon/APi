@@ -134,6 +134,11 @@ public:
 	}
 
 	void HitTimeCheck();
+	GameEngineRenderer* GetRenderer1()
+	{
+		return PlayerAnimationRender;
+	}
+
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
