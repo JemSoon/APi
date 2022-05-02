@@ -115,7 +115,7 @@ void BigPlayer::Start()
 	BigPlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
-	BigPlayerDownCollision = CreateCollision("BigPlayerDownHitBox", { 50, 80 });
+	BigPlayerDownCollision = CreateCollision("BigPlayerDownHitBox", { 50, 80 },{0,22});
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	BigPlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);

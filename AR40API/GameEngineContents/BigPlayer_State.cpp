@@ -58,7 +58,8 @@ void BigPlayer::IdleUpdate()
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
 		{
-			ChangeState(BigPlayerState::Down);
+			BigPlayerCollision->Off();
+			BigPlayerAnimationRender->ChangeAnimation("BDown-" + BigDirString);
 		}
 
 		if (false == IsMoveKey())
@@ -95,7 +96,14 @@ void BigPlayer::IdleUpdate()
 
 		if (true == GameEngineInput::GetInst()->IsPress("Move Down"))
 		{
-			ChangeState(BigPlayerState::Down);
+			BigPlayerCollision->Off();
+			BigPlayerAnimationRender->ChangeAnimation("BDown-" + BigDirString);
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsUp("Move Down"))
+		{
+			BigPlayerCollision->On();
+			BigPlayerAnimationRender->ChangeAnimation("Bidle-" + BigDirString);
 		}
 
 		if (false == IsMoveKey())

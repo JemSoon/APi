@@ -197,11 +197,11 @@ void SuperMario::GameInit()
 
 			GameEngineImage* Image37 = GameEngineImageManager::GetInst()->Find("big-down-R.bmp");
 
-			Image37->Cut({ 64, 88 });
+			Image37->Cut({ 64, 128 });
 
 			GameEngineImage* Image38 = GameEngineImageManager::GetInst()->Find("big-down-L.bmp");
 
-			Image38->Cut({ 64, 88 });
+			Image38->Cut({ 64, 128 });
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
