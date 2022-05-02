@@ -123,6 +123,10 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
+	//if (true == Player::MainPlayer->IsDeath())
+	//{
+	//	//¸®¼Â
+	//}
 }
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)

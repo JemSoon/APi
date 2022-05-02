@@ -1,9 +1,31 @@
 #pragma once
 #include <math.h>
+#include <Windows.h>
 
 // 설명 :
 class GameEngineMath
 {
+public:
+	static const float PIE;
+	static const float DEG;
+	static const float DegreeToRadian;
+
+	static float Lerp(float p1, float p2, float Time)
+	{
+		return (1.0f - Time) * p1 + Time * p2;
+	}
+
+	// 보통 누적된 시간을 Time
+	static float LerpLimit(float p1, float p2, float Time)
+	{
+		if (1.0f <= Time)
+		{
+			Time = 1.0f;
+		}
+
+		return Lerp(p1, p2, Time);
+	}
+
 private:
 	// constrcuter destructer
 	GameEngineMath();
@@ -15,14 +37,56 @@ private:
 	GameEngineMath& operator=(const GameEngineMath& _Other) = delete;
 	GameEngineMath& operator=(GameEngineMath&& _Other) noexcept = delete;
 
-protected:
-
-private:
 
 };
 
 class float4
 {
+public:
+	static float4 DegreeToDirectionFloat4(float _Degree)
+	{
+		return RadianToDirectionFloat4(_Degree * GameEngineMath::DegreeToRadian);
+	}
+
+	static float4 RadianToDirectionFloat4(float _Radian)
+	{
+		return { cosf(_Radian), sinf(_Radian) };
+	}
+
+	static float4 VectorRotationToDegreeZ(const float4& _Value, float _Degree)
+	{
+		return VectorRotationToRadianZ(_Value, _Degree * GameEngineMath::DegreeToRadian);
+	}
+
+	static float4 VectorRotationToRadianZ(const float4& _Value, float _Radian)
+	{
+		float4 Rot;
+		Rot.x = _Value.x * cosf(_Radian) - _Value.y * sinf(_Radian);
+		Rot.y = _Value.x * sinf(_Radian) + _Value.y * cosf(_Radian);
+		return Rot;
+	}
+
+	static float4 Lerp(float4 p1, float4 p2, float Time)
+	{
+		return p1 * (1.0f - Time) + p2 * Time;
+	}
+
+	// 보통 누적된 시간을 Time
+	static float4 LerpLimit(float4 p1, float4 p2, float Time)
+	{
+		if (1.0f <= Time)
+		{
+			Time = 1.0f;
+		}
+
+		return Lerp(p1, p2, Time);
+	}
+
+	//X = P1X * cosf(40) - P1Y * sinf(40)
+	//Y = P1X * sinf(40) + P1Y * cosf(40)
+
+
+
 public:
 	static float4 LEFT;
 	static float4 RIGHT;
@@ -116,6 +180,7 @@ public:
 
 
 
+
 	float4 operator-(const float4& _Other) const
 	{
 		return { x - _Other.x, y - _Other.y, z - _Other.z, 1.0f };
@@ -134,11 +199,6 @@ public:
 	float4 operator*(const float _Value) const
 	{
 		return { x * _Value, y * _Value, z * _Value, 1.0f };
-	}
-
-	float4 operator*(const float4& _Value) const
-	{
-		return { x * _Value.x, y * _Value.y, z * _Value.z, 1.0f };
 	}
 
 	float4& operator+=(const float4& _Other)
@@ -178,18 +238,36 @@ public:
 		return *this;
 	}
 
-	bool CompareInt2D(const float4& _Value)
+	bool CompareInt2D(const float4& _Value) const
 	{
 		return ix() == _Value.ix() && iy() == _Value.iy();
 	}
 
-	bool CompareInt3D(const float4& _Value)
+	bool CompareInt3D(const float4& _Value) const
 	{
 		return ix() == _Value.ix() &&
 			iy() == _Value.iy() &&
 			iz() == _Value.iz();
 	}
 
+	float4 RotationToDegreeZ(float _Degree)
+	{
+		return RotationToRadianZ(_Degree * GameEngineMath::DegreeToRadian);
+	}
+
+	float4 RotationToRadianZ(float _Radian)
+	{
+		*this = VectorRotationToRadianZ(*this, _Radian);
+		return *this;
+	}
+
+	POINT ToWinAPIPOINT() const
+	{
+		POINT NewPoint;
+		NewPoint.x = ix();
+		NewPoint.y = iy();
+		return NewPoint;
+	}
 
 public:
 	float4()
@@ -223,6 +301,26 @@ public:
 	float4 Scale;
 
 public:
+	float4 CenterLeftTopPoint() const
+	{
+		return { static_cast<float>(CenterLeft()), static_cast<float>(CenterTop()) };
+	}
+
+	float4 CenterLeftBotPoint() const
+	{
+		return { static_cast<float>(CenterLeft()), static_cast<float>(CenterBot()) };
+	}
+
+	float4 CenterRightTopPoint() const
+	{
+		return { static_cast<float>(CenterRight()), static_cast<float>(CenterTop()) };
+	}
+
+	float4 CenterRightBotPoint() const
+	{
+		return { static_cast<float>(CenterRight()), static_cast<float>(CenterBot()) };
+	}
+
 	int CenterLeft() const
 	{
 		return Pos.ix() - Scale.hix();
