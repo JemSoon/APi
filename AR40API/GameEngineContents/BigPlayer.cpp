@@ -1,4 +1,5 @@
 #include "BigPlayer.h"
+#include "Player.h"
 #include "WhitePlayer.h"
 
 #include <GameEngine/GameEngine.h>
@@ -160,6 +161,7 @@ void BigPlayer::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
+	MonsterHit();
 }
 
 
@@ -351,4 +353,20 @@ void BigPlayer::MonsterOnCheck()
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(BigPlayerState::Fall);
 	}
+}
+
+void BigPlayer::MonsterHit()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == BigPlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		
+		MainBigPlayer->Off();
+		Player::MainPlayer->SetPosition(GetPosition());
+		Player::MainPlayer->On();
+
+		Player::MainPlayer->GetCollision();
+	}
+	
 }

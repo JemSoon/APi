@@ -107,11 +107,37 @@ public:
 	void LeftCheck();
 	void RightCheck();
 
-	void TimeCheck();
-
 	void Fire();//총알 발사함수
 
 	void BreakAnimation();
+
+	void GetCollision()
+	{
+
+		Time_ += GameEngineTime::GetDeltaTime();
+		if (Time_ < 1.0f)
+		{
+			PlayerCollision->Off();
+			PlayerHeadCollision->Off();
+			PlayerHeadHitCollision->Off();
+			PlayerFootHitCollision->Off();
+			PlayerFootCollision->Off();
+			PlayerLeftCollision->Off();
+			PlayerRightCollision->Off();
+			return;
+		}
+		else if(Time_ >= 1.1f)
+		{
+			PlayerCollision->On();
+			PlayerHeadCollision->On();
+			PlayerHeadHitCollision->On();
+			PlayerFootHitCollision->On();
+			PlayerFootCollision->On();
+			PlayerLeftCollision->On();
+			PlayerRightCollision->On();
+			int a = 0;
+		}
+	}
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
