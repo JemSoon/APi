@@ -44,7 +44,11 @@ void PlayLevel::Loading()
 
 			//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
 
-			Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });
+			Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });//파이프관
+			Actor->CreateCollision("Die", { 128,5 }, { 4480,957 });//절벽
+			Actor->CreateCollision("Die", { 192,5 }, { 5600,957 });//절벽
+			Actor->CreateCollision("Die", { 128,5 }, { 9858,957 });//절벽
+			Actor->CreateCollision("Flag", { 8,607 }, { 12704,460 });//깃발
 
 		}
 
@@ -176,13 +180,13 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
-	{
-		//리셋
-		Reset();
-		GameEngine::GetInst().ChangeLevel("Intro");
-		int a = 0;
-	}
+	//if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
+	//{
+	//	//리셋
+	//	Reset();
+	//	GameEngine::GetInst().ChangeLevel("Intro");
+	//	int a = 0;
+	//}
 }
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)

@@ -100,6 +100,7 @@ public:
 
 	bool IsMoveKey();
 	void CameraOutCheck();
+	void FallDead();
 
 	//===내가 추가한 퍼블릭 함수===//
 	void FootCheck();//발 위치 확인용

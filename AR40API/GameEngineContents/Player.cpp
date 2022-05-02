@@ -111,7 +111,7 @@ void Player::Start()
 	SetScale({ 64,64 });
 
 	//몬스터 카메라 범위안에 있을때 움직이기용					 1300
-	PlayerCameraCollision = CreateCollision("PlayerCamera", {1400, 2048 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
+	PlayerCameraCollision = CreateCollision("PlayerCamera", {0, 2048 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
 	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });//박스 충돌용(1개만 충돌하게끔)
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
@@ -160,6 +160,7 @@ void Player::Update()
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
+	FallDead();
 
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -371,6 +372,20 @@ void Player::MonsterHit()
 	std::vector<GameEngineCollision*> ColList;
 
 	if (true == PlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(GetPosition());
+		PlayerCollision->GetActor()->Death();
+		//ChangeState(PlayerState::Dead);
+		return;
+	}
+}
+
+void Player::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
 		die->SetPosition(GetPosition());
