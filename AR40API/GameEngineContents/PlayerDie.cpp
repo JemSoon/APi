@@ -12,6 +12,7 @@
 
 PlayerDie::PlayerDie()
 	:MoveDir(float4::ZERO)
+	,Time(0.0f)
 {
 
 }
@@ -27,21 +28,6 @@ void PlayerDie::Start()
 	PlayerAnimationRender->CreateAnimation("die.bmp", "Die", 0, 0, 0.0f, false);
 
 	PlayerAnimationRender->ChangeAnimation("Die");
-
-	Time = 0.0f;
-	Time += GameEngineTime::GetDeltaTime();
-
-	if (1.0 <= Time)
-	{
-		MoveDir += float4::UP * 20.0f;
-		Time = 0.0f;
-		
-	}
-	if (1.5 <= Time)
-	{
-		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime(1.0) * 20.0f;
-		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
-	}
 	
 }
 
@@ -51,10 +37,19 @@ void PlayerDie::Render()
 
 void PlayerDie::Update()
 {
-	//if (1.5 <= Time)
-	//{
-	//	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime(1.0) * 20.0f;
-	//	SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
-	//}
+	Time =Time + GameEngineTime::GetDeltaTime();
+	if (0.8 <= Time)
+	{
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 1.0f;
+		MoveDir += float4::UP * GameEngineTime::GetDeltaTime() * 100.0f;
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
+	}
+	if (1.4 <= Time)
+	{
+		MoveDir.y = 0.0f;
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * 20000.0f;
+		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
+	}
+
 }
 
