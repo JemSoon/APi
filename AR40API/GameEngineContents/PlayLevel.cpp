@@ -71,18 +71,71 @@ void PlayLevel::Loading()
 
 		{
 			//1스테이지의 몬스터 로드
-			//Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
-			////Player->SetPosition(GameEngineWindow::GetScale().Half());
-			//Gumba->SetPosition({ 320.0f,740.0f });
-			//
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba1->SetPosition({ 685.0f,740.0f });
-
-			//카메라 인식 테스트용
+			Gumba1->SetPosition({ 1408.0f,771.0f });
+			
 			Monster* Gumba2 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba2->SetPosition({ 4830.0f,810.0f });
+			Gumba2->SetPosition({ 2585.0f,771.0f });
+
+			Monster* Gumba3 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba3->SetPosition({ 3264.0f,771.0f });
+
+			Monster* Gumba4 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba4->SetPosition({ 3360.0f,771.0f });
+
+			Monster* Gumba5 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba5->SetPosition({ 5120.0f,258.0f });
+
+			Monster* Gumba6 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba6->SetPosition({ 5248.0f,258.0f });
+
+			Monster* Gumba7 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba7->SetPosition({ 6206.0f,771.0f });
+
+			Monster* Gumba8 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba8->SetPosition({ 6304.0f,771.0f });
+
+			Monster* Gumba9 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba9->SetPosition({ 7296.0f,771.0f });
+
+			Monster* Gumba10 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba10->SetPosition({ 7392.0f,771.0f });
+
+			Monster* Gumba11 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba11->SetPosition({ 7935.0f,771.0f });
+
+			Monster* Gumba12 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba12->SetPosition({ 8030.0f,771.0f });
+
+			Monster* Gumba13 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba13->SetPosition({ 8192.0f,771.0f });
+
+			Monster* Gumba14 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba14->SetPosition({ 8290.0f,771.0f });
+
+			Monster* Gumba15 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba15->SetPosition({ 11136.0f,771.0f });
+
+			Monster* Gumba16 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba16->SetPosition({ 11232.0f,771.0f });
+
+
 		}
 
 		{
@@ -126,6 +179,7 @@ void PlayLevel::Update()
 	//if (true == Player::MainPlayer->IsDeath())
 	//{
 	//	//리셋
+	//	Reset();
 	//}
 }
 
