@@ -248,7 +248,7 @@ void WhitePlayer::CameraOutCheck()
 
 	float MapSizeX = 13504;//맵 가로 오른쪽 끝
 	float MapSizeY = 960;//맵 세로 끝
-	float CameraRectY = 720;//카메라 세로 끝
+	float CameraRectY = 960;//카메라 세로 끝
 	float CameraRectX = 1280;
 
 	if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)

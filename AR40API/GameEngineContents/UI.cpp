@@ -28,7 +28,7 @@ void UI::Start()
 
 		float4 UIPivot = GameEngineWindow::GetScale().Half();
 		UIPivot.x = 0.0f;
-		UIPivot.y = -333.0f;// Renderer->GetImage()->GetScale().Half().y;//반 아래로 내림
+		UIPivot.y = -450.0f;// Renderer->GetImage()->GetScale().Half().y;//반 아래로 내림
 
 		Renderer->SetPivot(UIPivot);
 
