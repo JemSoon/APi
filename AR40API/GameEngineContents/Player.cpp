@@ -427,10 +427,3 @@ void Player::Muuzuk()
 		PlayerCollision->Off();
 	}
 }
-void Player::Yuuzuk()
-{
-	if (true == GameEngineInput::GetInst()->IsDown("OnHit"))
-	{
-		PlayerCollision->On();
-	}
-}
