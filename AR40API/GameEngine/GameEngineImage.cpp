@@ -281,8 +281,10 @@ void GameEngineImage::Cut(const float4& _CutSize)
 
 }
 
+
 int GameEngineImage::GetImagePixel(int _x, int _y)
-{	//화면 바깥의 픽셀은 빨간색으로 설정(못나가게 벽으로)
+{
+	//화면 바깥의 픽셀은 빨간색으로 설정(못나가게 벽으로)
 	if (0 > _x)
 	{
 		return RGB(255, 0, 0);
@@ -303,10 +305,5 @@ int GameEngineImage::GetImagePixel(int _x, int _y)
 		return RGB(255, 0, 0);
 	}
 
-	return GetPixel(ImageDC_, _x, _y);
-}
-
-int GameEngineImage::GetImagePixel(int _x, int _y)
-{
 	return GetPixel(ImageDC_, _x, _y);
 }
