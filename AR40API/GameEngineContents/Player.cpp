@@ -3,6 +3,8 @@
 #include "WhitePlayer.h"
 #include "PlayerDie.h"
 
+#include "TurtleBack.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -159,6 +161,7 @@ void Player::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
+	TurtleOnCheck();
 	MonsterHit();
 	FallDead();
 
@@ -239,6 +242,20 @@ void Player::MonsterOnCheck()
 		ChangeState(PlayerState::Fall);
 	}
 }
+
+void Player::TurtleOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerFootHitCollision->CollisionResult("TurtleHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		MainPlayer->JumpStart();
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(PlayerState::Fall);
+	}
+}
+
+
 
 //랜더러가 다 돌아가고 랜더링 된다
 void Player::Render()
@@ -380,6 +397,7 @@ void Player::MonsterHit()
 		return;
 	}
 }
+
 
 void Player::FallDead()
 {

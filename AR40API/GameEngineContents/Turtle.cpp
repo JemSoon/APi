@@ -1,4 +1,6 @@
 #include "Turtle.h"
+#include "TurtleBack.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -28,7 +30,7 @@ void Turtle::Start()
 	SetScale({ 64,64 });
 
 	TurtleCollision = CreateCollision("MonsterHitBox", { 64, 64 },{0,20});
-	TurtleTopCollision = CreateCollision("MonsterHead", { 64, 2 }, { 0,-20 });
+	TurtleTopCollision = CreateCollision("TurtleHead", { 64, 2 }, { 0,-20 });
 	TurtleLeftCollision = CreateCollision("MonsterLeft", { 2, 64 }, { -32,20 });
 	TurtleRightCollision = CreateCollision("MonsterRight", { 2, 64 }, { 32,20 });
 
@@ -50,7 +52,7 @@ void Turtle::Render()
 void Turtle::Update()
 {
 	DirCheck();
-
+	PlayerAttack();
 	{
 		//if (false == TurtleCollision->CollisionCheck("PlayerCamera"))
 		//{
@@ -174,5 +176,17 @@ void Turtle::DirCheck()
 	{
 		DirString_ = "R";
 		TurtleAnimationRender->ChangeAnimation("turtle-walk-" + DirString_);
+	}
+}
+
+void Turtle::PlayerAttack()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == TurtleTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		TurtleBack* TB = GetLevel()->CreateActor<TurtleBack>();
+		TB->SetPosition(GetPosition()+float4{0,16});
+		TurtleTopCollision->GetActor()->Off();
 	}
 }

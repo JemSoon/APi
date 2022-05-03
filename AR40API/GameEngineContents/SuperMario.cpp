@@ -223,6 +223,10 @@ void SuperMario::GameInit()
 
 			Image43->CutCount(2, 1);
 
+			GameEngineImage* Image45 = GameEngineImageManager::GetInst()->Find("turtle-back.bmp");
+
+			Image45->Cut({ 64, 64 });
+
 			GameEngineImage* Image44 = GameEngineImageManager::GetInst()->Find("UI-Coin-icon.bmp");
 
 			Image44->CutCount(3, 1);

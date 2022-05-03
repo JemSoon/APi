@@ -94,7 +94,9 @@ public:
 	void WallCheck();
 	void MushroomCheck();
 	void FireFlowerCheck();
+	
 	void MonsterOnCheck();
+	void TurtleOnCheck();
 
 	void MonsterHit();
 
