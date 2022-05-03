@@ -227,7 +227,48 @@ void SuperMario::GameInit()
 
 			Image44->CutCount(3, 1);
 
+			GameEngineImage* N1 = GameEngineImageManager::GetInst()->Find("1.bmp");
+
+			N1->Cut({ 20, 20 });
+
+			GameEngineImage* N2 = GameEngineImageManager::GetInst()->Find("2.bmp");
+
+			N2->Cut({ 20, 20 });
+
+			GameEngineImage* N3 = GameEngineImageManager::GetInst()->Find("3.bmp");
+
+			N3->Cut({ 20, 20 });
+
+			GameEngineImage* N4 = GameEngineImageManager::GetInst()->Find("4.bmp");
+
+			N4->Cut({ 20, 20 });
+
+			GameEngineImage* N5 = GameEngineImageManager::GetInst()->Find("5.bmp");
+
+			N5->Cut({ 20, 20 });
+
+			GameEngineImage* N6 = GameEngineImageManager::GetInst()->Find("6.bmp");
+
+			N6->Cut({ 20, 20 });
+
+			GameEngineImage* N7 = GameEngineImageManager::GetInst()->Find("7.bmp");
+
+			N7->Cut({ 20, 20 });
+
+			GameEngineImage* N8 = GameEngineImageManager::GetInst()->Find("8.bmp");
+
+			N8->Cut({ 20, 20 });
+
+			GameEngineImage* N9 = GameEngineImageManager::GetInst()->Find("9.bmp");
+
+			N9->Cut({ 20, 20 });
+
+			GameEngineImage* N0 = GameEngineImageManager::GetInst()->Find("0.bmp");
+
+			N0->Cut({ 20, 20 });
+
 		}
+
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))
 	{	//false면 만들어진 적 없는 키 이다

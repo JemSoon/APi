@@ -50,6 +50,38 @@ void UI::Start()
 		Renderer->CameraEffectOff();//UI는 카메라 영향안받는다
 	}
 
+	{
+		{
+			//코인 개수
+			GameEngineRenderer* Ten = CreateRenderer((int)ORDER::UI);
+			Ten->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+			Ten->ChangeAnimation("0");
+
+
+			float4 UIPivot = GameEngineWindow::GetScale().Half();
+			UIPivot.x = -192.0f;
+			UIPivot.y = -440.0f;
+
+			Ten->SetPivot(UIPivot);
+
+			Ten->CameraEffectOff();//UI는 카메라 영향안받는다
+		}
+		{
+			//코인 개수
+			GameEngineRenderer* One = CreateRenderer((int)ORDER::UI);
+			One->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+			One->ChangeAnimation("0");
+
+
+			float4 UIPivot = GameEngineWindow::GetScale().Half();
+			UIPivot.x = -168.0f;
+			UIPivot.y = -440.0f;
+
+			One->SetPivot(UIPivot);
+
+			One->CameraEffectOff();//UI는 카메라 영향안받는다
+		}
+	}
 	//Pos.y *= 2.0f;
 
 	//SetScale(GameEngineWindow::GetScale());
