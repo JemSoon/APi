@@ -86,6 +86,9 @@
     <ClCompile Include="Turtle.cpp">
       <Filter>Play\Mon</Filter>
     </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="Turtle.h">
       <Filter>Play\Mon</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

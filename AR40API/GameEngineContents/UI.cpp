@@ -4,7 +4,8 @@
 
 UI* UI::MainUI = nullptr;
 
-UI::UI()
+UI::UI():
+	CoinCount_(0)
 {
 
 }
@@ -50,11 +51,21 @@ void UI::Start()
 		Renderer->CameraEffectOff();//UI는 카메라 영향안받는다
 	}
 
-	{
+	{	//=================코인 개수 숫자 렌더링==================
 		{
-			//코인 개수
+			//코인 개수(십의 자리)
 			GameEngineRenderer* Ten = CreateRenderer((int)ORDER::UI);
 			Ten->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("3.bmp", "3", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("4.bmp", "4", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("5.bmp", "5", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("6.bmp", "6", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("7.bmp", "7", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
+			Ten->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
+
 			Ten->ChangeAnimation("0");
 
 
@@ -67,9 +78,19 @@ void UI::Start()
 			Ten->CameraEffectOff();//UI는 카메라 영향안받는다
 		}
 		{
-			//코인 개수
+			//코인 개수(일의 자리)
 			GameEngineRenderer* One = CreateRenderer((int)ORDER::UI);
 			One->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+			One->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
+			One->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
+			One->CreateAnimation("3.bmp", "3", 0, 0, 0.0f, false);
+			One->CreateAnimation("4.bmp", "4", 0, 0, 0.0f, false);
+			One->CreateAnimation("5.bmp", "5", 0, 0, 0.0f, false);
+			One->CreateAnimation("6.bmp", "6", 0, 0, 0.0f, false);
+			One->CreateAnimation("7.bmp", "7", 0, 0, 0.0f, false);
+			One->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
+			One->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
+
 			One->ChangeAnimation("0");
 
 

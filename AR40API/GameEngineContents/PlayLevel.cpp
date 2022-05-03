@@ -19,6 +19,7 @@
 #include "Box.h"
 #include "Block.h"
 #include "FireFlower.h"
+#include "Coin.h"
 
 PlayLevel::PlayLevel()
 {
@@ -166,6 +167,17 @@ void PlayLevel::Loading()
 			Block2->SetPosition({ 312.0f,600.0f });
 		}
 
+		{
+			//코인 테스트
+			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin1->SetPosition({ 400.0f,500.0f });
+		
+			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin2->SetPosition({ 464.0f,500.0f });
+	
+			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin3->SetPosition({ 518.0f,500.0f });
+		}
 	}
  }
 

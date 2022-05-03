@@ -17,7 +17,10 @@ public:
 	//디폴트 소멸자
 	~UI();
 
-	
+	int GetCoinCount()
+	{
+		return CoinCount_;
+	}
 	
 	
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
@@ -37,5 +40,6 @@ protected:
 	//void Render() override;
 private:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
+	int CoinCount_;
 };
 
