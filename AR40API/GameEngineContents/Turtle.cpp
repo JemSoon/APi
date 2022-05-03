@@ -119,6 +119,7 @@ void Turtle::Update()
 
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
+		FallDead();
 		AnotherTurtleCheck();
 	}
 }
@@ -188,5 +189,15 @@ void Turtle::PlayerAttack()
 		TurtleBack* TB = GetLevel()->CreateActor<TurtleBack>();
 		TB->SetPosition(GetPosition()+float4{0,16});
 		TurtleTopCollision->GetActor()->Off();
+	}
+}
+
+void Turtle::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == TurtleCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		TurtleCollision->GetActor()->Death();
 	}
 }

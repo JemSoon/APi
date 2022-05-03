@@ -59,5 +59,7 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void PlayerAttack();
+
+	void FallDead();
 };
 

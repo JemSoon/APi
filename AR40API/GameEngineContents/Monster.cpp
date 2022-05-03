@@ -113,6 +113,7 @@ void Monster::Update()
 
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
+		FallDead();
 		AnotherMonsterCheck();
 	}
 }
@@ -154,5 +155,15 @@ void Monster::AnotherMonsterCheck()
 	else if (true == MonsterRightCollision->CollisionResult("MonsterLeft", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		MoveDir_.x = MoveDir_.x * -1;
+	}
+}
+
+void Monster::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == MonsterCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		MonsterCollision->GetActor()->Death();
 	}
 }

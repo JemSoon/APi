@@ -61,6 +61,7 @@ public:
 	void FootCheck();
 	void LeftCheck();
 	void RightCheck();
+	void FallDead();
 
 	void AnotherMonsterCheck();
 };

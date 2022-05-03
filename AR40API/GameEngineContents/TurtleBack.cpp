@@ -165,3 +165,13 @@ void TurtleBack::PlayerAttack()
 	//	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
 	//}
 }
+
+void TurtleBack::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == TBCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		TBCollision->GetActor()->Death();
+	}
+}

@@ -65,6 +65,8 @@ public:
 
 	void PlayerAttack();
 
+	void FallDead();
+
 	void AnotherTurtleCheck();
 };
 
