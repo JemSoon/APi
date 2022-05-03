@@ -119,7 +119,7 @@ void Player::Start()
 	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 0 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 63 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 63 }, { 32,0 });
-	PlayerCollision = CreateCollision("PlayerHitBox", { 62, 62 });
+	PlayerCollision = CreateCollision("PlayerHitBox", { 50, 60 });
 
 	//애니메이션을 하나라도 만들면 애니메이션도 재생된다
 	PlayerAnimationRender = CreateRenderer((int)ORDER::PLAYER);

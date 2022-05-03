@@ -166,6 +166,7 @@ void WhitePlayer::Update()
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
+	FallDead();
 
 	//HitTime_ -= GameEngineTime::GetDeltaTime();
 
@@ -176,12 +177,14 @@ void WhitePlayer::WallCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == WhitePlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == WhitePlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect) &&
+		true == GameEngineInput::GetInst()->IsPress("Move Down"))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
 		}
+		GameEngine::GetInst().ChangeLevel("Pipe1");
 	}
 }
 

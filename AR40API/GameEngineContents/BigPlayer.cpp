@@ -164,6 +164,7 @@ void BigPlayer::Update()
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
+	FallDead();
 
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	if (HitTime_ < 0.0f)
