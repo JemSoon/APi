@@ -117,22 +117,12 @@ public:
 	void NoHit()
 	{
 		PlayerCollision->Off();
-		PlayerHeadCollision->Off();
-		PlayerHeadHitCollision->Off();
-		PlayerFootHitCollision->Off();
-		PlayerFootCollision->Off();
-		PlayerLeftCollision->Off();
-		PlayerRightCollision->Off();
+	
 	}
 	void OnHit() 
 	{
 		PlayerCollision->On();
-		PlayerHeadCollision->On();
-		PlayerHeadHitCollision->On();
-		PlayerFootHitCollision->On();
-		PlayerFootCollision->On();
-		PlayerLeftCollision->On();
-		PlayerRightCollision->On();
+
 
 	}
 

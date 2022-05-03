@@ -109,14 +109,12 @@ public:
 	void FallDead();
 	void BreakAnimation();
 
-
-	void HitTimeCheck();
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
-	float HitTime_;
+	//float HitTime_;
 
 	//점프 방향 설정용
 	std::string WhiteDirString_;//지금 방향

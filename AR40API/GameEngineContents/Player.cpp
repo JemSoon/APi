@@ -207,6 +207,8 @@ void Player::MushroomCheck()
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
+		MainPlayer->MoveDir = float4::ZERO;
+		MainPlayer->ChangeState(PlayerState::Idle);
 		MainPlayer->Off();
 		BigPlayer::MainBigPlayer->SetPosition(GetPosition() + float4{ 0, -32 });
 		BigPlayer::MainBigPlayer->On();
@@ -222,6 +224,8 @@ void Player::FireFlowerCheck()
 		{
 			ColList[i]->GetActor()->Death();//³ª¶û Ãæµ¹ÇÑ ÅÛÀº »ç¶óÁü
 		}
+		MainPlayer->MoveDir = float4::ZERO;
+		MainPlayer->ChangeState(PlayerState::Idle);
 		MainPlayer->Off();
 		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition() + float4{ 0, -32 });
 		WhitePlayer::MainWhitePlayer->On();

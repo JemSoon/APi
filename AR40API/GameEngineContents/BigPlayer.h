@@ -109,23 +109,12 @@ public:
 	void NoHit()
 	{
 		BigPlayerCollision->Off();
-		BigPlayerHeadCollision->Off();
-		BigPlayerHeadHitCollision->Off();
-		BigPlayerFootHitCollision->Off();
-		BigPlayerFootCollision->Off();
-		BigPlayerLeftCollision->Off();
-		BigPlayerRightCollision->Off();
+		BigPlayerDownCollision->Off();
 	}
 	void OnHit()
 	{
 		BigPlayerCollision->On();
-		BigPlayerHeadCollision->On();
-		BigPlayerHeadHitCollision->On();
-		BigPlayerFootHitCollision->On();
-		BigPlayerFootCollision->On();
-		BigPlayerLeftCollision->On();
-		BigPlayerRightCollision->On();
-
+		BigPlayerDownCollision->On();
 	}
 
 	void HitTimeCheck();

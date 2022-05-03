@@ -215,6 +215,8 @@ void BigPlayer::FireFlowerCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
 		}
+		MainBigPlayer->MoveDir = float4::ZERO;
+		MainBigPlayer->ChangeState(BigPlayerState::Idle);
 		MainBigPlayer->Off();
 		WhitePlayer::MainWhitePlayer->SetPosition(GetPosition());
 		WhitePlayer::MainWhitePlayer->On();
@@ -353,11 +355,11 @@ void BigPlayer::MonsterHit()
 
 	if (true == BigPlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		
+		MainBigPlayer->MoveDir = float4::ZERO;
+		MainBigPlayer->ChangeState(BigPlayerState::Idle);
 		MainBigPlayer->Off();
 		Player::MainPlayer->SetPosition(GetPosition());
 		Player::MainPlayer->On();
-	
 		Player::MainPlayer->NoHit();
 	
 		//Player::MainPlayer->GetRenderer1()->SetAlpha(244); //내가 이미지 알파 설정을 안함..ㅠ

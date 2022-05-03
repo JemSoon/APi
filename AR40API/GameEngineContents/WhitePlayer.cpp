@@ -22,7 +22,7 @@ WhitePlayer::WhitePlayer()
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
 	, WhiteDirString_("R")
-	, HitTime_(0.0f)
+	
 
 {
 
@@ -165,6 +165,10 @@ void WhitePlayer::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
+	MonsterHit();
+
+	//HitTime_ -= GameEngineTime::GetDeltaTime();
+
 }
 
 
@@ -365,7 +369,8 @@ void WhitePlayer::MonsterHit()
 
 	if (true == WhitePlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-
+		MainWhitePlayer->MoveDir = float4::ZERO;
+		MainWhitePlayer->ChangeState(WhitePlayerState::Idle);
 		MainWhitePlayer->Off();
 		BigPlayer::MainBigPlayer->SetPosition(GetPosition());
 		BigPlayer::MainBigPlayer->On();
@@ -393,10 +398,10 @@ void WhitePlayer::FallDead()
 	}
 }
 
-void WhitePlayer::HitTimeCheck()
-{
-	MainWhitePlayer->HitTime_ = 3.0f;
-}
+//void WhitePlayer::HitTimeCheck()
+//{
+//	MainWhitePlayer->HitTime_ = 3.0f;
+//}
 
 
 void WhitePlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
