@@ -222,6 +222,11 @@ void SuperMario::GameInit()
 			GameEngineImage* Image43 = GameEngineImageManager::GetInst()->Find("turtle-R.bmp");
 
 			Image43->CutCount(2, 1);
+
+			GameEngineImage* Image44 = GameEngineImageManager::GetInst()->Find("UI-Coin-icon.bmp");
+
+			Image44->CutCount(3, 1);
+
 		}
 	}
 	if (false == GameEngineInput::GetInst()->IsKey("Play1"))

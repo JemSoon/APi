@@ -34,6 +34,22 @@ void UI::Start()
 
 		Renderer->CameraEffectOff();//UI는 카메라 영향안받는다
 	}
+
+	{	//코인 반짝반짝
+		GameEngineRenderer* Renderer = CreateRenderer((int)ORDER::UI);
+		Renderer->CreateAnimation("UI-Coin-icon.bmp", "UI-Coin", 0, 2, 0.3f, true);
+		Renderer->ChangeAnimation("UI-Coin");
+	
+	
+		float4 UIPivot = GameEngineWindow::GetScale().Half();
+		UIPivot.x = -240.0f;
+		UIPivot.y = -440.0f;
+	
+		Renderer->SetPivot(UIPivot);
+	
+		Renderer->CameraEffectOff();//UI는 카메라 영향안받는다
+	}
+
 	//Pos.y *= 2.0f;
 
 	//SetScale(GameEngineWindow::GetScale());
