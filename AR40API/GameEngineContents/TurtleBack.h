@@ -49,7 +49,8 @@ private:
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* TBCollision;
-	GameEngineCollision* TBTopCollision;
+	GameEngineCollision* TBTopLeftCollision;
+	GameEngineCollision* TBTopRightCollision;
 	GameEngineCollision* TBLeftCollision;
 	GameEngineCollision* TBRightCollision;
 
@@ -57,6 +58,6 @@ public:
 	void FootCheck();
 	void LeftCheck();
 	void RightCheck();
-
+	void PlayerAttack();
 };
 
