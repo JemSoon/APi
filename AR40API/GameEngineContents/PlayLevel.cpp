@@ -187,13 +187,13 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	//if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
-	//{
-	//	//리셋
-	//	Reset();
-	//	GameEngine::GetInst().ChangeLevel("Intro");
-	//	int a = 0;
-	//}
+	if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
+	{
+		//리셋
+		Reset();
+		GameEngine::GetInst().ChangeLevel("Intro");
+		int a = 0;
+	}
 }
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
