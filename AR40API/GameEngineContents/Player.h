@@ -110,6 +110,9 @@ public:
 	void LeftCheck();
 	void RightCheck();
 
+	void Muuzuk();
+	void Yuuzuk();
+
 	void Fire();//총알 발사함수
 
 	void BreakAnimation();

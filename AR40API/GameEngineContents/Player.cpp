@@ -143,7 +143,8 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
-		GameEngineInput::GetInst()->CreateKey("Run", 'C');
+		GameEngineInput::GetInst()->CreateKey("NoHit", 'C');
+		GameEngineInput::GetInst()->CreateKey("OnHit", 'E');
 		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
 
@@ -170,6 +171,7 @@ void Player::Update()
 	{
 		OnHit();
 	}
+	Muuzuk();
 }
 
 
@@ -416,4 +418,19 @@ void Player::HitTimeCheck()
 {
 
 	MainPlayer->HitTime_ = 3.0f;
+}
+
+void Player::Muuzuk()
+{
+	if (true == GameEngineInput::GetInst()->IsPress("NoHit"))
+	{
+		PlayerCollision->Off();
+	}
+}
+void Player::Yuuzuk()
+{
+	if (true == GameEngineInput::GetInst()->IsDown("OnHit"))
+	{
+		PlayerCollision->On();
+	}
 }
