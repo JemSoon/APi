@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/GameEngineActor.h>
 #include "ContentsEnum.h"
+#include <GameEngine/GameEngineCollision.h>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -18,7 +19,6 @@ enum class WhitePlayerState
 
 //설명 : 
 class GameEngineImage;
-class GameEngineCollision;
 class WhitePlayer : public GameEngineActor
 {
 public:
@@ -92,6 +92,9 @@ public:
 	void WallCheck();
 	void MushroomCheck();
 	void FireFlowerCheck();
+	void MonsterOnCheck();
+
+	void MonsterHit();
 
 	bool IsMoveKey();
 	void CameraOutCheck();
@@ -102,14 +105,18 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void Fire();//총알 발사함수
-	void BreakAnimation();
-	void MonsterOnCheck();
 
+	void FallDead();
+	void BreakAnimation();
+
+
+	void HitTimeCheck();
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
+	float HitTime_;
 
 	//점프 방향 설정용
 	std::string WhiteDirString_;//지금 방향

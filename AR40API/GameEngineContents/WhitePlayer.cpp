@@ -1,4 +1,6 @@
 #include "WhitePlayer.h"
+#include "BigPlayer.h"
+#include "PlayerDie.h"
 
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
@@ -20,6 +22,7 @@ WhitePlayer::WhitePlayer()
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
 	, WhiteDirString_("R")
+	, HitTime_(0.0f)
 
 {
 
@@ -220,10 +223,6 @@ void WhitePlayer::Render()
 
 }
 
-void WhitePlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	MainWhitePlayer = this;
-}
 
 void WhitePlayer::CameraOutCheck()
 {
@@ -359,3 +358,49 @@ void WhitePlayer::MonsterOnCheck()
 		ChangeState(WhitePlayerState::Fall);
 	}
 }
+
+void WhitePlayer::MonsterHit()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == WhitePlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+
+		MainWhitePlayer->Off();
+		BigPlayer::MainBigPlayer->SetPosition(GetPosition());
+		BigPlayer::MainBigPlayer->On();
+
+		BigPlayer::MainBigPlayer->NoHit();
+
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(244); //내가 이미지 알파 설정을 안함..ㅠ
+
+		BigPlayer::MainBigPlayer->HitTimeCheck();
+	}
+
+}
+
+void WhitePlayer::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == WhitePlayerCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(GetPosition());
+		WhitePlayerCollision->GetActor()->Death();
+		//ChangeState(PlayerState::Dead);
+		return;
+	}
+}
+
+void WhitePlayer::HitTimeCheck()
+{
+	MainWhitePlayer->HitTime_ = 3.0f;
+}
+
+
+void WhitePlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainWhitePlayer = this;
+}
+

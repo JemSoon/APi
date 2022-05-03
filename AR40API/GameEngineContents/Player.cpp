@@ -342,22 +342,6 @@ void Player::RightCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);//한픽셀 앞을 체크하자..점프가안되..
 }
 
-void Player::Fire()
-{
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		SetScale({ 32,32 });
-
-		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-		Ptr->SetPosition(GetPosition());
-		Ptr->SetDir(CurDir());
-	}
-}
-
-void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	MainPlayer = this;
-}
 
 void Player::BreakAnimation()
 {
@@ -426,4 +410,9 @@ void Player::Muuzuk()
 	{
 		PlayerCollision->Off();
 	}
+}
+
+void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainPlayer = this;
 }

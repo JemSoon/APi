@@ -27,7 +27,7 @@ void Box::Start()
 	SetScale({ 64,64 });
 
 	BoxCollision = CreateCollision("Box", { 64, 64 });
-	BoxBotCollision = CreateCollision("BoxBot", { 64, 2 },{0,32});
+	BoxBotCollision = CreateCollision("BoxBot", { 64, 2 },{0,33});
 	BoxTopCollision = CreateCollision("BoxTop", { 64, 2 }, { 0,-32 });
 	BoxLeftCollision = CreateCollision("BoxLeft", { 1, 64 }, { -32 , 0 });
 	BoxRightCollision = CreateCollision("BoxRight", { 1, 64 }, { 32 , 0 });
@@ -64,7 +64,7 @@ void Box::PlayerCheck()
 		BoxCollision->GetActor()->Off();
 	}
 
-	else if (true == BoxCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	else if (true == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
@@ -73,7 +73,7 @@ void Box::PlayerCheck()
 		BoxCollision->GetActor()->Off();
 	}
 
-	else if (true == BoxCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	else if (true == BoxBotCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());

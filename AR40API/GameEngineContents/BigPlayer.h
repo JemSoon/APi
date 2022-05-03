@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/GameEngineActor.h>
 #include "ContentsEnum.h"
+#include <GameEngine/GameEngineCollision.h>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -18,7 +19,6 @@ enum class BigPlayerState
 
 //설명 : 
 class GameEngineImage;
-class GameEngineCollision;
 class BigPlayer : public GameEngineActor
 {
 public:
@@ -91,6 +91,8 @@ public:
 	void FireFlowerCheck();
 	void MonsterOnCheck();
 
+	void MonsterHit();
+
 	bool IsMoveKey();
 	void CameraOutCheck();
 
@@ -99,10 +101,40 @@ public:
 	void HeadCheck();
 	void LeftCheck();
 	void RightCheck();
-	void Fire();//총알 발사함수
+
+	void FallDead();
 
 	void BreakAnimation();
-	void MonsterHit();
+
+	void NoHit()
+	{
+		BigPlayerCollision->Off();
+		BigPlayerHeadCollision->Off();
+		BigPlayerHeadHitCollision->Off();
+		BigPlayerFootHitCollision->Off();
+		BigPlayerFootCollision->Off();
+		BigPlayerLeftCollision->Off();
+		BigPlayerRightCollision->Off();
+	}
+	void OnHit()
+	{
+		BigPlayerCollision->On();
+		BigPlayerHeadCollision->On();
+		BigPlayerHeadHitCollision->On();
+		BigPlayerFootHitCollision->On();
+		BigPlayerFootCollision->On();
+		BigPlayerLeftCollision->On();
+		BigPlayerRightCollision->On();
+
+	}
+
+	void HitTimeCheck();
+
+	//알파용
+	GameEngineRenderer* GetRenderer1()
+	{
+		return BigPlayerAnimationRender;
+	}
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
@@ -110,6 +142,7 @@ private:
 	float4 CheckPos_;
 	int Color_;
 	float Time_;
+	float HitTime_;
 
 	//점프 방향 설정용
 	std::string BigDirString;//지금 방향

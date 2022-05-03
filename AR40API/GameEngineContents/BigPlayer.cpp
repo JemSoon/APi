@@ -1,6 +1,7 @@
 #include "BigPlayer.h"
 #include "Player.h"
 #include "WhitePlayer.h"
+#include "PlayerDie.h"
 
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
@@ -22,6 +23,7 @@ BigPlayer::BigPlayer()
 	, MoveDir(float4::ZERO)
 	, BigPlayerDir_(float4::RIGHT)
 	, BigDirString("R")
+	, HitTime_(0.0f)
 
 {
 
@@ -106,7 +108,7 @@ void BigPlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 1400, 2048 }, { 200, -50 });
+	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 0, 2048 }, { 200, -50 });
 
 	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
@@ -162,6 +164,12 @@ void BigPlayer::Update()
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
+
+	HitTime_ -= GameEngineTime::GetDeltaTime();
+	if (HitTime_ < 0.0f)
+	{
+		OnHit();
+	}
 }
 
 
@@ -220,10 +228,6 @@ void BigPlayer::Render()
 
 }
 
-void BigPlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	MainBigPlayer = this;
-}
 
 void BigPlayer::CameraOutCheck()
 {
@@ -301,18 +305,6 @@ void BigPlayer::RightCheck()
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);
 }
 
-void BigPlayer::Fire()
-{
-	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
-	{
-		SetScale({ 32,32 });
-
-		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
-		Ptr->SetPosition(GetPosition());
-		Ptr->SetDir(CurDir());
-	}
-}
-
 void BigPlayer::BreakAnimation()
 {
 	{	//왼쪽에서 오른쪽으로 틀때
@@ -373,4 +365,28 @@ void BigPlayer::MonsterHit()
 		Player::MainPlayer->HitTimeCheck();
 	}
 	
+}
+
+void BigPlayer::FallDead()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == BigPlayerCollision->CollisionResult("Die", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(GetPosition());
+		BigPlayerCollision->GetActor()->Death();
+		//ChangeState(PlayerState::Dead);
+		return;
+	}
+}
+
+void BigPlayer::HitTimeCheck()
+{
+	MainBigPlayer->HitTime_ = 3.0f;
+}
+
+void BigPlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	MainBigPlayer = this;
 }

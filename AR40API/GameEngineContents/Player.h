@@ -112,8 +112,6 @@ public:
 
 	void Muuzuk();
 
-	void Fire();//총알 발사함수
-
 	void BreakAnimation();
 
 	void NoHit()
@@ -139,6 +137,7 @@ public:
 	}
 
 	void HitTimeCheck();
+
 	GameEngineRenderer* GetRenderer1()
 	{
 		return PlayerAnimationRender;

@@ -25,8 +25,8 @@ void EmptyBox::Start()
 	SetScale({ 64,64 });
 
 	EmptyBoxCollision = CreateCollision("Box", { 64, 64 });
-	EmptyBoxBotCollision = CreateCollision("BoxBot", { 64, 1 }, { 0,32 });
-	EmptyBoxTopCollision = CreateCollision("BoxTop", { 64, 1 }, {0,-32});
+	EmptyBoxBotCollision = CreateCollision("BoxBot", { 64, 2 }, { 0,32 });
+	EmptyBoxTopCollision = CreateCollision("BoxTop", { 64, 2 }, {0,-32});
 	EmptyBoxLeftCollision = CreateCollision("BoxLeft", { 1, 64 }, { -32 , 0 });
 	EmptyBoxRightCollision = CreateCollision("BoxRight", { 1, 64 }, { 32 , 0 });
 
