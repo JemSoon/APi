@@ -54,10 +54,10 @@ void Turtle::Update()
 	DirCheck();
 	PlayerAttack();
 	{
-		//if (false == TurtleCollision->CollisionCheck("PlayerCamera"))
-		//{
-		//	return;
-		//}
+		if (false == TurtleCollision->CollisionCheck("PlayerCamera"))
+		{
+			return;
+		}
 	}
 
 
