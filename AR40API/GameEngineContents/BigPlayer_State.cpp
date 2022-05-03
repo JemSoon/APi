@@ -212,6 +212,7 @@ void BigPlayer::MoveUpdate()
 			MoveDir.y = 0.0f;
 			MoveDir.x += ((-MoveDir.x * 0.9f) * GameEngineTime::GetDeltaTime());//°¨¼Ó
 			SetMove(MoveDir * GameEngineTime::GetDeltaTime() * Speed_);
+			CameraOutCheck();
 			return;
 		}
 

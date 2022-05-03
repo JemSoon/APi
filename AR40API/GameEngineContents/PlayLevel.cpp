@@ -172,6 +172,18 @@ void PlayLevel::Loading()
 
 			Block* Block2 = CreateActor<Block>((int)ORDER::BOX);
 			Block2->SetPosition({ 312.0f,600.0f });
+
+			Box* QBox4 = CreateActor<Box>((int)ORDER::BOX);
+			QBox4->SetPosition({ 504.0f,600.0f });
+
+			Box* QBox5 = CreateActor<Box>((int)ORDER::BOX);
+			QBox5->SetPosition({ 568.0f,600.0f });
+
+			Box* QBox6 = CreateActor<Box>((int)ORDER::BOX);
+			QBox6->SetPosition({ 632.0f,600.0f });
+
+			Box* QBox7 = CreateActor<Box>((int)ORDER::BOX);
+			QBox7->SetPosition({ 696.0f,600.0f });
 		}
 
 		{
