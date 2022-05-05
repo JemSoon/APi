@@ -34,6 +34,65 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Loading()
 {	
+	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
+	{
+		GameEngine::GetInst().ChangeLevel("Intro");
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
+	{
+		GameEngine::GetInst().ChangeLevel("Pipe1");
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+
+	//스테이지의 UI 로드
+	CreateActor<UI>((int)ORDER::UI);
+ }
+
+void PlayLevel::Update()
+{
+	//Time -= GameEngineTime::GetDeltaTime();
+	//if (0 >= Time)
+	//{	//5초뒤 브금 끔
+	//	BgmPlayer.Stop();
+	//}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
+	{
+		GameEngine::GetInst().ChangeLevel("Intro");
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
+	{
+		GameEngine::GetInst().ChangeLevel("Pipe1");
+	}
+
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
+
+}	
+
+void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
+{
+	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
+	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
+		Player::MainPlayer->NextLevelOn();
+		BigPlayer::MainBigPlayer->NextLevelOn();
+	}
+}
+
+void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
+{
+	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+	BgmPlayer.Volume(0.1f);
+	Time = 5.0f;
+
 	{	//1스테이지의 배경 로드
 		BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 		Actor->GetRenderer()->SetImage("Map1-1.bmp");
@@ -42,7 +101,7 @@ void PlayLevel::Loading()
 			float4 BackActor = {};
 			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
 			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
-			
+
 			Actor->GetRenderer()->SetPivot(BackActor);
 
 			//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
@@ -58,21 +117,18 @@ void PlayLevel::Loading()
 		{
 			if (nullptr == Player::MainPlayer)
 			{
-			//스테이지의 플레이어 로드
-			Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
-			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Player::MainPlayer -> SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+				//스테이지의 플레이어 로드
+				Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
+				//Player->SetPosition(GameEngineWindow::GetScale().Half());
+				Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
 
-			//큰마리오
-			BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
-			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+				//큰마리오
+				BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
+				BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
 
-			//흰마리오
-			WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
-			WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
-
-			//스테이지의 UI 로드
-			CreateActor<UI>((int)ORDER::UI);
+				//흰마리오
+				WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
+				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
 			}
 		}
 
@@ -81,7 +137,7 @@ void PlayLevel::Loading()
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba1->SetPosition({ 1408.0f,771.0f });
-			
+
 			Monster* Gumba2 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba2->SetPosition({ 2785.0f,771.0f });
@@ -143,15 +199,15 @@ void PlayLevel::Loading()
 			Gumba16->SetPosition({ 11232.0f,771.0f });
 
 		}
-		
-		{	
+
+		{
 			//거북이 테스트
 			Turtle* Turtle1 = CreateActor<Turtle>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Turtle1->SetPosition({ 2100.0f,771.0f });
 		}
-		
-		{	
+
+		{
 			//박스 로드 체크
 			Box* QBox = CreateActor<Box>((int)ORDER::BOX);
 			QBox->SetPosition({ 120.0f,600.0f });
@@ -191,55 +247,14 @@ void PlayLevel::Loading()
 			//코인 테스트
 			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
 			Coin1->SetPosition({ 400.0f,500.0f });
-		
+
 			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
 			Coin2->SetPosition({ 464.0f,500.0f });
-	
+
 			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
 			Coin3->SetPosition({ 518.0f,500.0f });
 		}
 	}
- }
-
-void PlayLevel::Update()
-{
-	//Time -= GameEngineTime::GetDeltaTime();
-	//if (0 >= Time)
-	//{	//5초뒤 브금 끔
-	//	BgmPlayer.Stop();
-	//}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
-	{
-		GameEngine::GetInst().ChangeLevel("Intro");
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
-	{
-		GameEngine::GetInst().ChangeLevel("Pipe1");
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
-	{
-		GameEngineLevel::IsDebugModeSwitch();
-	}
-
-}	
-
-void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
-{
-	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
-	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
-		Player::MainPlayer->NextLevelOn();
-		BigPlayer::MainBigPlayer->NextLevelOn();
-	}
-}
-
-void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
-{
-	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
-	BgmPlayer.Volume(0.1f);
-	Time = 5.0f;
 
 	//여기다 플레이어 UI만들면 넘어갈때마다 만들어짐
 	// Player->SetPosition();

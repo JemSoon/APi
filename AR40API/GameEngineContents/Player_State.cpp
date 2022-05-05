@@ -17,13 +17,7 @@ void Player::IdleUpdate()
 {
 	{	//맵과 캐릭터의 충돌설정용
 
-		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
-
-
-		if (nullptr == MapColImage_)
-		{
-			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
-		}
+		SetColImage();
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
@@ -543,4 +537,22 @@ void Player::JumpStart()
 void Player::FallStart()
 {
 	PlayerAnimationRender->ChangeAnimation("Jump-" + DirString);
+}
+
+void Player::SetColImage()
+{
+	//맵과 캐릭터의 충돌설정용
+	if (GetLevel()->GetNameCopy() == "Play1")
+	{
+		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+	}
+	if (GetLevel()->GetNameCopy() == "Pipe1")
+	{
+		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColPipe1-1.bmp");
+	}
+
+	if (nullptr == MapColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
+	}
 }

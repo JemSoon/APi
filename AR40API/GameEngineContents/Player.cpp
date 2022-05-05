@@ -184,7 +184,7 @@ void Player::WallCheck()
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 	}
@@ -385,7 +385,12 @@ void Player::MonsterHit()
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
 		die->SetPosition(GetPosition());
-		PlayerCollision->GetActor()->Death();
+		MainPlayer->Death();
+		MainPlayer = nullptr;
+		BigPlayer::MainBigPlayer->Death();
+		BigPlayer::MainBigPlayer = nullptr;
+		WhitePlayer::MainWhitePlayer->Death();
+		WhitePlayer::MainWhitePlayer = nullptr;
 		//ChangeState(PlayerState::Dead);
 		return;
 	}

@@ -57,5 +57,11 @@ void PlayerDie::Update()
 		SetMove(MoveDir * GameEngineTime::GetDeltaTime() * 20.0f);
 	}
 
+	if (5.0 <= Time)
+	{
+		GetLevel()->ResetOn();
+		GameEngine::GetInst().ChangeLevel("Play1");
+		this->Death();
+	}
 }
 
