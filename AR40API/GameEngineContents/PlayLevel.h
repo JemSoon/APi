@@ -30,7 +30,6 @@ public:
 
 	float Time;
 
-	//GameEngineSoundPlayer BgmPlayer;
 
 	Player* MainPlayer;
 	GameEngineSoundPlayer BgmPlayer;
