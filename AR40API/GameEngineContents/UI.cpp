@@ -2,9 +2,9 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include "Coin.h"
+#include <GameEngine/GameEngineCollision.h>
 
 UI* UI::MainUI = nullptr;
-int UI::CoinCount_ = 0;
 
 UI::UI()
 {
@@ -18,6 +18,7 @@ UI::~UI()
 
 void UI::Start()
 {
+	CoinCount_ = 00;
 	{	//해당 이미지를 화면 중간에 놓는다
 		float4 Pos = GameEngineWindow::GetScale().Half();
 		SetPosition(Pos);
@@ -117,6 +118,18 @@ void UI::LevelChangeStart(GameEngineLevel* _PrevLevel)
 void UI::Update()
 {
 	//CoinCount_ = 00;
+	//std::vector<Coin> Test;
+
+	//if (Test->GetCoin() == 1)
+	//{
+	//	CoinCount_ = 01;
+	//}
+	//if (Test->GetCoin() == 2)
+	//{
+	//	CoinCount_ = 02;
+	//}
+	
+
 	char Arr[10];
 	_itoa_s(CoinCount_, Arr, 10);
 	// char

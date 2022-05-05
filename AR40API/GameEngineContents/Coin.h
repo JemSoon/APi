@@ -16,7 +16,10 @@ public:
 	//디폴트 소멸자
 	~Coin();
 
-	
+	int GetCoin()
+	{
+		return CoinGet;
+	}
 	
 	
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
@@ -39,6 +42,6 @@ protected:
 private:
 	GameEngineRenderer* CoinAnimationRender;
 	GameEngineCollision* CoinCollision;
-
+	int CoinGet;
 };
 

@@ -11,7 +11,8 @@
 #include <GameEngine/GameEngineCollision.h>
 
 
-Coin::Coin()
+Coin::Coin():
+	CoinGet(0)
 {
 
 }
@@ -37,6 +38,7 @@ void Coin::Render()
 void Coin::Update()
 {
 	PlayerCheck();
+	GetCoin();
 }
 
 void Coin::PlayerCheck()
@@ -48,6 +50,6 @@ void Coin::PlayerCheck()
 		true == CoinCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		CoinCollision->GetActor()->Death();
-		UI::CoinCount_ + 1;
+		CoinGet += 1;
 	}
 }
