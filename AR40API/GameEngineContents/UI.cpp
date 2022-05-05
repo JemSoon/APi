@@ -139,4 +139,11 @@ void UI::Update()
 
 	Ten->ChangeAnimation(TenText);
 	One->ChangeAnimation(OneText);
+
+	if (CoinCount_ > 99)
+	{
+		CoinCount_ = 0;
+		//格见 +1
+		//格见 +1 荤款靛
+	}
 }
