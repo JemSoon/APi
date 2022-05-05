@@ -11,6 +11,7 @@
 #include <GameEngine/GameEngineImage.h>
 #include <GameEngine/GameEngineCollision.h>
 
+
 PlayerDie::PlayerDie()
 	:MoveDir(float4::ZERO)
 	,Time(0.0f)
@@ -25,6 +26,7 @@ PlayerDie::~PlayerDie()
 
 void PlayerDie::Start()
 {
+	GameEngineSound::SoundPlayOneShot("smb_mariodie.wav");
 	PlayerAnimationRender=CreateRenderer((int)ORDER::PLAYER);
 	PlayerAnimationRender->CreateAnimation("die.bmp", "Die", 0, 0, 0.0f, false);
 

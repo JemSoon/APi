@@ -224,14 +224,7 @@ void PlayLevel::Update()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	//if (true == Player::MainPlayer->IsDeath())//조건문에서 터진다
-	//{
-	//	//리셋
-	//	Reset();
-	//	GameEngine::GetInst().ChangeLevel("Intro");
-	//	int a = 0;
-	//}
-}	//잘못된 조건문 Death되서 null이 됬는데 쓰려고하면 당연 터진다
+}	
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
