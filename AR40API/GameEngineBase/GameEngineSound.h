@@ -1,34 +1,73 @@
 #pragma once
+#include "GameEngineNameObject.h"
+#include "ThirdParty/inc/fmod.hpp"
+#include <map>
 
-//선생님은 생략된 것들도 명시적으로 칠 것이다
-//직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
-
-//설명 : 
-class GameEngineSound
+class GameEngineSoundPlayer;
+// 설명 :
+class GameEngineSound : public GameEngineNameObject
 {
 public:
-	//디폴트 생성자
+	// constrcuter destructer
 	GameEngineSound();
-	//디폴트 소멸자
 	~GameEngineSound();
 
-	
-	
-	
-	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
-	
-	//디폴트 복사 생성자
+	// delete Function
 	GameEngineSound(const GameEngineSound& _Other) = delete;
-	//RValue Reference 생성자 (나중에 배울것)
 	GameEngineSound(GameEngineSound&& _Other) noexcept = delete;
-	//operater= (자기자신을 리턴하는)
 	GameEngineSound& operator=(const GameEngineSound& _Other) = delete;
 	GameEngineSound& operator=(GameEngineSound&& _Other) noexcept = delete;
 
-
 protected:
+	bool Load(const std::string& _Path);
+
 
 private:
+	FMOD::Sound* Sound;
+
+	///////////////////////////////////////// 매니지먼트 사운드 기능
+public:
+	// 그냥 사운드 재생1회 절대로 멈추거나 이런건 못합니다.
+	static GameEngineSoundPlayer SoundPlayControl(const std::string& _Name);
+
+	static void SoundPlayOneShot(const std::string& _Name, int LoopCount = 0);
+	static void Update();
+
+	/// <summary>
+	/// ///////////////////////////////////// 리소스 매니지먼트
+	/// </summary>
+public:
+	static GameEngineSound* FindRes(const std::string& _Name);
+	static GameEngineSound* LoadRes(const std::string& _Path);
+	static GameEngineSound* LoadRes(const std::string& _Path, const std::string& _Name);
+
+	static void AllResourcesDestroy();
+
+private:
+	static std::map<std::string, GameEngineSound*> AllRes;
 
 };
 
+// 사운드 재생을 제어할수 있는 기능들을 넣을겁니다.
+class GameEngineSound;
+class GameEngineSoundPlayer
+{
+	friend GameEngineSound;
+
+public:
+	void Stop();
+	void PlaySpeed(float _Speed);
+
+	GameEngineSoundPlayer(const GameEngineSoundPlayer& _Other);
+
+private:
+	GameEngineSound* Sound_;
+	FMOD::Channel* ControlHandle_;
+
+
+	GameEngineSoundPlayer(GameEngineSound* Sound, FMOD::Channel* ControlHandle);
+
+public:
+	GameEngineSoundPlayer();
+	~GameEngineSoundPlayer();
+};

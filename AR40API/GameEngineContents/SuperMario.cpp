@@ -45,6 +45,24 @@ void SuperMario::GameInit()
 
 			}
 		}
+
+		{	//브금 경로
+			GameEngineDirectory ResourcesDir;//생성과 동시에 현재 디렉토리
+			ResourcesDir.MoveParent("AR40API");//어디까지 상위 폴더로 올라가느냐
+			ResourcesDir.Move("Resources");//그다음 리소스 폴더로 이동
+			ResourcesDir.Move("Sound");
+
+			//(참고)자식 경로까지는 찾지 않는다
+			//나중에 폴더 따로 분류하면 디렉토리 따로 또 만들어줘야 한다
+			//폴더안에 모든 이미지 파일을 찾는다
+			std::vector<GameEngineFile> AllImageFileList = ResourcesDir.GetAllFile();
+
+			for (size_t i = 0; i < AllImageFileList.size(); i++)
+			{
+				GameEngineSound::LoadRes(AllImageFileList[i].GetFullPath());
+			}
+		}
+
 		{
 			//이미지를 찾아
 			GameEngineImage* Image0 = GameEngineImageManager::GetInst()->Find("walk-R.bmp");
