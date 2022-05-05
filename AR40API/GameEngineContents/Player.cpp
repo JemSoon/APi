@@ -405,8 +405,13 @@ void Player::FallDead()
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
 		die->SetPosition(GetPosition());
-		PlayerCollision->GetActor()->Death();
-		//ChangeState(PlayerState::Dead);
+		//PlayerCollision->GetActor()->Death();
+		MainPlayer->Death();
+		MainPlayer = nullptr;
+		BigPlayer::MainBigPlayer->Death();
+		BigPlayer::MainBigPlayer = nullptr;
+		WhitePlayer::MainWhitePlayer->Death();
+		WhitePlayer::MainWhitePlayer = nullptr;
 		return;
 	}
 }

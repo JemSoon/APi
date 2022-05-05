@@ -49,8 +49,6 @@ void PlayLevel::Loading()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
-	//스테이지의 UI 로드
-	CreateActor<UI>((int)ORDER::UI);
  }
 
 void PlayLevel::Update()
@@ -80,10 +78,12 @@ void PlayLevel::Update()
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
+	BgmPlayer.Stop();
+
 	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
 	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
-		Player::MainPlayer->NextLevelOn();
-		BigPlayer::MainBigPlayer->NextLevelOn();
+		//Player::MainPlayer->NextLevelOn();
+		//BigPlayer::MainBigPlayer->NextLevelOn();
 	}
 }
 
@@ -129,6 +129,9 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 				//흰마리오
 				WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
 				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
+
+				//스테이지의 UI 로드
+				CreateActor<UI>((int)ORDER::UI);
 			}
 		}
 
