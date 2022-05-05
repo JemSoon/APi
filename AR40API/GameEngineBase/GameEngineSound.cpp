@@ -187,7 +187,10 @@ void GameEngineSoundPlayer::PlaySpeed(float _Speed)
 	ControlHandle_->setPitch(_Speed);
 }
 
-
+void GameEngineSoundPlayer::Volume(float _Value)
+{
+	ControlHandle_->setVolume(_Value);
+}
 
 GameEngineSoundPlayer::GameEngineSoundPlayer()
 	: Sound_(nullptr)

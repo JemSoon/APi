@@ -290,10 +290,10 @@ int GameEngineImage::GetImagePixel(int _x, int _y)
 		return RGB(255, 0, 0);
 	}
 
-	if (0 > _y)
-	{
-		return RGB(255, 0, 0);
-	}
+	//if (0 > _y)
+	//{
+	//	return RGB(255, 0, 0);
+	//}
 
 	if (GetScale().ix() <= _x)
 	{

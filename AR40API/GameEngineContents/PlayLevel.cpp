@@ -203,11 +203,11 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update()
 {
-	Time -= GameEngineTime::GetDeltaTime();
-	if (0 >= Time)
-	{
-		BgmPlayer.Stop();
-	}
+	//Time -= GameEngineTime::GetDeltaTime();
+	//if (0 >= Time)
+	//{	//5초뒤 브금 끔
+	//	BgmPlayer.Stop();
+	//}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
@@ -245,6 +245,7 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+	BgmPlayer.Volume(0.1f);
 	Time = 5.0f;
 
 	//여기다 플레이어 UI만들면 넘어갈때마다 만들어짐
