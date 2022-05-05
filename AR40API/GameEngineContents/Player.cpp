@@ -116,7 +116,7 @@ void Player::Start()
 	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });//박스 충돌용(1개만 충돌하게끔)
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
-	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 0 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
+	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
 	PlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 63 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
 	PlayerRightCollision = CreateCollision("PlayerRight", { 2, 63 }, { 32,0 });
 	PlayerCollision = CreateCollision("PlayerHitBox", { 50, 60 });
@@ -243,7 +243,8 @@ void Player::MonsterOnCheck()
 			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
 		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
-		MainPlayer->JumpStart();
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(PlayerState::Fall);
 	}
@@ -255,7 +256,9 @@ void Player::TurtleOnCheck()
 
 	if (true == PlayerFootHitCollision->CollisionResult("TurtleHead", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		MainPlayer->JumpStart();
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(PlayerState::Fall);
 	}

@@ -525,7 +525,7 @@ void Player::MoveStart()
 
 void Player::JumpStart()
 {
-	GameEngineSound::SoundPlayOneShot("smb_jump-super.wav",0,0.1f);
+	GameEngineSound::SoundPlayOneShot("smb_jump-super.wav");
 	
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
