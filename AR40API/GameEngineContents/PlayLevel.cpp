@@ -11,6 +11,7 @@
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
 #include <GameEngineBase/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineTime.h>
 
 #include "GameEngine/GameEngineLevel.h"//내가추가
 #include <GameEngine/GameEngineImage.h>
@@ -202,6 +203,11 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update()
 {
+	Time -= GameEngineTime::GetDeltaTime();
+	if (0 >= Time)
+	{
+		BgmPlayer.Stop();
+	}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
@@ -238,6 +244,10 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+	Time = 5.0f;
+
+	//여기다 플레이어 UI만들면 넘어갈때마다 만들어짐
 	// Player->SetPosition();
 
 	// BgmPlayer = GameEngineSound::SoundPlayControl("BGM.MP3");
