@@ -1,11 +1,12 @@
 #include "UI.h"
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineRenderer.h>
+#include "Coin.h"
 
 UI* UI::MainUI = nullptr;
+int UI::CoinCount_ = 0;
 
-UI::UI():
-	CoinCount_(0)
+UI::UI()
 {
 
 }
@@ -54,7 +55,7 @@ void UI::Start()
 	{	//=================코인 개수 숫자 렌더링==================
 		{
 			//코인 개수(십의 자리)
-			GameEngineRenderer* Ten = CreateRenderer((int)ORDER::UI);
+			Ten = CreateRenderer((int)ORDER::UI);
 			Ten->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
 			Ten->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
 			Ten->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
@@ -79,7 +80,7 @@ void UI::Start()
 		}
 		{
 			//코인 개수(일의 자리)
-			GameEngineRenderer* One = CreateRenderer((int)ORDER::UI);
+			One = CreateRenderer((int)ORDER::UI);
 			One->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
 			One->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
 			One->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
@@ -113,3 +114,26 @@ void UI::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	MainUI = this;
 }
 
+void UI::Update()
+{
+	//CoinCount_ = 00;
+	char Arr[10];
+	_itoa_s(CoinCount_, Arr, 10);
+	// char
+	// 01
+	// '1'
+	// "1"
+
+
+	std::string CoinText = Arr;
+	if (1 == CoinText.size())
+	{
+		CoinText = "0" + CoinText;
+	}
+
+	std::string TenText = CoinText.substr(0, 1);
+	std::string OneText = CoinText.substr(1, 1);
+
+	Ten->ChangeAnimation(TenText);
+	One->ChangeAnimation(OneText);
+}

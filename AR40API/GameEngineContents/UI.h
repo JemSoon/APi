@@ -11,15 +11,16 @@ class UI : public GameEngineActor
 {
 public:
 	static UI* MainUI;
+	static int CoinCount_;
 
 	//디폴트 생성자
 	UI();
 	//디폴트 소멸자
 	~UI();
 
-	int GetCoinCount()
+	int GetCoinCount(int Count)
 	{
-		return CoinCount_;
+		return CoinCount_ + Count;
 	}
 	
 	
@@ -37,9 +38,12 @@ public:
 protected:
 
 	void Start() override;
+	void Update() override;
 	//void Render() override;
 private:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
-	int CoinCount_;
+	//static int CoinCount_;
+	GameEngineRenderer* One;
+	GameEngineRenderer* Ten;
 };
 

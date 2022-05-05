@@ -1,5 +1,6 @@
 #include "WhitePlayer.h"
 #include "BigPlayer.h"
+#include "Player.h"
 #include "PlayerDie.h"
 
 #include <GameEngine/GameEngine.h>
@@ -395,9 +396,13 @@ void WhitePlayer::FallDead()
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
 		die->SetPosition(GetPosition());
-		WhitePlayerCollision->GetActor()->Death();
-		//ChangeState(PlayerState::Dead);
-		return;
+		MainWhitePlayer->Death();
+		MainWhitePlayer = nullptr;
+		BigPlayer::MainBigPlayer->Death();
+		BigPlayer::MainBigPlayer = nullptr;
+		Player::MainPlayer->Death();
+		Player::MainPlayer = nullptr;
+
 	}
 }
 

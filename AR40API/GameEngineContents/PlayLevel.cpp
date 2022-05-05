@@ -59,7 +59,9 @@ void PlayLevel::Update()
 	//	BgmPlayer.Stop();
 	//}
 
-	if (Player::MainPlayer == nullptr)
+	if (Player::MainPlayer == nullptr||
+		BigPlayer::MainBigPlayer == nullptr||
+		WhitePlayer::MainWhitePlayer==nullptr)
 	{
 		BgmPlayer.Stop();
 	}

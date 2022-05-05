@@ -154,6 +154,7 @@ void Player::Start()
 void Player::Update()
 {
 	//Fire();//총알 발사함수
+	SetColImage();
 	StateUpdate();
 
 	WallCheck();
