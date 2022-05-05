@@ -59,6 +59,11 @@ void PlayLevel::Update()
 	//	BgmPlayer.Stop();
 	//}
 
+	if (Player::MainPlayer == nullptr)
+	{
+		BgmPlayer.Stop();
+	}
+
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
 		GameEngine::GetInst().ChangeLevel("Intro");
