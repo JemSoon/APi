@@ -2,6 +2,7 @@
 #include <GameEngine/GameEngineActor.h>
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineCollision.h>
+#include <GameEngineBase/GameEngineSound.h>
 
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
@@ -78,6 +79,7 @@ private:
 	GameEngineCollision* PlayerFootCollision;//발
 	GameEngineCollision* PlayerLeftCollision;//왼쪽
 	GameEngineCollision* PlayerRightCollision;//오른쪽
+	
 
 	// bullet 용 dir
 	float4 PlayerDir_;

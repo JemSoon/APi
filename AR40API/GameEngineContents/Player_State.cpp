@@ -238,7 +238,6 @@ void Player::JumpUpdate()
 {	
 	MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
-
 	//if (true == GameEngineInput::GetInst()->IsUp("Jump"))
 	//{	//점프 누른 시간에 따른 점프 길이 변화용
 	//	MoveDir.y = 0.0f;
@@ -526,6 +525,8 @@ void Player::MoveStart()
 
 void Player::JumpStart()
 {
+	GameEngineSound::SoundPlayOneShot("smb_jump-super.wav",0,0.1f);
+	
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		DirString = 'R';
