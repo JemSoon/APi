@@ -5,7 +5,7 @@
 #include <GameEngine/GameEngineCollision.h>
 
 UI* UI::MainUI = nullptr;
-
+int UI::CoinCount_ = 0;
 UI::UI()
 {
 
@@ -119,16 +119,6 @@ void UI::Update()
 {
 	//CoinCount_ = 00;
 	//std::vector<Coin> Test;
-
-	//if (Test->GetCoin() == 1)
-	//{
-	//	CoinCount_ = 01;
-	//}
-	//if (Test->GetCoin() == 2)
-	//{
-	//	CoinCount_ = 02;
-	//}
-	
 
 	char Arr[10];
 	_itoa_s(CoinCount_, Arr, 10);

@@ -15,10 +15,9 @@
 
 void Player::IdleUpdate()
 {
-	{	//맵과 캐릭터의 충돌설정용
 
-		SetColImage();
-	}
+	SetColImage();
+	
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
@@ -115,6 +114,8 @@ void Player::IdleUpdate()
 				MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
 			}
 		}
+
+		SetColImage();
 
 		RightCheck();
 		//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.

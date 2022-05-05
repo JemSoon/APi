@@ -50,6 +50,6 @@ void Coin::PlayerCheck()
 		true == CoinCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		CoinCollision->GetActor()->Death();
-		CoinGet += 1;
+		UI::CoinCount_ += 1;
 	}
 }

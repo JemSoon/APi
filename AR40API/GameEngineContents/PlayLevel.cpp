@@ -34,6 +34,11 @@ PlayLevel::~PlayLevel()
 
 void PlayLevel::Loading()
 {	
+
+ }
+
+void PlayLevel::Update()
+{
 	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
 	{
 		GameEngine::GetInst().ChangeLevel("Intro");
@@ -49,10 +54,6 @@ void PlayLevel::Loading()
 		GameEngineLevel::IsDebugModeSwitch();
 	}
 
- }
-
-void PlayLevel::Update()
-{
 	//Time -= GameEngineTime::GetDeltaTime();
 	//if (0 >= Time)
 	//{	//5초뒤 브금 끔
@@ -65,22 +66,6 @@ void PlayLevel::Update()
 	{
 		BgmPlayer.Stop();
 	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
-	{
-		GameEngine::GetInst().ChangeLevel("Intro");
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
-	{
-		GameEngine::GetInst().ChangeLevel("Pipe1");
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
-	{
-		GameEngineLevel::IsDebugModeSwitch();
-	}
-
 }	
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
@@ -126,20 +111,26 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			{
 				//스테이지의 플레이어 로드
 				Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
-				//Player->SetPosition(GameEngineWindow::GetScale().Half());
-				Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
-
+			}
+			
+			if (nullptr == BigPlayer::MainBigPlayer)
+			{
 				//큰마리오
 				BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
-				BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+			}
 
+			if (nullptr == WhitePlayer::MainWhitePlayer)
+			{
 				//흰마리오
 				WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
-				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
-
+	
+			}
 				//스테이지의 UI 로드
 				CreateActor<UI>((int)ORDER::UI);
-			}
+			
+				Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+				BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
 		}
 
 		{
@@ -263,6 +254,42 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
 			Coin3->SetPosition({ 518.0f,500.0f });
+		}
+
+		{
+			//코인 테스트
+			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin1->SetPosition({ 582.0f,500.0f });
+
+			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin2->SetPosition({ 646.0f,500.0f });
+
+			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin3->SetPosition({ 710.0f,500.0f });
+		}
+
+		{
+			//코인 테스트
+			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin1->SetPosition({ 774.0f,500.0f });
+
+			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin2->SetPosition({ 838.0f,500.0f });
+
+			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin3->SetPosition({ 902.0f,500.0f });
+		}
+
+		{
+			//코인 테스트
+			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin1->SetPosition({ 966.0f,436.0f });
+
+			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin2->SetPosition({ 464.0f,372.0f });
+
+			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+			Coin3->SetPosition({ 518.0f,308.0f });
 		}
 	}
 

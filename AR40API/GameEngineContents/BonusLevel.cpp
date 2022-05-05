@@ -36,11 +36,11 @@ void BonusLevel::Update()
 
 void BonusLevel::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
-	BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
-	Actor->GetRenderer()->SetImage("Pipe1-1.bmp");
-	float4 BackActor = {};
-	BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-	BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
+	//BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
+	//Actor->GetRenderer()->SetImage("Pipe1-1.bmp");
+	//float4 BackActor = {};
+	//BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+	//BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 }
 
 void BonusLevel::LevelChangeStart(GameEngineLevel* _NextLevel)

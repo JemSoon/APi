@@ -22,6 +22,7 @@ public:
 		return CoinCount_;
 	}
 	
+	static int CoinCount_;
 	
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 	
@@ -41,7 +42,6 @@ protected:
 	//void Render() override;
 private:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
-	int CoinCount_;
 	GameEngineRenderer* One;
 	GameEngineRenderer* Ten;
 };
