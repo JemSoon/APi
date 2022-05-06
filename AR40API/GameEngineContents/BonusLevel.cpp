@@ -54,7 +54,7 @@ void BonusLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 		WhitePlayer::MainWhitePlayer->NextLevelOn();
 		UI::MainUI->NextLevelOn();
 	}
-		Player::ChangeLevel_ == false;//¥ŸΩ√≤®¡‡æﬂ «‘
+		Player::ChangeLevel_ = false;//¥ŸΩ√≤®¡‡æﬂ «‘
 }
 
 void BonusLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)

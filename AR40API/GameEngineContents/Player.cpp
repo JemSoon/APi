@@ -329,6 +329,7 @@ void Player::CameraOutCheck()
 	float CameraRectY = 960;//카메라 세로 끝
 	float CameraRectX = 1280;
 
+
 	if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
 	{	//카메라가 화면 밖에 못나가게
 		float4 CameraPos = GetLevel()->GetCameraPos();
