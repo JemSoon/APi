@@ -88,11 +88,11 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 
-	if (first == true)
-	{
 		BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
 		BgmPlayer.Volume(0.1f);
 		Time = 5.0f;
+	if (first == true)
+	{
 		{	//1스테이지의 배경 로드
 			BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 			Actor->GetRenderer()->SetImage("Map1-1.bmp");
@@ -156,6 +156,11 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 
 			//1스테이지의 몬스터 로드
+
+			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba->SetPosition({440.0f,530.0f });
+
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba1->SetPosition({ 1408.0f,771.0f });

@@ -30,6 +30,7 @@ void Monster::Start()
 	MonsterTopCollision = CreateCollision("MonsterHead", { 64, 1 }, {0,-32});
 	MonsterLeftCollision = CreateCollision("MonsterLeft", { 1, 64 }, { -32,0 });
 	MonsterRightCollision = CreateCollision("MonsterRight", { 1, 64 }, { 32,0 });
+	MonsterBotCollision = CreateCollision("MonsterBot", { 64, 1 }, { 0,-32 });
 
 	MonsterAnimationRender = CreateRenderer((int)ORDER::MONSTER);
 	MonsterAnimationRender->CreateAnimation("gumba-walk.bmp", "gumba-walk", 0, 1, 0.3f, true);
@@ -66,51 +67,59 @@ void Monster::Update()
 		}
 	}
 
+	MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 
 	{	
-		MoveDir_ += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
-		//내 미래위치
-		FootCheck();//발바닥 밑 닿은 색 체크
-		Color_ = MapColImage_->GetImagePixel(CheckPos_);
-		if (RGB(255, 0, 0) != Color_ &&
-			RGB(55, 55, 55) != Color_ &&
-			RGB(0, 255, 255) != Color_ &&
-			RGB(0, 255, 0) != Color_)//허공에 있다
-		{	//빨간색이 아니라면 갈수 이써
-			SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * AccSpeed_);
-		}
-		else//바닥에 닿았다
+		NextPos_ = (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
+		if (true == MonsterCollision->NextPosCollisionCheck("BoxTop", NextPos_, CollisionType::Rect, CollisionType::Rect))
 		{
 			MoveDir_.y = 0.0f;
-			LeftCheck();//왼쪽 벽체크
-			Color_ = MapColImage_->GetImagePixel(CheckPos_);
-			if (RGB(255, 0, 0) != Color_ &&
-				RGB(55, 55, 55) != Color_ &&
-				RGB(0, 255, 255) != Color_ &&
-				RGB(0, 255, 0) != Color_)
-			{	//빨간색이 아니라면 갈수 이써
-				MoveDir_.x = MoveDir_.x;
-			}
-			else
-			{
-				MoveDir_.x = MoveDir_.x * -1;
-			}
-
-			RightCheck();//오른쪽 벽체크
-			Color_ = MapColImage_->GetImagePixel(CheckPos_);
-			if (RGB(255, 0, 0) != Color_ &&
-				RGB(55, 55, 55) != Color_ &&
-				RGB(0, 255, 255) != Color_ &&
-				RGB(0, 255, 0) != Color_)
-			{	//빨간색이 아니라면 갈수 이써
-				MoveDir_.x = MoveDir_.x;
-			}
-			else
-			{
-				MoveDir_.x = MoveDir_.x * -1;
-			}
 		}
 
+		else
+		{
+			//내 미래위치
+			FootCheck();//발바닥 밑 닿은 색 체크
+			Color_ = MapColImage_->GetImagePixel(CheckPos_);
+			if (RGB(255, 0, 0) != Color_ &&
+				RGB(55, 55, 55) != Color_ &&
+				RGB(0, 255, 255) != Color_ &&
+				RGB(0, 255, 0) != Color_)//허공에 있다
+			{	//빨간색이 아니라면 갈수 이써
+				SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * AccSpeed_);
+			}
+			else//바닥에 닿았다
+			{
+				MoveDir_.y = 0.0f;
+				LeftCheck();//왼쪽 벽체크
+				Color_ = MapColImage_->GetImagePixel(CheckPos_);
+				if (RGB(255, 0, 0) != Color_ &&
+					RGB(55, 55, 55) != Color_ &&
+					RGB(0, 255, 255) != Color_ &&
+					RGB(0, 255, 0) != Color_)
+				{	//빨간색이 아니라면 갈수 이써
+					MoveDir_.x = MoveDir_.x;
+				}
+				else
+				{
+					MoveDir_.x = MoveDir_.x * -1;
+				}
+
+				RightCheck();//오른쪽 벽체크
+				Color_ = MapColImage_->GetImagePixel(CheckPos_);
+				if (RGB(255, 0, 0) != Color_ &&
+					RGB(55, 55, 55) != Color_ &&
+					RGB(0, 255, 255) != Color_ &&
+					RGB(0, 255, 0) != Color_)
+				{	//빨간색이 아니라면 갈수 이써
+					MoveDir_.x = MoveDir_.x;
+				}
+				else
+				{
+					MoveDir_.x = MoveDir_.x * -1;
+				}
+			}
+		}
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 
 		FallDead();
@@ -121,7 +130,7 @@ void Monster::Update()
 void Monster::FootCheck()
 {
 	//내 미래위치
-	NextPos_ = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime());
+	NextPos_ = GetPosition() + (MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	//그때 내 발바닥 위치
 	CheckPos_ = NextPos_ + float4(0.0f, 32.0f);
 	Color_ = MapColImage_->GetImagePixel(CheckPos_);

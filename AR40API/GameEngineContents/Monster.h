@@ -49,6 +49,7 @@ private:
 	GameEngineCollision* MonsterTopCollision; 
 	GameEngineCollision* MonsterLeftCollision;
 	GameEngineCollision* MonsterRightCollision;
+	GameEngineCollision* MonsterBotCollision;
 
 
 	void Start() override;
