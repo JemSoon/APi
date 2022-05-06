@@ -71,7 +71,9 @@ void BonusLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
 			//스테이지의 UI 로드
 			CreateActor<UI>((int)ORDER::UI);
 		}
-
+		//CreateActor<UI>((int)ORDER::UI);
 		Player::MainPlayer->SetPosition({ 300.0f,300.0f });
+		BigPlayer::MainBigPlayer->SetPosition({ 300.0f,300.0f });
+		WhitePlayer::MainWhitePlayer->SetPosition({ 300.0f,300.0f });
 	}
 }

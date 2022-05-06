@@ -106,7 +106,7 @@ void Player::IdleUpdate()
 
 		{	//맵과 캐릭터의 충돌설정용
 
-			MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+			SetColImage();
 
 
 			if (nullptr == MapColImage_)
@@ -115,7 +115,7 @@ void Player::IdleUpdate()
 			}
 		}
 
-		SetColImage();
+		//SetColImage();
 
 		RightCheck();
 		//앞이 충돌색이고 앞키를 누르고있으면 x가 0이된다.

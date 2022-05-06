@@ -141,9 +141,9 @@ void TurtleBack::PlayerAttack()
 	if (true == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
 		false == TBTopRightCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime();
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
-	
+		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 30.0f;
+		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime()*20.0f);
+		int a = 0;
 	}
 
 	//else if (false == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
