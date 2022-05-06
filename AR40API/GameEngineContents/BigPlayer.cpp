@@ -275,22 +275,44 @@ void BigPlayer::CameraOutCheck()
 		GetLevel()->SetCameraPos(CameraPos);
 	}
 
-	float MapSizeX = 13504;//맵 가로 오른쪽 끝
-	float MapSizeY = 960;//맵 세로 끝
-	float CameraRectY = 960;//카메라 세로 끝
-	float CameraRectX = 1280;
-
-	if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
-	{	//카메라가 화면 밖에 못나가게
-		float4 CameraPos = GetLevel()->GetCameraPos();
-		CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
-		GetLevel()->SetCameraPos(CameraPos);
+	if (GetLevel()->GetNameCopy() == "Play1")
+	{
+		float MapSizeX = 13504;//맵 가로 오른쪽 끝
+		float MapSizeY = 960;//맵 세로 끝
+		float CameraRectY = 960;//카메라 세로 끝
+		float CameraRectX = 1280;
+		if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
+		{	//카메라가 화면 밖에 못나가게
+			float4 CameraPos = GetLevel()->GetCameraPos();
+			CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
+			GetLevel()->SetCameraPos(CameraPos);
+		}
+		if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
+		{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+			float4 CameraPos = GetLevel()->GetCameraPos();
+			CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
+			GetLevel()->SetCameraPos(CameraPos);
+		}
 	}
-	if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
-	{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
-		float4 CameraPos = GetLevel()->GetCameraPos();
-		CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
-		GetLevel()->SetCameraPos(CameraPos);
+
+	else if (GetLevel()->GetNameCopy() == "Pipe1")
+	{
+		float MapSizeX = 1280;//맵 가로 오른쪽 끝
+		float MapSizeY = 960;//맵 세로 끝
+		float CameraRectY = 960;//카메라 세로 끝
+		float CameraRectX = 1280;
+		if (MapSizeX <= GetLevel()->GetCameraPos().x + CameraRectX)
+		{	//카메라가 화면 밖에 못나가게
+			float4 CameraPos = GetLevel()->GetCameraPos();
+			CameraPos.x = (GetLevel()->GetCameraPos().x) - (GetLevel()->GetCameraPos().x + CameraRectX - MapSizeX);
+			GetLevel()->SetCameraPos(CameraPos);
+		}
+		if (MapSizeY <= GetLevel()->GetCameraPos().y + CameraRectY)
+		{	//카메라가 화면 밖에 못나가게 0이하면 0으로 고정시킨다
+			float4 CameraPos = GetLevel()->GetCameraPos();
+			CameraPos.y = (GetLevel()->GetCameraPos().y) - (GetLevel()->GetCameraPos().y + CameraRectY - MapSizeY);
+			GetLevel()->SetCameraPos(CameraPos);
+		}
 	}
 }
 

@@ -63,8 +63,8 @@ void PlayLevel::Update()
 	//	BgmPlayer.Stop();
 	//}
 
-	if (Player::MainPlayer == nullptr||
-		BigPlayer::MainBigPlayer == nullptr||
+	if (Player::MainPlayer == nullptr&&
+		BigPlayer::MainBigPlayer == nullptr&&
 		WhitePlayer::MainWhitePlayer==nullptr)
 	{
 		BgmPlayer.Stop();
@@ -88,11 +88,11 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 
-	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
-	BgmPlayer.Volume(0.1f);
-	Time = 5.0f;
 	if (first == true)
 	{
+		BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+		BgmPlayer.Volume(0.1f);
+		Time = 5.0f;
 		{	//1스테이지의 배경 로드
 			BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 			Actor->GetRenderer()->SetImage("Map1-1.bmp");
@@ -323,9 +323,11 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	
 	else if (first == false)
 	{
-		Player::MainPlayer->SetPosition({ 10475.0f, 640.0f }); //320.0f,740.0f
-		BigPlayer::MainBigPlayer->SetPosition({ 10475.0f, 640.0f });
-		WhitePlayer::MainWhitePlayer->SetPosition({ 10475.0f, 640.0f });
+	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+	BgmPlayer.Volume(0.1f);
+		Player::MainPlayer->SetPosition({ 10475.0f, 630.0f }); //320.0f,740.0f
+		BigPlayer::MainBigPlayer->SetPosition({ 10475.0f, 630.0f });
+		WhitePlayer::MainWhitePlayer->SetPosition({ 10475.0f, 630.0f });
 	}
 	first = false;
 }
