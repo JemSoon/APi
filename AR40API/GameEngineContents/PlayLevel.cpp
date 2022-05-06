@@ -72,7 +72,7 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 	BgmPlayer.Stop();
 
-	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
+	if ((_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")&&Player::ChangeLevel_==true)
 	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
 		Player::MainPlayer->NextLevelOn();
 		BigPlayer::MainBigPlayer->NextLevelOn();

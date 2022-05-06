@@ -17,6 +17,7 @@
 #include "Bullet.h"//총알을 만들고 싶다
 
 Player* Player::MainPlayer = nullptr;
+bool Player::ChangeLevel_ = false;
 
 Player::Player()
 	: Speed_(20.0f)
@@ -188,6 +189,7 @@ void Player::WallCheck()
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
 		GameEngine::GetInst().ChangeLevel("Pipe1");
+		ChangeLevel_ = true;
 	}
 }
 

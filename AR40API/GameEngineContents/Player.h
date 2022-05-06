@@ -90,6 +90,7 @@ private:
 	std::string PrevDirString;//방향이 바뀌었을때
 
 public:
+	static bool ChangeLevel_;
 	void Start() override;
 	void Render() override;
 	void Update() override;
