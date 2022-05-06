@@ -74,10 +74,10 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 
 	if (_NextLevel->GetNameCopy() != "Title"|| _NextLevel->GetNameCopy() != "Intro")
 	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
-		//Player::MainPlayer->NextLevelOn();
-		//BigPlayer::MainBigPlayer->NextLevelOn();
-		//WhitePlayer::MainWhitePlayer->NextLevelOn();
-		//UI::MainUI->NextLevelOn();
+		Player::MainPlayer->NextLevelOn();
+		BigPlayer::MainBigPlayer->NextLevelOn();
+		WhitePlayer::MainWhitePlayer->NextLevelOn();
+		UI::MainUI->NextLevelOn();
 	}
 }
 
@@ -130,9 +130,18 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 				//스테이지의 UI 로드
 				CreateActor<UI>((int)ORDER::UI);
 			
-				Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
-				BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
-				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
+				//if (MainPlayer->GetLevel()->GetNameCopy() == "Pipe1")
+				//{	//파이프레벨에서 넘어왔으면
+				//	Player::MainPlayer->SetPosition({ 14070.0f, 576.0f }); //320.0f,740.0f
+				//	BigPlayer::MainBigPlayer->SetPosition({ 14070.0f, 576.0f });
+				//	WhitePlayer::MainWhitePlayer->SetPosition({ 14070.0f, 576.0f });
+				//}
+
+			
+			Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+			WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
+		
 		}
 
 		{
