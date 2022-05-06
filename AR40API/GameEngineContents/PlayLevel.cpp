@@ -323,8 +323,8 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	
 	else if (first == false)
 	{
-	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
-	BgmPlayer.Volume(0.1f);
+		BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+		BgmPlayer.Volume(0.1f);
 		Player::MainPlayer->SetPosition({ 10475.0f, 630.0f }); //320.0f,740.0f
 		BigPlayer::MainBigPlayer->SetPosition({ 10475.0f, 630.0f });
 		WhitePlayer::MainWhitePlayer->SetPosition({ 10475.0f, 630.0f });

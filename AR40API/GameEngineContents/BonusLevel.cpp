@@ -68,7 +68,7 @@ void BonusLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
 		Actor->GetRenderer()->SetPivot(BackActor);
-		Actor->CreateCollision("Wall-L", { 200,100 }, { 961,704 });//파이프관
+		Actor->CreateCollision("Wall-L", { 200,100 }, { 1057,768 });//파이프관
 	}
 	{
 		//코인 테스트
