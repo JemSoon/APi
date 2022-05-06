@@ -191,6 +191,17 @@ void Player::WallCheck()
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 		ChangeLevel_ = true;
 	}
+
+	if (true == PlayerCollision->CollisionResult("Wall-L", ColList, CollisionType::Rect, CollisionType::Rect) &&
+		true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
+		}
+		GameEngine::GetInst().ChangeLevel("Play1");
+		ChangeLevel_ = true;
+	}
 }
 
 void Player::DoorCheck()

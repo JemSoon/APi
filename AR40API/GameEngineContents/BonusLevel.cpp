@@ -6,6 +6,7 @@
 #include "BigPlayer.h"
 #include "WhitePlayer.h"
 #include "Monster.h"
+#include "Coin.h"
 #include "ContentsEnum.h"
 #include <GameEngine/GameEngineRenderer.h>
 #include "UI.h"
@@ -32,18 +33,31 @@ void BonusLevel::Update()
 	{
 		GameEngine::GetInst().ChangeLevel("Intro");
 	}
+	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
+	{
+		GameEngineLevel::IsDebugModeSwitch();
+	}
 }
 
-void BonusLevel::LevelChangeEnd(GameEngineLevel* _PrevLevel)
+void BonusLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 {
 	BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 	Actor->GetRenderer()->SetImage("Pipe1-1.bmp");
 	float4 BackActor = {};
 	BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
 	BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
+	
+	if ((_NextLevel->GetNameCopy() != "Title" || _NextLevel->GetNameCopy() != "Intro") && Player::ChangeLevel_ == true)
+	{	//타이틀과 인트로(목숨정보)화면으로 넘어갈땐 플레이어가 안넘어간다
+		Player::MainPlayer->NextLevelOn();
+		BigPlayer::MainBigPlayer->NextLevelOn();
+		WhitePlayer::MainWhitePlayer->NextLevelOn();
+		UI::MainUI->NextLevelOn();
+	}
+		Player::ChangeLevel_ == false;//다시꺼줘야 함
 }
 
-void BonusLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
+void BonusLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
 	Actor->GetRenderer()->SetImage("Pipe1-1.bmp");
@@ -54,7 +68,20 @@ void BonusLevel::LevelChangeStart(GameEngineLevel* _NextLevel)
 		BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
 		Actor->GetRenderer()->SetPivot(BackActor);
+		Actor->CreateCollision("Wall-L", { 200,100 }, { 961,704 });//파이프관
 	}
+	{
+		//코인 테스트
+		Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin1->SetPosition({ 400.0f,335.0f });
+
+		Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin2->SetPosition({ 464.0f,335.0f });
+
+		Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin3->SetPosition({ 518.0f,335.0f });
+	}
+
 	{
 		if (nullptr == Player::MainPlayer)
 		{
