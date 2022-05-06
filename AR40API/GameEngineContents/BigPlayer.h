@@ -107,6 +107,9 @@ public:
 
 	void BreakAnimation();
 
+	void TurtleOnCheck();
+	void TBOnCheck();
+
 	void NoHit()
 	{
 		BigPlayerCollision->Off();

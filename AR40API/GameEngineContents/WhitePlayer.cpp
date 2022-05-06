@@ -108,12 +108,12 @@ void WhitePlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 0, 1280 }, { 200, -50 });
+	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 1400, 1280 }, { 200, -50 });
 
 	WhitePlayerHeadHitCollision = CreateCollision("WhitePlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	WhitePlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	WhitePlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
-	WhitePlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
+	WhitePlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
 	WhitePlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
 	WhitePlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
 
@@ -168,6 +168,8 @@ void WhitePlayer::Update()
 	MonsterOnCheck();
 	MonsterHit();
 	FallDead();
+	TurtleOnCheck();
+	TBOnCheck();
 
 	//HitTime_ -= GameEngineTime::GetDeltaTime();
 
@@ -436,3 +438,31 @@ void WhitePlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	MainWhitePlayer = this;
 }
 
+void WhitePlayer::TurtleOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == WhitePlayerFootHitCollision->CollisionResult("TurtleHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(WhitePlayerState::Fall);
+	}
+}
+
+void WhitePlayer::TBOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == WhitePlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect) ||
+		true == WhitePlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(WhitePlayerState::Fall);
+	}
+}

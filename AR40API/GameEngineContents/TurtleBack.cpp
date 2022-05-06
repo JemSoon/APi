@@ -145,7 +145,7 @@ void TurtleBack::PlayerAttack()
 	if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
-		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;
+		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
 	}
 
 	//else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect))

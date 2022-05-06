@@ -113,7 +113,7 @@ void BigPlayer::Start()
 	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	BigPlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
-	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 1, 0 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
+	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
 	BigPlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
 	BigPlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
 
@@ -155,7 +155,7 @@ void BigPlayer::Start()
 
 void BigPlayer::Update()
 {
-	//Fire();//총알 발사함수
+	
 	StateUpdate();
 
 	WallCheck();
@@ -165,6 +165,8 @@ void BigPlayer::Update()
 	MonsterOnCheck();
 	MonsterHit();
 	FallDead();
+	TurtleOnCheck();
+	TBOnCheck();
 
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	if (HitTime_ < 0.0f)
@@ -416,4 +418,33 @@ void BigPlayer::HitTimeCheck()
 void BigPlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	MainBigPlayer = this;
+}
+
+void BigPlayer::TurtleOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == BigPlayerFootHitCollision->CollisionResult("TurtleHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(BigPlayerState::Fall);
+	}
+}
+
+void BigPlayer::TBOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == BigPlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect) ||
+		true == BigPlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(BigPlayerState::Fall);
+	}
 }

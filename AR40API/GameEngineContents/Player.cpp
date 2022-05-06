@@ -163,9 +163,10 @@ void Player::Update()
 	MushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
-	TurtleOnCheck();
 	MonsterHit();
 	FallDead();
+	TurtleOnCheck();
+	TBOnCheck();
 
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -286,8 +287,8 @@ void Player::TBOnCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == PlayerFootHitCollision->CollisionResult("TBHead-L", ColList, CollisionType::Rect, CollisionType::Rect)||
-		true == PlayerFootHitCollision->CollisionResult("TBHead-R", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == PlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect)||
+		true == PlayerFootHitCollision->CollisionResult("TBHead", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
 		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
 		//MainPlayer->JumpStart();//점프소리나는 문제
