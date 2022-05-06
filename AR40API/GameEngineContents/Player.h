@@ -101,6 +101,7 @@ public:
 	
 	void MonsterOnCheck();
 	void TurtleOnCheck();
+	void TBOnCheck();
 
 	void MonsterHit();
 

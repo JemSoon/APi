@@ -265,6 +265,21 @@ void Player::TurtleOnCheck()
 	}
 }
 
+void Player::TBOnCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+
+	if (true == PlayerFootHitCollision->CollisionResult("TBHead-L", ColList, CollisionType::Rect, CollisionType::Rect)||
+		true == PlayerFootHitCollision->CollisionResult("TBHead-R", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		//MainPlayer->JumpStart();//점프소리나는 문제
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
+		MoveDir.y = -10.0f;//약간의 높이 조절
+		ChangeState(PlayerState::Fall);
+	}
+}
+
 
 
 //랜더러가 다 돌아가고 랜더링 된다

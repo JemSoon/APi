@@ -105,6 +105,7 @@ void TurtleBack::Update()
 
 		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime() * Speed_);
 	}
+	SetMove(MoveDir_);
 }
 
 void TurtleBack::FootCheck()
@@ -141,28 +142,26 @@ void TurtleBack::PlayerAttack()
 	if (true == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
 		false == TBTopRightCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 30.0f;
-		SetMove(MoveDir_ * GameEngineTime::GetDeltaTime()*20.0f);
-		int a = 0;
+		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;
 	}
 
 	//else if (false == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
 	//	true == TBTopRightCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	//{
-	//	MoveDir_ = float4::RIGHT;
-	//	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	//	MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;;
+	//	
 	//}
 	//
 	//else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect))
 	//{
-	//	MoveDir_ = float4::RIGHT;
-	//	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	//	MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;;
+	//	
 	//}
 	//
 	//else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect))
 	//{
-	//	MoveDir_ = float4::LEFT;
-	//	SetMove(MoveDir_ * GameEngineTime::GetDeltaTime());
+	//	MoveDir_ = float4::LEFT * GameEngineTime::GetDeltaTime() * 100.0f;;
+	//	
 	//}
 }
 
