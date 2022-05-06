@@ -92,6 +92,12 @@
     <ClCompile Include="TurtleBack.cpp">
       <Filter>Play\Mon</Filter>
     </ClCompile>
+    <ClCompile Include="CoinBox.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BCoin.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -176,6 +182,12 @@
     </ClInclude>
     <ClInclude Include="TurtleBack.h">
       <Filter>Play\Mon</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinBox.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BCoin.h">
+      <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

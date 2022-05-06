@@ -294,6 +294,10 @@ void SuperMario::GameInit()
 			GameEngineImage* coin = GameEngineImageManager::GetInst()->Find("coin.bmp");
 
 			coin->CutCount(3, 1);
+
+			GameEngineImage* coin2 = GameEngineImageManager::GetInst()->Find("BCoin.bmp");
+
+			coin2->CutCount(4, 1);
 		}
 
 	}

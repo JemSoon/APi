@@ -24,7 +24,7 @@ void FireFlower::Start()
 	SetScale({ 64,64 });
 
 	FireFlowerCollision = CreateCollision("FireFlower", { 64, 64 });
-	FireFlowerAnimationRender = CreateRenderer();
+	FireFlowerAnimationRender = CreateRenderer((int)ORDER::BOX);
 	FireFlowerAnimationRender->CreateAnimation("FireFlower.bmp", "FireFlower", 0, 3, 0.3f, true);
 	FireFlowerAnimationRender->ChangeAnimation("FireFlower");
 

@@ -12,8 +12,7 @@
 
 
 
-Coin::Coin():
-	CoinGet(0)
+Coin::Coin()
 {
 
 }
@@ -39,7 +38,7 @@ void Coin::Render()
 void Coin::Update()
 {
 	PlayerCheck();
-	GetCoin();
+
 }
 
 void Coin::PlayerCheck()

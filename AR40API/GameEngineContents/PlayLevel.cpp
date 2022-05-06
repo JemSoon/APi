@@ -18,6 +18,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include "Mushroom.h"
 #include "Box.h"
+#include "CoinBox.h"
 #include "Block.h"
 #include "FireFlower.h"
 #include "Coin.h"
@@ -258,6 +259,9 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 			Box* QBox7 = CreateActor<Box>((int)ORDER::BOX);
 			QBox7->SetPosition({ 696.0f,600.0f });
+
+			CoinBox* QBox8 = CreateActor<CoinBox>((int)ORDER::BOX);
+			QBox8->SetPosition({ 58.0f,600.0f });
 		}
 
 		{
