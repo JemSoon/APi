@@ -188,6 +188,7 @@ void Player::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 		ChangeLevel_ = true;
 	}
@@ -199,6 +200,7 @@ void Player::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Play1");
 		ChangeLevel_ = true;
 	}
@@ -217,6 +219,7 @@ void Player::MushroomCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == PlayerCollision->CollisionResult("Mushroom", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
@@ -234,6 +237,7 @@ void Player::FireFlowerCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == PlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐

@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngine/GameEngineActor.h>
 #include "ContentsEnum.h"
+#include <GameEngineBase/GameEngineSound.h>
 
 //선생님은 생략된 것들도 명시적으로 칠 것이다
 //직접 만들지 않아도 자동으로 생략되어 생성되 있는것들
@@ -49,6 +50,7 @@ private:
 
 	GameEngineImage* MapColImage_;
 	GameEngineCollision* TBCollision;
+	GameEngineCollision* TBTopCollision;
 	GameEngineCollision* TBTopLeftCollision;
 	GameEngineCollision* TBTopRightCollision;
 	GameEngineCollision* TBLeftCollision;
@@ -59,6 +61,7 @@ public:
 	void LeftCheck();
 	void RightCheck();
 	void PlayerAttack();
+	void Kill();
 
 	void FallDead();
 };

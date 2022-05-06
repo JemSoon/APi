@@ -178,12 +178,29 @@ void BigPlayer::WallCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == BigPlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == BigPlayerDownCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect) &&
+		true == GameEngineInput::GetInst()->IsPress("Move Down"))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		GameEngine::GetInst().ChangeLevel("Pipe1");
+		Player::ChangeLevel_ = true;
+		int a = 0;
+	}
+
+	if (true == BigPlayerDownCollision->CollisionResult("Wall-L", ColList, CollisionType::Rect, CollisionType::Rect) &&
+		true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
+		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		GameEngine::GetInst().ChangeLevel("Play1");
+		Player::ChangeLevel_ = true;
 	}
 }
 
@@ -200,6 +217,7 @@ void BigPlayer::MushroomCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BigPlayerCollision->CollisionResult("Mushroom", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
@@ -212,6 +230,7 @@ void BigPlayer::FireFlowerCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BigPlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
@@ -344,7 +363,8 @@ void BigPlayer::MonsterOnCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
-		MainBigPlayer->JumpStart();
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(BigPlayerState::Fall);
 	}

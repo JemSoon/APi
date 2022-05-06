@@ -70,6 +70,7 @@ void CoinBox::PlayerCheck()
 		BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
 		Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
 		BoxCollision->GetActor()->Off();
+		UI::CoinCount_ += 1;
 	}
 
 	else if (true == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
@@ -80,5 +81,6 @@ void CoinBox::PlayerCheck()
 		BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
 		Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
 		BoxCollision->GetActor()->Off();
+		UI::CoinCount_ += 1;
 	}
 }

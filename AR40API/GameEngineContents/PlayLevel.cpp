@@ -223,6 +223,10 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			Turtle* Turtle1 = CreateActor<Turtle>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Turtle1->SetPosition({ 2100.0f,771.0f });
+
+			Monster* Gumba16 = CreateActor<Monster>((int)ORDER::MONSTER);
+			//Player->SetPosition(GameEngineWindow::GetScale().Half());
+			Gumba16->SetPosition({2200.0f,771.0f });
 		}
 
 		{

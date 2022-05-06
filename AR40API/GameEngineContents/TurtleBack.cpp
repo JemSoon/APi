@@ -22,8 +22,9 @@ TurtleBack::~TurtleBack()
 void TurtleBack::Start()
 {
 	TBCollision = CreateCollision("TBHitBox", { 64, 62 });
-	TBTopLeftCollision = CreateCollision("TBHead-L", { 32, 2 }, { -16,-32 });
-	TBTopRightCollision = CreateCollision("TBHead-R", { 32, 2 }, { 16,-32 });
+	TBTopCollision = CreateCollision("TBHead", { 64, 2 }, { 0,-32 });
+	//TBTopLeftCollision = CreateCollision("TBHead-L", { 32, 2 }, { -16,-32 });
+	//TBTopRightCollision = CreateCollision("TBHead-R", { 32, 2 }, { 16,-32 });
 	TBLeftCollision = CreateCollision("TBLeft", { 2, 64 }, { -32,0 });
 	TBRightCollision = CreateCollision("TBRight", { 2, 64 }, { 32,0 });
 	
@@ -39,11 +40,13 @@ void TurtleBack::Render()
 void TurtleBack::Update()
 {
 	PlayerAttack();
+	Kill();
+
 	{
-		//if (false == TurtleCollision->CollisionCheck("PlayerCamera"))
-		//{
-		//	return;
-		//}
+		if (false == TBCollision->CollisionCheck("PlayerCamera"))
+		{
+			return;
+		}
 	}
 
 
@@ -139,30 +142,22 @@ void TurtleBack::PlayerAttack()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
-		false == TBTopRightCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
 		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;
 	}
 
-	//else if (false == TBTopLeftCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
-	//	true == TBTopRightCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
-	//{
-	//	MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;;
-	//	
-	//}
-	//
 	//else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect))
 	//{
-	//	MoveDir_ = float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;;
-	//	
+	//	MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;
 	//}
-	//
+
 	//else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect))
 	//{
-	//	MoveDir_ = float4::LEFT * GameEngineTime::GetDeltaTime() * 100.0f;;
-	//	
+	//	MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * 100.0f;
 	//}
+
 }
 
 void TurtleBack::FallDead()
@@ -173,4 +168,20 @@ void TurtleBack::FallDead()
 	{
 		TBCollision->GetActor()->Death();
 	}
+}
+
+void TurtleBack::Kill()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (MoveDir_.x != 0.0f && true == TBLeftCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect)||
+		MoveDir_.x != 0.0f && true == TBRightCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+			ColList[i]->GetActor()->Death();
+		}
+	}
+
 }

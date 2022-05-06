@@ -93,9 +93,11 @@ void Bullet::HitToMonster()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BulletCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->GetActor()->Death(0.0f);
+			GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+			ColList[i]->GetActor()->Death();
 		}
 
 		Hit* Boom = GetLevel()->CreateActor<Hit>();

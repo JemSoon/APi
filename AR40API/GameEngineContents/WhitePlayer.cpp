@@ -108,7 +108,7 @@ void WhitePlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 1400, 1280 }, { 200, -50 });
+	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 0, 1280 }, { 200, -50 });
 
 	WhitePlayerHeadHitCollision = CreateCollision("WhitePlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	WhitePlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
@@ -178,14 +178,28 @@ void WhitePlayer::WallCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == WhitePlayerCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect) &&
+	if (true == WhitePlayerDownCollision->CollisionResult("Wall", ColList, CollisionType::Rect, CollisionType::Rect) &&
 		true == GameEngineInput::GetInst()->IsPress("Move Down"))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
-			ColList[i]->Death();//나랑 충돌한 벽들 다 주거
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Pipe1");
+		Player::ChangeLevel_ = true;
+	}
+
+	if (true == WhitePlayerDownCollision->CollisionResult("Wall-L", ColList, CollisionType::Rect, CollisionType::Rect) &&
+		true == GameEngineInput::GetInst()->IsPress("Move Right"))
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->Death();//콜리젼 사라지고 맵이동
+		}
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		GameEngine::GetInst().ChangeLevel("Play1");
+		Player::ChangeLevel_ = true;
 	}
 }
 
@@ -202,6 +216,7 @@ void WhitePlayer::MushroomCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == WhitePlayerCollision->CollisionResult("Mushroom", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
@@ -214,6 +229,7 @@ void WhitePlayer::FireFlowerCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == WhitePlayerCollision->CollisionResult("FireFlower", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup.wav");
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
@@ -312,6 +328,8 @@ void WhitePlayer::Fire()
 {
 	if (true == GameEngineInput::GetInst()->IsDown("Fire"))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_fireball.wav");
+
 		SetScale({ 32,32 });
 
 		Bullet* Ptr = GetLevel()->CreateActor<Bullet>();
@@ -361,7 +379,8 @@ void WhitePlayer::MonsterOnCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
-		MainWhitePlayer->JumpStart();
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(WhitePlayerState::Fall);
 	}

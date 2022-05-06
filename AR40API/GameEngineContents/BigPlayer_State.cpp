@@ -548,6 +548,8 @@ void BigPlayer::MoveStart()
 
 void BigPlayer::JumpStart()
 {
+	GameEngineSound::SoundPlayOneShot("smb_jump-super.wav");
+
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
 	{
 		BigDirString = 'R';

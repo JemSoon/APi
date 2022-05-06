@@ -57,6 +57,7 @@ void Box::PlayerCheck()
 
 	if (true == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup_appears.wav");
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
 		Mushroom* Ptr = GetLevel()->CreateActor<Mushroom>();
@@ -66,6 +67,7 @@ void Box::PlayerCheck()
 
 	else if (true == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup_appears.wav");
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
 		FireFlower* Ptr = GetLevel()->CreateActor<FireFlower>();
@@ -75,6 +77,7 @@ void Box::PlayerCheck()
 
 	else if (true == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup_appears.wav");
 		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 		EBox->SetPosition(GetPosition());
 		FireFlower* Ptr = GetLevel()->CreateActor<FireFlower>();
