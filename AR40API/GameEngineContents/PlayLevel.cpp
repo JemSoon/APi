@@ -79,6 +79,7 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 		WhitePlayer::MainWhitePlayer->NextLevelOn();
 		UI::MainUI->NextLevelOn();
 	}
+		Player::ChangeLevel_ == false;//¥ŸΩ√≤®¡‡æﬂ «‘
 }
 
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)

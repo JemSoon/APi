@@ -90,7 +90,7 @@ private:
 	std::string PrevDirString;//방향이 바뀌었을때
 
 public:
-	static bool ChangeLevel_;
+	static bool ChangeLevel_;//레벨체인지할때 true로 해줘야 NextLevelOn()적용됨!
 	void Start() override;
 	void Render() override;
 	void Update() override;
