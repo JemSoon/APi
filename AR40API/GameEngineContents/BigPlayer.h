@@ -109,6 +109,7 @@ public:
 
 	void TurtleOnCheck();
 	void TBOnCheck();
+	void SetColImage();
 
 	void NoHit()
 	{

@@ -14,14 +14,7 @@
 void BigPlayer::IdleUpdate()
 {
 	{	//맵과 캐릭터의 충돌설정용
-
-		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
-
-
-		if (nullptr == MapColImage_)
-		{
-			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
-		}
+		SetColImage();
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("Move Right"))
@@ -135,14 +128,7 @@ void BigPlayer::MoveUpdate()
 	}
 
 	{	//맵과 캐릭터의 충돌설정용
-
-		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
-
-
-		if (nullptr == MapColImage_)
-		{
-			MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
-		}
+		SetColImage();
 	}
 
 	RightCheck();
@@ -566,4 +552,22 @@ void BigPlayer::JumpStart()
 void BigPlayer::FallStart()
 {
 	BigPlayerAnimationRender->ChangeAnimation("BJump-" + BigDirString);
+}
+
+void BigPlayer::SetColImage()
+{
+	//맵과 캐릭터의 충돌설정용
+	if (GetLevel()->GetNameCopy() == "Play1")
+	{
+		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");
+	}
+	if (GetLevel()->GetNameCopy() == "Pipe1")
+	{
+		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColPipe1-1.bmp");
+	}
+
+	if (nullptr == MapColImage_)
+	{
+		MsgBoxAssert("맵 충돌용 이미지를 찾지 못했습니다");
+	}
 }
