@@ -187,10 +187,10 @@ void BigPlayer::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		MoveDir.x = 0.0f;
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 		Player::ChangeLevel_ = true;
-		int a = 0;
 	}
 
 	if (true == BigPlayerDownCollision->CollisionResult("Wall-L", ColList, CollisionType::Rect, CollisionType::Rect) &&
@@ -200,6 +200,7 @@ void BigPlayer::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		MoveDir.x = 0.0f;
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Play1");
 		Player::ChangeLevel_ = true;

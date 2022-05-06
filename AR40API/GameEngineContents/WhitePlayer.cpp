@@ -187,6 +187,7 @@ void WhitePlayer::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		MoveDir.x = 0.0f;
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Pipe1");
 		Player::ChangeLevel_ = true;
@@ -199,6 +200,7 @@ void WhitePlayer::WallCheck()
 		{
 			ColList[i]->Death();//콜리젼 사라지고 맵이동
 		}
+		MoveDir.x = 0.0f;
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		GameEngine::GetInst().ChangeLevel("Play1");
 		Player::ChangeLevel_ = true;

@@ -23,6 +23,8 @@
 #include "FireFlower.h"
 #include "Coin.h"
 
+bool PlayLevel::first = true;
+
 PlayLevel::PlayLevel()
 {
 
@@ -85,72 +87,74 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+
 	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
 	BgmPlayer.Volume(0.1f);
 	Time = 5.0f;
+	if (first == true)
+	{
+		{	//1스테이지의 배경 로드
+			BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
+			Actor->GetRenderer()->SetImage("Map1-1.bmp");
 
-	{	//1스테이지의 배경 로드
-		BackGround* Actor = CreateActor<BackGround>((int)ORDER::BACKGROUND);
-		Actor->GetRenderer()->SetImage("Map1-1.bmp");
+			{	//맵 이미지 첫화면에 맞게 맞추기
+				float4 BackActor = {};
+				BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
+				BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
 
-		{	//맵 이미지 첫화면에 맞게 맞추기
-			float4 BackActor = {};
-			BackActor.x = (Actor->GetRenderer()->GetImage()->GetScale().Half().x);
-			BackActor.y = (Actor->GetRenderer()->GetImage()->GetScale().Half().y);
+				Actor->GetRenderer()->SetPivot(BackActor);
 
-			Actor->GetRenderer()->SetPivot(BackActor);
+				//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
 
-			//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
+				Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });//파이프관
+				Actor->CreateCollision("Die", { 128,5 }, { 4480,957 });//절벽
+				Actor->CreateCollision("Die", { 192,5 }, { 5600,957 });//절벽
+				Actor->CreateCollision("Die", { 128,5 }, { 9858,957 });//절벽
+				Actor->CreateCollision("Flag", { 8,607 }, { 12704,460 });//깃발
 
-			Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });//파이프관
-			Actor->CreateCollision("Die", { 128,5 }, { 4480,957 });//절벽
-			Actor->CreateCollision("Die", { 192,5 }, { 5600,957 });//절벽
-			Actor->CreateCollision("Die", { 128,5 }, { 9858,957 });//절벽
-			Actor->CreateCollision("Flag", { 8,607 }, { 12704,460 });//깃발
+			}
 
+			{
+				if (nullptr == Player::MainPlayer)
+				{
+					//스테이지의 플레이어 로드
+					Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
+				}
+
+				if (nullptr == BigPlayer::MainBigPlayer)
+				{
+					//큰마리오
+					BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
+				}
+
+				if (nullptr == WhitePlayer::MainWhitePlayer)
+				{
+					//흰마리오
+					WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
+
+					//스테이지의 UI 로드
+					CreateActor<UI>((int)ORDER::UI);
+				}
+
+				//이전레벨이 파이프1이라면 
+				//if (MainPlayer->GetLevel()->GetNameCopy() == "Pipe1")
+				//{	//파이프레벨에서 넘어왔으면
+				//	Player::MainPlayer->SetPosition({ 14070.0f, 576.0f }); //320.0f,740.0f
+				//	BigPlayer::MainBigPlayer->SetPosition({ 14070.0f, 576.0f });
+				//	WhitePlayer::MainWhitePlayer->SetPosition({ 14070.0f, 576.0f });
+				//}
+
+
+				Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
+				BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
+				WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
+
+			}
 		}
 
 		{
-			if (nullptr == Player::MainPlayer)
-			{
-				//스테이지의 플레이어 로드
-				Player::MainPlayer = CreateActor<Player>((int)ORDER::PLAYER);
-			}
-
-			if (nullptr == BigPlayer::MainBigPlayer)
-			{
-				//큰마리오
-				BigPlayer::MainBigPlayer = CreateActor<BigPlayer>((int)ORDER::PLAYER);
-			}
-
-			if (nullptr == WhitePlayer::MainWhitePlayer)
-			{
-				//흰마리오
-				WhitePlayer::MainWhitePlayer = CreateActor<WhitePlayer>((int)ORDER::PLAYER);
-
-			}
-			//스테이지의 UI 로드
-			CreateActor<UI>((int)ORDER::UI);
-
-			//이전레벨이 파이프1이라면 
-			//if (MainPlayer->GetLevel()->GetNameCopy() == "Pipe1")
-			//{	//파이프레벨에서 넘어왔으면
-			//	Player::MainPlayer->SetPosition({ 14070.0f, 576.0f }); //320.0f,740.0f
-			//	BigPlayer::MainBigPlayer->SetPosition({ 14070.0f, 576.0f });
-			//	WhitePlayer::MainWhitePlayer->SetPosition({ 14070.0f, 576.0f });
-			//}
 
 
-			Player::MainPlayer->SetPosition({ 320.0f, 740.0f }); //320.0f,740.0f
-			BigPlayer::MainBigPlayer->SetPosition({ 320.0f, 740.0f });
-			WhitePlayer::MainWhitePlayer->SetPosition({ 320.0f, 740.0f });
-
-		}
-	}
-
-		{
-
-			
 			//1스테이지의 몬스터 로드
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
@@ -226,7 +230,7 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 			Monster* Gumba16 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba16->SetPosition({2200.0f,771.0f });
+			Gumba16->SetPosition({ 2200.0f,771.0f });
 		}
 
 		{
@@ -315,6 +319,15 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
 			Coin3->SetPosition({ 518.0f,308.0f });
 		}
+	}
+	
+	else if (first == false)
+	{
+		Player::MainPlayer->SetPosition({ 10475.0f, 640.0f }); //320.0f,740.0f
+		BigPlayer::MainBigPlayer->SetPosition({ 10475.0f, 640.0f });
+		WhitePlayer::MainWhitePlayer->SetPosition({ 10475.0f, 640.0f });
+	}
+	first = false;
 }
 
 	////여기다 플레이어 UI만들면 넘어갈때마다 만들어짐

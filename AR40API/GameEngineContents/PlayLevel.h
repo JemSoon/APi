@@ -30,6 +30,7 @@ public:
 
 	float Time;
 
+	static bool first;
 
 	Player* MainPlayer;
 	GameEngineSoundPlayer BgmPlayer;

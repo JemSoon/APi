@@ -59,6 +59,7 @@ void PlayerDie::Update()
 
 	if (5.0 <= Time)
 	{
+		PlayLevel::first = true;
 		GetLevel()->ResetOn();
 		GameEngine::GetInst().ChangeLevel("Play1");
 		this->Death();
