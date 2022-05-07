@@ -125,11 +125,14 @@ public:
 	void NoHit()
 	{
 		PlayerCollision->Off();
-	
+		PlayerRightCollision->Off();
+		PlayerLeftCollision->Off();
 	}
 	void OnHit() 
 	{
 		PlayerCollision->On();
+		PlayerRightCollision->Off();
+		PlayerLeftCollision->Off();
 	}
 
 	void HitTimeCheck();

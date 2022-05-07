@@ -42,6 +42,10 @@ public:
 	BigPlayer& operator=(const BigPlayer& _Other) = delete;
 	BigPlayer& operator=(BigPlayer&& _Other) noexcept = delete;
 
+	float4 GetDir()
+	{
+		return MoveDir;
+	}
 
 	float4 CurDir()
 	{
@@ -82,6 +86,7 @@ private:
 	float4 BigPlayerDir_;
 
 public:
+	void ChangeState(BigPlayerState _State);
 	void Start() override;
 	void Render() override;
 	void Update() override;
@@ -115,11 +120,15 @@ public:
 	{
 		BigPlayerCollision->Off();
 		BigPlayerDownCollision->Off();
+		BigPlayerRightCollision->Off();
+		BigPlayerLeftCollision->Off();
 	}
 	void OnHit()
 	{
 		BigPlayerCollision->On();
 		BigPlayerDownCollision->On();
+		BigPlayerRightCollision->Off();
+		BigPlayerLeftCollision->Off();
 	}
 
 	void HitTimeCheck();
@@ -148,7 +157,6 @@ private:
 private:
 	BigPlayerState CurState_;
 
-	void ChangeState(BigPlayerState _State);
 	void StateUpdate();
 
 private:

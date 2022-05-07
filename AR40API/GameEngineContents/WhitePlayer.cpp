@@ -114,8 +114,8 @@ void WhitePlayer::Start()
 	WhitePlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	WhitePlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
 	WhitePlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
-	WhitePlayerLeftCollision = CreateCollision("PlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
-	WhitePlayerRightCollision = CreateCollision("PlayerRight", { 2, 127 }, { 32,0 });
+	WhitePlayerLeftCollision = CreateCollision("WhitePlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
+	WhitePlayerRightCollision = CreateCollision("WhitePlayerRight", { 2, 127 }, { 32,0 });
 
 	WhitePlayerCollision = CreateCollision("WhitePlayerHitBox", { 50, 128 });
 	WhitePlayerDownCollision = CreateCollision("WhitePlayerDownHitBox", { 50, 80 }, { 0,22 });

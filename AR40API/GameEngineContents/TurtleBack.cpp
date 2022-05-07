@@ -187,6 +187,24 @@ void TurtleBack::PlayerAttack()
 		WhitePlayer::MainWhitePlayer = nullptr;
 		return;
 	}
+	//내가 추가한 빅마리오 충돌 ↓
+	else if (true == TBRightCollision->CollisionResult("BigPlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		BigPlayer::MainBigPlayer->GetDir() = float4::ZERO;
+		BigPlayer::MainBigPlayer->ChangeState(BigPlayerState::Idle);
+		BigPlayer::MainBigPlayer->Off();
+		Player::MainPlayer->SetPosition(BigPlayer::MainBigPlayer->GetPosition());
+		Player::MainPlayer->On();
+		Player::MainPlayer->NoHit();
+	
+		Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+	
+		Player::MainPlayer->HitTimeCheck();
+		int a = 0;
+		return;
+	}
 
 	if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x == 0.0f)

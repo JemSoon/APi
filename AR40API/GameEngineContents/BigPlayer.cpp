@@ -108,14 +108,14 @@ void BigPlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 1400, 2048 }, { 200, -50 });
+	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 400, 2048 }, { 200, -50 });
 
 	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 2 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	BigPlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
 	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
-	BigPlayerLeftCollision = CreateCollision("BigPlayerLeft", { 2, 127 }, { -32,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
-	BigPlayerRightCollision = CreateCollision("BigPlayerRight", { 2, 127 }, { 32,0 });
+	BigPlayerLeftCollision = CreateCollision("BigPlayerLeft", { 2, 127 }, { -33,0 });//두께 2로해야 탑이나 봇에 안겹쳐용~
+	BigPlayerRightCollision = CreateCollision("BigPlayerRight", { 2, 127 }, { 33,0 });
 
 	BigPlayerCollision = CreateCollision("BigPlayerHitBox", { 50, 128 });
 	BigPlayerDownCollision = CreateCollision("BigPlayerDownHitBox", { 50, 80 },{0,22});
