@@ -310,6 +310,10 @@ void SuperMario::GameInit()
 			GameEngineImage* flag = GameEngineImageManager::GetInst()->Find("flag.bmp");
 
 			flag->CutCount(2, 1);
+
+			GameEngineImage* Intro = GameEngineImageManager::GetInst()->Find("Intro.bmp");
+
+			Intro->Cut({ 1280, 960 });
 		}
 
 	}
