@@ -133,6 +133,7 @@ void Player::Start()
 	PlayerAnimationRender->CreateAnimation("jump-R.bmp", "Jump-R", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("break-L.bmp", "Break-L", 0, 0, 0.0f, false);
 	PlayerAnimationRender->CreateAnimation("break-R.bmp", "Break-R", 0, 0, 0.0f, false);
+	PlayerAnimationRender->CreateAnimation("flag.bmp", "Flag", 0, 1, 0.1f, true);
 	PlayerAnimationRender->CreateAnimation("die.bmp", "Die", 0, 0, 0.0f, false);
 	PlayerAnimationRender->ChangeAnimation("idle-R");
 
@@ -168,6 +169,8 @@ void Player::Update()
 	FallDead();
 	TurtleOnCheck();
 	TBOnCheck();
+
+	FlagCheck();
 
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -514,9 +517,13 @@ void Player::FlagCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		//PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
-		//die->SetPosition(GetPosition());
-		//MainPlayer->Off();
+		Time_ = 0.0f;
+		Time_ = Time_ + GameEngineTime::GetDeltaTime();
+		PlayerAnimationRender->ChangeAnimation("Flag");
+		MoveDir = float4::DOWN * Speed_;
+		FootCheck();
+		if(RGB(55,55,55)!=Color_)
+
 		
 		//깃발에서 내려와서 땅으로 디디고 성으로 걸어간다.
 

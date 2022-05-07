@@ -306,6 +306,10 @@ void SuperMario::GameInit()
 			GameEngineImage* None = GameEngineImageManager::GetInst()->Find("None.bmp");
 
 			None->Cut({ 64, 64 });
+
+			GameEngineImage* flag = GameEngineImageManager::GetInst()->Find("flag.bmp");
+
+			flag->CutCount(2, 1);
 		}
 
 	}
