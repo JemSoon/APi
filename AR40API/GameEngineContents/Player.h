@@ -130,8 +130,6 @@ public:
 	void OnHit() 
 	{
 		PlayerCollision->On();
-
-
 	}
 
 	void HitTimeCheck();

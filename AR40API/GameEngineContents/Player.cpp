@@ -184,6 +184,7 @@ void Player::Update()
 	if (HitTime_ < 0.0f)
 	{
 		OnHit();
+		MainPlayer->GetRenderer1()->SetAlpha(255);
 	}
 	Muuzuk();
 }

@@ -44,15 +44,15 @@ void PlayLevel::Loading()
 
 void PlayLevel::Update()
 {
-	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
-	{
-		GameEngine::GetInst().ChangeLevel("Intro");
-	}
-
-	if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
-	{
-		GameEngine::GetInst().ChangeLevel("Pipe1");
-	}
+	//if (true == GameEngineInput::GetInst()->IsDown("Intro"))
+	//{
+	//	GameEngine::GetInst().ChangeLevel("Intro");
+	//}
+	//
+	//if (true == GameEngineInput::GetInst()->IsDown("Pipe1"))
+	//{
+	//	GameEngine::GetInst().ChangeLevel("Pipe1");
+	//}
 
 	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
 	{
