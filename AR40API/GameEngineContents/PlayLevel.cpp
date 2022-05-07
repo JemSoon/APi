@@ -90,10 +90,9 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
+	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
+	BgmPlayer.Volume(0.1f);
 
-		BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
-		BgmPlayer.Volume(0.1f);
-		Time = 5.0f;
 	if (first == true)
 	{
 		{	//1스테이지의 배경 로드

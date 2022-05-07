@@ -30,6 +30,10 @@ public:
 	TurtleBack& operator=(const TurtleBack& _Other) = delete;
 	TurtleBack& operator=(TurtleBack&& _Other) noexcept = delete;
 
+	float4 GetTBMoveDir()
+	{
+		return MoveDir_;
+	}
 
 protected:
 	GameEngineRenderer* TBAnimationRender;

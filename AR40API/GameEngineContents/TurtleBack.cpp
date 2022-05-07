@@ -1,4 +1,9 @@
 #include "TurtleBack.h"
+#include "Player.h"
+#include "BigPlayer.h"
+#include "WhitePlayer.h"
+#include "PlayerDie.h"
+
 #include <GameEngine/GameEngine.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include <GameEngine/GameEngineImageManager.h>
@@ -142,22 +147,73 @@ void TurtleBack::PlayerAttack()
 {
 	std::vector<GameEngineCollision*> ColList;
 
-	if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
 		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
 	}
+	else if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		MoveDir_ = float4::ZERO;
+	}
 
-	//else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect))
-	//{
-	//	MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 100.0f;
-	//}
 
-	//else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect))
-	//{
-	//	MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * 100.0f;
-	//}
+	if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+	else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(Player::MainPlayer->GetPosition());
+		//PlayerCollision->GetActor()->Death();
+		Player::MainPlayer->Death();
+		Player::MainPlayer = nullptr;
+		BigPlayer::MainBigPlayer->Death();
+		BigPlayer::MainBigPlayer = nullptr;
+		WhitePlayer::MainWhitePlayer->Death();
+		WhitePlayer::MainWhitePlayer = nullptr;
+		return;
+	}
 
+	if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+	else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		die->SetPosition(Player::MainPlayer->GetPosition());
+		//PlayerCollision->GetActor()->Death();
+		Player::MainPlayer->Death();
+		Player::MainPlayer = nullptr;
+		BigPlayer::MainBigPlayer->Death();
+		BigPlayer::MainBigPlayer = nullptr;
+		WhitePlayer::MainWhitePlayer->Death();
+		WhitePlayer::MainWhitePlayer = nullptr;
+		return;
+	}
 }
 
 void TurtleBack::FallDead()

@@ -28,7 +28,7 @@ Player::Player()
 	, DirString("R")
 	, Time_(3.0f)
 	, HitTime_(0.0f)
-	, LevelClear_(0.0f)
+	, LevelClear_(5.0f)
 	, Clear_(false)
 
 {
@@ -225,14 +225,15 @@ void Player::DoorCheck()
 {
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
-		PlayerCollision->GetActor()->Off();
+		static_cast<Player*>(PlayerCollision->GetActor())->GetRenderer1()->Off();//랜더러만 끈다
+		//PlayerCollision->GetActor()->Off();//플레이어 자체를 오프를 하니 실행이 안된다
 		ChangeLevel_ = true;
 
 		if (LevelClear_ <= 1.0f)
 		{
 			GameEngine::GetInst().ChangeLevel("Play2");
 		}
-		//GameEngine::GetInst().ChangeLevel("Play2");
+		
 	}
 }
 
