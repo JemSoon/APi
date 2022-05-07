@@ -25,7 +25,7 @@ Player::Player()
 	, MoveDir(float4::ZERO)
 	, PlayerDir_(float4::RIGHT)
 	, DirString("R")
-	, Time_(0.0f)
+	, Time_(3.0f)
 	, HitTime_(0.0f)
 
 {
@@ -171,7 +171,7 @@ void Player::Update()
 	TBOnCheck();
 
 	FlagCheck();
-
+	//Time_ += GameEngineTime::GetDeltaTime();
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
 	if (HitTime_ < 0.0f)
@@ -517,16 +517,23 @@ void Player::FlagCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		Time_ = 0.0f;
-		Time_ = Time_ + GameEngineTime::GetDeltaTime();
+		Time_ -= GameEngineTime::GetDeltaTime();
 		PlayerAnimationRender->ChangeAnimation("Flag");
+		GameEngineSound::SoundPlayOneShot("smb_flagpole.wav",0,0.01f);
 		MoveDir = float4::DOWN * Speed_;
-		FootCheck();
-		if(RGB(55,55,55)!=Color_)
 
-		
+		if (Time_ <= 1.0f)
+		{
+			PlayerAnimationRender->ChangeAnimation("idle-L");
+			PlayerCollision->GetActor()->SetPosition({ 12768.0f,771.0f });
+			//if (Time_ < 1.0f)
+			//{
+			//	PlayerAnimationRender->ChangeAnimation("Walk-R");
+			//	MoveDir = float4::RIGHT * Speed_;
+			//}
+		}
+		//12700
 		//깃발에서 내려와서 땅으로 디디고 성으로 걸어간다.
 
-		return;
 	}
 }
