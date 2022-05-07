@@ -240,8 +240,6 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		{
 			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
 			a->SetPosition({ 1058.0f,608.0f });
-			a->HP = 10;
-
 		}
 		{
 			Block* a = CreateActor<Block>((int)ORDER::BOX);
@@ -333,6 +331,7 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		{
 			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
 			a->SetPosition({ 6028.0f,608.0f });
+			a->HP = 10;
 			//이거 10번 쳐야되는데..
 		}
 
@@ -420,53 +419,7 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			a->SetPosition({ 10978.0f,608.0f });
 		}
 
-		{
-			//코인 테스트
-			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin1->SetPosition({ 400.0f,500.0f });
-
-			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin2->SetPosition({ 464.0f,500.0f });
-
-			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin3->SetPosition({ 518.0f,500.0f });
-		}
-
-		{
-			//코인 테스트
-			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin1->SetPosition({ 582.0f,500.0f });
-
-			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin2->SetPosition({ 646.0f,500.0f });
-
-			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin3->SetPosition({ 710.0f,500.0f });
-		}
-
-		{
-			//코인 테스트
-			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin1->SetPosition({ 774.0f,500.0f });
-
-			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin2->SetPosition({ 838.0f,500.0f });
-
-			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin3->SetPosition({ 902.0f,500.0f });
-		}
-
-		{
-			//코인 테스트
-			Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin1->SetPosition({ 966.0f,436.0f });
-
-			Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin2->SetPosition({ 464.0f,372.0f });
-
-			Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
-			Coin3->SetPosition({ 518.0f,308.0f });
-		}
+		
 	}
 	
 	else if (first == false)
