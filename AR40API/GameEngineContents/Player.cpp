@@ -230,6 +230,7 @@ void Player::DoorCheck()
 		{
 			GameEngine::GetInst().ChangeLevel("Play2");
 		}
+		//GameEngine::GetInst().ChangeLevel("Play2");
 	}
 }
 
