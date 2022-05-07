@@ -98,6 +98,12 @@
     <ClCompile Include="BCoin.cpp">
       <Filter>Play\Item</Filter>
     </ClCompile>
+    <ClCompile Include="UPMushroom.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="NoneBox.cpp">
+      <Filter>Play\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TitleLevel.h">
@@ -187,6 +193,12 @@
       <Filter>Play\Item</Filter>
     </ClInclude>
     <ClInclude Include="BCoin.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="UPMushroom.h">
+      <Filter>Play\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="NoneBox.h">
       <Filter>Play\Item</Filter>
     </ClInclude>
   </ItemGroup>

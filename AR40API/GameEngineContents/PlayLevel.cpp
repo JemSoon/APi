@@ -18,6 +18,7 @@
 #include <GameEngine/GameEngineImageManager.h>
 #include "Mushroom.h"
 #include "Box.h"
+#include "NoneBox.h"
 #include "CoinBox.h"
 #include "Block.h"
 #include "FireFlower.h"
@@ -157,10 +158,6 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 			//1스테이지의 몬스터 로드
 
-			Monster* Gumba = CreateActor<Monster>((int)ORDER::MONSTER);
-			//Player->SetPosition(GameEngineWindow::GetScale().Half());
-			Gumba->SetPosition({440.0f,530.0f });
-
 			Monster* Gumba1 = CreateActor<Monster>((int)ORDER::MONSTER);
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba1->SetPosition({ 1408.0f,771.0f });
@@ -239,42 +236,184 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		}
 
 		{
-			//박스 로드 체크
-			Box* QBox = CreateActor<Box>((int)ORDER::BOX);
-			QBox->SetPosition({ 120.0f,600.0f });
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 1058.0f,608.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 1314.0f,608.0f });
+		}
+		{
+			Box* a = CreateActor<Box>((int)ORDER::BOX);
+			a->SetPosition({ 1378.0f,608.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 1442.0f,608.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 1506.0f,608.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 1570.0f,608.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 1442.0f,358.0f });
+		}
+		{
+			NoneBox* a = CreateActor<NoneBox>((int)ORDER::BOX);
+			a->SetPosition({ 4130.0f,544.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 4962.0f,608.0f });
+		}
+		{
+			Box* a = CreateActor<Box>((int)ORDER::BOX);
+			a->SetPosition({ 5026.0f,608.0f });
+		}
 
-			//박스 로드 체크
-			Box* QBox1 = CreateActor<Box>((int)ORDER::BOX);
-			QBox1->SetPosition({ 184.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5154.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5218.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5282.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5346.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5410.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5474.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5538.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5602.0f,358.0f });
+		}
 
-			Box* QBox2 = CreateActor<Box>((int)ORDER::BOX);
-			QBox2->SetPosition({ 376.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5836.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5900.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 5964.0f,358.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 6028.0f,358.0f });
+		}
 
-			//박스 로드 체크
-			Box* QBox3 = CreateActor<Box>((int)ORDER::BOX);
-			QBox3->SetPosition({ 440.0f,600.0f });
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 6028.0f,608.0f });
+			//이거 10번 쳐야되는데..
+		}
 
-			//블록 로드 체크
-			Block* Block1 = CreateActor<Block>((int)ORDER::BOX);
-			Block1->SetPosition({ 248.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 6434.0f,608.0f });
+			//이거 옆에 별나오는 블록(아직 안만듦
+		}
 
-			Block* Block2 = CreateActor<Block>((int)ORDER::BOX);
-			Block2->SetPosition({ 312.0f,600.0f });
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 6818.0f,608.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 7010.0f,608.0f });
+		}
+		{
+			Box* a = CreateActor<Box>((int)ORDER::BOX);
+			a->SetPosition({ 7010.0f,358.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 7202.0f,608.0f });
+		}
 
-			Box* QBox4 = CreateActor<Box>((int)ORDER::BOX);
-			QBox4->SetPosition({ 504.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 7586.0f,608.0f });
+		}
 
-			Box* QBox5 = CreateActor<Box>((int)ORDER::BOX);
-			QBox5->SetPosition({ 568.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 7777.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 7841.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 7905.0f,358.0f });
+		}
 
-			Box* QBox6 = CreateActor<Box>((int)ORDER::BOX);
-			QBox6->SetPosition({ 632.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 8226.0f,358.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 8290.0f,358.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 8354.0f,358.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 8418.0f,358.0f });
+		}
 
-			Box* QBox7 = CreateActor<Box>((int)ORDER::BOX);
-			QBox7->SetPosition({ 696.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 8290.0f,608.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 8354.0f,608.0f });
+		}
 
-			CoinBox* QBox8 = CreateActor<CoinBox>((int)ORDER::BOX);
-			QBox8->SetPosition({ 58.0f,600.0f });
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 10786.0f,608.0f });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 10850.0f,608.0f });
+		}
+		{
+			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			a->SetPosition({ 10914.0f,608.0 });
+		}
+		{
+			Block* a = CreateActor<Block>((int)ORDER::BOX);
+			a->SetPosition({ 10978.0f,608.0f });
 		}
 
 		{

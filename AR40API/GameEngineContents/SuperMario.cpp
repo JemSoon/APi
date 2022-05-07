@@ -298,6 +298,14 @@ void SuperMario::GameInit()
 			GameEngineImage* coin2 = GameEngineImageManager::GetInst()->Find("BCoin.bmp");
 
 			coin2->CutCount(4, 1);
+
+			GameEngineImage* UPMush = GameEngineImageManager::GetInst()->Find("UPMushroom.bmp");
+
+			UPMush->Cut({ 64, 64 });
+
+			GameEngineImage* None = GameEngineImageManager::GetInst()->Find("None.bmp");
+
+			None->Cut({ 64, 64 });
 		}
 
 	}

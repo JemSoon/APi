@@ -37,6 +37,13 @@ void FireFlower::Render()
 
 void FireFlower::Update()
 {
+	{	//카메라 밖에 나가면 죽인다
+		if (false == FireFlowerCollision->CollisionCheck("PlayerCamera"))
+		{
+			this->Death();
+		}
+	}
+
 	ColBotCheck();
 }
 

@@ -110,7 +110,7 @@ void BigPlayer::Start()
 
 	BigPlayerCameraCollision = CreateCollision("PlayerCamera", { 1400, 2048 }, { 200, -50 });
 
-	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 0 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
+	BigPlayerHeadHitCollision = CreateCollision("BigPlayerHeadHit", { 1, 2 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	BigPlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
 	BigPlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,64 });
 	BigPlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,65 });//몹 충돌용(1마리만 밟게끔)
@@ -388,7 +388,7 @@ void BigPlayer::MonsterOnCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
-		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		GameEngineSound::SoundPlayOneShot("smb_stomp.wav");
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(BigPlayerState::Fall);
@@ -401,6 +401,7 @@ void BigPlayer::MonsterHit()
 
 	if (true == BigPlayerCollision->CollisionResult("MonsterHitBox", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
 		MainBigPlayer->MoveDir = float4::ZERO;
 		MainBigPlayer->ChangeState(BigPlayerState::Idle);
 		MainBigPlayer->Off();

@@ -113,8 +113,8 @@ void Player::Start()
 	SetScale({ 64,64 });
 
 	//몬스터 카메라 범위안에 있을때 움직이기용					 1300
-	PlayerCameraCollision = CreateCollision("PlayerCamera", {1400, 2048 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
-	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 0 }, { 0,-33 });//박스 충돌용(1개만 충돌하게끔)
+	PlayerCameraCollision = CreateCollision("PlayerCamera", {500, 2048 }, {200, -50});//200,-200이 플레이어 기준 딱 한가운데(-50인 이유는 점프땜에)
+	PlayerHeadHitCollision = CreateCollision("PlayerHeadHit", { 1, 2 }, { 0,-33 });//박스 충돌용(1개만 충돌하게끔)
 	PlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 },{0,-32});
 	PlayerFootCollision = CreateCollision("PlayerFoot", { 64, 1 }, { 0,32 });
 	PlayerFootHitCollision = CreateCollision("PlayerFootHit", { 54, 2 }, { 0,33 });//몹 충돌용(1마리만 밟게끔)
@@ -161,6 +161,7 @@ void Player::Update()
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
+	UPMushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
@@ -263,7 +264,7 @@ void Player::MonsterOnCheck()
 		{
 			ColList[i]->GetActor()->Death();//나랑 충돌한 몬스터 주겅
 		}
-		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+		GameEngineSound::SoundPlayOneShot("smb_stomp.wav");
 		//MainPlayer->JumpStart();//점프소리나는 문제
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
@@ -491,4 +492,34 @@ void Player::Muuzuk()
 void Player::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	MainPlayer = this;
+}
+
+void Player::UPMushroomCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == PlayerCollision->CollisionResult("UPMushroom", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_1-up.wav");
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
+		}
+		
+		//목숨 +1
+	}
+}
+
+void Player::FlagCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		//PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
+		//die->SetPosition(GetPosition());
+		//MainPlayer->Off();
+		
+		//깃발에서 내려와서 땅으로 디디고 성으로 걸어간다.
+
+		return;
+	}
 }

@@ -43,6 +43,13 @@ void Mushroom::Render()
 
 void Mushroom::Update()
 {
+	{	//카메라 밖에 나가면 죽인다
+		if (false == MushroomCollision->CollisionCheck("PlayerCamera"))
+		{
+			this->Death();
+		}
+	}
+
 	{	//맵과 캐릭터의 충돌설정용
 
 		MapColImage_ = GameEngineImageManager::GetInst()->Find("ColMap1-1.bmp");

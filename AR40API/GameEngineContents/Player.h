@@ -98,6 +98,7 @@ public:
 	void DoorCheck();
 	void WallCheck();
 	void MushroomCheck();
+	void UPMushroomCheck();
 	void FireFlowerCheck();
 	
 	void MonsterOnCheck();
@@ -133,6 +134,7 @@ public:
 	}
 
 	void HitTimeCheck();
+	void FlagCheck();
 
 	GameEngineRenderer* GetRenderer1()
 	{
