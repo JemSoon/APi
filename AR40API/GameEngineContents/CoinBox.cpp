@@ -52,33 +52,8 @@ void CoinBox::Update()
 void CoinBox::PlayerCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
-	{
-		if (true == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
-			false == HitFlg)
-		{
-			HitFlg = true;
-			HP -= 1;
-			GameEngineSound::SoundPlayOneShot("smb_coin.wav");
-			BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
-			Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
-			UI::CoinCount_ += 1;
-			if (HP == 0)
-			{
-				BoxCollision->GetActor()->Off();
-				EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-				EBox->SetPosition(GetPosition());
-			}
-
-		}
-
-		else if (false == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
-		{
-			HitFlg = false;
-		}
-	}
-
-
-	if (true == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
+	
+	if (true == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
 		false == HitFlg)
 	{
 		HitFlg = true;
@@ -93,19 +68,50 @@ void CoinBox::PlayerCheck()
 			EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
 			EBox->SetPosition(GetPosition());
 		}
+
 	}
 
+	else if (true == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect) &&
+			false == HitFlg)
+		{
+			HitFlg = true;
+			HP -= 1;
+			GameEngineSound::SoundPlayOneShot("smb_coin.wav");
+			BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
+			Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
+			UI::CoinCount_ += 1;
+			if (HP == 0)
+			{
+				BoxCollision->GetActor()->Off();
+				EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+				EBox->SetPosition(GetPosition());
+			}
+		}
 
-	if (true == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
-		false == HitFlg)
-	{
-		GameEngineSound::SoundPlayOneShot("smb_coin.wav");
-		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
-		EBox->SetPosition(GetPosition());
-		BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
-		Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
-		BoxCollision->GetActor()->Off();
-		UI::CoinCount_ += 1;
-	}
+	else if (true == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
+			false == HitFlg)
+		{
+			HitFlg = true;
+			HP -= 1;
+			GameEngineSound::SoundPlayOneShot("smb_coin.wav");
+			BCoin* Ptr = GetLevel()->CreateActor<BCoin>();
+			Ptr->SetPosition(GetPosition() + float4{ 0,-64 });
+			UI::CoinCount_ += 1;
+			if (HP == 0)
+			{
+				BoxCollision->GetActor()->Off();
+				EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+				EBox->SetPosition(GetPosition());
+			}
+		}
+	
+
+	else if (false == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
+			false == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect)&&
+			false == BoxBotCollision->CollisionResult("PlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
+		{
+			HitFlg = false;
+		}
+
 	
 }
