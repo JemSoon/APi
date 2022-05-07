@@ -138,6 +138,7 @@ public:
 	void FlagCheck();
 	void MapClear();
 
+
 	GameEngineRenderer* GetRenderer1()
 	{
 		return PlayerAnimationRender;

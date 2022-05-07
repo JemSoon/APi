@@ -28,7 +28,7 @@ Player::Player()
 	, DirString("R")
 	, Time_(3.0f)
 	, HitTime_(0.0f)
-	, LevelClear_(3.0f)
+	, LevelClear_(0.0f)
 	, Clear_(false)
 
 {
@@ -176,6 +176,8 @@ void Player::Update()
 	FlagCheck();
 	MapClear();
 
+
+	LevelClear_ -= GameEngineTime::GetDeltaTime();
 	//Time_ += GameEngineTime::GetDeltaTime();
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -223,7 +225,6 @@ void Player::DoorCheck()
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
 		PlayerCollision->GetActor()->Off();
-		LevelClear_ -= GameEngineTime::GetDeltaTime();
 		ChangeLevel_ = true;
 		if (LevelClear_ <= 1.0f)
 		{
@@ -553,3 +554,4 @@ void Player::MapClear()
 		MoveDir = float4::RIGHT * 10.0f;
 	}
 }
+

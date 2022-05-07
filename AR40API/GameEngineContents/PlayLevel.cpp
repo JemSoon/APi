@@ -484,9 +484,7 @@ void PlayLevel::ClearSongCheck()
 		Time = Time-GameEngineTime::GetDeltaTime();
 
 		
-		GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.03f);
-		
-		
+		GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.05f);
 	}
 }
 

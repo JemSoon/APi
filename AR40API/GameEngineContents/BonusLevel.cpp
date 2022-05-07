@@ -71,15 +71,66 @@ void BonusLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		Actor->CreateCollision("Wall-L", { 200,100 }, { 1057,768 });//파이프관
 	}
 	{
-		//코인 테스트
-		Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
-		Coin1->SetPosition({ 400.0f,335.0f });
-
+		//코인 한줄
 		Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
 		Coin2->SetPosition({ 464.0f,335.0f });
 
 		Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
 		Coin3->SetPosition({ 518.0f,335.0f });
+
+		Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin1->SetPosition({ 582.0f,335.0f });
+
+		Coin* Coin4 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin4->SetPosition({ 646.0f,335.0f });
+
+		Coin* Coin5 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin5->SetPosition({ 710.0f,335.0f });
+	}
+	{
+		Coin* Coin6 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin6->SetPosition({ 400.0f,463.0f });
+
+		Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin2->SetPosition({ 464.0f,463.0f });
+
+		Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin3->SetPosition({ 518.0f,463.0f });
+
+		Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin1->SetPosition({ 582.0f,463.0f });
+
+		Coin* Coin4 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin4->SetPosition({ 646.0f,463.0f });
+
+		Coin* Coin5 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin5->SetPosition({ 710.0f,463.0f });
+
+		Coin* Coin7 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin7->SetPosition({ 774.0f,463.0f });
+	}
+
+	{
+		Coin* Coin6 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin6->SetPosition({ 400.0f,591.0f });
+
+		Coin* Coin2 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin2->SetPosition({ 464.0f,591.0f });
+
+		Coin* Coin3 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin3->SetPosition({ 518.0f,591.0f });
+
+		Coin* Coin1 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin1->SetPosition({ 582.0f,591.0f });
+
+		Coin* Coin4 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin4->SetPosition({ 646.0f,591.0f });
+
+		Coin* Coin5 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin5->SetPosition({ 710.0f,591.0f });
+
+		Coin* Coin7 = CreateActor<Coin>((int)ORDER::ITEM);
+		Coin7->SetPosition({ 774.0f,591.0f });
 	}
 
 	{
