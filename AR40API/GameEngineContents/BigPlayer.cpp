@@ -410,7 +410,8 @@ void BigPlayer::MonsterHit()
 		Player::MainPlayer->On();
 		Player::MainPlayer->NoHit();
 	
-		Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+		//작은마리오 알파값은 죽는순간 Death되서 사라지면서 Renderer와 충돌하므로 뺀다..
 
 		Player::MainPlayer->HitTimeCheck();
 	}
