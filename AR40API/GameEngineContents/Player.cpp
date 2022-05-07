@@ -18,6 +18,7 @@
 
 Player* Player::MainPlayer = nullptr;
 bool Player::ChangeLevel_ = false;
+bool Player::ClearSongOn_ = false;
 
 Player::Player()
 	: Speed_(20.0f)
@@ -27,6 +28,8 @@ Player::Player()
 	, DirString("R")
 	, Time_(3.0f)
 	, HitTime_(0.0f)
+	, LevelClear_(3.0f)
+	, Clear_(false)
 
 {
 
@@ -171,6 +174,8 @@ void Player::Update()
 	TBOnCheck();
 
 	FlagCheck();
+	MapClear();
+
 	//Time_ += GameEngineTime::GetDeltaTime();
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -217,7 +222,13 @@ void Player::DoorCheck()
 {
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
-		GameEngine::GetInst().ChangeLevel("Play2");
+		PlayerCollision->GetActor()->Off();
+		LevelClear_ -= GameEngineTime::GetDeltaTime();
+		ChangeLevel_ = true;
+		if (LevelClear_ <= 1.0f)
+		{
+			GameEngine::GetInst().ChangeLevel("Play2");
+		}
 	}
 }
 
@@ -517,6 +528,7 @@ void Player::FlagCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
+		ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
 		Time_ -= GameEngineTime::GetDeltaTime();
 		PlayerAnimationRender->ChangeAnimation("Flag");
 		GameEngineSound::SoundPlayOneShot("smb_flagpole.wav",0,0.01f);
@@ -525,15 +537,19 @@ void Player::FlagCheck()
 		if (Time_ <= 1.0f)
 		{
 			PlayerAnimationRender->ChangeAnimation("idle-L");
-			PlayerCollision->GetActor()->SetPosition({ 12768.0f,771.0f });
-			//if (Time_ < 1.0f)
-			//{
-			//	PlayerAnimationRender->ChangeAnimation("Walk-R");
-			//	MoveDir = float4::RIGHT * Speed_;
-			//}
-		}
-		//12700
-		//깃발에서 내려와서 땅으로 디디고 성으로 걸어간다.
+			PlayerCollision->GetActor()->SetPosition({ 12768.0f,796.0f });
+			Clear_ = true;
 
+		}
+
+	}
+}
+
+void Player::MapClear()
+{
+	if (Clear_ == true)
+	{
+		PlayerAnimationRender->ChangeAnimation("Walk-R");
+		MoveDir = float4::RIGHT * 10.0f;
 	}
 }

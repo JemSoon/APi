@@ -44,6 +44,6 @@ protected:
 	void LevelChangeStart(GameEngineLevel* _NextLevel) override;
 
 private:
-	//GameEngineImage* MapColImage_;
+	void ClearSongCheck();
 };
 

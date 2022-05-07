@@ -28,6 +28,7 @@ void PlayLevel2::Update()
 
 void PlayLevel2::LevelChangeEnd(GameEngineLevel* _PrevLevel)
 {
+	Player::ChangeLevel_ = false;
 }
 
 void PlayLevel2::LevelChangeStart(GameEngineLevel* _NextLevel)

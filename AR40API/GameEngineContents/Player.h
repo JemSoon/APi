@@ -90,6 +90,7 @@ private:
 	std::string PrevDirString;//방향이 바뀌었을때
 
 public:
+	static bool ClearSongOn_;
 	static bool ChangeLevel_;//레벨체인지할때 true로 해줘야 NextLevelOn()적용됨!
 	void Start() override;
 	void Render() override;
@@ -135,6 +136,7 @@ public:
 
 	void HitTimeCheck();
 	void FlagCheck();
+	void MapClear();
 
 	GameEngineRenderer* GetRenderer1()
 	{
@@ -147,7 +149,10 @@ private:
 	float4 CheckPos_;
 	int Color_;
 	float Time_;
+	float LevelClear_;
 	float HitTime_;
+
+	bool Clear_;
 	
 	//카메라 좌표 설정용 멤버변수
 	float4 CameraPos_;

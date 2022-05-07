@@ -26,7 +26,8 @@
 
 bool PlayLevel::first = true;
 
-PlayLevel::PlayLevel()
+PlayLevel::PlayLevel():
+	Time(1.0f)
 {
 
 }
@@ -70,6 +71,7 @@ void PlayLevel::Update()
 	{
 		BgmPlayer.Stop();
 	}
+	ClearSongCheck();
 }	
 
 void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
@@ -105,7 +107,7 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 				Actor->GetRenderer()->SetPivot(BackActor);
 
-				//Actor->CreateCollision("Door",{100,100}, {800, 720});//문 콜리젼 임시생성
+				Actor->CreateCollision("Door",{64,1128}, {13120.0f, 720});//문 콜리젼 임시생성
 
 				Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });//파이프관
 				Actor->CreateCollision("Die", { 128,5 }, { 4480,957 });//절벽
@@ -474,11 +476,17 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 	first = false;
 }
 
-	////여기다 플레이어 UI만들면 넘어갈때마다 만들어짐
-	//// Player->SetPosition();
-	//
-	//// BgmPlayer = GameEngineSound::SoundPlayControl("BGM.MP3");
-	//
-	///*GameEngineSound::SoundPlayOneShot("vo_shk.mp3");
-	//Time = 5.0f;*/
+void PlayLevel::ClearSongCheck()
+{
+	if (Player::ClearSongOn_ == true)
+	{
+		BgmPlayer.Stop();
+		Time = Time-GameEngineTime::GetDeltaTime();
+
+		
+		GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.03f);
+		
+		
+	}
+}
 
