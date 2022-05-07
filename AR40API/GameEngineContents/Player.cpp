@@ -226,6 +226,7 @@ void Player::DoorCheck()
 	{
 		PlayerCollision->GetActor()->Off();
 		ChangeLevel_ = true;
+
 		if (LevelClear_ <= 1.0f)
 		{
 			GameEngine::GetInst().ChangeLevel("Play2");

@@ -240,6 +240,8 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 		{
 			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
 			a->SetPosition({ 1058.0f,608.0f });
+			a->HP = 10;
+
 		}
 		{
 			Block* a = CreateActor<Block>((int)ORDER::BOX);
@@ -483,8 +485,10 @@ void PlayLevel::ClearSongCheck()
 		BgmPlayer.Stop();
 		Time = Time-GameEngineTime::GetDeltaTime();
 
-		
-		GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.05f);
+		if (Time <= 0.0f)
+		{
+			GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.05f);
+		}
 	}
 }
 

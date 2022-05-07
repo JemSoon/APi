@@ -37,6 +37,7 @@ public:
 
 public:
 	void PlayerCheck();
+	int HP;
 protected:
 	GameEngineRenderer* BoxAnimationRender;
 
@@ -46,5 +47,7 @@ private:
 	GameEngineCollision* BoxTopCollision;
 	GameEngineCollision* BoxLeftCollision;
 	GameEngineCollision* BoxRightCollision;
+
+	bool HitFlg;
 };
 
