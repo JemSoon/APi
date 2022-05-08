@@ -127,8 +127,8 @@ public:
 	{
 		BigPlayerCollision->On();
 		BigPlayerDownCollision->On();
-		BigPlayerRightCollision->Off();
-		BigPlayerLeftCollision->Off();
+		BigPlayerRightCollision->On();
+		BigPlayerLeftCollision->On();
 	}
 
 	void HitTimeCheck();

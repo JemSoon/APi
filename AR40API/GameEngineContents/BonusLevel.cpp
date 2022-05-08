@@ -29,10 +29,10 @@ void BonusLevel::Loading()
 
 void BonusLevel::Update()
 {
-	if (true == GameEngineInput::GetInst()->IsDown("Intro"))
-	{
-		GameEngine::GetInst().ChangeLevel("Intro");
-	}
+	//if (true == GameEngineInput::GetInst()->IsDown("Intro"))
+	//{
+	//	GameEngine::GetInst().ChangeLevel("Intro");
+	//}
 	if (true == GameEngineInput::GetInst()->IsDown("Debug"))
 	{
 		GameEngineLevel::IsDebugModeSwitch();

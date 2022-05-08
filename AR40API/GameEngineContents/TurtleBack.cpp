@@ -146,13 +146,14 @@ void TurtleBack::RightCheck()
 void TurtleBack::PlayerAttack()
 {
 	std::vector<GameEngineCollision*> ColList;
-
+	//거북이 등껍질이 정지해있고 발로 부딛혔을때=거북이 등껍질이 오른쪽으로 이동
 	if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x == 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_kick.wav");
 		MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
 	}
+	//거북이 등껍질이 움직이고 발로 부딛혔을때 = 거북이 등껍질이 멈춤
 	else if (true == TBTopCollision->CollisionResult("PlayerFootHit", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
@@ -160,7 +161,7 @@ void TurtleBack::PlayerAttack()
 		MoveDir_ = float4::ZERO;
 	}
 
-
+	//거북이 등껍질이 멈춰있고 등껍질 오른쪽과 플레이어 왼쪽이 부딪혔을떄 = 거북이 등껍질이 밀림
 	if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x == 0.0f)
 	{
@@ -173,6 +174,34 @@ void TurtleBack::PlayerAttack()
 			}
 		}
 	}
+	//거북이 등껍질이 멈춰있고 등껍질 오른쪽과 큰플레이어 왼쪽이 부딪혔을때=거북이 등껍질이 밀림
+	else if (true == TBRightCollision->CollisionResult("BigPlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+	//흰플레이어 이하동문
+	else if (true == TBRightCollision->CollisionResult("WhitePlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::LEFT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+
+	//거북이 등껍질이 움직이고 등껍질 오른쪽과 플레이어 왼쪽이 부딛혔을때=플레이어 죽음
 	else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
@@ -188,6 +217,7 @@ void TurtleBack::PlayerAttack()
 		return;
 	}
 	//내가 추가한 빅마리오 충돌 ↓
+	//거북이 등껍질이 움직이고 등껍질 오른쪽과 빅플레이어 왼쪽이 부딪혔을때=작은마리오로 퇴화후 2초 무적
 	else if (true == TBRightCollision->CollisionResult("BigPlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
@@ -199,12 +229,29 @@ void TurtleBack::PlayerAttack()
 		Player::MainPlayer->On();
 		Player::MainPlayer->NoHit();
 	
-		Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
 	
 		Player::MainPlayer->HitTimeCheck();
-		int a = 0;
 		return;
 	}
+	else if (true == TBRightCollision->CollisionResult("WhitePlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		WhitePlayer::MainWhitePlayer->GetDir() = float4::ZERO;
+		WhitePlayer::MainWhitePlayer->ChangeState(WhitePlayerState::Idle);
+		WhitePlayer::MainWhitePlayer->Off();
+		BigPlayer::MainBigPlayer->SetPosition(WhitePlayer::MainWhitePlayer->GetPosition());
+		BigPlayer::MainBigPlayer->On();
+		BigPlayer::MainBigPlayer->NoHit();
+
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+
+		BigPlayer::MainBigPlayer->HitTimeCheck();
+		return;
+	}
+
+	//=====================여기까지 왼쪽이였고 밑은 오른쪽 ===================================
 
 	if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x == 0.0f)
@@ -218,6 +265,33 @@ void TurtleBack::PlayerAttack()
 			}
 		}
 	}
+	else if (true == TBLeftCollision->CollisionResult("BigPlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+	else if (true == TBLeftCollision->CollisionResult("WhitePlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x == 0.0f)
+	{
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			if (MoveDir_.x == 0.0f)
+			{
+				GameEngineSound::SoundPlayOneShot("smb_kick.wav");
+				MoveDir_ += float4::RIGHT * GameEngineTime::GetDeltaTime() * 450.0f;
+			}
+		}
+	}
+
+	//===============여기까진 정지되있는 거북이 등껍질 밀어버리는 코드였고 밑에는 움직이는 등껍질에 맞는 코드 =============
+
 	else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
@@ -230,6 +304,40 @@ void TurtleBack::PlayerAttack()
 		BigPlayer::MainBigPlayer = nullptr;
 		WhitePlayer::MainWhitePlayer->Death();
 		WhitePlayer::MainWhitePlayer = nullptr;
+		return;
+	}
+	//내가 추가한 빅마리오 충돌 ↓
+	else if (true == TBLeftCollision->CollisionResult("BigPlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		BigPlayer::MainBigPlayer->GetDir() = float4::ZERO;
+		BigPlayer::MainBigPlayer->ChangeState(BigPlayerState::Idle);
+		BigPlayer::MainBigPlayer->Off();
+		Player::MainPlayer->SetPosition(BigPlayer::MainBigPlayer->GetPosition());
+		Player::MainPlayer->On();
+		Player::MainPlayer->NoHit();
+
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+
+		Player::MainPlayer->HitTimeCheck();
+		return;
+	}
+
+	else if (true == TBLeftCollision->CollisionResult("WhitePlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+		&& MoveDir_.x != 0.0f)
+	{
+		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
+		WhitePlayer::MainWhitePlayer->GetDir() = float4::ZERO;
+		WhitePlayer::MainWhitePlayer->ChangeState(WhitePlayerState::Idle);
+		WhitePlayer::MainWhitePlayer->Off();
+		BigPlayer::MainBigPlayer->SetPosition(BigPlayer::MainBigPlayer->GetPosition());
+		BigPlayer::MainBigPlayer->On();
+		BigPlayer::MainBigPlayer->NoHit();
+
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+
+		BigPlayer::MainBigPlayer->HitTimeCheck();
 		return;
 	}
 }

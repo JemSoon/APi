@@ -131,8 +131,8 @@ public:
 	void OnHit() 
 	{
 		PlayerCollision->On();
-		PlayerRightCollision->Off();
-		PlayerLeftCollision->Off();
+		PlayerRightCollision->On();
+		PlayerLeftCollision->On();
 	}
 
 	void HitTimeCheck();

@@ -42,6 +42,10 @@ public:
 	WhitePlayer& operator=(const WhitePlayer& _Other) = delete;
 	WhitePlayer& operator=(WhitePlayer&& _Other) noexcept = delete;
 
+	float4 GetDir()
+	{
+		return MoveDir;
+	}
 
 	float4 CurDir()
 	{
@@ -85,6 +89,7 @@ private:
 	float4 WhitePlayerDir_;
 
 public:
+	void ChangeState(WhitePlayerState _State);
 	void Start() override;
 	void Render() override;
 	void Update() override;
@@ -132,7 +137,6 @@ private:
 private:
 	WhitePlayerState CurState_;
 
-	void ChangeState(WhitePlayerState _State);
 	void StateUpdate();
 
 private:
