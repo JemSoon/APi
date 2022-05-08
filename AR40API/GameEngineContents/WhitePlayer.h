@@ -119,12 +119,19 @@ public:
 	void TBOnCheck();
 
 	void SetColImage();
+	void UPMushroomCheck();
+	void FlagCheck();
+	void MapClear();
 
 	//===내 발바닥 갈수있는 위치 판별용 멤버 변수===//
 private:
 	float4 NextPos_;
 	float4 CheckPos_;
 	int Color_;
+	float Time_;
+	float LevelClear_;
+	bool Clear_;
+	bool OneCheck_;//깃발 닿는동안 계속 소리가나서 한번만 체크용
 	//float HitTime_;
 
 	//점프 방향 설정용

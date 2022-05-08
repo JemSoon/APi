@@ -23,6 +23,10 @@ WhitePlayer::WhitePlayer()
 	, MoveDir(float4::ZERO)
 	, WhitePlayerDir_(float4::RIGHT)
 	, WhiteDirString_("R")
+	, Time_(3.0f)
+	, LevelClear_(5.0f)
+	, Clear_(false)
+	, OneCheck_(false)
 	
 
 {
@@ -135,6 +139,7 @@ void WhitePlayer::Start()
 	WhitePlayerAnimationRender->CreateAnimation("FireAttack-R.bmp", "WFire-R", 0, 0, 1.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("white-down-R.bmp", "WDown-R", 0, 0, 0.0f, false);
 	WhitePlayerAnimationRender->CreateAnimation("white-down-L.bmp", "WDown-L", 0, 0, 0.0f, false);
+	WhitePlayerAnimationRender->CreateAnimation("white-flag.bmp", "Flag", 0, 1, 0.1f, true);
 
 	WhitePlayerAnimationRender->ChangeAnimation("Widle-R");
 
@@ -158,12 +163,14 @@ void WhitePlayer::Start()
 
 void WhitePlayer::Update()
 {
+	SetColImage();
 	Fire();//총알 발사함수
 	StateUpdate();
 
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
+	UPMushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
@@ -171,7 +178,11 @@ void WhitePlayer::Update()
 	TurtleOnCheck();
 	TBOnCheck();
 
-	//HitTime_ -= GameEngineTime::GetDeltaTime();
+	FlagCheck();
+	MapClear();
+
+	LevelClear_ -= GameEngineTime::GetDeltaTime();
+	//Time_ += GameEngineTime::GetDeltaTime();
 
 }
 
@@ -489,5 +500,56 @@ void WhitePlayer::TBOnCheck()
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(WhitePlayerState::Fall);
+	}
+}
+
+void WhitePlayer::UPMushroomCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == WhitePlayerCollision->CollisionResult("UPMushroom", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_1-up.wav");
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
+		}
+
+		//목숨 +1
+	}
+}
+
+void WhitePlayer::FlagCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == WhitePlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		Player::ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
+		Time_ -= GameEngineTime::GetDeltaTime();
+		WhitePlayerAnimationRender->ChangeAnimation("Flag");
+		OneCheck_ = true;
+		if (OneCheck_ == true)
+		{
+			GameEngineSound::SoundPlayOneShot("smb_flagpole.wav", 0, 0.1f);
+			OneCheck_ = false;
+		}
+		MoveDir = float4::DOWN * Speed_;
+
+		if (Time_ <= 1.0f)
+		{
+			WhitePlayerAnimationRender->ChangeAnimation("Widle-L");
+			WhitePlayerCollision->GetActor()->SetPosition({ 12768.0f,760.0f });
+			Clear_ = true;
+
+		}
+
+	}
+}
+
+void WhitePlayer::MapClear()
+{
+	if (Clear_ == true)
+	{
+		WhitePlayerAnimationRender->ChangeAnimation("WWalk-R");
+		MoveDir = float4::RIGHT * 10.0f;
 	}
 }

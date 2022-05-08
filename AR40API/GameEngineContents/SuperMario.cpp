@@ -318,6 +318,10 @@ void SuperMario::GameInit()
 			GameEngineImage* Bflag = GameEngineImageManager::GetInst()->Find("big-flag.bmp");
 
 			Bflag->CutCount(2, 1);
+
+			GameEngineImage* Wflag = GameEngineImageManager::GetInst()->Find("white-flag.bmp");
+
+			Wflag->CutCount(2, 1);
 		}
 
 	}
