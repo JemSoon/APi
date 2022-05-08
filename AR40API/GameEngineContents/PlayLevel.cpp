@@ -110,9 +110,9 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 				Actor->CreateCollision("Door",{64,1128}, {13120.0f, 720});//문 콜리젼 임시생성
 
 				Actor->CreateCollision("Wall", { 200,100 }, { 3712,576 });//파이프관
-				Actor->CreateCollision("Die", { 128,5 }, { 4480,957 });//절벽
-				Actor->CreateCollision("Die", { 192,5 }, { 5600,957 });//절벽
-				Actor->CreateCollision("Die", { 128,5 }, { 9858,957 });//절벽
+				Actor->CreateCollision("Die", { 128,10 }, { 4480,957 });//절벽
+				Actor->CreateCollision("Die", { 192,10 }, { 5600,957 });//절벽
+				Actor->CreateCollision("Die", { 128,10 }, { 9858,957 });//절벽
 				Actor->CreateCollision("Flag", { 8,607 }, { 12704,460 });//깃발
 
 			}
