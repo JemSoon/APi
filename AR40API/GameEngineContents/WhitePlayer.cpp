@@ -112,7 +112,7 @@ void WhitePlayer::Start()
 {
 	SetScale({ 64,128 });
 
-	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 1600, 1280 }, { 200, -50 });
+	WhitePlayerCameraCollision = CreateCollision("PlayerCamera", { 1600, 2048 }, { 200, -50 });
 
 	WhitePlayerHeadHitCollision = CreateCollision("WhitePlayerHeadHit", { 1, 2 }, { 0,-65 });//박스 충돌용(1개만 충돌하게끔)
 	WhitePlayerHeadCollision = CreateCollision("PlayerHead", { 64, 1 }, { 0,-64 });
