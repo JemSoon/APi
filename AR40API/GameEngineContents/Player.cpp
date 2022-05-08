@@ -230,10 +230,10 @@ void Player::DoorCheck()
 		//PlayerCollision->GetActor()->Off();//플레이어 자체를 오프를 하니 실행이 안된다
 		ChangeLevel_ = true;
 
-		if (LevelClear_ <= 1.0f)
-		{
+		//if (LevelClear_ <= 1.0f)
+		//{
 			GameEngine::GetInst().ChangeLevel("Play2");
-		}
+		//}
 		
 	}
 }
