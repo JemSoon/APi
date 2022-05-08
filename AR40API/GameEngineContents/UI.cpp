@@ -19,6 +19,7 @@ UI::~UI()
 void UI::Start()
 {
 	CoinCount_ = 00;
+	TimeCount_ = 300;
 	{	//해당 이미지를 화면 중간에 놓는다
 		float4 Pos = GameEngineWindow::GetScale().Half();
 		SetPosition(Pos);
@@ -120,7 +121,7 @@ void UI::Start()
 		TH->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
 		TH->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
 
-		TH->ChangeAnimation("0");
+		TH->ChangeAnimation("3");
 
 		float4 UIPivot = GameEngineWindow::GetScale().Half();
 		UIPivot.x = 570.0f;
@@ -189,31 +190,53 @@ void UI::Update()
 	//CoinCount_ = 00;
 	//std::vector<Coin> Test;
 
-	char Arr[10];
-	_itoa_s(CoinCount_, Arr, 10);
-	// char
-	// 01
-	// '1'
-	// "1"
+	{	//코인관련 묶기
+		char Arr[10];
+		_itoa_s(CoinCount_, Arr, 10);
+		// char
+		// 01
+		// '1'
+		// "1"
 
 
-	std::string CoinText = Arr;
-	if (1 == CoinText.size())
-	{
-		CoinText = "0" + CoinText;
+		std::string CoinText = Arr;
+		if (1 == CoinText.size())
+		{
+			CoinText = "0" + CoinText;
+		}
+
+		std::string TenText = CoinText.substr(0, 1);//십의자리
+		std::string OneText = CoinText.substr(1, 1);//일의자리
+
+		Ten->ChangeAnimation(TenText);
+		One->ChangeAnimation(OneText);
+
+		if (CoinCount_ > 99)
+		{
+			CoinCount_ = 0;
+			//목숨 +1
+			//목숨 +1 사운드
+		}
 	}
 
-	std::string TenText = CoinText.substr(0, 1);
-	std::string OneText = CoinText.substr(1, 1);
-
-	Ten->ChangeAnimation(TenText);
-	One->ChangeAnimation(OneText);
-
-	if (CoinCount_ > 99)
 	{
-		CoinCount_ = 0;
-		//목숨 +1
-		//목숨 +1 사운드
+		////위에걸 토대로 타이머도 서로 묶기 Test
+		//char Arr[10];
+		//_itoa_s(TimeCount_, Arr, 10); //0~9를 문자열로
+		//
+		////TimeCount_ = TimeCount_ + GameEngineTime::GetDeltaTime();
+		//std::string TimeText = Arr;
+		//if (1 == TimeText.size())
+		//{
+		//	TimeText = "0" + TimeText;
+		//}
+		//
+		//std::string HTime = TimeText.substr(0,2);//세자리중 백의자리
+		//std::string TTime = TimeText.substr(1, 2);//세자리중 십의자리
+		//std::string OneTime = TimeText.substr(2, 2);
+		//
+		//TH->ChangeAnimation(HTime);
+		//TTen->ChangeAnimation(TTime);
+		//TOne->ChangeAnimation(OneTime);
 	}
-
 }
