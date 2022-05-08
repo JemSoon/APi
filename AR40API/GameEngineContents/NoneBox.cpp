@@ -59,4 +59,22 @@ void NoneBox::PlayerCheck()
 		Ptr->SetPosition(GetPosition());
 		BoxBotCollision->GetActor()->Off();
 	}
+	if (true == BoxBotCollision->CollisionResult("BigPlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup_appears.wav");
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		UPMushroom* Ptr = GetLevel()->CreateActor<UPMushroom>();
+		Ptr->SetPosition(GetPosition());
+		BoxBotCollision->GetActor()->Off();
+	}
+	if (true == BoxBotCollision->CollisionResult("WhitePlayerHeadHit", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_powerup_appears.wav");
+		EmptyBox* EBox = GetLevel()->CreateActor<EmptyBox>();
+		EBox->SetPosition(GetPosition());
+		UPMushroom* Ptr = GetLevel()->CreateActor<UPMushroom>();
+		Ptr->SetPosition(GetPosition());
+		BoxBotCollision->GetActor()->Off();
+	}
 }

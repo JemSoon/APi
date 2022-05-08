@@ -24,7 +24,10 @@ BigPlayer::BigPlayer()
 	, BigPlayerDir_(float4::RIGHT)
 	, BigDirString("R")
 	, HitTime_(0.0f)
-
+	, Time_(3.0f)
+	, LevelClear_(5.0f)
+	, Clear_(false)
+	, OneCheck_(false)
 {
 
 }
@@ -133,6 +136,7 @@ void BigPlayer::Start()
 	BigPlayerAnimationRender->CreateAnimation("big-break-R.bmp", "BBreak-R", 0, 0, 0.0f, false);
 	BigPlayerAnimationRender->CreateAnimation("big-down-R.bmp", "BDown-R", 0, 0, 0.0f, false);
 	BigPlayerAnimationRender->CreateAnimation("big-down-L.bmp", "BDown-L", 0, 0, 0.0f, false);
+	BigPlayerAnimationRender->CreateAnimation("big-flag.bmp", "Flag", 0, 1, 0.1f, true);
 	BigPlayerAnimationRender->ChangeAnimation("Bidle-R");
 
 
@@ -155,12 +159,13 @@ void BigPlayer::Start()
 
 void BigPlayer::Update()
 {
-	
+	SetColImage();
 	StateUpdate();
 
 	WallCheck();
 	DoorCheck();
 	MushroomCheck();
+	UPMushroomCheck();
 	FireFlowerCheck();
 	MonsterOnCheck();
 	MonsterHit();
@@ -168,6 +173,10 @@ void BigPlayer::Update()
 	TurtleOnCheck();
 	TBOnCheck();
 
+	FlagCheck();
+	MapClear();
+
+	LevelClear_ -= GameEngineTime::GetDeltaTime();
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	if (HitTime_ < 0.0f)
 	{
@@ -472,5 +481,56 @@ void BigPlayer::TBOnCheck()
 		MoveDir += float4::DOWN * GameEngineTime::GetDeltaTime() * AccSpeed_;
 		MoveDir.y = -10.0f;//약간의 높이 조절
 		ChangeState(BigPlayerState::Fall);
+	}
+}
+
+void BigPlayer::UPMushroomCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == BigPlayerCollision->CollisionResult("UPMushroom", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineSound::SoundPlayOneShot("smb_1-up.wav");
+		for (size_t i = 0; i < ColList.size(); i++)
+		{
+			ColList[i]->GetActor()->Death();//나랑 충돌한 템은 사라짐
+		}
+
+		//목숨 +1
+	}
+}
+
+void BigPlayer::FlagCheck()
+{
+	std::vector<GameEngineCollision*> ColList;
+	if (true == BigPlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
+	{
+		Player::ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
+		Time_ -= GameEngineTime::GetDeltaTime();
+		BigPlayerAnimationRender->ChangeAnimation("Flag");
+		OneCheck_ = true;
+		if (OneCheck_ == true)
+		{
+			GameEngineSound::SoundPlayOneShot("smb_flagpole.wav", 0, 0.1f);
+			OneCheck_ = false;
+		}
+		MoveDir = float4::DOWN * Speed_;
+
+		if (Time_ <= 1.0f)
+		{
+			BigPlayerAnimationRender->ChangeAnimation("Bidle-L");
+			BigPlayerCollision->GetActor()->SetPosition({ 12768.0f,760.0f });
+			Clear_ = true;
+
+		}
+
+	}
+}
+
+void BigPlayer::MapClear()
+{
+	if (Clear_ == true)
+	{
+		BigPlayerAnimationRender->ChangeAnimation("BWalk-R");
+		MoveDir = float4::RIGHT * 10.0f;
 	}
 }

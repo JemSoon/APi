@@ -541,7 +541,7 @@ void Player::FlagCheck()
 		if (Time_ <= 1.0f)
 		{
 			PlayerAnimationRender->ChangeAnimation("idle-L");
-			PlayerCollision->GetActor()->SetPosition({ 12768.0f,796.0f });
+			PlayerCollision->GetActor()->SetPosition({ 12768.0f,791.0f });
 			Clear_ = true;
 
 		}

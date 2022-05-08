@@ -441,9 +441,9 @@ void PlayLevel::ClearSongCheck()
 		BgmPlayer.Stop();
 		Time = Time-GameEngineTime::GetDeltaTime();
 
-		if (Time <= 0.0f)
+		if (Time <= 1.0f)
 		{
-			GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.05f);
+			GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.1f);
 		}
 	}
 }

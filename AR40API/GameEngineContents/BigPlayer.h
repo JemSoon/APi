@@ -145,7 +145,10 @@ private:
 	float4 CheckPos_;
 	int Color_;
 	float Time_;
+	float LevelClear_;
 	float HitTime_;
+	bool Clear_;
+	bool OneCheck_;
 
 	//점프 방향 설정용
 	std::string BigDirString;//지금 방향
@@ -171,6 +174,11 @@ private:
 	void MoveStart();
 	void JumpStart();
 	void FallStart();
+
+public:
+	void UPMushroomCheck();
+	void FlagCheck();
+	void MapClear();
 
 };
 
