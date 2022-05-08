@@ -19,7 +19,7 @@ UI::~UI()
 void UI::Start()
 {
 	CoinCount_ = 00;
-	TimeCount_ = 000;
+	TimeCount_ = 350.0f;
 	{	//해당 이미지를 화면 중간에 놓는다
 		float4 Pos = GameEngineWindow::GetScale().Half();
 		SetPosition(Pos);
@@ -189,6 +189,8 @@ void UI::Update()
 {
 	//CoinCount_ = 00;
 	//std::vector<Coin> Test;
+	
+	TimeCount_ -= GameEngineTime::GetDeltaTime();
 
 	{	//코인관련 묶기
 		char Arr[10];
@@ -220,23 +222,27 @@ void UI::Update()
 	}
 
 	{
-		////위에걸 토대로 타이머도 서로 묶기 Test
-		//char Arr[10];
-		//_itoa_s(TimeCount_, Arr, 10); //0~9를 문자열로
-		//
-		////TimeCount_ = TimeCount_ + GameEngineTime::GetDeltaTime();
-		//std::string TimeText = Arr;
-		//if (1 == TimeText.size())
-		//{
-		//	TimeText = "0" + TimeText;
-		//}
-		//
-		//std::string HTime = TimeText.substr(0,2);//세자리중 백의자리
-		//std::string TTime = TimeText.substr(1, 2);//세자리중 십의자리
-		//std::string OneTime = TimeText.substr(2, 2);
-		//
-		//TH->ChangeAnimation(HTime);
-		//TTen->ChangeAnimation(TTime);
-		//TOne->ChangeAnimation(OneTime);
+		//위에걸 토대로 타이머도 서로 묶기 Test
+		char Arr[10];
+		_itoa_s(TimeCount_, Arr, 10); //0~9를 문자열로
+		
+		std::string TimeText = Arr;
+		if (1 == TimeText.size())
+		{
+			TimeText = "00" + TimeText;
+		}
+
+		else if (2 == TimeText.size())
+		{
+			TimeText = "0" + TimeText;
+		}
+		
+		std::string HTime = TimeText.substr(0,1);//세자리중 백의자리
+		std::string TTime = TimeText.substr(1, 1);//세자리중 십의자리
+		std::string OneTime = TimeText.substr(2, 1);
+		
+		TH->ChangeAnimation(HTime);
+		TTen->ChangeAnimation(TTime);
+		TOne->ChangeAnimation(OneTime);
 	}
 }

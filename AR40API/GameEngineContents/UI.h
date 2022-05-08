@@ -23,7 +23,7 @@ public:
 	}
 	
 	static int CoinCount_;
-	int TimeCount_;
+	float TimeCount_;
 	
 	//======아래것들은 명시적으로 안쓰겠습니다(delete)======
 	
