@@ -105,6 +105,75 @@ void UI::Start()
 			One->CameraEffectOff();//UI는 카메라 영향안받는다
 		}
 	}
+
+		//==================타이머 테스트======================//
+	{
+		TH = CreateRenderer((int)ORDER::UI);
+		TH->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+		TH->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
+		TH->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
+		TH->CreateAnimation("3.bmp", "3", 0, 0, 0.0f, false);
+		TH->CreateAnimation("4.bmp", "4", 0, 0, 0.0f, false);
+		TH->CreateAnimation("5.bmp", "5", 0, 0, 0.0f, false);
+		TH->CreateAnimation("6.bmp", "6", 0, 0, 0.0f, false);
+		TH->CreateAnimation("7.bmp", "7", 0, 0, 0.0f, false);
+		TH->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
+		TH->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
+
+		TH->ChangeAnimation("0");
+
+		float4 UIPivot = GameEngineWindow::GetScale().Half();
+		UIPivot.x = 570.0f;
+		UIPivot.y = -440.0f;
+
+		TH->SetPivot(UIPivot);
+		TH->CameraEffectOff();//UI는 카메라 영향안받는다
+
+	}
+	{
+		TTen = CreateRenderer((int)ORDER::UI);
+		TTen->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("3.bmp", "3", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("4.bmp", "4", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("5.bmp", "5", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("6.bmp", "6", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("7.bmp", "7", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
+		TTen->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
+
+		TTen->ChangeAnimation("0");
+
+		float4 UIPivot = GameEngineWindow::GetScale().Half();
+		UIPivot.x = 595.0f;
+		UIPivot.y = -440.0f;
+
+		TTen->SetPivot(UIPivot);
+		TTen->CameraEffectOff();//UI는 카메라 영향안받는다
+	}
+	{
+		TOne = CreateRenderer((int)ORDER::UI);
+		TOne->CreateAnimation("0.bmp", "0", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("1.bmp", "1", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("2.bmp", "2", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("3.bmp", "3", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("4.bmp", "4", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("5.bmp", "5", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("6.bmp", "6", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("7.bmp", "7", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
+		TOne->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
+
+		TOne->ChangeAnimation("0");
+
+		float4 UIPivot = GameEngineWindow::GetScale().Half();
+		UIPivot.x = 620.0f;
+		UIPivot.y = -440.0f;
+
+		TOne->SetPivot(UIPivot);
+		TOne->CameraEffectOff();//UI는 카메라 영향안받는다
+	}
 	//Pos.y *= 2.0f;
 
 	//SetScale(GameEngineWindow::GetScale());

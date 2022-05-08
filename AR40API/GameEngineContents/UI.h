@@ -44,5 +44,9 @@ private:
 	void LevelChangeStart(GameEngineLevel* _PrevLevel) override;
 	GameEngineRenderer* One;
 	GameEngineRenderer* Ten;
+
+	GameEngineRenderer* TOne;
+	GameEngineRenderer* TTen;
+	GameEngineRenderer* TH;
 };
 
