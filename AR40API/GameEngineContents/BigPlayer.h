@@ -24,6 +24,7 @@ class BigPlayer : public GameEngineActor
 {
 public:
 	static BigPlayer* MainBigPlayer;
+	static bool ClearSongOn_;
 
 	//디폴트 생성자
 	BigPlayer();

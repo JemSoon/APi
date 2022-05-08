@@ -153,6 +153,7 @@ private:
 	float Time_;
 	float LevelClear_;
 	float HitTime_;
+	bool OneCheck_;
 
 	bool Clear_;
 	

@@ -45,5 +45,6 @@ protected:
 
 private:
 	void ClearSongCheck();
+	bool OneCheck;
 };
 

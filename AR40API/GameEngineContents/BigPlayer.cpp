@@ -16,6 +16,7 @@
 #include "Bullet.h"//총알을 만들고 싶다
 
 BigPlayer* BigPlayer::MainBigPlayer = nullptr;
+bool BigPlayer::ClearSongOn_ = false;
 
 BigPlayer::BigPlayer()
 	: Speed_(20.0f)
@@ -504,15 +505,16 @@ void BigPlayer::FlagCheck()
 	std::vector<GameEngineCollision*> ColList;
 	if (true == BigPlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
 	{
-		Player::ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
+		ClearSongOn_ = true;
+		//Player::ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
 		Time_ -= GameEngineTime::GetDeltaTime();
 		BigPlayerAnimationRender->ChangeAnimation("Flag");
-		OneCheck_ = true;
+	/*	OneCheck_ = true;
 		if (OneCheck_ == true)
-		{
+		{*/
 			GameEngineSound::SoundPlayOneShot("smb_flagpole.wav", 0, 0.1f);
 			OneCheck_ = false;
-		}
+		//}
 		MoveDir = float4::DOWN * Speed_;
 
 		if (Time_ <= 1.0f)

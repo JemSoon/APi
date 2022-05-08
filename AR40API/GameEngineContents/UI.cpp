@@ -19,7 +19,7 @@ UI::~UI()
 void UI::Start()
 {
 	CoinCount_ = 00;
-	TimeCount_ = 300;
+	TimeCount_ = 000;
 	{	//해당 이미지를 화면 중간에 놓는다
 		float4 Pos = GameEngineWindow::GetScale().Half();
 		SetPosition(Pos);
@@ -121,7 +121,7 @@ void UI::Start()
 		TH->CreateAnimation("8.bmp", "8", 0, 0, 0.0f, false);
 		TH->CreateAnimation("9.bmp", "9", 0, 0, 0.0f, false);
 
-		TH->ChangeAnimation("3");
+		TH->ChangeAnimation("0");
 
 		float4 UIPivot = GameEngineWindow::GetScale().Half();
 		UIPivot.x = 570.0f;

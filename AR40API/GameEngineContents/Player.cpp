@@ -30,6 +30,7 @@ Player::Player()
 	, HitTime_(0.0f)
 	, LevelClear_(5.0f)
 	, Clear_(false)
+	, OneCheck_(false)
 
 {
 
@@ -177,7 +178,7 @@ void Player::Update()
 	MapClear();
 
 
-	LevelClear_ -= GameEngineTime::GetDeltaTime();
+	//LevelClear_ -= GameEngineTime::GetDeltaTime();
 	//Time_ += GameEngineTime::GetDeltaTime();
 	HitTime_ -= GameEngineTime::GetDeltaTime();
 	
@@ -224,6 +225,7 @@ void Player::DoorCheck()
 {
 	if (true == PlayerCollision->CollisionCheck("Door", CollisionType::Rect, CollisionType::Rect))
 	{
+		LevelClear_ -= GameEngineTime::GetDeltaTime();
 		static_cast<Player*>(PlayerCollision->GetActor())->GetRenderer1()->Off();//랜더러만 끈다
 		//PlayerCollision->GetActor()->Off();//플레이어 자체를 오프를 하니 실행이 안된다
 		ChangeLevel_ = true;
@@ -530,12 +532,13 @@ void Player::UPMushroomCheck()
 void Player::FlagCheck()
 {
 	std::vector<GameEngineCollision*> ColList;
-	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect))
+	if (true == PlayerCollision->CollisionResult("Flag", ColList, CollisionType::Rect, CollisionType::Rect)&&
+		OneCheck_==false)
 	{
 		ClearSongOn_ = true;//기존 음악이 꺼지고 클리어 음악이 켜진다
-		Time_ -= GameEngineTime::GetDeltaTime();
+		GameEngineSound::SoundPlayOneShot("smb_flagpole.wav",0,0.1f);
 		PlayerAnimationRender->ChangeAnimation("Flag");
-		GameEngineSound::SoundPlayOneShot("smb_flagpole.wav",0,0.01f);
+		Time_ -= GameEngineTime::GetDeltaTime();
 		MoveDir = float4::DOWN * Speed_;
 
 		if (Time_ <= 1.0f)
@@ -543,8 +546,8 @@ void Player::FlagCheck()
 			PlayerAnimationRender->ChangeAnimation("idle-L");
 			PlayerCollision->GetActor()->SetPosition({ 12768.0f,791.0f });
 			Clear_ = true;
-
 		}
+		OneCheck_ = true;
 
 	}
 }

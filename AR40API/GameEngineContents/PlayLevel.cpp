@@ -27,7 +27,8 @@
 bool PlayLevel::first = true;
 
 PlayLevel::PlayLevel():
-	Time(1.0f)
+	Time(1.0f),
+	OneCheck(false)
 {
 
 }
@@ -436,14 +437,19 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 
 void PlayLevel::ClearSongCheck()
 {
-	if (Player::ClearSongOn_ == true)
+	if (Player::ClearSongOn_ == true||
+		BigPlayer::ClearSongOn_ ==true)
 	{
 		BgmPlayer.Stop();
 		Time = Time-GameEngineTime::GetDeltaTime();
 
-		if (Time <= 1.0f)
+		if (Time <= 0.0f&& OneCheck==false)
 		{
 			GameEngineSound::SoundPlayOneShot("smb_stage_clear.wav", 0, 0.1f);
+			OneCheck = true;
+			Player::ClearSongOn_ = false;
+			BigPlayer::ClearSongOn_ = false;
+
 		}
 	}
 }
