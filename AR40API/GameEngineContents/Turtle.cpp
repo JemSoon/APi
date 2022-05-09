@@ -188,6 +188,7 @@ void Turtle::PlayerAttack()
 	{
 		TurtleBack* TB = GetLevel()->CreateActor<TurtleBack>();
 		TB->SetPosition(GetPosition()+float4{0,16});
+		TurtleTopCollision->GetActor()->SetMove({ float4::ZERO });
 		TurtleTopCollision->GetActor()->Off();
 	}
 }
