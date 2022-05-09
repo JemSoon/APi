@@ -92,7 +92,7 @@ void PlayLevel::LevelChangeEnd(GameEngineLevel* _NextLevel)
 void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 {
 	BgmPlayer = GameEngineSound::SoundPlayControl("01 - Ground Stage.wav");
-	BgmPlayer.Volume(0.1f);
+	BgmPlayer.Volume(0.01f);
 
 	if (first == true)
 	{
