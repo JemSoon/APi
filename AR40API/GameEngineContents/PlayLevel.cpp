@@ -240,7 +240,29 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			//Player->SetPosition(GameEngineWindow::GetScale().Half());
 			Gumba16->SetPosition({ 2200.0f,771.0f });
 		}
-
+		{	//튜토리얼 테스트용
+			//{
+			//	Box* a = CreateActor<Box>((int)ORDER::BOX);
+			//	a->SetPosition({ 300.0f,608.0f });
+			//}
+			//{
+			//	Box* a = CreateActor<Box>((int)ORDER::BOX);
+			//	a->SetPosition({ 364.0f,608.0f });
+			//}
+			//{
+			//	Block* a = CreateActor<Block>((int)ORDER::BOX);
+			//	a->SetPosition({ 428.0f,608.0f });
+			//}
+			//{
+			//	CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			//	a->SetPosition({ 492.0f,608.0f });
+			//}
+			//{
+			//	CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
+			//	a->SetPosition({ 556.0f,608.0f });
+			//	a->HP = 5;
+			//}
+		}
 		{
 			CoinBox* a = CreateActor<CoinBox>((int)ORDER::BOX);
 			a->SetPosition({ 1058.0f,608.0f });
@@ -249,6 +271,7 @@ void PlayLevel::LevelChangeStart(GameEngineLevel* _PrevLevel)
 			Block* a = CreateActor<Block>((int)ORDER::BOX);
 			a->SetPosition({ 1314.0f,608.0f });
 		}
+
 		{
 			Box* a = CreateActor<Box>((int)ORDER::BOX);
 			a->SetPosition({ 1378.0f,608.0f });
