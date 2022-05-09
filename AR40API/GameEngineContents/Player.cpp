@@ -151,7 +151,7 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
 		GameEngineInput::GetInst()->CreateKey("NoHit", 'C');
 		GameEngineInput::GetInst()->CreateKey("OnHit", 'E');
-		//GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
+		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
 
 }

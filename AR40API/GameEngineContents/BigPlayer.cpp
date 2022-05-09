@@ -149,7 +149,7 @@ void BigPlayer::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
 		GameEngineInput::GetInst()->CreateKey("NoHit", 'C');
-		//GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
+		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
 
 	Off();
