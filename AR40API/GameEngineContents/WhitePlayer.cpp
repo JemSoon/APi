@@ -433,12 +433,12 @@ void WhitePlayer::MonsterHit()
 		MainWhitePlayer->MoveDir = float4::ZERO;
 		MainWhitePlayer->ChangeState(WhitePlayerState::Idle);
 		MainWhitePlayer->Off();
-		BigPlayer::MainBigPlayer->SetPosition(GetPosition());
+		BigPlayer::MainBigPlayer->SetPosition(WhitePlayer::GetPosition());
 		BigPlayer::MainBigPlayer->On();
 
 		BigPlayer::MainBigPlayer->NoHit();
 
-		Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
+		//Player::MainPlayer->GetRenderer1()->SetAlpha(122); //내가 이미지 알파 설정을 안함..ㅠ
 
 		BigPlayer::MainBigPlayer->HitTimeCheck();
 	}

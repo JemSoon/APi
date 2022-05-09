@@ -182,7 +182,7 @@ void BigPlayer::Update()
 	if (HitTime_ < 0.0f)
 	{
 		OnHit();
-		MainBigPlayer->GetRenderer1()->SetAlpha(255);
+		//MainBigPlayer->GetRenderer1()->SetAlpha(255);
 	}
 	Muuzuk();
 }

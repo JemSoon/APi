@@ -331,7 +331,7 @@ void TurtleBack::PlayerAttack()
 		WhitePlayer::MainWhitePlayer->GetDir() = float4::ZERO;
 		WhitePlayer::MainWhitePlayer->ChangeState(WhitePlayerState::Idle);
 		WhitePlayer::MainWhitePlayer->Off();
-		BigPlayer::MainBigPlayer->SetPosition(BigPlayer::MainBigPlayer->GetPosition());
+		BigPlayer::MainBigPlayer->SetPosition(WhitePlayer::MainWhitePlayer->GetPosition());
 		BigPlayer::MainBigPlayer->On();
 		BigPlayer::MainBigPlayer->NoHit();
 
