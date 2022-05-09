@@ -162,8 +162,8 @@ void TurtleBack::PlayerAttack()
 	}
 
 	//°ÅºÏÀÌ µî²®ÁúÀÌ ¸ØÃçÀÖ°í µî²®Áú ¿À¸¥ÂÊ°ú ÇÃ·¹ÀÌ¾î ¿ÞÂÊÀÌ ºÎµúÇûÀ»‹š = °ÅºÏÀÌ µî²®ÁúÀÌ ¹Ð¸²
-	if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
-		&& MoveDir_.x == 0.0f)
+	if ((true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect))
+		&& (MoveDir_.x == 0.0f))
 	{
 		for (size_t i = 0; i < ColList.size(); i++)
 		{
