@@ -148,8 +148,8 @@ void BigPlayer::Start()
 		GameEngineInput::GetInst()->CreateKey("Move Right", VK_RIGHT);
 		GameEngineInput::GetInst()->CreateKey("Move Down", VK_DOWN);
 		GameEngineInput::GetInst()->CreateKey("Jump", 'X');
-		GameEngineInput::GetInst()->CreateKey("Run", 'C');
-		GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
+		GameEngineInput::GetInst()->CreateKey("NoHit", 'C');
+		//GameEngineInput::GetInst()->CreateKey("Fire", 'Z');
 	}
 
 	Off();
@@ -184,6 +184,7 @@ void BigPlayer::Update()
 		OnHit();
 		MainBigPlayer->GetRenderer1()->SetAlpha(255);
 	}
+	Muuzuk();
 }
 
 
@@ -449,6 +450,14 @@ void BigPlayer::FallDead()
 void BigPlayer::HitTimeCheck()
 {
 	MainBigPlayer->HitTime_ = 3.0f;
+}
+
+void BigPlayer::Muuzuk()
+{
+	if (true == GameEngineInput::GetInst()->IsPress("NoHit"))
+	{
+		BigPlayerCollision->Off();
+	}
 }
 
 void BigPlayer::LevelChangeStart(GameEngineLevel* _PrevLevel)

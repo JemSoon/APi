@@ -131,7 +131,7 @@ public:
 		BigPlayerRightCollision->On();
 		BigPlayerLeftCollision->On();
 	}
-
+	void Muuzuk();
 	void HitTimeCheck();
 
 	//¾ËÆÄ¿ë

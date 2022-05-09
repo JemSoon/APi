@@ -30,8 +30,8 @@ void TurtleBack::Start()
 	TBTopCollision = CreateCollision("TBHead", { 64, 2 }, { 0,-32 });
 	//TBTopLeftCollision = CreateCollision("TBHead-L", { 32, 2 }, { -16,-32 });
 	//TBTopRightCollision = CreateCollision("TBHead-R", { 32, 2 }, { 16,-32 });
-	TBLeftCollision = CreateCollision("TBLeft", { 2, 64 }, { -32,0 });
-	TBRightCollision = CreateCollision("TBRight", { 2, 64 }, { 32,0 });
+	TBLeftCollision = CreateCollision("TBLeft", { 2, 64 }, { -34,0 });
+	TBRightCollision = CreateCollision("TBRight", { 2, 64 }, { 34,0 });
 	
 	TBAnimationRender = CreateRenderer((int)ORDER::MONSTER);
 	TBAnimationRender->CreateAnimation("turtle-back.bmp", "turtle-back", 0, 0, 0.0f, false);
@@ -202,7 +202,7 @@ void TurtleBack::PlayerAttack()
 	}
 
 	//거북이 등껍질이 움직이고 등껍질 오른쪽과 플레이어 왼쪽이 부딛혔을때=플레이어 죽음
-	else if (true == TBRightCollision->CollisionResult("PlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBRightCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
@@ -218,7 +218,7 @@ void TurtleBack::PlayerAttack()
 	}
 	//내가 추가한 빅마리오 충돌 ↓
 	//거북이 등껍질이 움직이고 등껍질 오른쪽과 빅플레이어 왼쪽이 부딪혔을때=작은마리오로 퇴화후 2초 무적
-	else if (true == TBRightCollision->CollisionResult("BigPlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBRightCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
@@ -234,7 +234,7 @@ void TurtleBack::PlayerAttack()
 		Player::MainPlayer->HitTimeCheck();
 		return;
 	}
-	else if (true == TBRightCollision->CollisionResult("WhitePlayerLeft", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBRightCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
@@ -292,7 +292,7 @@ void TurtleBack::PlayerAttack()
 
 	//===============여기까진 정지되있는 거북이 등껍질 밀어버리는 코드였고 밑에는 움직이는 등껍질에 맞는 코드 =============
 
-	else if (true == TBLeftCollision->CollisionResult("PlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBLeftCollision->CollisionResult("PlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		PlayerDie* die = GetLevel()->CreateActor<PlayerDie>();
@@ -307,7 +307,7 @@ void TurtleBack::PlayerAttack()
 		return;
 	}
 	//내가 추가한 빅마리오 충돌 ↓
-	else if (true == TBLeftCollision->CollisionResult("BigPlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBLeftCollision->CollisionResult("BigPlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
@@ -324,7 +324,7 @@ void TurtleBack::PlayerAttack()
 		return;
 	}
 
-	else if (true == TBLeftCollision->CollisionResult("WhitePlayerRight", ColList, CollisionType::Rect, CollisionType::Rect)
+	else if (true == TBLeftCollision->CollisionResult("WhitePlayerHitBox", ColList, CollisionType::Rect, CollisionType::Rect)
 		&& MoveDir_.x != 0.0f)
 	{
 		GameEngineSound::SoundPlayOneShot("smb_pipe.wav");
