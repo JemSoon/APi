@@ -3,7 +3,7 @@
 #include <GameEngineBase/GameEngineWindow.h>
 #include "GameEngineRenderer.h"
 #include "GameEngineCollision.h"
-
+#include "GameEngineLevel.h"
 
 GameEngineActor::GameEngineActor()
 	: Level_(nullptr)
@@ -43,6 +43,11 @@ GameEngineActor::~GameEngineActor()
 			(*StartIter) = nullptr;
 		}
 	}
+}
+
+float4 GameEngineActor::GetCameraEffectPosition()
+{
+	return Position_ - GetLevel()->GetCameraPos();
 }
 
 void GameEngineActor::DebugRectRender()

@@ -5,8 +5,9 @@
 #include <vector>
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineMath.h>
+#include "GameEngineActor.h"
 
-class GameEngineActor;
+
 struct ChangeOrderItem
 {
 	GameEngineActor* TargetObject; // ¿Ã≥‡ºÆ¿ª
@@ -14,7 +15,7 @@ struct ChangeOrderItem
 };
 
 class GameEngine;
-class GameEngineActor;
+
 class GameEngineCollision;
 class GameEngineRenderer;
 class GameEngineLevel : public GameEngineNameObject

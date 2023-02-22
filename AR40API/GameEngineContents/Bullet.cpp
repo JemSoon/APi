@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Hit.h"
 
+#include <GameEngine/GameEngineLevel.h> 
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngine/GameEngineRenderer.h>
 #include <GameEngine/GameEngineImageManager.h>
